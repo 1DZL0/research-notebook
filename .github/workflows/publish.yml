@@ -18,10 +18,18 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v4
 
+<<<<<<< HEAD
       - name: Render
         uses: quarto-dev/quarto-actions/render@v4
 
       - name: Publish
         uses: quarto-dev/quarto-actions/publish@v4
+=======
+      - name: Publish to GitHub Pages
+        uses: quarto-dev/quarto-actions/publish@v2
+>>>>>>> origin/master
         with:
           target: gh-pages
+          render: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
