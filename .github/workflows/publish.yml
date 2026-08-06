@@ -21,7 +21,7 @@ jobs:
       - name: Render
         uses: quarto-dev/quarto-actions/render@v2
 
-      - name: Publish
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
