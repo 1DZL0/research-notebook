@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>research-questions – Diesel Mears Research Notebook</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -36,10 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9e928d6c871f7889e1bbf63d46e997b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4e28d3ea751b1c5eb5d419e2931c6c5e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -99,15 +105,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
         <li>
-    <a class="dropdown-item" href="../00-research/vision.html">
- <span class="dropdown-text">Research Vision</span></a>
+    <a class="dropdown-item" href="../00-research/research-development.html">
+ <span class="dropdown-text">Research Development</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../00-research/research-questions.html">
  <span class="dropdown-text">Research Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../00-research/roadmap.html">
+    <a class="dropdown-item" href="../00-research/research-roadmap.html">
  <span class="dropdown-text">Roadmap</span></a>
   </li>  
     </ul>
@@ -128,27 +134,16 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-directions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Research Directions</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-directions">    
-        <li>
-    <a class="dropdown-item" href="../02-directions/agents.html">
- <span class="dropdown-text">Agents</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Projects</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
         <li>
-    <a class="dropdown-item" href="../03-projects/pharos-cy.html">
+    <a class="dropdown-item" href="../02-projects/pharos-cy.html">
  <span class="dropdown-text">Pharos-CY</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../03-projects/genai4ed.html">
+    <a class="dropdown-item" href="../02-projects/genai4ed.html">
  <span class="dropdown-text">GenAI4ED</span></a>
   </li>  
     </ul>
@@ -159,18 +154,14 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-experiments">    
         <li>
-    <a class="dropdown-item" href="../04-experiments/prisoners-dilemma.html">
+    <a class="dropdown-item" href="../03-experiments/prisoners-dilemma.html">
  <span class="dropdown-text">Prisoner’s Dilemma</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../05-meetings/supervisor.html"> 
+    <a class="nav-link" href="../04-meetings/supervisor.html"> 
 <span class="menu-text">Meetings</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
-<span class="menu-text">About</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -188,49 +179,199 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#q1-how-does-an-agent-know-it-should-learn" id="toc-q1-how-does-an-agent-know-it-should-learn" class="nav-link active" data-scroll-target="#q1-how-does-an-agent-know-it-should-learn">Q1: How does an agent know it should learn?</a>
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link active" data-scroll-target="#research-questions">Research Questions</a></li>
+  <li><a href="#q3-can-we-map-and-understand-the-internal-reasoning-pathways-of-ai-agents" id="toc-q3-can-we-map-and-understand-the-internal-reasoning-pathways-of-ai-agents" class="nav-link" data-scroll-target="#q3-can-we-map-and-understand-the-internal-reasoning-pathways-of-ai-agents">Q3: Can we map and understand the internal reasoning pathways of AI agents?</a>
   <ul class="collapse">
   <li><a href="#intuition" id="toc-intuition" class="nav-link" data-scroll-target="#intuition">Intuition</a></li>
   <li><a href="#scientific-interpretation" id="toc-scientific-interpretation" class="nav-link" data-scroll-target="#scientific-interpretation">Scientific Interpretation</a></li>
-  <li><a href="#open-questions" id="toc-open-questions" class="nav-link" data-scroll-target="#open-questions">Open Questions</a></li>
+  </ul></li>
+  <li><a href="#q2-why-do-identical-agents-think-differently" id="toc-q2-why-do-identical-agents-think-differently" class="nav-link" data-scroll-target="#q2-why-do-identical-agents-think-differently">Q2: Why do identical agents think differently?</a>
+  <ul class="collapse">
+  <li><a href="#intuition-1" id="toc-intuition-1" class="nav-link" data-scroll-target="#intuition-1">Intuition</a></li>
+  <li><a href="#scientific-interpretation-1" id="toc-scientific-interpretation-1" class="nav-link" data-scroll-target="#scientific-interpretation-1">Scientific Interpretation</a></li>
+  <li><a href="#current-multi-agent-view" id="toc-current-multi-agent-view" class="nav-link" data-scroll-target="#current-multi-agent-view">Current Multi-Agent View</a></li>
+  </ul></li>
+  <li><a href="#q1-how-does-an-agent-know-it-should-learn" id="toc-q1-how-does-an-agent-know-it-should-learn" class="nav-link" data-scroll-target="#q1-how-does-an-agent-know-it-should-learn">Q1: How does an agent know it should learn?</a>
+  <ul class="collapse">
+  <li><a href="#intuition-2" id="toc-intuition-2" class="nav-link" data-scroll-target="#intuition-2">Intuition</a></li>
+  <li><a href="#conceptual-example" id="toc-conceptual-example" class="nav-link" data-scroll-target="#conceptual-example">Conceptual Example</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Research Questions</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="q1-how-does-an-agent-know-it-should-learn" class="level1">
-<h1>Q1: How does an agent know it should learn?</h1>
-<section id="intuition" class="level3">
-<h3 class="anchored" data-anchor-id="intuition">Intuition</h3>
-<p>Humans often recognise that their internal understanding is incomplete <em>before</em> anyone tells them they were wrong. Rather than immediately changing their behaviour, they first recognise a mismatch between their expectations and reality. ## The Cup Analogy Imagine someone hands you a cup with a completely unfamiliar shape. Your first instinct is to hold it like every other cup you’ve used, but it feels awkward. Nothing catastrophic happens you simply notice that something is “off”. Your prediction about how the object should behave no longer matches your sensory experience. Rather than waiting for someone to tell you the correct answer, you naturally begin exploring different ways of holding it until a new understanding emerges.</p>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="research-questions" class="level1">
+<h1>Research Questions</h1>
+<p>These pages capture emerging research questions, hypotheses, and conceptual ideas.</p>
+<hr>
+</section>
+<section id="q3-can-we-map-and-understand-the-internal-reasoning-pathways-of-ai-agents" class="level1">
+<h1>Q3: Can we map and understand the internal reasoning pathways of AI agents?</h1>
+<section id="intuition" class="level2">
+<h2 class="anchored" data-anchor-id="intuition">Intuition</h2>
+<p>Current AI systems are largely treated as black boxes.</p>
+<p>We observe:</p>
+<ul>
+<li>input</li>
+<li>output</li>
+<li>behaviour</li>
+</ul>
+<p>but the internal computational process that produced the result remains difficult to interpret.</p>
+<p>If we could map how information flows through an agent during reasoning, we may be able to understand:</p>
+<ul>
+<li>why an error occurred,</li>
+<li>why two agents diverged,</li>
+<li>which internal pathways lead to successful decisions,</li>
+<li>and how reasoning processes evolve.</li>
+</ul>
+<hr>
 </section>
 <section id="scientific-interpretation" class="level2">
 <h2 class="anchored" data-anchor-id="scientific-interpretation">Scientific Interpretation</h2>
-<p>This process resembles ideas from: - Predictive Processing - Active Inference - Curiosity-driven Learning - Intrinsic Motivation - World Models</p>
-<p>Rather than relying solely on an external reward signal, learning appears to begin with an internally generated <strong>prediction error</strong>. The system recognises that its current world model cannot adequately explain what it is experiencing, triggering exploration before any explicit optimisation occurs.</p>
-<p>Current recursive self-improvement (RSI) research typically focuses on <strong>how a system modifies itself after a failure has been identified</strong>. A more fundamental question may be:</p>
-<blockquote class="blockquote">
-<p><strong>How does the system autonomously recognise that there is something worth learning in the first place?</strong></p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Instead of immediately optimising after receiving a reward, the agent first attempts to understand <strong>why</strong> its current model failed and <strong>what</strong> should actually be improved.</p>
-</blockquote>
-</section>
-<section id="open-questions" class="level2">
-<h2 class="anchored" data-anchor-id="open-questions">Open Questions</h2>
+<p>A neural network transforms information through a sequence of high-dimensional representations.</p>
+<p>During inference, an input is not directly mapped to an output. Instead, the information is progressively transformed through many internal computational stages.</p>
+<p>For example:</p>
 <ul>
-<li>How can an agent recognise its own knowledge gaps without relying solely on external rewards?</li>
-<li>What internal computational signals indicate that learning should occur?</li>
-<li>Can agents distinguish between temporary failures and genuine deficiencies in their world model?</li>
-<li>How should an autonomous system prioritise <em>what</em> deserves improvement?</li>
-<li>Can an agent generate hypotheses about its own failures before beginning optimisation?</li>
+<li>The input is converted into numerical representations.</li>
+<li>Different layers transform these representations into increasingly abstract features.</li>
+<li>The model gradually builds an internal representation that supports the final decision.</li>
 </ul>
+<pre class="{mermaid}"><code>flowchart TD
+
+Task[Same Task Input]
+
+Task --&gt; A[Agent A]
+Task --&gt; B[Agent B]
+Task --&gt; C[Agent C]
+
+A --&gt; A1[Internal Representation Trajectory]
+A1 --&gt; A2[Activation Pattern A]
+A2 --&gt; A3[Decision]
+A3 --&gt; Fail[Incorrect Output]
+
+B --&gt; B1[Internal Representation Trajectory]
+B1 --&gt; B2[Activation Pattern B]
+B2 --&gt; B3[Decision]
+B3 --&gt; Success[Correct Output]
+
+C --&gt; C1[Internal Representation Trajectory]
+C1 --&gt; C2[Compare Trajectories]
+C2 --&gt; C3[Identify Successful Patterns]
+C3 --&gt; C4[Guide Future Reasoning]
+
+Fail --&gt; C2
+Success --&gt; C2</code></pre>
 <hr>
+</section>
+</section>
+<section id="q2-why-do-identical-agents-think-differently" class="level1">
+<h1>Q2: Why do identical agents think differently?</h1>
+<section id="intuition-1" class="level2">
+<h2 class="anchored" data-anchor-id="intuition-1">Intuition</h2>
+<p>Imagine four scientists are given exactly the same research paper.</p>
+<p>They have similar knowledge, the same information, and the same objective. However, each scientist may focus on different aspects:</p>
+<ul>
+<li>one questions assumptions,</li>
+<li>one analyses methodology,</li>
+<li>one considers applications,</li>
+<li>one searches for weaknesses.</li>
+</ul>
+<p>The interesting question is not only why they produce different answers, but why their reasoning diverges despite starting from the same information.</p>
+<hr>
+</section>
+<section id="scientific-interpretation-1" class="level2">
+<h2 class="anchored" data-anchor-id="scientific-interpretation-1">Scientific Interpretation</h2>
+<p>Current multi-agent systems mainly expose:</p>
+<ul>
+<li>prompts</li>
+<li>messages</li>
+<li>tool usage</li>
+<li>final outputs</li>
+</ul>
+<p>However, the internal computational processes that produce these outputs remain largely hidden.</p>
+<p>Agents may diverge because of differences in:</p>
+<ul>
+<li>latent representations</li>
+<li>memory retrieval</li>
+<li>attention patterns</li>
+<li>stochastic generation</li>
+<li>reasoning trajectories</li>
+</ul>
+<p>The key question becomes:</p>
+<blockquote class="blockquote">
+<p>How do internal computational processes shape the reasoning and behaviour of AI agents?</p>
+</blockquote>
+<hr>
+</section>
+<section id="current-multi-agent-view" class="level2">
+<h2 class="anchored" data-anchor-id="current-multi-agent-view">Current Multi-Agent View</h2>
+<pre class="{mermaid}"><code>flowchart LR
+
+Prompt --&gt; AgentA
+Prompt --&gt; AgentB
+Prompt --&gt; AgentC
+
+AgentA --&gt; MessageA
+AgentB --&gt; MessageB
+AgentC --&gt; MessageC
+
+MessageA --&gt; Output
+MessageB --&gt; Output
+MessageC --&gt; Output</code></pre>
+<hr>
+</section>
+</section>
+<section id="q1-how-does-an-agent-know-it-should-learn" class="level1">
+<h1>Q1: How does an agent know it should learn?</h1>
+<section id="intuition-2" class="level2">
+<h2 class="anchored" data-anchor-id="intuition-2">Intuition</h2>
+<p>Humans often recognise that their internal understanding is incomplete before receiving external feedback.</p>
+<p>Rather than immediately changing behaviour after failure, they first detect a mismatch between their expectations and reality.</p>
+<hr>
+</section>
+<section id="conceptual-example" class="level2">
+<h2 class="anchored" data-anchor-id="conceptual-example">Conceptual Example</h2>
+<p>Imagine someone is given a cup with an unfamiliar shape. Their first attempt to hold it follows previous experience, but the interaction feels different. The mismatch between expectation and reality triggers exploration and adaptation.</p>
+<pre class="{mermaid}"><code>flowchart TD
+
+A[Internal Model] 
+B[Interact with Environment] 
+C{Prediction matches reality?} 
+D[Continue]
+E[Prediction Mismatch]
+F[Generate Hypotheses]
+G[Experiment]
+H[Update Internal Model]
+
+A --&gt; B
+B --&gt; C
+C --&gt;|Yes| D
+C --&gt;|No| E
+E --&gt; F
+F --&gt; G
+G --&gt; H
+H --&gt; A</code></pre>
 
 
 </section>
@@ -288,13 +429,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>prisoners-dilemma – Diesel Mears Research Notebook</title>
+<title>genai4ed – Diesel Mears Research Notebook</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -36,10 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9e928d6c871f7889e1bbf63d46e997b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4e28d3ea751b1c5eb5d419e2931c6c5e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -99,15 +105,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
         <li>
-    <a class="dropdown-item" href="../00-research/vision.html">
- <span class="dropdown-text">Research Vision</span></a>
+    <a class="dropdown-item" href="../00-research/research-development.html">
+ <span class="dropdown-text">Research Development</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../00-research/research-questions.html">
  <span class="dropdown-text">Research Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../00-research/roadmap.html">
+    <a class="dropdown-item" href="../00-research/research-roadmap.html">
  <span class="dropdown-text">Roadmap</span></a>
   </li>  
     </ul>
@@ -128,27 +134,16 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-directions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Research Directions</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-directions">    
-        <li>
-    <a class="dropdown-item" href="../02-directions/agents.html">
- <span class="dropdown-text">Agents</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Projects</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
         <li>
-    <a class="dropdown-item" href="../03-projects/pharos-cy.html">
+    <a class="dropdown-item" href="../02-projects/pharos-cy.html">
  <span class="dropdown-text">Pharos-CY</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../03-projects/genai4ed.html">
+    <a class="dropdown-item" href="../02-projects/genai4ed.html">
  <span class="dropdown-text">GenAI4ED</span></a>
   </li>  
     </ul>
@@ -159,18 +154,14 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-experiments">    
         <li>
-    <a class="dropdown-item" href="../04-experiments/prisoners-dilemma.html">
+    <a class="dropdown-item" href="../03-experiments/prisoners-dilemma.html">
  <span class="dropdown-text">Prisoner’s Dilemma</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../05-meetings/supervisor.html"> 
+    <a class="nav-link" href="../04-meetings/supervisor.html"> 
 <span class="menu-text">Meetings</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
-<span class="menu-text">About</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -188,52 +179,170 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#experiment-idea-prisoners-dilemma" id="toc-experiment-idea-prisoners-dilemma" class="nav-link active" data-scroll-target="#experiment-idea-prisoners-dilemma">Experiment Idea: Prisoner’s Dilemma</a>
+  <li><a href="#research-link" id="toc-research-link" class="nav-link active" data-scroll-target="#research-link">Research Link</a></li>
+  <li><a href="#core-idea" id="toc-core-idea" class="nav-link" data-scroll-target="#core-idea">Core Idea</a></li>
+  <li><a href="#direction-1-personalised-learning-assistant" id="toc-direction-1-personalised-learning-assistant" class="nav-link" data-scroll-target="#direction-1-personalised-learning-assistant">Direction 1: Personalised Learning Assistant</a></li>
+  <li><a href="#system-architecture" id="toc-system-architecture" class="nav-link" data-scroll-target="#system-architecture">System Architecture</a></li>
+  <li><a href="#direction-2-student-learning-agents" id="toc-direction-2-student-learning-agents" class="nav-link" data-scroll-target="#direction-2-student-learning-agents">Direction 2: Student Learning Agents</a></li>
+  <li><a href="#system-architecture-1" id="toc-system-architecture-1" class="nav-link" data-scroll-target="#system-architecture-1">System Architecture</a>
   <ul class="collapse">
-  <li><a href="#why-this-experiment" id="toc-why-this-experiment" class="nav-link" data-scroll-target="#why-this-experiment">Why this experiment</a></li>
-  <li><a href="#working-hypothesis" id="toc-working-hypothesis" class="nav-link" data-scroll-target="#working-hypothesis">Working Hypothesis</a></li>
-  <li><a href="#experimental-sketch" id="toc-experimental-sketch" class="nav-link" data-scroll-target="#experimental-sketch">Experimental Sketch</a></li>
-  <li><a href="#metrics-to-track" id="toc-metrics-to-track" class="nav-link" data-scroll-target="#metrics-to-track">Metrics to Track</a></li>
+  <li><a href="#student-agent-role" id="toc-student-agent-role" class="nav-link" data-scroll-target="#student-agent-role">Student Agent Role</a></li>
+  <li><a href="#teacher-intelligence-agent" id="toc-teacher-intelligence-agent" class="nav-link" data-scroll-target="#teacher-intelligence-agent">Teacher Intelligence Agent</a></li>
+  <li><a href="#potential-applications" id="toc-potential-applications" class="nav-link" data-scroll-target="#potential-applications">Potential Applications</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Project: GenAI4ED</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="experiment-idea-prisoners-dilemma" class="level1">
-<h1>Experiment Idea: Prisoner’s Dilemma</h1>
-<section id="why-this-experiment" class="level2">
-<h2 class="anchored" data-anchor-id="why-this-experiment">Why this experiment</h2>
-<p>Use a simple strategic environment to observe whether agents:</p>
-<ul>
-<li>detect model mismatch,</li>
-<li>update their strategy deliberately,</li>
-<li>and distinguish short-term reward from long-term learning value.</li>
-</ul>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="research-link" class="level1">
+<h1>Research Link</h1>
+<p>How can generative AI agents support personalised active learning by adapting educational experiences to individual students while providing teachers with meaningful insights into student understanding?</p>
+<hr>
 </section>
-<section id="working-hypothesis" class="level2">
-<h2 class="anchored" data-anchor-id="working-hypothesis">Working Hypothesis</h2>
-<p>Agents with internal uncertainty tracking should adapt cooperation/defection patterns more coherently than purely reactive agents.</p>
-</section>
-<section id="experimental-sketch" class="level2">
-<h2 class="anchored" data-anchor-id="experimental-sketch">Experimental Sketch</h2>
+<section id="core-idea" class="level1">
+<h1>Core Idea</h1>
+<p>The goal is to explore how AI agents can enhance active learning environments.</p>
+<p>Rather than replacing teachers or automatically generating complete lessons, AI systems can act as adaptive layers that understand student interactions and provide personalised support.</p>
+<p>Two possible implementation directions are being considered:</p>
 <ol type="1">
-<li>Define baseline policy agent</li>
-<li>Define uncertainty-aware agent variant</li>
-<li>Compare behavior over repeated rounds</li>
-<li>Inspect adaptation trajectories, not just final reward</li>
+<li><strong>Personalised Learning Assistant</strong> (Constantine Idea)</li>
+<li><strong>Student Learning Agents</strong> (Diesel Idea)</li>
 </ol>
+<p>Both approaches use generative AI, but they differ in the role and autonomy of the AI system.</p>
+<hr>
 </section>
-<section id="metrics-to-track" class="level2">
-<h2 class="anchored" data-anchor-id="metrics-to-track">Metrics to Track</h2>
+<section id="direction-1-personalised-learning-assistant" class="level1">
+<h1>Direction 1: Personalised Learning Assistant</h1>
+<p>The teacher provides a general lesson framework.</p>
+<p>The AI creates personalised versions of the learning experience based on each student’s current understanding.</p>
+<p>The AI can generate:</p>
 <ul>
-<li>policy-switch frequency</li>
-<li>consistency after adverse outcomes</li>
-<li>recoverability after misleading rounds</li>
+<li>alternative explanations</li>
+<li>visualisations</li>
+<li>examples</li>
+<li>practice questions</li>
+<li>additional exercises</li>
+<li>targeted feedback</li>
+</ul>
+<hr>
+</section>
+<section id="system-architecture" class="level1">
+<h1>System Architecture</h1>
+<pre class="{mermaid}"><code>flowchart TD
+
+Teacher[Teacher defines objectives and materials]
+
+Teacher --&gt; AI[Personalised Learning System]
+
+AI --&gt; StudentModel[Student Understanding]
+
+StudentModel --&gt; LessonA[Student A Learning Path]
+StudentModel --&gt; LessonB[Student B Learning Path]
+StudentModel --&gt; LessonC[Student C Learning Path]
+
+LessonA --&gt; StudentA[Student A]
+LessonB --&gt; StudentB[Student B]
+LessonC --&gt; StudentC[Student C]</code></pre>
+<hr>
+</section>
+<section id="direction-2-student-learning-agents" class="level1">
+<h1>Direction 2: Student Learning Agents</h1>
+<p>This direction explores AI agents that act as personalised learning observers.</p>
+<p>Each student is assigned an AI agent that monitors learning interactions and develops an evolving representation of the student’s learning process.</p>
+<blockquote class="blockquote">
+<p>What does this student understand, where are they struggling, and what learning patterns are emerging?</p>
+</blockquote>
+<p>The student agent maintains information about:</p>
+<ul>
+<li>knowledge state</li>
+<li>misconceptions</li>
+<li>uncertainty</li>
+<li>reasoning patterns</li>
+<li>engagement</li>
+<li>learning progression</li>
+</ul>
+<hr>
+</section>
+<section id="system-architecture-1" class="level1">
+<h1>System Architecture</h1>
+<pre class="{mermaid}"><code>flowchart TD
+
+Teacher[Teacher creates lessons and activities]
+
+Teacher --&gt; Lesson[Homework, Questions, Quizzes, Activities]
+
+Lesson --&gt; Students[Students]
+
+Students --&gt; AgentA[Student Agent A]
+Students --&gt; AgentB[Student Agent B]
+Students --&gt; AgentC[Student Agent C]
+
+AgentA --&gt; ModelA[Student Learning Model]
+AgentB --&gt; ModelB[Student Learning Model]
+AgentC --&gt; ModelC[Student Learning Model]
+
+ModelA --&gt; TeacherAI[Teacher Intelligence Agent]
+ModelB --&gt; TeacherAI
+ModelC --&gt; TeacherAI
+
+TeacherAI --&gt; Dashboard[Teacher Dashboard]
+
+Dashboard --&gt; Teacher</code></pre>
+<hr>
+<section id="student-agent-role" class="level2">
+<h2 class="anchored" data-anchor-id="student-agent-role">Student Agent Role</h2>
+<p>Each student agent builds an evolving model of the student’s learning process by analysing interactions such as:</p>
+<ul>
+<li>answers and mistakes</li>
+<li>homework and activity completion</li>
+<li>engagement patterns</li>
+<li>reasoning and explanations</li>
+<li>confidence and uncertainty</li>
+</ul>
+<p>The goal is not to diagnose students, but to identify learning patterns, misconceptions, and areas where additional support may be needed.</p>
+<hr>
+</section>
+<section id="teacher-intelligence-agent" class="level2">
+<h2 class="anchored" data-anchor-id="teacher-intelligence-agent">Teacher Intelligence Agent</h2>
+<p>A teacher-level agent aggregates information from student agents and provides higher-level insights.</p>
+<p>Instead of manually reviewing individual interactions, the teacher receives summaries of:</p>
+<ul>
+<li>common misconceptions</li>
+<li>students requiring additional support</li>
+<li>engagement changes</li>
+<li>learning progress</li>
+</ul>
+<p>The teacher remains responsible for deciding interventions.</p>
+<hr>
+</section>
+<section id="potential-applications" class="level2">
+<h2 class="anchored" data-anchor-id="potential-applications">Potential Applications</h2>
+<ul>
+<li>Early identification of learning difficulties</li>
+<li>Personalised support recommendations</li>
+<li>Classroom-level learning insights</li>
+<li>Evaluation of learning activities</li>
 </ul>
 
 
@@ -292,13 +401,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

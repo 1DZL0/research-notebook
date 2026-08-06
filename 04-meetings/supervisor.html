@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>agents – Diesel Mears Research Notebook</title>
+<title>supervisor – Diesel Mears Research Notebook</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -36,10 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9e928d6c871f7889e1bbf63d46e997b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4e28d3ea751b1c5eb5d419e2931c6c5e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -67,9 +73,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -102,15 +105,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
         <li>
-    <a class="dropdown-item" href="../00-research/vision.html">
- <span class="dropdown-text">Research Vision</span></a>
+    <a class="dropdown-item" href="../00-research/research-development.html">
+ <span class="dropdown-text">Research Development</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../00-research/research-questions.html">
  <span class="dropdown-text">Research Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../00-research/roadmap.html">
+    <a class="dropdown-item" href="../00-research/research-roadmap.html">
  <span class="dropdown-text">Roadmap</span></a>
   </li>  
     </ul>
@@ -131,27 +134,16 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-directions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Research Directions</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-directions">    
-        <li>
-    <a class="dropdown-item" href="../02-directions/agents.html">
- <span class="dropdown-text">Agents</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Projects</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
         <li>
-    <a class="dropdown-item" href="../03-projects/pharos-cy.html">
+    <a class="dropdown-item" href="../02-projects/pharos-cy.html">
  <span class="dropdown-text">Pharos-CY</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../03-projects/genai4ed.html">
+    <a class="dropdown-item" href="../02-projects/genai4ed.html">
  <span class="dropdown-text">GenAI4ED</span></a>
   </li>  
     </ul>
@@ -162,18 +154,14 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-experiments">    
         <li>
-    <a class="dropdown-item" href="../04-experiments/prisoners-dilemma.html">
+    <a class="dropdown-item" href="../03-experiments/prisoners-dilemma.html">
  <span class="dropdown-text">Prisoner’s Dilemma</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../05-meetings/supervisor.html"> 
+    <a class="nav-link active" href="../04-meetings/supervisor.html" aria-current="page"> 
 <span class="menu-text">Meetings</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
-<span class="menu-text">About</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -191,68 +179,47 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#agent-research-directions" id="toc-agent-research-directions" class="nav-link active" data-scroll-target="#agent-research-directions">Agent Research Directions</a>
-  <ul class="collapse">
-  <li><a href="#direction-summary" id="toc-direction-summary" class="nav-link" data-scroll-target="#direction-summary">Direction Summary</a></li>
-  <li><a href="#candidate-direction-threads" id="toc-candidate-direction-threads" class="nav-link" data-scroll-target="#candidate-direction-threads">Candidate Direction Threads</a></li>
-  <li><a href="#hypothesis-structure" id="toc-hypothesis-structure" class="nav-link" data-scroll-target="#hypothesis-structure">Hypothesis Structure</a></li>
-  <li><a href="#evaluation-lens" id="toc-evaluation-lens" class="nav-link" data-scroll-target="#evaluation-lens">Evaluation Lens</a></li>
-  </ul></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link active" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#actions" id="toc-actions" class="nav-link" data-scroll-target="#actions">Actions</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Meeting - 2026-08-06</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="agent-research-directions" class="level1">
-<h1>Agent Research Directions</h1>
-<section id="direction-summary" class="level2">
-<h2 class="anchored" data-anchor-id="direction-summary">Direction Summary</h2>
-<p>This section tracks the most promising idea threads for autonomous learning agents.</p>
-</section>
-<section id="candidate-direction-threads" class="level2">
-<h2 class="anchored" data-anchor-id="candidate-direction-threads">Candidate Direction Threads</h2>
-<ol type="1">
-<li><strong>Learning-trigger mechanisms</strong></li>
-<li><strong>Agent memory and belief revision</strong></li>
-<li><strong>Scientific-style self-evaluation</strong></li>
-<li><strong>Safety constraints during self-improvement</strong></li>
-</ol>
-</section>
-<section id="hypothesis-structure" class="level2">
-<h2 class="anchored" data-anchor-id="hypothesis-structure">Hypothesis Structure</h2>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart TD
-  A[Observed mismatch] --&gt; B[Internal uncertainty signal]
-  B --&gt; C[Hypothesis generation]
-  C --&gt; D[Test action / experiment]
-  D --&gt; E[Evidence update]
-  E --&gt; F[Model revision]
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="evaluation-lens" class="level2">
-<h2 class="anchored" data-anchor-id="evaluation-lens">Evaluation Lens</h2>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
 <ul>
-<li>Does this direction explain <em>when</em> learning starts?</li>
-<li>Does it scale beyond toy examples?</li>
-<li>Can it be tested experimentally?</li>
-<li>Does it preserve alignment/safety behavior?</li>
+<li></li>
 </ul>
-
-
 </section>
+<section id="actions" class="level2">
+<h2 class="anchored" data-anchor-id="actions">Actions</h2>
+<ul>
+<li>[ ]</li>
+</ul>
+<hr>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -307,13 +274,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

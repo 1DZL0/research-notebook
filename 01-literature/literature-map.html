@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>literature-map – Diesel Mears Research Notebook</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -36,10 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9e928d6c871f7889e1bbf63d46e997b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4e28d3ea751b1c5eb5d419e2931c6c5e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -67,9 +73,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -102,15 +105,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
         <li>
-    <a class="dropdown-item" href="../00-research/vision.html">
- <span class="dropdown-text">Research Vision</span></a>
+    <a class="dropdown-item" href="../00-research/research-development.html">
+ <span class="dropdown-text">Research Development</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../00-research/research-questions.html">
  <span class="dropdown-text">Research Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../00-research/roadmap.html">
+    <a class="dropdown-item" href="../00-research/research-roadmap.html">
  <span class="dropdown-text">Roadmap</span></a>
   </li>  
     </ul>
@@ -131,27 +134,16 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-directions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Research Directions</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-directions">    
-        <li>
-    <a class="dropdown-item" href="../02-directions/agents.html">
- <span class="dropdown-text">Agents</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Projects</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
         <li>
-    <a class="dropdown-item" href="../03-projects/pharos-cy.html">
+    <a class="dropdown-item" href="../02-projects/pharos-cy.html">
  <span class="dropdown-text">Pharos-CY</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../03-projects/genai4ed.html">
+    <a class="dropdown-item" href="../02-projects/genai4ed.html">
  <span class="dropdown-text">GenAI4ED</span></a>
   </li>  
     </ul>
@@ -162,18 +154,14 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-experiments">    
         <li>
-    <a class="dropdown-item" href="../04-experiments/prisoners-dilemma.html">
+    <a class="dropdown-item" href="../03-experiments/prisoners-dilemma.html">
  <span class="dropdown-text">Prisoner’s Dilemma</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../05-meetings/supervisor.html"> 
+    <a class="nav-link" href="../04-meetings/supervisor.html"> 
 <span class="menu-text">Meetings</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
-<span class="menu-text">About</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -194,66 +182,54 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#literature-map" id="toc-literature-map" class="nav-link active" data-scroll-target="#literature-map">Literature Map</a>
   <ul class="collapse">
   <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal">Goal</a></li>
-  <li><a href="#thematic-clusters" id="toc-thematic-clusters" class="nav-link" data-scroll-target="#thematic-clusters">Thematic Clusters</a></li>
-  <li><a href="#concept-map" id="toc-concept-map" class="nav-link" data-scroll-target="#concept-map">Concept Map</a></li>
-  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
   </ul></li>
+  <li><a href="#concept-map" id="toc-concept-map" class="nav-link" data-scroll-target="#concept-map">Concept Map</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Literature Map</h1>
+</div>
 
 
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="literature-map" class="level1">
 <h1>Literature Map</h1>
 <section id="goal" class="level2">
 <h2 class="anchored" data-anchor-id="goal">Goal</h2>
-<p>Track how different research traditions contribute to the core question: <strong>How does an agent recognize it should learn?</strong></p>
+<p>Map the major research areas contributing to the development of adaptive intelligent systems.</p>
+<p>This page provides a high-level overview of connections between research themes, with detailed analysis stored in individual literature notes.</p>
+<hr>
 </section>
-<section id="thematic-clusters" class="level2">
-<h2 class="anchored" data-anchor-id="thematic-clusters">Thematic Clusters</h2>
-<ul>
-<li>Predictive Processing / Active Inference</li>
-<li>Intrinsic Motivation / Curiosity</li>
-<li>Meta-learning and Self-Reflection</li>
-<li>World Models and Model-Based RL</li>
-<li>Safe Adaptation and Alignment</li>
-</ul>
 </section>
-<section id="concept-map" class="level2">
-<h2 class="anchored" data-anchor-id="concept-map">Concept Map</h2>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  Q[Learning Trigger Question] --&gt; P[Predictive Processing]
-  Q --&gt; I[Intrinsic Motivation]
-  Q --&gt; M[Meta-learning]
-  Q --&gt; W[World Models]
-  Q --&gt; S[Safe Adaptation]
-  P --&gt; E[Prediction Error Signals]
-  I --&gt; C[Curiosity Objectives]
-  M --&gt; R[Self-evaluation Loops]
-  W --&gt; U[Model Uncertainty]
-  S --&gt; G[Guardrails]
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="notes" class="level2">
-<h2 class="anchored" data-anchor-id="notes">Notes</h2>
-<p>Use this page as a navigation hub: - add links to paper summaries in <code>papers.qmd</code> - add cross-links to related research questions and experiments</p>
+<section id="concept-map" class="level1">
+<h1>Concept Map</h1>
+<p>```oadjssjqw flowchart LR</p>
+<p>AI[Adaptive Intelligent Systems]</p>
+<p>AI –&gt; A[Agentic Systems] AI –&gt; L[Learning and Adaptation] AI –&gt; W[Internal Models] AI –&gt; M[Motivation and Exploration] AI –&gt; S[Safety and Alignment]</p>
+<p>A –&gt; MEM[Memory] A –&gt; COM[Communication] A –&gt; PLAN[Planning]</p>
+<p>L –&gt; META[Meta-learning] L –&gt; CONT[Continual Learning]</p>
+<p>W –&gt; WM[World Models] W –&gt; UNC[Uncertainty]</p>
+<p>M –&gt; CUR[Curiosity] M –&gt; ACTIVE[Active Learning]</p>
+<p>S –&gt; ALIGN[Alignment] S –&gt; EVAL[Evaluation]</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -308,13 +284,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

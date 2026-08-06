@@ -1,241 +1,122 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Research Notebook",
+    "objectID": "02-projects/genai4ed.html",
+    "href": "02-projects/genai4ed.html",
+    "title": "Project: GenAI4ED",
     "section": "",
-    "text": "This website is a living notebook for ongoing research ideas. It is intentionally exploratory and not yet final.\n\n\n\n\n\n\nContext\n\n\n\nThese notes are designed for discussion with my supervisor, to track evolving hypotheses, not polished conclusions."
+    "text": "How can generative AI agents support personalised active learning by adapting educational experiences to individual students while providing teachers with meaningful insights into student understanding?"
   },
   {
-    "objectID": "index.html#working-research-notebook",
-    "href": "index.html#working-research-notebook",
-    "title": "Research Notebook",
-    "section": "",
-    "text": "This website is a living notebook for ongoing research ideas. It is intentionally exploratory and not yet final.\n\n\n\n\n\n\nContext\n\n\n\nThese notes are designed for discussion with my supervisor, to track evolving hypotheses, not polished conclusions."
+    "objectID": "02-projects/genai4ed.html#student-agent-role",
+    "href": "02-projects/genai4ed.html#student-agent-role",
+    "title": "Project: GenAI4ED",
+    "section": "Student Agent Role",
+    "text": "Student Agent Role\nEach student agent builds an evolving model of the student’s learning process by analysing interactions such as:\n\nanswers and mistakes\nhomework and activity completion\nengagement patterns\nreasoning and explanations\nconfidence and uncertainty\n\nThe goal is not to diagnose students, but to identify learning patterns, misconceptions, and areas where additional support may be needed."
   },
   {
-    "objectID": "index.html#current-focus",
-    "href": "index.html#current-focus",
-    "title": "Research Notebook",
-    "section": "Current Focus",
-    "text": "Current Focus\n\nUnderstanding how agents identify what is worth learning\nBuilding a conceptual map of agent memory, adaptation, and scientific reasoning\nPrototyping small experiment designs before formal implementation"
+    "objectID": "02-projects/genai4ed.html#teacher-intelligence-agent",
+    "href": "02-projects/genai4ed.html#teacher-intelligence-agent",
+    "title": "Project: GenAI4ED",
+    "section": "Teacher Intelligence Agent",
+    "text": "Teacher Intelligence Agent\nA teacher-level agent aggregates information from student agents and provides higher-level insights.\nInstead of manually reviewing individual interactions, the teacher receives summaries of:\n\ncommon misconceptions\nstudents requiring additional support\nengagement changes\nlearning progress\n\nThe teacher remains responsible for deciding interventions."
   },
   {
-    "objectID": "index.html#navigation-guide",
-    "href": "index.html#navigation-guide",
-    "title": "Research Notebook",
-    "section": "Navigation Guide",
-    "text": "Navigation Guide\n\nResearch: Vision, questions, and roadmap\nLiterature: Paper map and reading notes\nResearch Directions: Core idea threads\nProjects: Active project framing\nExperiments: Early-stage test ideas\nMeetings: Supervisor discussion records"
-  },
-  {
-    "objectID": "index.html#research-cycle",
-    "href": "index.html#research-cycle",
-    "title": "Research Notebook",
-    "section": "Research Cycle",
-    "text": "Research Cycle\n\n\n\n\n\nflowchart LR\n  A[Question] --&gt; B[Conceptual Model]\n  B --&gt; C[Literature Alignment]\n  C --&gt; D[Prototype Experiment]\n  D --&gt; E[Supervisor Feedback]\n  E --&gt; F[Refined Question]\n  F --&gt; A"
-  },
-  {
-    "objectID": "05-meetings/supervisor.html",
-    "href": "05-meetings/supervisor.html",
-    "title": "Supervisor Meetings",
-    "section": "",
-    "text": "[ ]\n\n\n\n\n\n\nAdd each meeting below this line with date headers for traceability."
-  },
-  {
-    "objectID": "05-meetings/supervisor.html#decisions",
-    "href": "05-meetings/supervisor.html#decisions",
-    "title": "Supervisor Meetings",
-    "section": "",
-    "text": "[ ]"
-  },
-  {
-    "objectID": "05-meetings/supervisor.html#notes-archive",
-    "href": "05-meetings/supervisor.html#notes-archive",
-    "title": "Supervisor Meetings",
-    "section": "",
-    "text": "Add each meeting below this line with date headers for traceability."
-  },
-  {
-    "objectID": "03-projects/pharos-cy.html",
-    "href": "03-projects/pharos-cy.html",
-    "title": "Project: Pharos-CY",
-    "section": "",
-    "text": "Exploratory project thread connected to agent adaptation and decision quality.\n\n\n\n\nWhat part of the core research problem does this project test?\nWhich assumptions are we making that need validation?\nWhat minimal prototype would provide useful evidence?\n\n\n\n\n\nDefine the smallest viable experiment\nIdentify success/failure indicators\nPrepare discussion points for supervisor feedback"
-  },
-  {
-    "objectID": "03-projects/pharos-cy.html#project-position",
-    "href": "03-projects/pharos-cy.html#project-position",
-    "title": "Project: Pharos-CY",
-    "section": "",
-    "text": "Exploratory project thread connected to agent adaptation and decision quality."
-  },
-  {
-    "objectID": "03-projects/pharos-cy.html#current-questions",
-    "href": "03-projects/pharos-cy.html#current-questions",
-    "title": "Project: Pharos-CY",
-    "section": "",
-    "text": "What part of the core research problem does this project test?\nWhich assumptions are we making that need validation?\nWhat minimal prototype would provide useful evidence?"
-  },
-  {
-    "objectID": "03-projects/pharos-cy.html#next-actions",
-    "href": "03-projects/pharos-cy.html#next-actions",
-    "title": "Project: Pharos-CY",
-    "section": "",
-    "text": "Define the smallest viable experiment\nIdentify success/failure indicators\nPrepare discussion points for supervisor feedback"
-  },
-  {
-    "objectID": "02-directions/agents.html",
-    "href": "02-directions/agents.html",
-    "title": "Agent Research Directions",
-    "section": "",
-    "text": "This section tracks the most promising idea threads for autonomous learning agents.\n\n\n\n\nLearning-trigger mechanisms\nAgent memory and belief revision\nScientific-style self-evaluation\nSafety constraints during self-improvement\n\n\n\n\n\n\n\n\n\nflowchart TD\n  A[Observed mismatch] --&gt; B[Internal uncertainty signal]\n  B --&gt; C[Hypothesis generation]\n  C --&gt; D[Test action / experiment]\n  D --&gt; E[Evidence update]\n  E --&gt; F[Model revision]\n\n\n\n\n\n\n\n\n\n\nDoes this direction explain when learning starts?\nDoes it scale beyond toy examples?\nCan it be tested experimentally?\nDoes it preserve alignment/safety behavior?"
-  },
-  {
-    "objectID": "02-directions/agents.html#direction-summary",
-    "href": "02-directions/agents.html#direction-summary",
-    "title": "Agent Research Directions",
-    "section": "",
-    "text": "This section tracks the most promising idea threads for autonomous learning agents."
-  },
-  {
-    "objectID": "02-directions/agents.html#candidate-direction-threads",
-    "href": "02-directions/agents.html#candidate-direction-threads",
-    "title": "Agent Research Directions",
-    "section": "",
-    "text": "Learning-trigger mechanisms\nAgent memory and belief revision\nScientific-style self-evaluation\nSafety constraints during self-improvement"
-  },
-  {
-    "objectID": "02-directions/agents.html#hypothesis-structure",
-    "href": "02-directions/agents.html#hypothesis-structure",
-    "title": "Agent Research Directions",
-    "section": "",
-    "text": "flowchart TD\n  A[Observed mismatch] --&gt; B[Internal uncertainty signal]\n  B --&gt; C[Hypothesis generation]\n  C --&gt; D[Test action / experiment]\n  D --&gt; E[Evidence update]\n  E --&gt; F[Model revision]"
-  },
-  {
-    "objectID": "02-directions/agents.html#evaluation-lens",
-    "href": "02-directions/agents.html#evaluation-lens",
-    "title": "Agent Research Directions",
-    "section": "",
-    "text": "Does this direction explain when learning starts?\nDoes it scale beyond toy examples?\nCan it be tested experimentally?\nDoes it preserve alignment/safety behavior?"
+    "objectID": "02-projects/genai4ed.html#potential-applications",
+    "href": "02-projects/genai4ed.html#potential-applications",
+    "title": "Project: GenAI4ED",
+    "section": "Potential Applications",
+    "text": "Potential Applications\n\nEarly identification of learning difficulties\nPersonalised support recommendations\nClassroom-level learning insights\nEvaluation of learning activities"
   },
   {
     "objectID": "01-literature/literature-map.html",
     "href": "01-literature/literature-map.html",
     "title": "Literature Map",
     "section": "",
-    "text": "Track how different research traditions contribute to the core question: How does an agent recognize it should learn?\n\n\n\n\nPredictive Processing / Active Inference\nIntrinsic Motivation / Curiosity\nMeta-learning and Self-Reflection\nWorld Models and Model-Based RL\nSafe Adaptation and Alignment\n\n\n\n\n\n\n\n\n\nflowchart LR\n  Q[Learning Trigger Question] --&gt; P[Predictive Processing]\n  Q --&gt; I[Intrinsic Motivation]\n  Q --&gt; M[Meta-learning]\n  Q --&gt; W[World Models]\n  Q --&gt; S[Safe Adaptation]\n  P --&gt; E[Prediction Error Signals]\n  I --&gt; C[Curiosity Objectives]\n  M --&gt; R[Self-evaluation Loops]\n  W --&gt; U[Model Uncertainty]\n  S --&gt; G[Guardrails]\n\n\n\n\n\n\n\n\n\nUse this page as a navigation hub: - add links to paper summaries in papers.qmd - add cross-links to related research questions and experiments"
+    "text": "Map the major research areas contributing to the development of adaptive intelligent systems.\nThis page provides a high-level overview of connections between research themes, with detailed analysis stored in individual literature notes."
   },
   {
     "objectID": "01-literature/literature-map.html#goal",
     "href": "01-literature/literature-map.html#goal",
     "title": "Literature Map",
     "section": "",
-    "text": "Track how different research traditions contribute to the core question: How does an agent recognize it should learn?"
+    "text": "Map the major research areas contributing to the development of adaptive intelligent systems.\nThis page provides a high-level overview of connections between research themes, with detailed analysis stored in individual literature notes."
   },
   {
-    "objectID": "01-literature/literature-map.html#thematic-clusters",
-    "href": "01-literature/literature-map.html#thematic-clusters",
-    "title": "Literature Map",
-    "section": "",
-    "text": "Predictive Processing / Active Inference\nIntrinsic Motivation / Curiosity\nMeta-learning and Self-Reflection\nWorld Models and Model-Based RL\nSafe Adaptation and Alignment"
+    "objectID": "04-meetings/supervisor.html#actions",
+    "href": "04-meetings/supervisor.html#actions",
+    "title": "Meeting - 2026-08-06",
+    "section": "Actions",
+    "text": "Actions\n\n[ ]"
   },
   {
-    "objectID": "01-literature/literature-map.html#concept-map",
-    "href": "01-literature/literature-map.html#concept-map",
-    "title": "Literature Map",
-    "section": "",
-    "text": "flowchart LR\n  Q[Learning Trigger Question] --&gt; P[Predictive Processing]\n  Q --&gt; I[Intrinsic Motivation]\n  Q --&gt; M[Meta-learning]\n  Q --&gt; W[World Models]\n  Q --&gt; S[Safe Adaptation]\n  P --&gt; E[Prediction Error Signals]\n  I --&gt; C[Curiosity Objectives]\n  M --&gt; R[Self-evaluation Loops]\n  W --&gt; U[Model Uncertainty]\n  S --&gt; G[Guardrails]"
-  },
-  {
-    "objectID": "01-literature/literature-map.html#notes",
-    "href": "01-literature/literature-map.html#notes",
-    "title": "Literature Map",
-    "section": "",
-    "text": "Use this page as a navigation hub: - add links to paper summaries in papers.qmd - add cross-links to related research questions and experiments"
-  },
-  {
-    "objectID": "00-research/roadmap.html",
-    "href": "00-research/roadmap.html",
+    "objectID": "00-research/research-roadmap.html",
+    "href": "00-research/research-roadmap.html",
     "title": "Research Roadmap",
     "section": "",
-    "text": "Exploratory framing and synthesis across agent learning theories.\n\n\n\n\n\n\nClarify core terms (model failure, learning trigger, improvement target)\nConsolidate initial research questions\nAlign with relevant literature traditions\n\n\n\n\n\nDraft candidate internal learning-trigger mechanisms\nCompare mechanism alternatives and assumptions\nDefine evaluation criteria\n\n\n\n\n\nDesign small conceptual/behavioral simulations\nRun controlled toy experiments\nDocument observations and failure modes\n\n\n\n\n\nIncorporate supervisor feedback\nPrioritize the strongest direction\nTranslate insights into a focused project plan\n\n\n\n\n\n\n\n\n\n\nflowchart TD\n  A[Framing Questions] --&gt; B[Literature Mapping]\n  B --&gt; C[Mechanism Proposals]\n  C --&gt; D[Toy Experiments]\n  D --&gt; E[Analysis]\n  E --&gt; F[Refinement]\n  F --&gt; C"
-  },
-  {
-    "objectID": "00-research/roadmap.html#current-stage",
-    "href": "00-research/roadmap.html#current-stage",
-    "title": "Research Roadmap",
-    "section": "",
-    "text": "Exploratory framing and synthesis across agent learning theories."
-  },
-  {
-    "objectID": "00-research/roadmap.html#milestones",
-    "href": "00-research/roadmap.html#milestones",
-    "title": "Research Roadmap",
-    "section": "",
-    "text": "Clarify core terms (model failure, learning trigger, improvement target)\nConsolidate initial research questions\nAlign with relevant literature traditions\n\n\n\n\n\nDraft candidate internal learning-trigger mechanisms\nCompare mechanism alternatives and assumptions\nDefine evaluation criteria\n\n\n\n\n\nDesign small conceptual/behavioral simulations\nRun controlled toy experiments\nDocument observations and failure modes\n\n\n\n\n\nIncorporate supervisor feedback\nPrioritize the strongest direction\nTranslate insights into a focused project plan"
-  },
-  {
-    "objectID": "00-research/roadmap.html#high-level-flow",
-    "href": "00-research/roadmap.html#high-level-flow",
-    "title": "Research Roadmap",
-    "section": "",
-    "text": "flowchart TD\n  A[Framing Questions] --&gt; B[Literature Mapping]\n  B --&gt; C[Mechanism Proposals]\n  C --&gt; D[Toy Experiments]\n  D --&gt; E[Analysis]\n  E --&gt; F[Refinement]\n  F --&gt; C"
+    "text": "Used for ideas that move beyond initial exploration.\nOutlines the stages, milestones, and steps required to develop the research question into a structured research direction."
   },
   {
     "objectID": "00-research/research-questions.html",
     "href": "00-research/research-questions.html",
-    "title": "Q1: How does an agent know it should learn?",
+    "title": "Research Questions",
     "section": "",
-    "text": "Humans often recognise that their internal understanding is incomplete before anyone tells them they were wrong. Rather than immediately changing their behaviour, they first recognise a mismatch between their expectations and reality. ## The Cup Analogy Imagine someone hands you a cup with a completely unfamiliar shape. Your first instinct is to hold it like every other cup you’ve used, but it feels awkward. Nothing catastrophic happens you simply notice that something is “off”. Your prediction about how the object should behave no longer matches your sensory experience. Rather than waiting for someone to tell you the correct answer, you naturally begin exploring different ways of holding it until a new understanding emerges.\n\n\n\nThis process resembles ideas from: - Predictive Processing - Active Inference - Curiosity-driven Learning - Intrinsic Motivation - World Models\nRather than relying solely on an external reward signal, learning appears to begin with an internally generated prediction error. The system recognises that its current world model cannot adequately explain what it is experiencing, triggering exploration before any explicit optimisation occurs.\nCurrent recursive self-improvement (RSI) research typically focuses on how a system modifies itself after a failure has been identified. A more fundamental question may be:\n\nHow does the system autonomously recognise that there is something worth learning in the first place?\n\n\nInstead of immediately optimising after receiving a reward, the agent first attempts to understand why its current model failed and what should actually be improved.\n\n\n\n\n\nHow can an agent recognise its own knowledge gaps without relying solely on external rewards?\nWhat internal computational signals indicate that learning should occur?\nCan agents distinguish between temporary failures and genuine deficiencies in their world model?\nHow should an autonomous system prioritise what deserves improvement?\nCan an agent generate hypotheses about its own failures before beginning optimisation?"
+    "text": "These pages capture emerging research questions, hypotheses, and conceptual ideas."
+  },
+  {
+    "objectID": "00-research/research-questions.html#intuition",
+    "href": "00-research/research-questions.html#intuition",
+    "title": "Research Questions",
+    "section": "Intuition",
+    "text": "Intuition\nCurrent AI systems are largely treated as black boxes.\nWe observe:\n\ninput\noutput\nbehaviour\n\nbut the internal computational process that produced the result remains difficult to interpret.\nIf we could map how information flows through an agent during reasoning, we may be able to understand:\n\nwhy an error occurred,\nwhy two agents diverged,\nwhich internal pathways lead to successful decisions,\nand how reasoning processes evolve."
   },
   {
     "objectID": "00-research/research-questions.html#scientific-interpretation",
     "href": "00-research/research-questions.html#scientific-interpretation",
-    "title": "Q1: How does an agent know it should learn?",
-    "section": "",
-    "text": "This process resembles ideas from: - Predictive Processing - Active Inference - Curiosity-driven Learning - Intrinsic Motivation - World Models\nRather than relying solely on an external reward signal, learning appears to begin with an internally generated prediction error. The system recognises that its current world model cannot adequately explain what it is experiencing, triggering exploration before any explicit optimisation occurs.\nCurrent recursive self-improvement (RSI) research typically focuses on how a system modifies itself after a failure has been identified. A more fundamental question may be:\n\nHow does the system autonomously recognise that there is something worth learning in the first place?\n\n\nInstead of immediately optimising after receiving a reward, the agent first attempts to understand why its current model failed and what should actually be improved."
+    "title": "Research Questions",
+    "section": "Scientific Interpretation",
+    "text": "Scientific Interpretation\nA neural network transforms information through a sequence of high-dimensional representations.\nDuring inference, an input is not directly mapped to an output. Instead, the information is progressively transformed through many internal computational stages.\nFor example:\n\nThe input is converted into numerical representations.\nDifferent layers transform these representations into increasingly abstract features.\nThe model gradually builds an internal representation that supports the final decision.\n\nflowchart TD\n\nTask[Same Task Input]\n\nTask --&gt; A[Agent A]\nTask --&gt; B[Agent B]\nTask --&gt; C[Agent C]\n\nA --&gt; A1[Internal Representation Trajectory]\nA1 --&gt; A2[Activation Pattern A]\nA2 --&gt; A3[Decision]\nA3 --&gt; Fail[Incorrect Output]\n\nB --&gt; B1[Internal Representation Trajectory]\nB1 --&gt; B2[Activation Pattern B]\nB2 --&gt; B3[Decision]\nB3 --&gt; Success[Correct Output]\n\nC --&gt; C1[Internal Representation Trajectory]\nC1 --&gt; C2[Compare Trajectories]\nC2 --&gt; C3[Identify Successful Patterns]\nC3 --&gt; C4[Guide Future Reasoning]\n\nFail --&gt; C2\nSuccess --&gt; C2"
   },
   {
-    "objectID": "00-research/research-questions.html#open-questions",
-    "href": "00-research/research-questions.html#open-questions",
-    "title": "Q1: How does an agent know it should learn?",
-    "section": "",
-    "text": "How can an agent recognise its own knowledge gaps without relying solely on external rewards?\nWhat internal computational signals indicate that learning should occur?\nCan agents distinguish between temporary failures and genuine deficiencies in their world model?\nHow should an autonomous system prioritise what deserves improvement?\nCan an agent generate hypotheses about its own failures before beginning optimisation?"
+    "objectID": "00-research/research-questions.html#intuition-1",
+    "href": "00-research/research-questions.html#intuition-1",
+    "title": "Research Questions",
+    "section": "Intuition",
+    "text": "Intuition\nImagine four scientists are given exactly the same research paper.\nThey have similar knowledge, the same information, and the same objective. However, each scientist may focus on different aspects:\n\none questions assumptions,\none analyses methodology,\none considers applications,\none searches for weaknesses.\n\nThe interesting question is not only why they produce different answers, but why their reasoning diverges despite starting from the same information."
   },
   {
-    "objectID": "00-research/vision.html",
-    "href": "00-research/vision.html",
-    "title": "Research Vision",
-    "section": "",
-    "text": "Develop a principled understanding of how autonomous agents can:\n\ndetect gaps in their own understanding,\nchoose meaningful learning targets,\nimprove safely and scientifically over time.\n\n\n\n\nA useful intelligent system should not only optimize for reward, it should also reason about model adequacy:\n\nWhat do I not understand yet?\nWhat evidence would reduce uncertainty?\nWhat should be improved first?\n\n\n\n\n\nBuild agents that learn because they understand what they do not yet know.\n\n\n\n\n\nSelf-assessment: identifying internal uncertainty\nCuriosity with constraints: exploration that remains goal-relevant\nScientific behavior: forming, testing, and revising hypotheses\nSafety-aware adaptation: improvement without unstable drift"
+    "objectID": "00-research/research-questions.html#scientific-interpretation-1",
+    "href": "00-research/research-questions.html#scientific-interpretation-1",
+    "title": "Research Questions",
+    "section": "Scientific Interpretation",
+    "text": "Scientific Interpretation\nCurrent multi-agent systems mainly expose:\n\nprompts\nmessages\ntool usage\nfinal outputs\n\nHowever, the internal computational processes that produce these outputs remain largely hidden.\nAgents may diverge because of differences in:\n\nlatent representations\nmemory retrieval\nattention patterns\nstochastic generation\nreasoning trajectories\n\nThe key question becomes:\n\nHow do internal computational processes shape the reasoning and behaviour of AI agents?"
   },
   {
-    "objectID": "00-research/vision.html#long-term-aim",
-    "href": "00-research/vision.html#long-term-aim",
-    "title": "Research Vision",
-    "section": "",
-    "text": "Develop a principled understanding of how autonomous agents can:\n\ndetect gaps in their own understanding,\nchoose meaningful learning targets,\nimprove safely and scientifically over time."
+    "objectID": "00-research/research-questions.html#current-multi-agent-view",
+    "href": "00-research/research-questions.html#current-multi-agent-view",
+    "title": "Research Questions",
+    "section": "Current Multi-Agent View",
+    "text": "Current Multi-Agent View\nflowchart LR\n\nPrompt --&gt; AgentA\nPrompt --&gt; AgentB\nPrompt --&gt; AgentC\n\nAgentA --&gt; MessageA\nAgentB --&gt; MessageB\nAgentC --&gt; MessageC\n\nMessageA --&gt; Output\nMessageB --&gt; Output\nMessageC --&gt; Output"
   },
   {
-    "objectID": "00-research/vision.html#core-thesis-direction",
-    "href": "00-research/vision.html#core-thesis-direction",
-    "title": "Research Vision",
-    "section": "",
-    "text": "A useful intelligent system should not only optimize for reward, it should also reason about model adequacy:\n\nWhat do I not understand yet?\nWhat evidence would reduce uncertainty?\nWhat should be improved first?"
+    "objectID": "00-research/research-questions.html#intuition-2",
+    "href": "00-research/research-questions.html#intuition-2",
+    "title": "Research Questions",
+    "section": "Intuition",
+    "text": "Intuition\nHumans often recognise that their internal understanding is incomplete before receiving external feedback.\nRather than immediately changing behaviour after failure, they first detect a mismatch between their expectations and reality."
   },
   {
-    "objectID": "00-research/vision.html#vision-in-one-sentence",
-    "href": "00-research/vision.html#vision-in-one-sentence",
-    "title": "Research Vision",
-    "section": "",
-    "text": "Build agents that learn because they understand what they do not yet know."
+    "objectID": "00-research/research-questions.html#conceptual-example",
+    "href": "00-research/research-questions.html#conceptual-example",
+    "title": "Research Questions",
+    "section": "Conceptual Example",
+    "text": "Conceptual Example\nImagine someone is given a cup with an unfamiliar shape. Their first attempt to hold it follows previous experience, but the interaction feels different. The mismatch between expectation and reality triggers exploration and adaptation.\nflowchart TD\n\nA[Internal Model] \nB[Interact with Environment] \nC{Prediction matches reality?} \nD[Continue]\nE[Prediction Mismatch]\nF[Generate Hypotheses]\nG[Experiment]\nH[Update Internal Model]\n\nA --&gt; B\nB --&gt; C\nC --&gt;|Yes| D\nC --&gt;|No| E\nE --&gt; F\nF --&gt; G\nG --&gt; H\nH --&gt; A"
   },
   {
-    "objectID": "00-research/vision.html#conceptual-pillars",
-    "href": "00-research/vision.html#conceptual-pillars",
-    "title": "Research Vision",
+    "objectID": "00-research/research-development.html",
+    "href": "00-research/research-development.html",
+    "title": "Research Development",
     "section": "",
-    "text": "Self-assessment: identifying internal uncertainty\nCuriosity with constraints: exploration that remains goal-relevant\nScientific behavior: forming, testing, and revising hypotheses\nSafety-aware adaptation: improvement without unstable drift"
+    "text": "This is where the actual work happens."
   },
   {
     "objectID": "01-literature/papers.html",
@@ -266,101 +147,38 @@
     "text": "Main contribution:\nMethod:\nUseful concept for my work:\nPotential criticism:\nFollow-up idea:"
   },
   {
-    "objectID": "03-projects/genai4ed.html",
-    "href": "03-projects/genai4ed.html",
-    "title": "Project: GenAI4ED",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Research Notebook",
     "section": "",
-    "text": "An applied track exploring how agent-based reasoning can support educational contexts.\n\n\n\nHow can a system identify uncertainty in student-facing interactions and trigger useful adaptation?\n\n\n\n\nTarget context:\nPrimary users:\nHypothesis:\nPotential risks:\n\n\n\n\nDraft a narrow pilot scenario that can be evaluated quickly."
+    "text": "Last Updated: 06 August 2026\n\n\nThis week I am exploring:\n\nHow autonomous agents can develop adaptive communication protocols\nMemory architectures for long-running AI systems\nMechanisms for coordination, specialization, and self-organisation in multi-agent systems\n\n\n\n\n\nHow can AI systems move beyond isolated task-solving agents towards adaptive systems that can organise, communicate, and improve through experience?"
   },
   {
-    "objectID": "03-projects/genai4ed.html#project-position",
-    "href": "03-projects/genai4ed.html#project-position",
-    "title": "Project: GenAI4ED",
+    "objectID": "index.html#research-status",
+    "href": "index.html#research-status",
+    "title": "Research Notebook",
     "section": "",
-    "text": "An applied track exploring how agent-based reasoning can support educational contexts."
+    "text": "Last Updated: 06 August 2026\n\n\nThis week I am exploring:\n\nHow autonomous agents can develop adaptive communication protocols\nMemory architectures for long-running AI systems\nMechanisms for coordination, specialization, and self-organisation in multi-agent systems\n\n\n\n\n\nHow can AI systems move beyond isolated task-solving agents towards adaptive systems that can organise, communicate, and improve through experience?"
   },
   {
-    "objectID": "03-projects/genai4ed.html#research-link",
-    "href": "03-projects/genai4ed.html#research-link",
-    "title": "Project: GenAI4ED",
-    "section": "",
-    "text": "How can a system identify uncertainty in student-facing interactions and trigger useful adaptation?"
+    "objectID": "index.html#research-overview",
+    "href": "index.html#research-overview",
+    "title": "Research Notebook",
+    "section": "Research Overview",
+    "text": "Research Overview\nThis notebook tracks evolving research ideas, literature exploration, experimental designs, and discussions.\n\n\n\n\n\n\nNote\n\n\n\nThis is a working research notebook rather than a collection of final results. Ideas, hypotheses, and directions are expected to change as they are refined through literature analysis and supervisor feedback."
   },
   {
-    "objectID": "03-projects/genai4ed.html#early-framing",
-    "href": "03-projects/genai4ed.html#early-framing",
-    "title": "Project: GenAI4ED",
-    "section": "",
-    "text": "Target context:\nPrimary users:\nHypothesis:\nPotential risks:"
+    "objectID": "index.html#research-workflow",
+    "href": "index.html#research-workflow",
+    "title": "Research Notebook",
+    "section": "Research Workflow",
+    "text": "Research Workflow\nflowchart LR\n\nA[Observation / Question]\n--&gt; B[Conceptual Model]\n--&gt; C[Literature Review]\n--&gt; D[Hypothesis]\n--&gt; E[Experiment]\n--&gt; F[Analysis]\n--&gt; G[Refined Question]\n--&gt; A"
   },
   {
-    "objectID": "03-projects/genai4ed.html#immediate-next-step",
-    "href": "03-projects/genai4ed.html#immediate-next-step",
-    "title": "Project: GenAI4ED",
-    "section": "",
-    "text": "Draft a narrow pilot scenario that can be evaluated quickly."
-  },
-  {
-    "objectID": "04-experiments/prisoners-dilemma.html",
-    "href": "04-experiments/prisoners-dilemma.html",
-    "title": "Experiment Idea: Prisoner’s Dilemma",
-    "section": "",
-    "text": "Use a simple strategic environment to observe whether agents:\n\ndetect model mismatch,\nupdate their strategy deliberately,\nand distinguish short-term reward from long-term learning value.\n\n\n\n\nAgents with internal uncertainty tracking should adapt cooperation/defection patterns more coherently than purely reactive agents.\n\n\n\n\nDefine baseline policy agent\nDefine uncertainty-aware agent variant\nCompare behavior over repeated rounds\nInspect adaptation trajectories, not just final reward\n\n\n\n\n\npolicy-switch frequency\nconsistency after adverse outcomes\nrecoverability after misleading rounds"
-  },
-  {
-    "objectID": "04-experiments/prisoners-dilemma.html#why-this-experiment",
-    "href": "04-experiments/prisoners-dilemma.html#why-this-experiment",
-    "title": "Experiment Idea: Prisoner’s Dilemma",
-    "section": "",
-    "text": "Use a simple strategic environment to observe whether agents:\n\ndetect model mismatch,\nupdate their strategy deliberately,\nand distinguish short-term reward from long-term learning value."
-  },
-  {
-    "objectID": "04-experiments/prisoners-dilemma.html#working-hypothesis",
-    "href": "04-experiments/prisoners-dilemma.html#working-hypothesis",
-    "title": "Experiment Idea: Prisoner’s Dilemma",
-    "section": "",
-    "text": "Agents with internal uncertainty tracking should adapt cooperation/defection patterns more coherently than purely reactive agents."
-  },
-  {
-    "objectID": "04-experiments/prisoners-dilemma.html#experimental-sketch",
-    "href": "04-experiments/prisoners-dilemma.html#experimental-sketch",
-    "title": "Experiment Idea: Prisoner’s Dilemma",
-    "section": "",
-    "text": "Define baseline policy agent\nDefine uncertainty-aware agent variant\nCompare behavior over repeated rounds\nInspect adaptation trajectories, not just final reward"
-  },
-  {
-    "objectID": "04-experiments/prisoners-dilemma.html#metrics-to-track",
-    "href": "04-experiments/prisoners-dilemma.html#metrics-to-track",
-    "title": "Experiment Idea: Prisoner’s Dilemma",
-    "section": "",
-    "text": "policy-switch frequency\nconsistency after adverse outcomes\nrecoverability after misleading rounds"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "This site presents a structured view of my active research notebook."
-  },
-  {
-    "objectID": "about.html#purpose",
-    "href": "about.html#purpose",
-    "title": "About",
-    "section": "Purpose",
-    "text": "Purpose\n\nShare evolving research ideas with my professor\nKeep a transparent trail from question -&gt; model -&gt; experiment\nSeparate exploratory thinking from finalized claims"
-  },
-  {
-    "objectID": "about.html#what-this-is-and-is-not",
-    "href": "about.html#what-this-is-and-is-not",
-    "title": "About",
-    "section": "What this is (and is not)",
-    "text": "What this is (and is not)\n\nIs: a working space for hypotheses, conceptual links, and direction-setting\nIs not: a final thesis document or publication-ready material"
-  },
-  {
-    "objectID": "about.html#updating-process",
-    "href": "about.html#updating-process",
-    "title": "About",
-    "section": "Updating Process",
-    "text": "Updating Process\nI write and update source notes in .qmd on the master branch. The website is generated automatically from those notes after each push."
+    "objectID": "index.html#notebook-navigation",
+    "href": "index.html#notebook-navigation",
+    "title": "Research Notebook",
+    "section": "Notebook Navigation",
+    "text": "Notebook Navigation\n\n\n\nSection\nPurpose\n\n\n\n\nResearch\nHigh-level vision, questions, roadmap\n\n\nLiterature\nPaper summaries and conceptual connections\n\n\nResearch Directions\nIndividual research threads\n\n\nProjects\nApplied project ideas and collaborations\n\n\nExperiments\nPrototype ideas and evaluations\n\n\nMeetings\nDiscussion notes and decisions"
   }
 ]
