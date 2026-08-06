@@ -1,1 +1,106 @@
-/* css styles */
+/* Research notebook website styling */
+
+:root {
+  --bg: #F7FAFC;
+  --surface: #FFFFFF;
+  --text: #0B1F3A;
+  --muted: #52637A;
+  --primary: #1D4ED8;
+  --accent: #0D9488;
+  --border: #DCE5F0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+h1, h2, h3, h4 {
+  color: var(--text);
+}
+
+.navbar-title {
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.2px;
+}
+
+.navbar,
+.navbar .navbar-nav,
+.navbar .dropdown-menu {
+  background-color: var(--surface) !important;
+}
+
+.navbar {
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.navbar,
+.navbar a,
+.navbar .nav-link,
+.navbar .dropdown-item,
+.navbar .navbar-brand {
+  color: var(--text) !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .dropdown-item:hover {
+  color: var(--primary) !important;
+}
+
+.navbar .nav-link.active,
+.navbar .nav-link.show {
+  color: var(--primary) !important;
+  font-weight: 600;
+}
+
+.navbar .dropdown-menu {
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  padding: 0.45rem;
+}
+
+.navbar .dropdown-item {
+  border-radius: 0.45rem;
+  padding: 0.45rem 0.65rem;
+}
+
+.navbar .dropdown-item:hover {
+  background: #EFF6FF;
+}
+
+a {
+  color: var(--primary);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+.callout-note {
+  border-left: 4px solid var(--accent);
+  background-color: #F0FDFA;
+  border-color: var(--accent);
+}
+
+.content,
+.quarto-title-block,
+.sidebar {
+  color: var(--text);
+}
+
+main.content p {
+  line-height: 1.65;
+  color: var(--text);
+  max-width: 78ch;
+}
+
+.quarto-container .sidebar nav[role="doc-toc"] {
+  border-left: 1px solid var(--border);
+}
+
+.quarto-container .sidebar .active {
+  color: var(--primary) !important;
+}
