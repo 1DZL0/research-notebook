@@ -1,5 +1,26 @@
 [
   {
+    "objectID": "00-research/research-questions.html",
+    "href": "00-research/research-questions.html",
+    "title": "Q1: How does an agent know it should learn?",
+    "section": "",
+    "text": "Humans often recognise that their internal understanding is incomplete before anyone tells them they were wrong. Rather than immediately changing their behaviour, they first recognise a mismatch between their expectations and reality. ## The Cup Analogy Imagine someone hands you a cup with a completely unfamiliar shape. Your first instinct is to hold it like every other cup you’ve used, but it feels awkward. Nothing catastrophic happens you simply notice that something is “off”. Your prediction about how the object should behave no longer matches your sensory experience. Rather than waiting for someone to tell you the correct answer, you naturally begin exploring different ways of holding it until a new understanding emerges.\n\n\n\nThis process resembles ideas from: - Predictive Processing - Active Inference - Curiosity-driven Learning - Intrinsic Motivation - World Models\nRather than relying solely on an external reward signal, learning appears to begin with an internally generated prediction error. The system recognises that its current world model cannot adequately explain what it is experiencing, triggering exploration before any explicit optimisation occurs.\nCurrent recursive self-improvement (RSI) research typically focuses on how a system modifies itself after a failure has been identified. A more fundamental question may be:\n\nHow does the system autonomously recognise that there is something worth learning in the first place?\n\n\nInstead of immediately optimising after receiving a reward, the agent first attempts to understand why its current model failed and what should actually be improved.\n\n\n\n\n\nHow can an agent recognise its own knowledge gaps without relying solely on external rewards?\nWhat internal computational signals indicate that learning should occur?\nCan agents distinguish between temporary failures and genuine deficiencies in their world model?\nHow should an autonomous system prioritise what deserves improvement?\nCan an agent generate hypotheses about its own failures before beginning optimisation?"
+  },
+  {
+    "objectID": "00-research/research-questions.html#scientific-interpretation",
+    "href": "00-research/research-questions.html#scientific-interpretation",
+    "title": "Q1: How does an agent know it should learn?",
+    "section": "",
+    "text": "This process resembles ideas from: - Predictive Processing - Active Inference - Curiosity-driven Learning - Intrinsic Motivation - World Models\nRather than relying solely on an external reward signal, learning appears to begin with an internally generated prediction error. The system recognises that its current world model cannot adequately explain what it is experiencing, triggering exploration before any explicit optimisation occurs.\nCurrent recursive self-improvement (RSI) research typically focuses on how a system modifies itself after a failure has been identified. A more fundamental question may be:\n\nHow does the system autonomously recognise that there is something worth learning in the first place?\n\n\nInstead of immediately optimising after receiving a reward, the agent first attempts to understand why its current model failed and what should actually be improved."
+  },
+  {
+    "objectID": "00-research/research-questions.html#open-questions",
+    "href": "00-research/research-questions.html#open-questions",
+    "title": "Q1: How does an agent know it should learn?",
+    "section": "",
+    "text": "How can an agent recognise its own knowledge gaps without relying solely on external rewards?\nWhat internal computational signals indicate that learning should occur?\nCan agents distinguish between temporary failures and genuine deficiencies in their world model?\nHow should an autonomous system prioritise what deserves improvement?\nCan an agent generate hypotheses about its own failures before beginning optimisation?"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",

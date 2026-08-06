@@ -185,8 +185,19 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#q1-how-does-an-agent-know-it-should-learn" id="toc-q1-how-does-an-agent-know-it-should-learn" class="nav-link active" data-scroll-target="#q1-how-does-an-agent-know-it-should-learn">Q1: How does an agent know it should learn?</a>
+  <ul class="collapse">
+  <li><a href="#intuition" id="toc-intuition" class="nav-link" data-scroll-target="#intuition">Intuition</a></li>
+  <li><a href="#scientific-interpretation" id="toc-scientific-interpretation" class="nav-link" data-scroll-target="#scientific-interpretation">Scientific Interpretation</a></li>
+  <li><a href="#open-questions" id="toc-open-questions" class="nav-link" data-scroll-target="#open-questions">Open Questions</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -194,8 +205,38 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<section id="q1-how-does-an-agent-know-it-should-learn" class="level1">
+<h1>Q1: How does an agent know it should learn?</h1>
+<section id="intuition" class="level3">
+<h3 class="anchored" data-anchor-id="intuition">Intuition</h3>
+<p>Humans often recognise that their internal understanding is incomplete <em>before</em> anyone tells them they were wrong. Rather than immediately changing their behaviour, they first recognise a mismatch between their expectations and reality. ## The Cup Analogy Imagine someone hands you a cup with a completely unfamiliar shape. Your first instinct is to hold it like every other cup you’ve used, but it feels awkward. Nothing catastrophic happens you simply notice that something is “off”. Your prediction about how the object should behave no longer matches your sensory experience. Rather than waiting for someone to tell you the correct answer, you naturally begin exploring different ways of holding it until a new understanding emerges.</p>
+</section>
+<section id="scientific-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="scientific-interpretation">Scientific Interpretation</h2>
+<p>This process resembles ideas from: - Predictive Processing - Active Inference - Curiosity-driven Learning - Intrinsic Motivation - World Models</p>
+<p>Rather than relying solely on an external reward signal, learning appears to begin with an internally generated <strong>prediction error</strong>. The system recognises that its current world model cannot adequately explain what it is experiencing, triggering exploration before any explicit optimisation occurs.</p>
+<p>Current recursive self-improvement (RSI) research typically focuses on <strong>how a system modifies itself after a failure has been identified</strong>. A more fundamental question may be:</p>
+<blockquote class="blockquote">
+<p><strong>How does the system autonomously recognise that there is something worth learning in the first place?</strong></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Instead of immediately optimising after receiving a reward, the agent first attempts to understand <strong>why</strong> its current model failed and <strong>what</strong> should actually be improved.</p>
+</blockquote>
+</section>
+<section id="open-questions" class="level2">
+<h2 class="anchored" data-anchor-id="open-questions">Open Questions</h2>
+<ul>
+<li>How can an agent recognise its own knowledge gaps without relying solely on external rewards?</li>
+<li>What internal computational signals indicate that learning should occur?</li>
+<li>Can agents distinguish between temporary failures and genuine deficiencies in their world model?</li>
+<li>How should an autonomous system prioritise <em>what</em> deserves improvement?</li>
+<li>Can an agent generate hypotheses about its own failures before beginning optimisation?</li>
+</ul>
+<hr>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
