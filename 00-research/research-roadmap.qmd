@@ -1,0 +1,6 @@
+﻿---
+title: "Research Roadmap"
+---
+
+Used for ideas that move beyond initial exploration.  
+Outlines the stages, milestones, and steps required to develop the research question into a structured research direction.

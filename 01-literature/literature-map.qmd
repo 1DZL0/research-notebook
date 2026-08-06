@@ -1,36 +1,42 @@
+﻿---
+title: "Literature Map"
+---
+
 # Literature Map
 
 ## Goal
 
-Track how different research traditions contribute to the core question:
-**How does an agent recognize it should learn?**
+Map the major research areas contributing to the development of adaptive intelligent systems.
 
-## Thematic Clusters
+This page provides a high-level overview of connections between research themes, with detailed analysis stored in individual literature notes.
 
-- Predictive Processing / Active Inference
-- Intrinsic Motivation / Curiosity
-- Meta-learning and Self-Reflection
-- World Models and Model-Based RL
-- Safe Adaptation and Alignment
+***
 
-## Concept Map
+# Concept Map
 
 ```{mermaid}
 flowchart LR
-  Q[Learning Trigger Question] --> P[Predictive Processing]
-  Q --> I[Intrinsic Motivation]
-  Q --> M[Meta-learning]
-  Q --> W[World Models]
-  Q --> S[Safe Adaptation]
-  P --> E[Prediction Error Signals]
-  I --> C[Curiosity Objectives]
-  M --> R[Self-evaluation Loops]
-  W --> U[Model Uncertainty]
-  S --> G[Guardrails]
-```
 
-## Notes
+AI[Adaptive Intelligent Systems]
 
-Use this page as a navigation hub:
-- add links to paper summaries in `papers.qmd`
-- add cross-links to related research questions and experiments
+AI --> A[Agentic Systems]
+AI --> L[Learning and Adaptation]
+AI --> W[Internal Models]
+AI --> M[Motivation and Exploration]
+AI --> S[Safety and Alignment]
+
+A --> MEM[Memory]
+A --> COM[Communication]
+A --> PLAN[Planning]
+
+L --> META[Meta-learning]
+L --> CONT[Continual Learning]
+
+W --> WM[World Models]
+W --> UNC[Uncertainty]
+
+M --> CUR[Curiosity]
+M --> ACTIVE[Active Learning]
+
+S --> ALIGN[Alignment]
+S --> EVAL[Evaluation]

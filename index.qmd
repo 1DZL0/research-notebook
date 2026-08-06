@@ -1,40 +1,58 @@
----
+﻿---
 title: "Research Notebook"
 ---
 
-## Working Research Notebook
+## Research Status
 
-This website is a **living notebook** for ongoing research ideas.
-It is intentionally exploratory and not yet final.
+**Last Updated:** 06 August 2026
+
+### Current Focus
+This week I am exploring:
+
+- How autonomous agents can develop adaptive communication protocols
+- Memory architectures for long-running AI systems
+- Mechanisms for coordination, specialization, and self-organisation in multi-agent systems
+
+### Current Questions
+
+> How can AI systems move beyond isolated task-solving agents towards adaptive systems that can organise, communicate, and improve through experience?
+
+***
+
+## Research Overview
+
+This notebook tracks evolving research ideas, literature exploration, experimental designs, and discussions.
 
 ::: {.callout-note}
-## Context
-These notes are designed for discussion with my supervisor, to track evolving hypotheses, not polished conclusions.
+This is a working research notebook rather than a collection of final results. Ideas, hypotheses, and directions are expected to change as they are refined through literature analysis and supervisor feedback.
 :::
 
-## Current Focus
+***
 
-- Understanding how agents identify *what is worth learning*
-- Building a conceptual map of agent memory, adaptation, and scientific reasoning
-- Prototyping small experiment designs before formal implementation
-
-## Navigation Guide
-
-- **Research**: Vision, questions, and roadmap
-- **Literature**: Paper map and reading notes
-- **Research Directions**: Core idea threads
-- **Projects**: Active project framing
-- **Experiments**: Early-stage test ideas
-- **Meetings**: Supervisor discussion records
-
-## Research Cycle
+## Research Workflow
 
 ```{mermaid}
 flowchart LR
-  A[Question] --> B[Conceptual Model]
-  B --> C[Literature Alignment]
-  C --> D[Prototype Experiment]
-  D --> E[Supervisor Feedback]
-  E --> F[Refined Question]
-  F --> A
+
+A[Observation / Question]
+--> B[Conceptual Model]
+--> C[Literature Review]
+--> D[Hypothesis]
+--> E[Experiment]
+--> F[Analysis]
+--> G[Refined Question]
+--> A
 ```
+
+***
+
+## Notebook Navigation
+
+| Section | Purpose |
+|---|---|
+| Research | High-level vision, questions, roadmap |
+| Literature | Paper summaries and conceptual connections |
+| Research Directions | Individual research threads |
+| Projects | Applied project ideas and collaborations |
+| Experiments | Prototype ideas and evaluations |
+| Meetings | Discussion notes and decisions |
