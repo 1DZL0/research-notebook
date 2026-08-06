@@ -2,12 +2,50 @@ project:
   type: website
 
 website:
-  title: "research-project"
+  title: "Diesel Mears Research Notebook"
+
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+
+      - text: Research
+        menu:
+          - text: Research Vision
+            href: 00-research/vision.qmd
+          - text: Research Questions
+            href: 00-research/research-questions.qmd
+          - text: Roadmap
+            href: 00-research/roadmap.qmd
+
+      - text: Literature
+        menu:
+          - text: Literature Map
+            href: 01-literature/literature-map.qmd
+          - text: Papers
+            href: 01-literature/papers.qmd
+
+      - text: Research Directions
+        menu:
+          - text: Agents
+            href: 02-directions/agents.qmd
+
+      - text: Projects
+        menu:
+          - text: Pharos-CY
+            href: 03-projects/pharos-cy.qmd
+          - text: GenAI4ED
+            href: 03-projects/genai4ed.qmd
+
+      - text: Experiments
+        menu:
+          - text: Prisoner's Dilemma
+            href: 04-experiments/prisoners-dilemma.qmd
+
+
+      - text: Meetings
+        href: 05-meetings/supervisor.qmd
+
 
 format:
   html:
@@ -16,6 +54,3 @@ format:
       - brand
     css: styles.css
     toc: true
-
-
-

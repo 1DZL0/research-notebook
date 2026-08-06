@@ -4,5 +4,35 @@
   },
   "about.qmd": {
     "about.html": "4cb4c0c3"
+  },
+  "00-research/research-questions.qmd": {
+    "research-questions.html": "16d6e48b"
+  },
+  "00-research/roadmap.qmd": {
+    "roadmap.html": "65a10894"
+  },
+  "00-research/vision.qmd": {
+    "vision.html": "7b7227c1"
+  },
+  "01-literature/literature-map.qmd": {
+    "literature-map.html": "280c3bc7"
+  },
+  "01-literature/papers.qmd": {
+    "papers.html": "57c9d6c7"
+  },
+  "02- Research Directions/agents.qmd": {
+    "agents.html": "a46ad865"
+  },
+  "03-projects/genai4ed.qmd": {
+    "genai4ed.html": "1fd2544c"
+  },
+  "03-projects/pharos-cy.qmd": {
+    "pharos-cy.html": "8e13977a"
+  },
+  "04-experiments/prisoners-dilemma.qmd": {
+    "prisoners-dilemma.html": "6a34dac7"
+  },
+  "05-meetings/supervisor.qmd": {
+    "supervisor.html": "0c4bd813"
   }
 }
