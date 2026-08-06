@@ -16,10 +16,18 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
+        uses: quarto-dev/quarto-actions/setup@v4
 
+<<<<<<< HEAD
+      - name: Render
+        uses: quarto-dev/quarto-actions/render@v4
+
+      - name: Publish
+        uses: quarto-dev/quarto-actions/publish@v4
+=======
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
+>>>>>>> origin/master
         with:
           target: gh-pages
           render: true
