@@ -4,26 +4,7 @@ Humans often recognise that their internal understanding is incomplete *before* 
 ## The Cup Analogy
 Imagine someone hands you a cup with a completely unfamiliar shape. Your first instinct is to hold it like every other cup you've used, but it feels awkward. Nothing catastrophic happens you simply notice that something is "off". Your prediction about how the object should behave no longer matches your sensory experience. Rather than waiting for someone to tell you the correct answer, you naturally begin exploring different ways of holding it until a new understanding emerges.
 
-```mermaid
-flowchart TD
-A[Internal Model] 
-B[Interact with Environment] 
-C{Prediction matches reality?} 
-D[Continue] 
-E[Prediction Mismatch] 
-F[Generate Hypotheses] 
-G[Experiment] 
-H[Update Internal Model] 
- 
-A --> B 
-B --> C 
-C -->|Yes| D 
-C -->|No| E 
-E --> F
-F --> G 
-G --> H 
-H --> A 
-```
+
 ## Scientific Interpretation 
 This process resembles ideas from: 
 - Predictive Processing 
@@ -38,24 +19,7 @@ Current recursive self-improvement (RSI) research typically focuses on **how a s
 
 > **How does the system autonomously recognise that there is something worth learning in the first place?**
 
-```mermaid 
-flowchart LR
 
- Task --> Reward --> Optimise --> ImprovedAgent 
-``` 
-Learning is primarily driven by an externally defined objective.
-___
-## Possible Missing Step 
-```mermaid 
-flowchart TD 
-Experience --> DetectGap["Prediction Mismatch"] 
-DetectGap --> Diagnose["Self-Diagnosis"] 
-Diagnose --> Hypothesis["Generate Hypotheses"] 
-Hypothesis --> Select["Choose What to Improve"] 
-Select --> Learn 
-Learn --> Evaluate 
-Evaluate --> Updated["Updated Internal Model"] 
-```
 > Instead of immediately optimising after receiving a reward, the agent first attempts to understand **why** its current model failed and **what** should actually be improved.
 
 ## Open Questions 
@@ -66,107 +30,4 @@ Evaluate --> Updated["Updated Internal Model"]
 - Can an agent generate hypotheses about its own failures before beginning optimisation?
 
 ___
-
-
-# Q2: Why do identical agents think differently?
-
-## Intuition
-Imagine four scientists are given exactly the same research paper. They have similar education, the same paper, and the same objective. Yet each notices something different. 
-- One immediately questions the assumptions. 
-- Another focuses on methodology.
-- Another thinks about practical applications.
-- Another searches for weaknesses.
-- 
-Although they eventually communicate their conclusions, much of the reasoning that produced those ideas remains hidden.
-
-- The interesting part is **not** that they produced different answers.
-- The interesting part is **why** they produced different answers.
----
-## Scientific Interpretation
-Current multi-agent systems largely expose:
-- prompts
-- messages
-- tool usage
-- final outputs
-However, the internal computational process that produced those decisions remains almost entirely hidden.
-
-Even two identical agents receiving identical information may diverge because of subtle differences such as:
-
-- stochastic decoding (temperature)
-- attention dynamics
-- retrieved memories
-- latent representations
-- intermediate reasoning trajectories
-- Cumulative errors
-
-Most current work evaluates **what agents communicate**, rather than **how they internally arrived at those communications**.
-
----
-### Current Multi-Agent Systems
-
-```mermaid
-flowchart LR
-
-Prompt --> AgentA
-Prompt --> AgentB
-Prompt --> AgentC
-
-AgentA --> MessageA
-AgentB --> MessageB
-AgentC --> MessageC
-
-MessageA --> Output
-MessageB --> Output
-MessageC --> Output
-```
-
-#### Hidden Process:
-
-```mermaid
-flowchart TD
-
-Prompt --> Hidden["Internal Computational State"]
-Hidden --> Reasoning["Reasoning Trajectory"]
-Reasoning --> Communication
-Communication --> Output
-```
-
-The majority of the reasoning process remains hidden.
-#### Possible Missing Layer
-
-```mermaid
-flowchart TD
-
-Prompt --> Agent
-
-Agent --> Internal["Internal Reasoning Trace"]
-
-Internal --> Explain["Interpretable Representation"]
-
-Explain --> OtherAgents
-
-Explain --> Researcher
-
-OtherAgents --> Collaboration
-
-Researcher --> Analysis
-```
-
-Instead of only exchanging language, agents may expose interpretable summaries of *how* they reached their conclusions.
-
-This could allow both agents and researchers to understand:
-- why different reasoning paths emerged,
-- why disagreement occurred,
-- which reasoning strategies consistently succeed,
-- and how collaboration evolves over time.
-### Open Questions
-
-- Why do identical agents diverge despite receiving identical information?
-- Can internal reasoning trajectories be represented in an interpretable way?
-- Which internal computations are most important for collaboration?
-- Can agents communicate more than natural language?
-- Would exposing internal reasoning improve coordination, consensus, or self-reflection?
-- How can we distinguish meaningful reasoning differences from randomness?
-
----
 
