@@ -2,7 +2,10 @@ name: Publish Quarto Website
 
 on:
   push:
-    branches: master
+    branches:
+      - master
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -10,7 +13,6 @@ permissions:
   id-token: write
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
@@ -21,14 +23,16 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Render
         uses: quarto-dev/quarto-actions/render@v2
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./_site
-
 
   deploy:
     needs: build

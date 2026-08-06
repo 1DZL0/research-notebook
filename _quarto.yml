@@ -3,6 +3,7 @@ project:
 
 website:
   title: "Diesel Mears Research Notebook"
+  site-url: "https://1dzl0.github.io/research-notebook/"
 
   navbar:
     left:
