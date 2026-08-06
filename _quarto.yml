@@ -6,6 +6,8 @@ website:
   site-url: "https://1dzl0.github.io/research-notebook/"
 
   navbar:
+    background: light
+    foreground: "#0F172A"
     left:
       - href: index.qmd
         text: Home
@@ -53,8 +55,6 @@ website:
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme: cosmo
     css: styles.css
     toc: true

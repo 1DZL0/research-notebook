@@ -1,22 +1,77 @@
 /* Research notebook website styling */
 
 :root {
-  --brand-ink: #1a2942;
-  --brand-accent: #446ea8;
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --text: #0F172A;
+  --muted: #475569;
+  --primary: #2563EB;
+  --accent: #0EA5A4;
+  --border: #E2E8F0;
 }
 
-h1, h2, h3 {
-  color: var(--brand-ink);
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+h1, h2, h3, h4 {
+  color: var(--text);
 }
 
 .navbar-title {
   font-weight: 700;
+  color: var(--text);
+}
+
+.navbar,
+.navbar .navbar-nav,
+.navbar .dropdown-menu {
+  background-color: var(--surface) !important;
+}
+
+.navbar,
+.navbar a,
+.navbar .nav-link,
+.navbar .dropdown-item,
+.navbar .navbar-brand {
+  color: var(--text) !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .dropdown-item:hover {
+  color: var(--primary) !important;
+}
+
+a {
+  color: var(--primary);
+}
+
+a:hover {
+  color: var(--accent);
 }
 
 .callout-note {
-  border-left: 4px solid var(--brand-accent);
+  border-left: 4px solid var(--accent);
+  background-color: #F0FDFA;
+  border-color: var(--accent);
+}
+
+.content,
+.quarto-title-block,
+.sidebar {
+  color: var(--text);
 }
 
 main.content p {
   line-height: 1.65;
+  color: var(--text);
+}
+
+.quarto-container .sidebar nav[role="doc-toc"] {
+  border-left: 1px solid var(--border);
+}
+
+.quarto-container .sidebar .active {
+  color: var(--primary) !important;
 }
