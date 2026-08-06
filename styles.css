@@ -1,1 +1,22 @@
-/* css styles */
+/* Research notebook website styling */
+
+:root {
+  --brand-ink: #1a2942;
+  --brand-accent: #446ea8;
+}
+
+h1, h2, h3 {
+  color: var(--brand-ink);
+}
+
+.navbar-title {
+  font-weight: 700;
+}
+
+.callout-note {
+  border-left: 4px solid var(--brand-accent);
+}
+
+main.content p {
+  line-height: 1.65;
+}

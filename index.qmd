@@ -1,6 +1,40 @@
 ---
-title: "research-project"
+title: "Research Notebook"
 ---
 
+## Working Research Notebook
 
-ddd
+This website is a **living notebook** for ongoing research ideas.
+It is intentionally exploratory and not yet final.
+
+::: {.callout-note}
+## Context
+These notes are designed for discussion with my supervisor, to track evolving hypotheses, not polished conclusions.
+:::
+
+## Current Focus
+
+- Understanding how agents identify *what is worth learning*
+- Building a conceptual map of agent memory, adaptation, and scientific reasoning
+- Prototyping small experiment designs before formal implementation
+
+## Navigation Guide
+
+- **Research**: Vision, questions, and roadmap
+- **Literature**: Paper map and reading notes
+- **Research Directions**: Core idea threads
+- **Projects**: Active project framing
+- **Experiments**: Early-stage test ideas
+- **Meetings**: Supervisor discussion records
+
+## Research Cycle
+
+```{mermaid}
+flowchart LR
+  A[Question] --> B[Conceptual Model]
+  B --> C[Literature Alignment]
+  C --> D[Prototype Experiment]
+  D --> E[Supervisor Feedback]
+  E --> F[Refined Question]
+  F --> A
+```

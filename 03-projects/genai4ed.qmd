@@ -1,0 +1,20 @@
+# Project: GenAI4ED
+
+## Project Position
+
+An applied track exploring how agent-based reasoning can support educational contexts.
+
+## Research Link
+
+How can a system identify uncertainty in student-facing interactions and trigger useful adaptation?
+
+## Early Framing
+
+- Target context:
+- Primary users:
+- Hypothesis:
+- Potential risks:
+
+## Immediate Next Step
+
+Draft a narrow pilot scenario that can be evaluated quickly.

@@ -1,0 +1,26 @@
+# Papers
+
+## Reading Log Template
+
+Use one section per paper with:
+
+- **Citation**
+- **Core idea**
+- **Why it matters for this research**
+- **Open questions it leaves**
+
+## Active Paper List
+
+| Paper | Theme | Relevance | Status |
+|---|---|---|---|
+| (add paper) | (cluster) | (high/med/low) | To read |
+| (add paper) | (cluster) | (high/med/low) | In progress |
+
+## Example Note Structure
+
+### Paper: _Title_
+- **Main contribution**:
+- **Method**:
+- **Useful concept for my work**:
+- **Potential criticism**:
+- **Follow-up idea**:

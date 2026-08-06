@@ -1,0 +1,17 @@
+# Project: Pharos-CY
+
+## Project Position
+
+Exploratory project thread connected to agent adaptation and decision quality.
+
+## Current Questions
+
+- What part of the core research problem does this project test?
+- Which assumptions are we making that need validation?
+- What minimal prototype would provide useful evidence?
+
+## Next Actions
+
+- Define the smallest viable experiment
+- Identify success/failure indicators
+- Prepare discussion points for supervisor feedback

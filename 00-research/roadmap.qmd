@@ -1,0 +1,39 @@
+# Research Roadmap
+
+## Current Stage
+
+Exploratory framing and synthesis across agent learning theories.
+
+## Milestones
+
+### Phase 1 — Concept Formation
+- Clarify core terms (model failure, learning trigger, improvement target)
+- Consolidate initial research questions
+- Align with relevant literature traditions
+
+### Phase 2 — Mechanism Design
+- Draft candidate internal learning-trigger mechanisms
+- Compare mechanism alternatives and assumptions
+- Define evaluation criteria
+
+### Phase 3 — Prototype Experiments
+- Design small conceptual/behavioral simulations
+- Run controlled toy experiments
+- Document observations and failure modes
+
+### Phase 4 — Refinement
+- Incorporate supervisor feedback
+- Prioritize the strongest direction
+- Translate insights into a focused project plan
+
+## High-Level Flow
+
+```{mermaid}
+flowchart TD
+  A[Framing Questions] --> B[Literature Mapping]
+  B --> C[Mechanism Proposals]
+  C --> D[Toy Experiments]
+  D --> E[Analysis]
+  E --> F[Refinement]
+  F --> C
+```

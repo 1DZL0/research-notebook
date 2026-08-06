@@ -47,6 +47,9 @@ website:
       - text: Meetings
         href: 05-meetings/supervisor.qmd
 
+      - text: About
+        href: about.qmd
+
 
 format:
   html:

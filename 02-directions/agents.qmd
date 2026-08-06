@@ -1,0 +1,30 @@
+# Agent Research Directions
+
+## Direction Summary
+
+This section tracks the most promising idea threads for autonomous learning agents.
+
+## Candidate Direction Threads
+
+1. **Learning-trigger mechanisms**
+2. **Agent memory and belief revision**
+3. **Scientific-style self-evaluation**
+4. **Safety constraints during self-improvement**
+
+## Hypothesis Structure
+
+```{mermaid}
+flowchart TD
+  A[Observed mismatch] --> B[Internal uncertainty signal]
+  B --> C[Hypothesis generation]
+  C --> D[Test action / experiment]
+  D --> E[Evidence update]
+  E --> F[Model revision]
+```
+
+## Evaluation Lens
+
+- Does this direction explain *when* learning starts?
+- Does it scale beyond toy examples?
+- Can it be tested experimentally?
+- Does it preserve alignment/safety behavior?

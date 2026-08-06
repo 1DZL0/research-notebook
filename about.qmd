@@ -2,4 +2,20 @@
 title: "About"
 ---
 
-About this site
+This site presents a structured view of my active research notebook.
+
+## Purpose
+
+- Share evolving research ideas with my professor
+- Keep a transparent trail from question -> model -> experiment
+- Separate exploratory thinking from finalized claims
+
+## What this is (and is not)
+
+- **Is**: a working space for hypotheses, conceptual links, and direction-setting
+- **Is not**: a final thesis document or publication-ready material
+
+## Updating Process
+
+I write and update source notes in `.qmd` on the `master` branch.
+The website is generated automatically from those notes after each push.

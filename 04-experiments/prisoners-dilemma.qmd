@@ -1,0 +1,26 @@
+# Experiment Idea: Prisoner's Dilemma
+
+## Why this experiment
+
+Use a simple strategic environment to observe whether agents:
+
+- detect model mismatch,
+- update their strategy deliberately,
+- and distinguish short-term reward from long-term learning value.
+
+## Working Hypothesis
+
+Agents with internal uncertainty tracking should adapt cooperation/defection patterns more coherently than purely reactive agents.
+
+## Experimental Sketch
+
+1. Define baseline policy agent
+2. Define uncertainty-aware agent variant
+3. Compare behavior over repeated rounds
+4. Inspect adaptation trajectories, not just final reward
+
+## Metrics to Track
+
+- policy-switch frequency
+- consistency after adverse outcomes
+- recoverability after misleading rounds
