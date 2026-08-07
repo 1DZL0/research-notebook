@@ -2,8 +2,16 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     if (window.mermaid) {
-      mermaid.initialize({ startOnLoad: true });
-      mermaid.run();
+      document.querySelectorAll("pre.mermaid").forEach(function (pre) {
+        var code = pre.querySelector("code");
+        var source = code ? code.textContent : pre.textContent;
+        var container = document.createElement("div");
+        container.className = "mermaid";
+        container.textContent = source;
+        pre.replaceWith(container);
+      });
+      mermaid.initialize({ startOnLoad: false });
+      mermaid.run({ querySelector: ".mermaid" });
     }
   });
 </script>
