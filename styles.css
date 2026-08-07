@@ -2,12 +2,12 @@
 
 :root {
   --bg: #F7FAFC;
-  --surface: #FFFFFF;
+  --surface: #F2F6FF;
   --text: #0B1F3A;
   --muted: #52637A;
   --primary: #1D4ED8;
   --accent: #0D9488;
-  --border: #DCE5F0;
+  --border: #C9D8EE;
 }
 
 body {
@@ -33,7 +33,7 @@ h1, h2, h3, h4 {
 
 .navbar {
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
 }
 
 .navbar,
