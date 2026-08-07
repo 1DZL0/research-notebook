@@ -43,7 +43,7 @@ For example:
 - Different layers transform these representations into increasingly abstract features.
 - The model gradually builds an internal representation that supports the final decision.
 
-```{mermaid}
+```mermaid
 flowchart TD
 
 Task[Same Task Input]
@@ -116,7 +116,7 @@ The key question becomes:
 
 ## Current Multi-Agent View
 
-```{mermaid}
+```mermaid
 flowchart LR
 
 Prompt --> AgentA
@@ -148,7 +148,7 @@ Rather than immediately changing behaviour after failure, they first detect a mi
 
 Imagine someone is given a cup with an unfamiliar shape. Their first attempt to hold it follows previous experience, but the interaction feels different. The mismatch between expectation and reality triggers exploration and adaptation.
 
-```{mermaid}
+```mermaid
 flowchart TD
 
 A[Internal Model] 

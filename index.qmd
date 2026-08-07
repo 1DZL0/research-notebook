@@ -31,7 +31,7 @@ This is a working research notebook rather than a collection of final results. I
 
 ## Research Workflow
 
-```{mermaid}
+```mermaid
 flowchart LR
 
 A[Observation / Question]

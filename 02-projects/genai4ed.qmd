@@ -42,7 +42,7 @@ The AI can generate:
 
 # System Architecture
 
-```{mermaid}
+```mermaid
 flowchart TD
 
 Teacher[Teacher defines objectives and materials]
@@ -83,7 +83,7 @@ The student agent maintains information about:
 
 # System Architecture
 
-```{mermaid}
+```mermaid
 flowchart TD
 
 Teacher[Teacher creates lessons and activities]

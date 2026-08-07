@@ -14,7 +14,7 @@ This page provides a high-level overview of connections between research themes,
 
 # Concept Map
 
-```{mermaid}
+```mermaid
 flowchart LR
 
 AI[Adaptive Intelligent Systems]
