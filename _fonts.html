@@ -1,0 +1,12 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&subset=greek,latin&display=swap">
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var t = document.querySelector(".navbar-title");
+    if (!t) return;
+    var parts = t.textContent.split("·");
+    if (parts.length !== 2) return;
+    t.innerHTML = parts[0].trim() + ' <span class="greek">' + parts[1].trim() + "</span>";
+  });
+</script>

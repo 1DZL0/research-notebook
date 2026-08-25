@@ -1,0 +1,125 @@
+<script>
+window.HUB_DATA = {
+  "sections": [
+    {
+      "id": "00-research",
+      "label": "Research",
+      "order": 0,
+      "color": "#4A3A7A",
+      "blurb": "Vision, live questions, and the roadmap.",
+      "entries": [
+        {
+          "title": "Research Development",
+          "url": "00-research/research-development.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        },
+        {
+          "title": "Research Questions",
+          "url": "00-research/research-questions.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        },
+        {
+          "title": "Research Roadmap",
+          "url": "00-research/research-roadmap.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "01-literature",
+      "label": "Literature",
+      "order": 1,
+      "color": "#2F6558",
+      "blurb": "Papers read, and the map connecting them.",
+      "entries": [
+        {
+          "title": "Papers",
+          "url": "01-literature/papers.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "02-projects",
+      "label": "Projects",
+      "order": 2,
+      "color": "#8F5F30",
+      "blurb": "Applied work where the ideas meet something real.",
+      "entries": [
+        {
+          "title": "Project: GenAI4ED",
+          "url": "02-projects/genai4ed.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "03-experiments",
+      "label": "Experiments",
+      "order": 3,
+      "color": "#8A3E4E",
+      "blurb": "Prototypes and evaluations, with results or an honest blank.",
+      "entries": [
+        {
+          "title": "Experiment 01 — Prisoner's Dilemma",
+          "url": "03-experiments/prisoners-dilemma.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "04-meetings",
+      "label": "Meetings",
+      "order": 4,
+      "color": "#59636E",
+      "blurb": "Supervisor discussions and the decisions from them.",
+      "entries": [
+        {
+          "title": "Meeting",
+          "url": "04-meetings/supervisor.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    }
+  ]
+};
+</script>
+
+<script>
+(function () {
+  var d = window.HUB_DATA;
+  if (!d) return;
+  var parts = window.location.pathname.split("/").filter(Boolean);
+  var folder = parts.length > 1 ? parts[parts.length - 2] : null;
+  var section = null;
+  for (var i = 0; i < d.sections.length; i++) {
+    if (d.sections[i].id === folder) section = d.sections[i];
+  }
+  if (!section) return;
+  document.addEventListener("DOMContentLoaded", function () {
+    var host = document.querySelector("#quarto-document-content") ||
+               document.querySelector("main.content");
+    if (!host) return;
+    var a = document.createElement("a");
+    a.className = "back-link";
+    a.href = "../index.html#" + section.id;
+    a.style.setProperty("--back-color", section.color);
+    a.innerHTML = '<span aria-hidden="true">&larr;</span> ' + section.label;
+    host.insertBefore(a, host.firstChild);
+  });
+})();
+</script>

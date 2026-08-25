@@ -1,0 +1,87 @@
+---
+title: "Agent Frameworks"
+---
+
+## Overview
+
+Agent frameworks provide the software infrastructure required to build,
+orchestrate, and manage AI agents.
+
+They provide abstractions for:
+
+-   agent loops
+-   tool calling
+-   state management
+-   workflows
+-   memory integration
+-   multi-agent coordination
+-   evaluation
+
+Instead of manually building every component, frameworks provide
+reusable patterns for developing agent systems.
+
+
+## Framework Categories
+
+  Category                  Purpose
+  ------------------------- -----------------------------------------
+  Agent Orchestration       Build and control agent workflows
+  Multi-Agent Frameworks    Coordinate multiple agents
+  Data-Centric Frameworks   Build agents around knowledge retrieval
+  Enterprise Frameworks     Production-focused agent systems
+
+
+## Framework Comparison
+
+  ----------------------------------------------------------------------------------
+  Framework      Main Focus      Strengths             Limitations    Used
+  -------------- --------------- --------------------- -------------- --------------
+  LangGraph      Stateful agent  Flexible,             More           [x]
+                 workflows       controllable,         engineering    
+                                 production-oriented   required       
+
+  LangChain      General LLM     Large ecosystem, many Can become     [x]
+  Agents         applications    integrations          complex        
+
+  AutoGen        Multi-agent     Easy agent            Less workflow  []
+                 conversations   collaboration         control        
+
+  CrewAI         Role-based      Simple and intuitive  Less low-level []
+                 agents                                control        
+
+  Semantic       Enterprise      Strong enterprise     More           []
+  Kernel         orchestration   integration           abstraction    
+
+  OpenAI Agents  Lightweight     Simple, integrated    OpenAI         []
+  SDK            agent           tooling               ecosystem      
+                 development                           focused        
+
+  LlamaIndex     Data and RAG    Strong retrieval      More           []
+  Agents         agents          capabilities          specialised    
+
+  PydanticAI     Typed           Python engineering    Smaller        []
+                 production      focus                 ecosystem      
+                 agents                                               
+  ----------------------------------------------------------------------------------
+
+## Framework Selection Criteria
+
+Choosing an agent framework depends on the requirements of the system being built.
+
+A major design decision is how much control the developer wants over the agent behaviour.
+
+| Approach | Description | Advantages | Limitations |
+|---|---|---|---|
+| Fixed workflows | Developer defines the execution path | Predictable, easier debugging, safer | Less flexible |
+| Graph-based agents | Developer defines states and transitions | High control while allowing adaptation | More engineering effort |
+| Autonomous agents | Agent decides most actions dynamically | Flexible, powerful for exploration | Harder to evaluate and control |
+
+##### Example:
+
+```text
+Production system:
+More control → predictable behaviour
+
+Research prototype:
+More autonomy → explore agent capabilities
+```

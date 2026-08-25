@@ -2,170 +2,177 @@
 title: "Research Questions"
 ---
 
-# Research Questions
+# Research Ideas
 
-These pages capture emerging research questions, hypotheses, and conceptual ideas.  
+A running record of research questions and ideas that emerge from the literature.
 
-***
+New ideas are added **at the top** so the page develops from bottom to top over time.
 
-# Q3: Can we map and understand the internal reasoning pathways of AI agents?
+---
 
-## Intuition
+## Q4: How can capabilities accumulate across agents?
 
-Current AI systems are largely treated as black boxes.
+### Idea
 
-We observe:
+If one agent discovers a useful capability, the capability could potentially be transferred to another agent, combined with another capability, and used to produce something new.
 
-- input
-- output
-- behaviour
+### Where the Idea Came From
 
-but the internal computational process that produced the result remains difficult to interpret.
+- Multi-agent learning
+- Social learning
+- Shared memory
+- Recursive Multi-Agent Systems
+- EvolveR
+- Cumulative capability growth
 
-If we could map how information flows through an agent during reasoning, we may be able to understand:
+### Current Thought
 
-- why an error occurred,
-- why two agents diverged,
-- which internal pathways lead to successful decisions,
-- and how reasoning processes evolve.
+Could a population of agents accumulate capabilities over time in a way that allows the system to continually develop beyond the capabilities of individual agents?
 
-***
+**Status:** Exploring
 
-## Scientific Interpretation
+---
 
-A neural network transforms information through a sequence of high-dimensional representations.
+## Q3: Can we map and understand the internal reasoning pathways of AI agents?
 
-During inference, an input is not directly mapped to an output. Instead, the information is progressively transformed through many internal computational stages.
+### Idea
 
-For example:
+If agents develop different capabilities and reasoning strategies, their
+internal representations may contain information about how those stratiegies are formed
 
-- The input is converted into numerical representations.
-- Different layers transform these representations into increasingly abstract features.
-- The model gradually builds an internal representation that supports the final decision.
+Rather than only comparing an agent's input and final output, we could try to
+follow how its internal representations change during reasoning. This could
+allow us to identify where two agents begin to diverge and whether particular
+internal patterns are associated with successful reasoning or newly acquired
+capabilities.
 
-```mermaid
-flowchart TD
+The longer-term idea is to treat an agent's internal reasoning as a pathway
+that can be observed and compared, rather than treating the agent as a black
+box. (would have to be small models and scale)
 
-Task[Same Task Input]
+### What Led to the Idea
 
-Task --> A[Agent A]
-Task --> B[Agent B]
-Task --> C[Agent C]
+**Mechanistic interpretability**
 
-A --> A1[Internal Representation Trajectory]
-A1 --> A2[Activation Pattern A]
-A2 --> A3[Decision]
-A3 --> Fail[Incorrect Output]
+The interpretability literature provides methods for investigating internal
+representations and activations rather than relying only on model outputs.
+This suggested that an agent's internal computation may contain information
+that is useful for understanding its behaviour.
 
-B --> B1[Internal Representation Trajectory]
-B1 --> B2[Activation Pattern B]
-B2 --> B3[Decision]
-B3 --> Success[Correct Output]
+**Recursive Multi-Agent Systems**
 
-C --> C1[Internal Representation Trajectory]
-C1 --> C2[Compare Trajectories]
-C2 --> C3[Identify Successful Patterns]
-C3 --> C4[Guide Future Reasoning]
+RecursiveMAS uses latent representations as a communication mechanism between
+agents rather than passing everything through natural-language tokens. This
+made me consider whether internal representations could also be useful as an
+object of comparison between agents.
 
-Fail --> C2
-Success --> C2
+**Q2: Why do identical agents develop different reasoning strategies?**
+
+If agents can develop different strategies from similar starting conditions,
+then comparing only their final answers does not tell us where the difference
+emerged. Comparing their internal trajectories could potentially reveal where
+their reasoning begins to diverge.
+
+### Possible Approach
+
+A possible experiment would give several agents the same task and record
+their internal states throughout the reasoning process.
+
+```text
+                     Same Task
+                         │
+            ┌────────────┼────────────┐
+            ↓            ↓            ↓
+         Agent A      Agent B      Agent C
+            │            │            │
+            ↓            ↓            ↓
+       Internal       Internal      Internal
+       trajectory     trajectory    trajectory
+            │            │            │
+            └────────────┼────────────┘
+                         ↓
+                 Compare trajectories
+                         ↓
+              Identify divergence points
+                         ↓
+             Compare with final outcomes
+---
+
+## Q2: Why do identical agents develop different reasoning strategies?
+
+### Idea
+
+Multiple agents can start from the same model, receive the same task, and
+still develop different reasoning strategies and behaviours.
+
+For open-ended learning, this difference may be useful rather than something
+to eliminate. If agents explore different strategies, they may discover
+different capabilities that can later be compared, transferred, or combined.
+
+### What Could Cause the Divergence?
+
+Possible sources to investigate:
+
+- **Stochasticity** — different sampling or small random differences lead to
+  different trajectories.
+- **Experience** — agents encounter different outcomes and gradually develop
+  different knowledge.
+- **Memory** — agents retrieve different experiences when making decisions.
+- **Exploration** — agents choose different actions and discover different
+  parts of the environment.
+- **Internal representations** — similar inputs may produce different
+  internal states as agents learn.
+- **Communication** — agents receive different information from other agents.
+- **Specialisation** — agents may intentionally or naturally develop
+  different roles or skills.
+
+### How Could This Be Studied?
+
+Start with identical agents:
+
+```text
+Same model
+Same initial knowledge
+Same task
+        │
+        ├── Agent A ──→ trajectory A
+        ├── Agent B ──→ trajectory B
+        ├── Agent C ──→ trajectory C
+        └── Agent D ──→ trajectory D
 ```
 
-***
-# Q2: Why do identical agents think differently?
+### Current Thought
 
-## Intuition
+Could differences between agents be used to encourage exploration and specialisation, allowing different capabilities to emerge and later be transferred or combined?
 
-Imagine four scientists are given exactly the same research paper.
+**Status:** Exploring
 
-They have similar knowledge, the same information, and the same objective. However, each scientist may focus on different aspects:
+---
 
-- one questions assumptions,
-- one analyses methodology,
-- one considers applications,
-- one searches for weaknesses.
+## Q1: How does an agent know it should learn?
 
-The interesting question is not only why they produce different answers, but why their reasoning diverges despite starting from the same information.
+### Idea
 
-***
+In an open-ended environment, an agent may not be given a fixed task or explicit instruction about what to learn next.
 
-## Scientific Interpretation
-
-Current multi-agent systems mainly expose:
-
-- prompts
-- messages
-- tool usage
-- final outputs
-
-However, the internal computational processes that produce these outputs remain largely hidden.
-
-Agents may diverge because of differences in:
-
-- latent representations
-- memory retrieval
-- attention patterns
-- stochastic generation
-- reasoning trajectories
-
-The key question becomes:
-
-> How do internal computational processes shape the reasoning and behaviour of AI agents?
-
-***
-
-## Current Multi-Agent View
-
-```mermaid
-flowchart LR
-
-Prompt --> AgentA
-Prompt --> AgentB
-Prompt --> AgentC
-
-AgentA --> MessageA
-AgentB --> MessageB
-AgentC --> MessageC
-
-MessageA --> Output
-MessageB --> Output
-MessageC --> Output
-```
-
-***
-
-# Q1: How does an agent know it should learn?
-
-## Intuition
-
-Humans often recognise that their internal understanding is incomplete before receiving external feedback.
-
-Rather than immediately changing behaviour after failure, they first detect a mismatch between their expectations and reality.
-
-***
+The question is how the agent can identify useful learning opportunities and decide what to explore.
 
 ## Conceptual Example
 
 Imagine someone is given a cup with an unfamiliar shape. Their first attempt to hold it follows previous experience, but the interaction feels different. The mismatch between expectation and reality triggers exploration and adaptation.
 
-```mermaid
-flowchart TD
 
-A[Internal Model] 
-B[Interact with Environment] 
-C{Prediction matches reality?} 
-D[Continue]
-E[Prediction Mismatch]
-F[Generate Hypotheses]
-G[Experiment]
-H[Update Internal Model]
+### Where the Idea Came From
 
-A --> B
-B --> C
-C -->|Yes| D
-C -->|No| E
-E --> F
-F --> G
-G --> H
-H --> A
-```
+- Open-ended learning
+- Intrinsic motivation
+- Curiosity
+- Novelty
+- Evolver
+- Darwin Gödel Machine
+
+### Current Thought
+
+Could an open-ended agent identify its own capability gaps and generate learning objectives from them?
+
+**Status:** Exploring

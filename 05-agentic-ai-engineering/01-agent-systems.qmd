@@ -1,0 +1,55 @@
+---
+title: "Agent Systems"
+---
+
+## Overview
+
+An AI agent is a system that uses a large language model (LLM) as a reasoning component combined with tools, memory, and feedback mechanisms to achieve goals autonomously.
+
+Unlike a traditional LLM application:
+
+```
+Input → Model → Output
+```
+
+An agent operates through an iterative loop where it can observe, reason, act, and update its state.
+
+```mermaid
+flowchart LR
+Goal[Goal] --> Observe[Observe Environment]
+Observe --> Reason[Reason / Plan]
+Reason --> Act[Take Action]
+Act --> Feedback[Evaluate Result]
+Feedback --> Memory[Update State / Memory]
+Memory --> Observe
+```
+
+The key difference is that an agent can decide actions, use tools, maintain state, and adapt based on feedback.
+
+---
+
+### Core Components of an Agent
+
+| Component | Purpose |
+|---|---|
+| LLM | Reasoning and decision making |
+| Tools | Interaction with external systems |
+| Memory | Store and retrieve information |
+| State | Track task progress |
+| Evaluation | Measure and improve performance |
+
+---
+
+### Agent Loop
+
+```mermaid
+flowchart TD
+Task[Receive Goal] --> Plan[Create Plan]
+Plan --> Action[Select Action]
+Action --> Tool[Execute Tool]
+Tool --> Observation[Receive Result]
+Observation --> Evaluate[Evaluate Outcome]
+Evaluate --> Plan
+```
+
+

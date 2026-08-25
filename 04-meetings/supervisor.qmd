@@ -1,13 +1,28 @@
 ﻿---
-title: "Meeting - 2026-08-06"
+title: "Meeting"
 ---
 
-## Notes
+## title: "Meeting - 2026-08-06"
 
-- 
+### Participants
 
-## Actions
+- Constantine
+- Diesel Mears
 
-- [ ] 
+---
 
-***
+### Notes
+
+- Discussed OpenEnded/OpenAI research directions and what kinds of long-term research questions are interesting.
+- Focused on making sure I develop a solid understanding of agentic AI concepts before committing to future project work.
+- Identified the need to better understand agent architectures, tools/function calling, memory systems, RAG, and multi-agent systems as core foundations..
+- Agreed that I should continue reading, taking structured notes, and showing code examples so that I can discuss ideas more critically in future meetings.
+
+---
+
+### Actions
+
+* [ ] Continue reading agentic AI material.
+* [ ] Consolidate notes from current readings into the research notebook.
+* [ ] Prepare a short summary of current understanding and open questions for the next meeting.
+* [ ] Prepare the agent game example and code for the next meeting

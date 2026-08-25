@@ -1,53 +1,37 @@
 project:
   type: website
+  output-dir: _site
+  pre-render: scripts/build_hub.py
+  resources:
+    - hub.js
 
 website:
-  title: "Diesel Mears Research Notebook"
+  title: "Phronesis · Φρόνησις"
   site-url: "https://1dzl0.github.io/research-notebook/"
+  description: "A working notebook on adaptive, self-organising multi-agent systems."
+  search: false
 
   navbar:
-    background: light
-    foreground: "#0F172A"
-    left:
-      - href: index.qmd
-        text: Home
-
-      - text: Research
-        menu:
-          - text: Research Development
-            href: 00-research/research-development.qmd
-          - text: Research Questions
-            href: 00-research/research-questions.qmd
-          - text: Roadmap
-            href: 00-research/research-roadmap.qmd
-
-      - text: Literature
-        menu:
-          - text: Literature Map
-            href: 01-literature/literature-map.qmd
-          - text: Papers
-            href: 01-literature/papers.qmd
-
-      - text: Projects
-        menu:
-          - text: Pharos-CY
-            href: 02-projects/pharos-cy.qmd
-          - text: GenAI4ED
-            href: 02-projects/genai4ed.qmd
-
-      - text: Experiments
-        menu:
-          - text: Prisoner's Dilemma
-            href: 03-experiments/prisoners-dilemma.qmd
-
-
-      - text: Meetings
-        href: 04-meetings/supervisor.qmd
-
+    background: "#F0EEE9"
+    foreground: "#6A6478"
+    right:
+      - icon: github
+        href: https://github.com/1DZL0/research-notebook
+        aria-label: Source repository
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
-    include-in-header: mermaid-init.html
+    toc-depth: 3
+    toc-location: right
+    toc-title: "Contents"
+    anchor-sections: true
+    mermaid:
+      theme: neutral
+    include-in-header:
+      - _fonts.html
+      - mermaid-init.html
+      - _hub-include.html
+      - _status-badges.html

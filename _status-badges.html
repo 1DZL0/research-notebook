@@ -1,0 +1,20 @@
+<script>
+  // Maps a small, fixed status vocabulary onto CSS classes so the same word
+  // looks the same everywhere: listing cards, listing tables, and entry pages.
+  document.addEventListener("DOMContentLoaded", function () {
+    var STATUSES = ["question", "active", "evidence", "parked", "reference"];
+
+    var selectors = [
+      ".listing-category",        // grid + default listings
+      ".quarto-category",         // entry page title block
+      ".listing-status"           // table listing column
+    ].join(",");
+
+    document.querySelectorAll(selectors).forEach(function (el) {
+      var word = el.textContent.trim().toLowerCase();
+      if (STATUSES.indexOf(word) !== -1) {
+        el.classList.add("status-badge", "status-" + word);
+      }
+    });
+  });
+</script>

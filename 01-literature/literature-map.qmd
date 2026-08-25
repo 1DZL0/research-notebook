@@ -1,42 +1,122 @@
-﻿---
-title: "Literature Map"
+﻿# Literature Map
+
+**Research focus:** Open-ended capability growth in autonomous multi-agent systems.
+
+```text
+Open-Ended Capability Growth
+│
+├── Open-Ended Learning
+│   ├── Novelty Search
+│   ├── MAP-Elites / Quality-Diversity
+│   ├── POET
+│   ├── Artificial Life
+│   └── Environment Coevolution
+│
+├── Continual Learning
+│   ├── Catastrophic Forgetting
+│   ├── Experience Replay
+│   ├── Stability–Plasticity
+│   └── Online Adaptation
+│
+├── Intrinsic Motivation
+│   ├── Curiosity
+│   ├── Information Gain
+│   ├── Empowerment
+│   └── Active Learning
+│
+├── World Models
+│   ├── Predictive Models
+│   ├── Planning
+│   ├── Uncertainty Estimation
+│   └── Latent Dynamics
+│
+├── Agentic Systems
+│   ├── Planning Agents
+│   ├── Tool Use
+│   ├── Memory Systems
+│   ├── Reflection
+│   └── Self-Improvement
+│
+├── Multi-Agent Systems
+│   ├── Coordination
+│   ├── Communication
+│   ├── Role Allocation
+│   └── Collective Intelligence
+│
+├── Social Learning
+│   ├── Teaching
+│   ├── Imitation
+│   ├── Skill Transfer
+│   └── Cultural Transmission
+│
+├── Shared Memory
+│   ├── Vector Memory
+│   ├── Knowledge Graphs
+│   ├── Episodic Memory
+│   └── Long-Term Memory
+│
+├── Evolutionary Search
+│   ├── Evolutionary Algorithms
+│   ├── Population-Based Training
+│   ├── Architecture Search
+│   └── Self-Modification
+│
+├── Organizational Emergence
+│   ├── Persistent Organizations
+│   ├── Protocol Evolution
+│   ├── Shared Standards
+│   └── Institutional Memory
+│
+├── Interpretability & Observability
+│   ├── Mechanistic Interpretability
+│   ├── Sparse Autoencoders
+│   ├── Reasoning Trajectories
+│   └── Agent Observability
+│
+├── Meta-Learning
+│   ├── Learning to Learn
+│   ├── Strategy Adaptation
+│   ├── Self-Generated Curricula
+│   └── Hyperparameter Adaptation
+│
+├── Evaluation
+│   ├── Capability Growth
+│   ├── Diversity Metrics
+│   ├── Transfer
+│   ├── Long-Horizon Evaluation
+│   └── Open-Endedness Metrics
+│
+└── Safety & Alignment
+    ├── Alignment
+    ├── Goal Stability
+    ├── Reward Hacking
+    ├── Corrigibility
+    └── Verification
+```
+
 ---
 
-# Literature Map
+## Core Areas for My Current Direction
 
-## Goal
+**Highest priority**
 
-Map the major research areas contributing to the development of adaptive intelligent systems.
+* Open-Ended Learning
+* Multi-Agent Systems
+* Social Learning
+* Shared Memory
+* Evolutionary Search
+* Evaluation
 
-This page provides a high-level overview of connections between research themes, with detailed analysis stored in individual literature notes.
+**Strongly related**
 
-***
+* Intrinsic Motivation
+* World Models
+* Continual Learning
+* Organizational Emergence
 
-# Concept Map
+**Supporting**
 
-```mermaid
-flowchart LR
-
-AI[Adaptive Intelligent Systems]
-
-AI --> A[Agentic Systems]
-AI --> L[Learning and Adaptation]
-AI --> W[Internal Models]
-AI --> M[Motivation and Exploration]
-AI --> S[Safety and Alignment]
-
-A --> MEM[Memory]
-A --> COM[Communication]
-A --> PLAN[Planning]
-
-L --> META[Meta-learning]
-L --> CONT[Continual Learning]
-
-W --> WM[World Models]
-W --> UNC[Uncertainty]
-
-M --> CUR[Curiosity]
-M --> ACTIVE[Active Learning]
-
-S --> ALIGN[Alignment]
-S --> EVAL[Evaluation]
+* Agentic Systems
+* Interpretability
+* Meta-Learning
+* Safety & Alignment

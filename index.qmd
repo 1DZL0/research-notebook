@@ -1,58 +1,94 @@
-﻿---
-title: "Research Notebook"
+---
+pagetitle: "Phronesis — research notebook"
+toc: false
+listing:
+  - id: all-entries
+    contents:
+      - "00-research/*.qmd"
+      - "01-literature/*.qmd"
+      - "02-projects/*.qmd"
+      - "03-experiments/*.qmd"
+      - "04-meetings/*.qmd"
+      - "05-agentic-ai-engineering/*.qmd"
+    type: table
+    fields: [date, title, status, description]
+    field-display-names:
+      status: "Status"
+      description: "Where it stands"
+    sort: "date desc"
+    filter-ui: true
+include-after-body:
+  - text: |
+      <script src="hub.js"></script>
 ---
 
-## Research Status
-
-**Last Updated:** 06 August 2026
-
-### Current Focus
-This week I am exploring:
-
-- How autonomous agents can develop adaptive communication protocols
-- Memory architectures for long-running AI systems
-- Mechanisms for coordination, specialization, and self-organisation in multi-agent systems
-
-### Current Questions
-
-> How can AI systems move beyond isolated task-solving agents towards adaptive systems that can organise, communicate, and improve through experience?
-
-***
-
-## Research Overview
-
-This notebook tracks evolving research ideas, literature exploration, experimental designs, and discussions.
-
-::: {.callout-note}
-This is a working research notebook rather than a collection of final results. Ideas, hypotheses, and directions are expected to change as they are refined through literature analysis and supervisor feedback.
+::: {.hub-eyebrow}
+The question
 :::
 
-***
+::: {.hub-question}
+How can AI systems move beyond isolated task-solving agents towards adaptive
+systems that organise, communicate, and improve through experience?
+:::
 
-## Research Workflow
+::: {.hub-hint}
+Hover a node for context, click a section for a focused spotlight.
+:::
 
-```mermaid
-flowchart LR
+::: {.callout-important}
+## Supervisor snapshot
 
-A[Observation / Question]
---> B[Conceptual Model]
---> C[Literature Review]
---> D[Hypothesis]
---> E[Experiment]
---> F[Analysis]
---> G[Refined Question]
---> A
-```
+**Research objective (current):** Model how multi-agent systems adapt communication, memory, and coordination under changing task conditions.
 
-***
+**What changed since last update**
+- Refined the homepage information architecture so active threads and section evidence are visible at a glance.
+- Added section spotlight behavior to expose entry-level status directly from the hub.
+- Consolidated current priorities into explicit `Now / Next / Parked` lanes.
 
-## Notebook Navigation
+**Next milestone**
+- Prepare an experiment-design baseline (protocol adaptation + memory condition matrix) for supervisor review.
+:::
 
-| Section | Purpose |
-|---|---|
-| Research | High-level vision, questions, roadmap |
-| Literature | Paper summaries and conceptual connections |
-| Research Directions | Individual research threads |
-| Projects | Applied project ideas and collaborations |
-| Experiments | Prototype ideas and evaluations |
-| Meetings | Discussion notes and decisions |
+::: {.hub-strip}
+::: {.hub-strip-item}
+### Current focus
+**Last updated:** 06 August 2026
+
+::: {.focus-grid}
+::: {.focus-card}
+#### Adaptive communication
+Designing how agents negotiate, align, and adapt their protocols over time.
+<a class="focus-link" href="#00-research">Open research cluster →</a>
+:::
+::: {.focus-card}
+#### Long-running memory
+Comparing memory architectures that stay coherent across long horizons.
+<a class="focus-link" href="#01-literature">Open literature cluster →</a>
+:::
+::: {.focus-card}
+#### Coordination mechanisms
+Testing specialization and self-organisation dynamics in controlled settings.
+<a class="focus-link" href="#03-experiments">Open experiment cluster →</a>
+:::
+:::
+:::
+:::
+
+::: {.hub-layout}
+::: {.hub-canvas}
+::: {#hub}
+:::
+:::
+:::
+
+::: {.callout-note}
+This is a working notebook rather than a collection of final results. Every
+entry carries a status — `question`, `active`, `evidence`, `parked`, or
+`reference` — so directions can change in the open as they are refined through
+literature and supervisor feedback.
+:::
+
+## All entries
+
+::: {#all-entries}
+:::

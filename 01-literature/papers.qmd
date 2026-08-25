@@ -1,26 +1,120 @@
-﻿# Papers
+﻿---
+title: "Papers"
+page-layout: full
+toc: false
+format:
+  html:
+    css: ../styles.css
+---
 
-## Reading Log Template
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.classList.add("papers-page");
 
-Use one section per paper with:
+  function getCellValue(row, index) {
+    return row.children[index] ? row.children[index].innerText.trim() : "";
+  }
 
-- **Citation**
-- **Core idea**
-- **Why it matters for this research**
-- **Open questions it leaves**
+  function compareRows(a, b, index, asNumber) {
+    const valA = getCellValue(a, index);
+    const valB = getCellValue(b, index);
+    if (asNumber) {
+      return (parseFloat(valA) || 0) - (parseFloat(valB) || 0);
+    }
+    return valA.localeCompare(valB, undefined, { numeric: true, sensitivity: "base" });
+  }
 
-## Active Paper List
+  function sortTable(table, columnIndex, direction, asNumber) {
+    const tbody = table.tBodies[0];
+    if (!tbody) return;
+    const rows = Array.from(tbody.rows);
+    rows.sort((a, b) => {
+      const result = compareRows(a, b, columnIndex, asNumber);
+      return direction === "desc" ? -result : result;
+    });
+    rows.forEach((row) => tbody.appendChild(row));
+  }
 
-| Paper | Theme | Relevance | Status |
-|---|---|---|---|
-| (add paper) | (cluster) | (high/med/low) | To read |
-| (add paper) | (cluster) | (high/med/low) | In progress |
+  // Every table auto-sorts by Year (newest first); click any header to re-sort by that column.
+  document.querySelectorAll("main.content table").forEach((table) => {
+    const headerRow = table.tHead && table.tHead.rows[0];
+    if (!headerRow) return;
 
-## Example Note Structure
+    let yearIndex = -1;
+    Array.from(headerRow.cells).forEach((cell, index) => {
+      cell.dataset.sortDir = "";
+      if (cell.innerText.trim().toLowerCase() === "year") {
+        yearIndex = index;
+      }
+      cell.addEventListener("click", () => {
+        const isNumber = cell.innerText.trim().toLowerCase() === "year";
+        const nextDir = cell.dataset.sortDir === "desc" ? "asc" : "desc";
+        Array.from(headerRow.cells).forEach((c) => (c.dataset.sortDir = ""));
+        cell.dataset.sortDir = nextDir;
+        sortTable(table, index, nextDir, isNumber);
+      });
+    });
 
-### Paper: _Title_
-- **Main contribution**:
-- **Method**:
-- **Useful concept for my work**:
-- **Potential criticism**:
-- **Follow-up idea**:
+    if (yearIndex !== -1) {
+      sortTable(table, yearIndex, "desc", true);
+      headerRow.cells[yearIndex].dataset.sortDir = "desc";
+    }
+  });
+});
+</script>
+
+This is my structured collection of papers relevant to my PhD research and associated projects.
+
+The categories provide a high-level view of the research landscape. The Key Finding column captures the main takeaway for each paper so comparisons across the literature.
+
+---
+
+## PhD Papers
+
+### 1. Open-Ended Learning & Self-Evolution
+
+Papers exploring systems that can continue developing, improving, evolving, or modifying themselves beyond a fixed training procedure
+
+| Paper | Year | Research Focus | What Changes | Key Finding | Source |
+|---|---:|---|---|---|---|
+| Recursive Multi-Agent Systems | 2026 | Latent-space recursive multi-agent | Inter-agent communication / latent states | Latent communication can improve multi-agent reasoning while reducing inference cost and token use | [Link](https://arxiv.org/abs/2604.25917/) |
+| **Darwin Gödel Machine** | 2025 | Self-improving agents | Agent code / system |An archive of diverse agent lineages helps avoid local optima and enables later improvements from earlier discoveries. | [Link](https://arxiv.org/abs/2505.22954) |
+| AlphaEvolve | 2025 | Automated algorithm discovery | Programs / algorithms | Evolutionary search over programs discovers new algorithms that outperform prior human-designed solutions. | [Link](https://arxiv.org/abs/2506.13131) |
+| **Evolver: Self-Evolving LLM Agents through Experience** | 2025 | Self-evolving agents via experience | Agent policy / behaviour | Agents can distill experience into reusable strategies and use them to improve future behaviour. | [Link](https://arxiv.org/abs/2510.16079) |
+| A Self-Improving Coding Agent | 2025 | Self-improving coding agents | Coding agent | An agent can iteratively rewrite and improve its own coding capabilities without external supervision. | [Link](https://arxiv.org/abs/2504.15228) |
+
+---
+
+### 2. Multi-Agent Systems & Collective Reasoning
+
+Papers exploring how multiple agents communicate, debate, coordinate, specialise, or collectively solve problems.
+
+| Paper | Year | Research Focus | What Changes | Key Finding | Source |
+|---|---:|---|---|---|---|
+| Improving Multi-Agent Debate with Sparse Communication Topology | 2024 | Effect of communication topology on debate | Communication topology | Sparse communication topologies can match or exceed fully-connected debate while reducing communication cost. | [Link](https://arxiv.org/abs/2406.11776) |
+| Improving Factuality and Reasoning in Language Models through Multiagent Debate | 2023 | Improving factual accuracy via debate | Reasoning / decision | Multiple language model agents debating and critiquing each other's answers improves factual accuracy and reasoning quality. | [Link](https://arxiv.org/abs/2305.14325) |
+| ReConcile: Round-Table Conference Improves Reasoning via Consensus among Diverse LLMs | 2023 | Reaching consensus among diverse LLMs | Final decision | Structured rounds of discussion between diverse LLMs help them converge on more accurate shared answers. | [Link](https://arxiv.org/abs/2309.13007) |
+
+---
+
+### 3. Agentic Learning, Tools & Interaction
+
+Papers exploring agents that learn through interaction, tool use, tasks, feedback, or increasingly autonomous workflows.
+
+| Paper | Year | Research Focus | What Changes | Key Finding | Source |
+|---|---:|---|---|---|---|
+| AutoResearchBench: Benchmarking AI Agents on Complex Scientific Literature Discovery | 2026 | Benchmarking scientific literature discovery | Agent capability | Current agents still struggle with complex, multi-step scientific literature discovery tasks. | [Link](https://arxiv.org/abs/2604.25256) |
+| MUA-RL: Multi-turn User-interacting Agent Reinforcement Learning for Agentic Tool Use | 2025 | Training agents for multi-turn tool use | Agent policy / tool use | Reinforcement learning over multi-turn user interactions improves an agent's ability to use tools effectively. | [Link](https://arxiv.org/abs/2508.18669) |
+
+---
+
+## Project Papers
+
+### GenAI4ED
+
+Papers collected specifically for the GenAI4ED project.
+
+| Paper | Year | Research Focus | What Changes | Key Finding | Source |
+|---|---:|---|---|---|---|
+| Deep Tutor: Towards Agentic Personalized Tutoring | 2026 | Agentic personalised tutoring | Agent behaviour / tutoring process | An agentic tutoring approach can personalise instruction more effectively than static tutoring systems. | [Link](https://arxiv.org/abs/2604.26962) |
+
