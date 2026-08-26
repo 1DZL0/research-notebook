@@ -105,6 +105,61 @@ body:not(.papers-page):not(.hub-home) main.content {
   margin-right: auto;
 }
 
+.research-question {
+  border-top: 1px solid var(--border);
+  margin: 2.5rem 0;
+  padding-top: 1.25rem;
+}
+
+.research-question:first-of-type {
+  margin-top: 1.5rem;
+}
+
+.research-question-key {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin: 0 0 1.5rem;
+}
+
+.research-question-key strong {
+  color: var(--text);
+}
+
+.text-purple {
+  color: var(--primary);
+}
+
+.text-blue,
+.research-status.is-exploring {
+  color: #356D9A;
+}
+
+.text-green,
+.research-status.is-promising {
+  color: var(--accent);
+}
+
+.text-red,
+.research-status.is-not-useful {
+  color: #A13F48;
+}
+
+.research-status {
+  font-weight: 600;
+}
+
+.research-question .callout {
+  margin: 0 0 1rem;
+}
+
+.research-question .callout p {
+  line-height: 1.55;
+}
+
+.research-question > :last-child {
+  margin-bottom: 0;
+}
+
 .quarto-container .sidebar nav[role="doc-toc"] {
   border-left: 1px solid var(--border);
 }
@@ -424,12 +479,42 @@ body.hub-home #title-block-header {
   text-align: center;
 }
 
+.hub-current-thread {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin: -0.4rem auto 0.75rem;
+  max-width: 72ch;
+  text-align: center;
+}
+
+.hub-current-thread strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.hub-current-thread a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.hub-current-thread a:hover {
+  text-decoration: underline;
+}
+
 .hub-map-note {
   color: var(--muted);
   font-size: 0.78rem;
   letter-spacing: 0.02em;
   margin: 0 auto 0.35rem;
   max-width: 72ch;
+  text-align: center;
+}
+
+.hub-last-updated {
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  margin: 0.5rem auto 1.4rem;
   text-align: center;
 }
 
@@ -462,6 +547,9 @@ body.hub-home #title-block-header {
 }
 
 .hub-layout {
+  width: min(calc(100vw - 2rem), 72rem);
+  margin-left: 50%;
+  transform: translateX(-50%);
   position: relative;
   padding-right: 0;
 }
@@ -487,16 +575,80 @@ body.hub-home #title-block-header {
   color: var(--muted);
 }
 
+#hub {
+  position: relative;
+  z-index: 1;
+}
+
 #hub-svg {
   width: 100%;
   margin-left: 0;
   height: auto;
   display: block;
   max-height: 74vh;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
   border: none;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+}
+
+.hub-tooltip {
+  background: color-mix(in srgb, var(--surface) 92%, #fff);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  box-shadow: 0 6px 16px rgba(20, 18, 26, 0.09);
+  color: var(--text);
+  max-width: min(13rem, calc(100% - 1rem));
+  opacity: 0;
+  padding: 0.45rem 0.55rem;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-50%, 12px);
+  transition: opacity 130ms ease, visibility 130ms ease;
+  visibility: hidden;
+  width: max-content;
+  z-index: 2;
+}
+
+.hub-tooltip.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hub-tooltip.is-left {
+  transform: translate(calc(-100% - 16px), -50%);
+}
+
+.hub-tooltip.is-below {
+  transform: translate(16px, 16px);
+}
+
+.hub-tooltip.is-left.is-below {
+  transform: translate(calc(-100% - 16px), 16px);
+}
+
+.hub-tooltip.is-above {
+  transform: translate(16px, calc(-100% - 16px));
+}
+
+.hub-tooltip.is-left.is-above {
+  transform: translate(calc(-100% - 16px), calc(-100% - 16px));
+}
+
+.hub-tooltip-title {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.hub-tooltip-body {
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.35;
+  margin: 0.16rem 0 0;
 }
 
 .hub-edges path {
@@ -551,9 +703,9 @@ body.hub-home #title-block-header {
 }
 
 .hub-main-label {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  font-size: 12px;
+  font-weight: 550;
+  letter-spacing: 0.02em;
   fill: var(--text);
 }
 
@@ -607,7 +759,7 @@ body.hub-home #title-block-header {
 
 .hub-kid-label {
   font-size: 12px;
-  font-weight: 520;
+  font-weight: 400;
   fill: color-mix(in srgb, var(--text) 88%, var(--muted));
 }
 
@@ -616,11 +768,11 @@ body.hub-home #title-block-header {
 }
 
 .hub-kid:hover .hub-kid-dot {
-  r: 8px;
+  r: 7px;
 }
 
 .hub-kid:hover .hub-kid-halo {
-  r: 12px;
+  r: 10.5px;
   opacity: 0.92;
 }
 

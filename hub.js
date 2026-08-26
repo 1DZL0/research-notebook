@@ -7,18 +7,34 @@
   if (!mount || !data || !data.sections.length) return;
 
   var NS = "http://www.w3.org/2000/svg";
-  var W = 780, H = 530, CX = 390, CY = 265, R = 152;
+  var W = 900, H = 400, CX = 450, CY = 285, R = 152, X_SPREAD = 1.22;
   var sections = data.sections.slice().sort(function (a, b) { return a.order - b.order; });
   var openId = null;
 
 
 
-  // Deterministic per-index variety so arms don't read as a perfect, mechanical
-  // circle. Values are hand-tuned offsets, not randomised, so the layout is
-  // stable across renders.
-  var ANGLE_JITTER = [-16, 20, -9, 24, -22, 12, -6];
-  var RADIUS_JITTER = [-30, 26, -14, 34, -26, 16, 8];
+  // Hand-tuned lanes keep the broad map balanced while giving the denser
+  // Research branch room on the right.
+  var BRANCH_ANGLES = [-35, -106, 25, 150, -155];
   var TWIST_JITTER = [14, -22, 18, -12, 24, -16, 10];
+  var BRANCH_RADII = [250, 170, 250, 245, 250];
+  var MAIN_LABEL_OFFSETS = [[0, 38], [0, 36], [0, -26], [0, -26], [0, 36]];
+  var DEFAULT_BRANCH_LAYOUT = {
+    "03-experiments": { x: 213.1, y: 110.9 },
+    "04-meetings": { x: 374.2, y: 311.3 },
+    "01-literature": { x: 432.0, y: 106.9 },
+    "02-projects": { x: 576.1, y: 310.5 }
+  };
+  var DEFAULT_CHILD_LAYOUT = {
+    "01-literature:01-literature/papers.html": { x: 439.5, y: 19.9 },
+    "00-research:00-research/research-questions.html": { x: 621.0, y: 81.3 },
+    "00-research:00-research/research-development.html": { x: 795.0, y: 113.3 },
+    "00-research:00-research/research-roadmap.html": { x: 776.6, y: 167.6 },
+    "02-projects:02-projects/pharos-cy.html": { x: 652.9, y: 269.8 },
+    "02-projects:02-projects/genai4ed.html": { x: 654.3, y: 329.6 },
+    "04-meetings:04-meetings/supervisor.html": { x: 310.3, y: 292.9 },
+    "04-meetings:04-meetings/other-meetings.html": { x: 250.0, y: 360.0 }
+  };
 
   function e(tag, attrs) {
     var n = document.createElementNS(NS, tag);
@@ -27,18 +43,28 @@
   }
 
   function angleFor(i) {
-    var base = (-Math.PI / 2) + (i * 2 * Math.PI / sections.length);
-    var jitter = (ANGLE_JITTER[i % ANGLE_JITTER.length] * Math.PI) / 180;
-    return base + jitter;
+    return (BRANCH_ANGLES[i % BRANCH_ANGLES.length] * Math.PI) / 180;
   }
 
   function sectionPoint(i) {
+    var saved = DEFAULT_BRANCH_LAYOUT[sections[i].id];
+    if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) {
+      var dx = (saved.x - CX) / X_SPREAD;
+      var dy = (saved.y - CY) / 0.92;
+      return {
+        angle: Math.atan2(dy, dx),
+        radius: Math.sqrt((dx * dx) + (dy * dy)),
+        x: saved.x,
+        y: saved.y
+      };
+    }
+
     var a = angleFor(i);
-    var radius = R + RADIUS_JITTER[i % RADIUS_JITTER.length];
+    var radius = BRANCH_RADII[i % BRANCH_RADII.length] || R;
     return {
       angle: a,
       radius: radius,
-      x: CX + Math.cos(a) * radius,
+      x: CX + Math.cos(a) * radius * X_SPREAD,
       y: CY + Math.sin(a) * radius * 0.92
     };
   }
@@ -46,17 +72,26 @@
   mount.innerHTML =
     '<svg id="hub-svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" ' +
     'aria-label="Section map. A full list of entries follows below."></svg>' +
-    '<div id="hub-brief" class="hub-brief" role="status" aria-live="polite"></div>';
+    '<aside id="hub-tooltip" class="hub-tooltip" role="status" aria-live="polite"></aside>';
 
   var svg = document.getElementById("hub-svg");
-  var brief = document.getElementById("hub-brief");
-  var gEdges = e("g", { "class": "hub-edges" });
-  var gKids = e("g", {});
-  var gMains = e("g", {});
+  var tooltip = document.getElementById("hub-tooltip");
+  var gEdges;
+  var gKids;
+  var gMains;
 
   function clearBrief() {
-    if (openId) return;
-    brief.innerHTML = '<p class="hub-brief-empty">All section entries are visible.</p>';
+    tooltip.className = "hub-tooltip";
+    tooltip.innerHTML = "";
+  }
+
+  function setBrief(title, body, x, y) {
+    tooltip.className = "hub-tooltip is-visible";
+    tooltip.style.left = ((x / W) * 100) + "%";
+    tooltip.style.top = ((y / H) * 100) + "%";
+    tooltip.innerHTML =
+      '<strong class="hub-tooltip-title">' + escapeHtml(title) + "</strong>" +
+      '<p class="hub-tooltip-body">' + escapeHtml(body || "Select this node to open the note.") + "</p>";
   }
 
   function clearBranchHighlight() {
@@ -109,9 +144,19 @@
         ? (i - (kids.length - 1) / 2) * angularStep
         : laneDir * 0.24;
       var a = parent.angle + offset;
-      var radial = parent.radius + 74 + (i * 46);
-      var x = CX + Math.cos(a) * radial;
+      var radial = parent.radius + 84 + (i * 44);
+      var shortTitle = compactHubLabel(entry.title);
+      var labelHalfWidth = Math.min(110, 10 + (shortTitle.length * 4.2));
+      var x = CX + Math.cos(a) * radial * X_SPREAD;
       var y = CY + Math.sin(a) * radial * 0.92;
+      var childId = section.id + ":" + entry.url;
+      var saved = DEFAULT_CHILD_LAYOUT[childId];
+      if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) {
+        x = saved.x;
+        y = saved.y;
+      } else {
+        x = Math.max(labelHalfWidth + 14, Math.min(W - labelHalfWidth - 14, x));
+      }
       var mx = (px + x) * 0.5;
       var my = (py + y) * 0.5;
       var dir = (i % 2 === 0) ? 1 : -1;
@@ -126,15 +171,13 @@
         stroke: section.color
       });
       g.appendChild(childEdge);
-      g.appendChild(e("circle", { cx: x, cy: y, r: 22, fill: "transparent" }));
-      g.appendChild(e("circle", { cx: x, cy: y, r: 10.5, "class": "hub-kid-halo", stroke: section.color }));
-      g.appendChild(e("circle", { cx: x, cy: y, r: 6.8, "class": "hub-kid-dot" }));
+      g.appendChild(e("circle", { cx: x, cy: y, r: 20, fill: "transparent" }));
+      g.appendChild(e("circle", { cx: x, cy: y, r: 9.3, "class": "hub-kid-halo", stroke: section.color }));
+      g.appendChild(e("circle", { cx: x, cy: y, r: 6, "class": "hub-kid-dot" }));
 
-      var right = Math.cos(a) >= -0.05;
-      var shortTitle = compactHubLabel(entry.title);
       var label = e("text", {
-        x: x + (right ? 15 : -15), y: y + 4,
-        "text-anchor": right ? "start" : "end", "class": "hub-kid-label"
+        x: x, y: y - 18,
+        "text-anchor": "middle", "class": "hub-kid-label"
       });
       label.textContent = shortTitle;
       g.appendChild(label);
@@ -144,7 +187,7 @@
       g.appendChild(title);
 
       function show() {
-        setBrief(entry.title, entry.description, entry.url);
+        setBrief(entry.title, entry.description, x, y);
         highlightBranch(section.id, childEdge);
       }
       function hide() {
@@ -156,44 +199,15 @@
       g.addEventListener("focus", show);
       g.addEventListener("mouseleave", hide);
       g.addEventListener("blur", hide);
-      g.addEventListener("click", function (ev) { ev.stopPropagation(); go(); });
+      g.addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        go();
+      });
       g.addEventListener("keydown", function (ev) {
         if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go(); }
       });
       gKids.appendChild(g);
     });
-  }
-
-  function renderSpotlight(section, kids) {
-    var top = kids.slice(0, 3);
-    var list = top.map(function (entry) {
-      var desc = entry.description || "Open this entry to see the current notes and status.";
-      return (
-        '<li class="hub-spotlight-item">' +
-        '<a class="hub-spotlight-link" href="' + entry.url + '">' + entry.title + "</a>" +
-        '<p class="hub-spotlight-desc">' + desc + "</p>" +
-        "</li>"
-      );
-    }).join("");
-
-    var helper = kids.length > 3 ? ('<p class="hub-spotlight-more">' + (kids.length - 3) + ' more entries in this section.</p>') : "";
-    brief.innerHTML =
-      '<div class="hub-spotlight">' +
-      '<div class="hub-spotlight-head">' +
-      '<span class="hub-brief-title">' + section.label + '</span>' +
-      '<span class="hub-spotlight-count">' + kids.length + (kids.length === 1 ? ' entry' : ' entries') + '</span>' +
-      '</div>' +
-      '<p class="hub-brief-body">' + section.blurb + "</p>" +
-      '<ul class="hub-spotlight-list">' + list + "</ul>" +
-      helper +
-      "</div>";
-  }
-
-  function setBrief(title, body, href) {
-    var head = '<span class="hub-brief-title">' + title + '</span>';
-    var tail = href ? ' <a class="hub-brief-link" href="' + href + '">Open entry &rarr;</a>' : '';
-    brief.innerHTML = '<div class="hub-brief-head">' + head + '</div>' +
-      '<p class="hub-brief-body">' + (body || "") + tail + '</p>';
   }
 
   function visibleEntries(s) {
@@ -246,22 +260,23 @@
 
   function expand(section, index) {
     openId = section.id;
-    setBrief(section.label, section.blurb);
     Array.prototype.forEach.call(gMains.children, function (g) {
       g.classList.remove("is-dim", "is-open");
     });
-    if (index >= 0) {
-      var kids = visibleEntries(section);
-      renderSpotlight(section, kids);
-    }
   }
 
-  sections.forEach(function (s, i) {
+  function renderMap() {
+    svg.textContent = "";
+    gEdges = e("g", { "class": "hub-edges" });
+    gKids = e("g", {});
+    gMains = e("g", {});
+
+    sections.forEach(function (s, i) {
     var point = sectionPoint(i);
     var a = point.angle;
     var x = point.x, y = point.y;
     var twist = 20 + TWIST_JITTER[i % TWIST_JITTER.length];
-    var c1x = CX + Math.cos(a - 0.5) * (point.radius * 0.42);
+    var c1x = CX + Math.cos(a - 0.5) * (point.radius * 0.42) * X_SPREAD;
     var c1y = CY + Math.sin(a - 0.5) * (point.radius * 0.34);
     var c2x = x - Math.cos(a + 0.2) * twist;
     var c2y = y - Math.sin(a + 0.2) * twist;
@@ -271,49 +286,51 @@
       d: "M" + CX + "," + CY + " C" + c1x + "," + c1y + " " + c2x + "," + c2y + " " + x + "," + y
     }));
 
-    var cosA = Math.cos(a), sinA = Math.sin(a);
-    var anchor = cosA > 0.34 ? "start" : cosA < -0.34 ? "end" : "middle";
-    var lx = x + (anchor === "start" ? 27 : anchor === "end" ? -27 : 0);
-    var ly = y + (anchor === "middle" ? (sinA > 0 ? 42 : -30) : 5);
+    var mainLabelOffset = MAIN_LABEL_OFFSETS[i % MAIN_LABEL_OFFSETS.length];
+    var anchor = "middle";
+    var lx = x + mainLabelOffset[0];
+    var ly = y + mainLabelOffset[1];
 
     var g = e("g", { "class": "hub-main", "data-id": s.id, tabindex: "0", role: "button" });
-    g.appendChild(e("circle", { cx: x, cy: y, r: 30, fill: "transparent" }));
-    g.appendChild(e("circle", { cx: x, cy: y, r: 16.5, "class": "hub-main-halo", stroke: s.color }));
-    g.appendChild(e("circle", { cx: x, cy: y, r: 10.4, "class": "hub-main-dot", fill: s.color, stroke: s.color }));
+    g.appendChild(e("circle", { cx: x, cy: y, r: 26, fill: "transparent" }));
+    g.appendChild(e("circle", { cx: x, cy: y, r: 14, "class": "hub-main-halo", stroke: s.color }));
+    g.appendChild(e("circle", { cx: x, cy: y, r: 9, "class": "hub-main-dot", fill: s.color, stroke: s.color }));
 
     var label = e("text", { x: lx, y: ly, "text-anchor": anchor, "class": "hub-main-label" });
     label.textContent = s.label;
     g.appendChild(label);
 
-    var count = e("tspan", { "class": "hub-main-count" });
-    count.textContent = "  " + visibleEntries(s).length;
-    label.appendChild(count);
-
-    function peek() { if (!openId) setBrief(s.label, s.blurb); }
+    function peek() { setBrief(s.label, s.blurb, x, y); }
     g.addEventListener("mouseenter", peek);
     g.addEventListener("focus", peek);
     g.addEventListener("mouseleave", clearBrief);
-    g.addEventListener("click", function (ev) { ev.stopPropagation(); expand(s, i); });
+    g.addEventListener("click", function (ev) {
+      ev.stopPropagation();
+      expand(s, i);
+    });
     g.addEventListener("keydown", function (ev) {
       if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); expand(s, i); }
       if (ev.key === "Escape") collapse();
     });
-    gMains.appendChild(g);
-  });
+      gMains.appendChild(g);
+    });
 
-  svg.appendChild(gEdges);
-  svg.appendChild(gKids);
-  svg.appendChild(e("circle", { cx: CX, cy: CY, r: 26, "class": "hub-core" }));
-  var coreMonogram = e("text", {
-    x: CX,
-    y: CY + 9,
-    "text-anchor": "middle",
-    "class": "hub-core-monogram",
-    "aria-label": "Phi, the Greek initial of Phronesis"
-  });
-  coreMonogram.textContent = "Φ";
-  svg.appendChild(coreMonogram);
-  svg.appendChild(gMains);
+    svg.appendChild(gEdges);
+    svg.appendChild(gKids);
+    svg.appendChild(e("circle", { cx: CX, cy: CY, r: 26, "class": "hub-core" }));
+    var coreMonogram = e("text", {
+      x: CX,
+      y: CY + 10,
+      "text-anchor": "middle",
+      "class": "hub-core-monogram",
+      "aria-label": "Phi, the Greek initial of Phronesis"
+    });
+    coreMonogram.textContent = "Φ";
+    svg.appendChild(coreMonogram);
+    svg.appendChild(gMains);
+    sections.forEach(function (section, index) { renderExpandedSection(section, index); });
+    clearBrief();
+  }
 
   svg.addEventListener("click", collapse);
 
@@ -325,13 +342,6 @@
     if (!openFromHash()) collapse();
   });
 
-  if (!openFromHash()) {
-    gKids.textContent = "";
-    sections.forEach(function (section, index) { renderExpandedSection(section, index); });
-    clearBrief();
-    Array.prototype.forEach.call(gMains.children, function (g) {
-      g.classList.remove("is-dim", "is-open");
-    });
-  }
+  renderMap();
   renderNotebookIndex();
 })();

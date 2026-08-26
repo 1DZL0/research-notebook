@@ -109,7 +109,8 @@ window.HUB_DATA = {
         }
       ]
     }
-  ]
+  ],
+  "lastUpdated": "26 August 2026"
 };
 </script>
 
@@ -123,8 +124,10 @@ window.HUB_DATA = {
   for (var i = 0; i < d.sections.length; i++) {
     if (d.sections[i].id === folder) section = d.sections[i];
   }
-  if (!section) return;
   document.addEventListener("DOMContentLoaded", function () {
+    var updated = document.getElementById("hub-last-updated-date");
+    if (updated && d.lastUpdated) updated.textContent = d.lastUpdated;
+    if (!section) return;
     var host = document.querySelector("#quarto-document-content") ||
                document.querySelector("main.content");
     if (!host) return;

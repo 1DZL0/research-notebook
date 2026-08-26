@@ -14,9 +14,11 @@ Research focus
 Exploring how AI systems can acquire intelligence through experience, learning not only to solve problems but to understand context, adapt their behaviour, and determine how to act in different situations.
 :::
 
+::: {.hub-current-thread}
+**Current thread:** [Prisoners Dilemma](03-experiments\prisoners-dilemma.qmd)
 
 ::: {.hub-map-note}
-Select a smaller node to open its note.
+**Select a smaller node to open its note.**
 :::
 
 ::: {.hub-layout}
@@ -26,6 +28,11 @@ Select a smaller node to open its note.
 :::
 :::
 
+::: {.hub-last-updated}
+Last updated: <span id="hub-last-updated-date">—</span>
+:::
+
+<!--
 ::: {.callout-important}
 ## Supervisor snapshot
 
@@ -39,6 +46,7 @@ Select a smaller node to open its note.
 **Next milestone**
 - Prepare an experiment-design baseline (protocol adaptation + memory condition matrix) for supervisor review.
 :::
+-->
 
 ## Notebook index
 

@@ -9,6 +9,7 @@ import json
 import pathlib
 import re
 import sys
+from datetime import datetime
 
 try:
     import yaml
@@ -98,6 +99,14 @@ def collect():
     return [s for s in sections if s["entries"]]
 
 
+def latest_update_date():
+    sources = [ROOT / "index.qmd"]
+    sources.extend(ROOT.glob("*/*.qmd"))
+    latest = max(path.stat().st_mtime for path in sources if path.is_file())
+    date = datetime.fromtimestamp(latest)
+    return f"{date.day} {date:%B %Y}"
+
+
 BACKLINK = """
 <script>
 (function () {
@@ -109,8 +118,10 @@ BACKLINK = """
   for (var i = 0; i < d.sections.length; i++) {
     if (d.sections[i].id === folder) section = d.sections[i];
   }
-  if (!section) return;
   document.addEventListener("DOMContentLoaded", function () {
+    var updated = document.getElementById("hub-last-updated-date");
+    if (updated && d.lastUpdated) updated.textContent = d.lastUpdated;
+    if (!section) return;
     var host = document.querySelector("#quarto-document-content") ||
                document.querySelector("main.content");
     if (!host) return;
@@ -129,7 +140,10 @@ BACKLINK = """
 def main():
     sections = collect()
     total = sum(len(s["entries"]) for s in sections)
-    payload = json.dumps({"sections": sections}, indent=2, ensure_ascii=False)
+    payload = json.dumps({
+        "sections": sections,
+        "lastUpdated": latest_update_date(),
+    }, indent=2, ensure_ascii=False)
     OUT.write_text(
         "<script>\nwindow.HUB_DATA = " + payload + ";\n</script>\n" + BACKLINK,
         encoding="utf-8",
