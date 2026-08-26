@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>papers – Diesel Mears Research Notebook</title>
+<title>papers – Phronesis · Φρόνησις</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -32,10 +32,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -45,20 +41,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-4e28d3ea751b1c5eb5d419e2931c6c5e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-653877cebb4ae6f61504cae7af54dadc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -73,6 +57,18 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&amp;subset=greek,latin&amp;display=swap">
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var t = document.querySelector(".navbar-title");
+    if (!t) return;
+    var parts = t.textContent.split("·");
+    if (parts.length !== 2) return;
+    t.innerHTML = parts[0].trim() + ' <span class="greek">' + parts[1].trim() + "</span>";
+  });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -90,6 +86,168 @@ ul.task-list li input[type="checkbox"] {
     }
   });
 </script>
+<script>
+window.HUB_DATA = {
+  "sections": [
+    {
+      "id": "00-research",
+      "label": "Research",
+      "order": 0,
+      "color": "#4A3A7A",
+      "blurb": "Vision, live questions, and the roadmap.",
+      "entries": [
+        {
+          "title": "Research Development",
+          "url": "00-research/research-development.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        },
+        {
+          "title": "Research Questions",
+          "url": "00-research/research-questions.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        },
+        {
+          "title": "Research Roadmap",
+          "url": "00-research/research-roadmap.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "01-literature",
+      "label": "Literature",
+      "order": 1,
+      "color": "#356D9A",
+      "blurb": "Papers read, and the map connecting them.",
+      "entries": [
+        {
+          "title": "Papers",
+          "url": "01-literature/papers.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "02-projects",
+      "label": "Projects",
+      "order": 2,
+      "color": "#8F5F30",
+      "blurb": "Applied work where the ideas meet something real.",
+      "entries": [
+        {
+          "title": "Project: GenAI4ED",
+          "url": "02-projects/genai4ed.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        },
+        {
+          "title": "Project: Pharos-CY",
+          "url": "02-projects/pharos-cy.html",
+          "status": "active",
+          "description": "Developing the Pharos-CY project.",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "03-experiments",
+      "label": "Experiments",
+      "order": 3,
+      "color": "#8A3E4E",
+      "blurb": "Prototypes and evaluations, with results or an honest blank.",
+      "entries": [
+        {
+          "title": "Experiment 01 — Prisoner's Dilemma",
+          "url": "03-experiments/prisoners-dilemma.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "04-meetings",
+      "label": "Meetings",
+      "order": 4,
+      "color": "#59636E",
+      "blurb": "Supervisor discussions and the decisions from them.",
+      "entries": [
+        {
+          "title": "Other meetings",
+          "url": "04-meetings/other-meetings.html",
+          "status": "active",
+          "description": "Notes and actions from meetings outside regular professor supervision.",
+          "date": ""
+        },
+        {
+          "title": "Professor meeting",
+          "url": "04-meetings/supervisor.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    }
+  ],
+  "lastUpdated": "26 August 2026"
+};
+</script>
+
+<script>
+(function () {
+  var d = window.HUB_DATA;
+  if (!d) return;
+  var parts = window.location.pathname.split("/").filter(Boolean);
+  var folder = parts.length > 1 ? parts[parts.length - 2] : null;
+  var section = null;
+  for (var i = 0; i < d.sections.length; i++) {
+    if (d.sections[i].id === folder) section = d.sections[i];
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    var updated = document.getElementById("hub-last-updated-date");
+    if (updated && d.lastUpdated) updated.textContent = d.lastUpdated;
+    if (!section) return;
+    var host = document.querySelector("#quarto-document-content") ||
+               document.querySelector("main.content");
+    if (!host) return;
+    var a = document.createElement("a");
+    a.className = "back-link";
+    a.href = "../index.html#" + section.id;
+    a.style.setProperty("--back-color", section.color);
+    a.innerHTML = '<span aria-hidden="true">&larr;</span> ' + section.label;
+    host.insertBefore(a, host.firstChild);
+  });
+})();
+</script>
+<script>
+  // Maps a small, fixed status vocabulary onto CSS classes so the same word
+  // looks the same everywhere: listing cards, listing tables, and entry pages.
+  document.addEventListener("DOMContentLoaded", function () {
+    var STATUSES = ["question", "active", "evidence", "parked", "reference"];
+
+    var selectors = [
+      ".listing-category",        // grid + default listings
+      ".quarto-category",         // entry page title block
+      ".listing-status"           // table listing column
+    ].join(",");
+
+    document.querySelectorAll(selectors).forEach(function (el) {
+      var word = el.textContent.trim().toLowerCase();
+      if (STATUSES.indexOf(word) !== -1) {
+        el.classList.add("status-badge", "status-" + word);
+      }
+    });
+  });
+</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -103,82 +261,18 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Diesel Mears Research Notebook</span>
+    <span class="navbar-title">Phronesis · Φρόνησις</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Research</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li>
-    <a class="dropdown-item" href="../00-research/research-development.html">
- <span class="dropdown-text">Research Development</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../00-research/research-questions.html">
- <span class="dropdown-text">Research Questions</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../00-research/research-roadmap.html">
- <span class="dropdown-text">Roadmap</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-literature" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Literature</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-literature">    
-        <li>
-    <a class="dropdown-item" href="../01-literature/literature-map.html">
- <span class="dropdown-text">Literature Map</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../01-literature/papers.html">
- <span class="dropdown-text">Papers</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Projects</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
-        <li>
-    <a class="dropdown-item" href="../02-projects/pharos-cy.html">
- <span class="dropdown-text">Pharos-CY</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../02-projects/genai4ed.html">
- <span class="dropdown-text">GenAI4ED</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-experiments" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Experiments</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-experiments">    
-        <li>
-    <a class="dropdown-item" href="../03-experiments/prisoners-dilemma.html">
- <span class="dropdown-text">Prisoner’s Dilemma</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../04-meetings/supervisor.html"> 
-<span class="menu-text">Meetings</span></a>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/1DZL0/research-notebook"> <i class="bi bi-github" role="img" aria-label="Source repository">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -193,80 +287,271 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#papers" id="toc-papers" class="nav-link active" data-scroll-target="#papers">Papers</a>
+  <li><a href="#phd-papers" id="toc-phd-papers" class="nav-link active" data-scroll-target="#phd-papers">PhD Papers</a>
   <ul class="collapse">
-  <li><a href="#reading-log-template" id="toc-reading-log-template" class="nav-link" data-scroll-target="#reading-log-template">Reading Log Template</a></li>
-  <li><a href="#active-paper-list" id="toc-active-paper-list" class="nav-link" data-scroll-target="#active-paper-list">Active Paper List</a></li>
-  <li><a href="#example-note-structure" id="toc-example-note-structure" class="nav-link" data-scroll-target="#example-note-structure">Example Note Structure</a>
-  <ul class="collapse">
-  <li><a href="#paper-title" id="toc-paper-title" class="nav-link" data-scroll-target="#paper-title">Paper: <em>Title</em></a></li>
+  <li><a href="#open-ended-learning-self-evolution" id="toc-open-ended-learning-self-evolution" class="nav-link" data-scroll-target="#open-ended-learning-self-evolution">1. Open-Ended Learning &amp; Self-Evolution</a></li>
+  <li><a href="#multi-agent-systems-collective-reasoning" id="toc-multi-agent-systems-collective-reasoning" class="nav-link" data-scroll-target="#multi-agent-systems-collective-reasoning">2. Multi-Agent Systems &amp; Collective Reasoning</a></li>
+  <li><a href="#agentic-learning-tools-interaction" id="toc-agentic-learning-tools-interaction" class="nav-link" data-scroll-target="#agentic-learning-tools-interaction">3. Agentic Learning, Tools &amp; Interaction</a></li>
   </ul></li>
+  <li><a href="#project-papers" id="toc-project-papers" class="nav-link" data-scroll-target="#project-papers">Project Papers</a>
+  <ul class="collapse">
+  <li><a href="#genai4ed" id="toc-genai4ed" class="nav-link" data-scroll-target="#genai4ed">GenAI4ED</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Papers</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="papers" class="level1">
-<h1>Papers</h1>
-<section id="reading-log-template" class="level2">
-<h2 class="anchored" data-anchor-id="reading-log-template">Reading Log Template</h2>
-<p>Use one section per paper with:</p>
-<ul>
-<li><strong>Citation</strong></li>
-<li><strong>Core idea</strong></li>
-<li><strong>Why it matters for this research</strong></li>
-<li><strong>Open questions it leaves</strong></li>
-</ul>
-</section>
-<section id="active-paper-list" class="level2">
-<h2 class="anchored" data-anchor-id="active-paper-list">Active Paper List</h2>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.classList.add("papers-page");
+
+  function getCellValue(row, index) {
+    return row.children[index] ? row.children[index].innerText.trim() : "";
+  }
+
+  function compareRows(a, b, index, asNumber) {
+    const valA = getCellValue(a, index);
+    const valB = getCellValue(b, index);
+    if (asNumber) {
+      return (parseFloat(valA) || 0) - (parseFloat(valB) || 0);
+    }
+    return valA.localeCompare(valB, undefined, { numeric: true, sensitivity: "base" });
+  }
+
+  function sortTable(table, columnIndex, direction, asNumber) {
+    const tbody = table.tBodies[0];
+    if (!tbody) return;
+    const rows = Array.from(tbody.rows);
+    rows.sort((a, b) => {
+      const result = compareRows(a, b, columnIndex, asNumber);
+      return direction === "desc" ? -result : result;
+    });
+    rows.forEach((row) => tbody.appendChild(row));
+  }
+
+  // Every table auto-sorts by Year (newest first); click any header to re-sort by that column.
+  document.querySelectorAll("main.content table").forEach((table) => {
+    const headerRow = table.tHead && table.tHead.rows[0];
+    if (!headerRow) return;
+
+    let yearIndex = -1;
+    Array.from(headerRow.cells).forEach((cell, index) => {
+      cell.dataset.sortDir = "";
+      if (cell.innerText.trim().toLowerCase() === "year") {
+        yearIndex = index;
+      }
+      cell.addEventListener("click", () => {
+        const isNumber = cell.innerText.trim().toLowerCase() === "year";
+        const nextDir = cell.dataset.sortDir === "desc" ? "asc" : "desc";
+        Array.from(headerRow.cells).forEach((c) => (c.dataset.sortDir = ""));
+        cell.dataset.sortDir = nextDir;
+        sortTable(table, index, nextDir, isNumber);
+      });
+    });
+
+    if (yearIndex !== -1) {
+      sortTable(table, yearIndex, "desc", true);
+      headerRow.cells[yearIndex].dataset.sortDir = "desc";
+    }
+  });
+});
+</script>
+<p>This is my structured collection of papers relevant to my PhD research and associated projects.</p>
+<p>The categories provide a high-level view of the research landscape. The Key Finding column captures the main takeaway for each paper so comparisons across the literature.</p>
+<hr>
+<section id="phd-papers" class="level2">
+<h2 class="anchored" data-anchor-id="phd-papers">PhD Papers</h2>
+<section id="open-ended-learning-self-evolution" class="level3">
+<h3 class="anchored" data-anchor-id="open-ended-learning-self-evolution">1. Open-Ended Learning &amp; Self-Evolution</h3>
+<p>Papers exploring systems that can continue developing, improving, evolving, or modifying themselves beyond a fixed training procedure</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Paper</th>
-<th>Theme</th>
-<th>Relevance</th>
-<th>Status</th>
+<th style="text-align: right;">Year</th>
+<th>Research Focus</th>
+<th>What Changes</th>
+<th>Key Finding</th>
+<th>Source</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>(add paper)</td>
-<td>(cluster)</td>
-<td>(high/med/low)</td>
-<td>To read</td>
+<td>Recursive Multi-Agent Systems</td>
+<td style="text-align: right;">2026</td>
+<td>Latent-space recursive multi-agent</td>
+<td>Inter-agent communication / latent states</td>
+<td>Latent communication can improve multi-agent reasoning while reducing inference cost and token use</td>
+<td><a href="https://arxiv.org/abs/2604.25917/">Link</a></td>
 </tr>
 <tr class="even">
-<td>(add paper)</td>
-<td>(cluster)</td>
-<td>(high/med/low)</td>
-<td>In progress</td>
+<td><strong>Darwin Gödel Machine</strong></td>
+<td style="text-align: right;">2025</td>
+<td>Self-improving agents</td>
+<td>Agent code / system</td>
+<td>An archive of diverse agent lineages helps avoid local optima and enables later improvements from earlier discoveries.</td>
+<td><a href="https://arxiv.org/abs/2505.22954">Link</a></td>
+</tr>
+<tr class="odd">
+<td>AlphaEvolve</td>
+<td style="text-align: right;">2025</td>
+<td>Automated algorithm discovery</td>
+<td>Programs / algorithms</td>
+<td>Evolutionary search over programs discovers new algorithms that outperform prior human-designed solutions.</td>
+<td><a href="https://arxiv.org/abs/2506.13131">Link</a></td>
+</tr>
+<tr class="even">
+<td><strong>Evolver: Self-Evolving LLM Agents through Experience</strong></td>
+<td style="text-align: right;">2025</td>
+<td>Self-evolving agents via experience</td>
+<td>Agent policy / behaviour</td>
+<td>Agents can distill experience into reusable strategies and use them to improve future behaviour.</td>
+<td><a href="https://arxiv.org/abs/2510.16079">Link</a></td>
+</tr>
+<tr class="odd">
+<td>A Self-Improving Coding Agent</td>
+<td style="text-align: right;">2025</td>
+<td>Self-improving coding agents</td>
+<td>Coding agent</td>
+<td>An agent can iteratively rewrite and improve its own coding capabilities without external supervision.</td>
+<td><a href="https://arxiv.org/abs/2504.15228">Link</a></td>
 </tr>
 </tbody>
 </table>
+<hr>
 </section>
-<section id="example-note-structure" class="level2">
-<h2 class="anchored" data-anchor-id="example-note-structure">Example Note Structure</h2>
-<section id="paper-title" class="level3">
-<h3 class="anchored" data-anchor-id="paper-title">Paper: <em>Title</em></h3>
-<ul>
-<li><strong>Main contribution</strong>:</li>
-<li><strong>Method</strong>:</li>
-<li><strong>Useful concept for my work</strong>:</li>
-<li><strong>Potential criticism</strong>:</li>
-<li><strong>Follow-up idea</strong>:</li>
-</ul>
+<section id="multi-agent-systems-collective-reasoning" class="level3">
+<h3 class="anchored" data-anchor-id="multi-agent-systems-collective-reasoning">2. Multi-Agent Systems &amp; Collective Reasoning</h3>
+<p>Papers exploring how multiple agents communicate, debate, coordinate, specialise, or collectively solve problems.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Paper</th>
+<th style="text-align: right;">Year</th>
+<th>Research Focus</th>
+<th>What Changes</th>
+<th>Key Finding</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Improving Multi-Agent Debate with Sparse Communication Topology</td>
+<td style="text-align: right;">2024</td>
+<td>Effect of communication topology on debate</td>
+<td>Communication topology</td>
+<td>Sparse communication topologies can match or exceed fully-connected debate while reducing communication cost.</td>
+<td><a href="https://arxiv.org/abs/2406.11776">Link</a></td>
+</tr>
+<tr class="even">
+<td>Improving Factuality and Reasoning in Language Models through Multiagent Debate</td>
+<td style="text-align: right;">2023</td>
+<td>Improving factual accuracy via debate</td>
+<td>Reasoning / decision</td>
+<td>Multiple language model agents debating and critiquing each other’s answers improves factual accuracy and reasoning quality.</td>
+<td><a href="https://arxiv.org/abs/2305.14325">Link</a></td>
+</tr>
+<tr class="odd">
+<td>ReConcile: Round-Table Conference Improves Reasoning via Consensus among Diverse LLMs</td>
+<td style="text-align: right;">2023</td>
+<td>Reaching consensus among diverse LLMs</td>
+<td>Final decision</td>
+<td>Structured rounds of discussion between diverse LLMs help them converge on more accurate shared answers.</td>
+<td><a href="https://arxiv.org/abs/2309.13007">Link</a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="agentic-learning-tools-interaction" class="level3">
+<h3 class="anchored" data-anchor-id="agentic-learning-tools-interaction">3. Agentic Learning, Tools &amp; Interaction</h3>
+<p>Papers exploring agents that learn through interaction, tool use, tasks, feedback, or increasingly autonomous workflows.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Paper</th>
+<th style="text-align: right;">Year</th>
+<th>Research Focus</th>
+<th>What Changes</th>
+<th>Key Finding</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AutoResearchBench: Benchmarking AI Agents on Complex Scientific Literature Discovery</td>
+<td style="text-align: right;">2026</td>
+<td>Benchmarking scientific literature discovery</td>
+<td>Agent capability</td>
+<td>Current agents still struggle with complex, multi-step scientific literature discovery tasks.</td>
+<td><a href="https://arxiv.org/abs/2604.25256">Link</a></td>
+</tr>
+<tr class="even">
+<td>MUA-RL: Multi-turn User-interacting Agent Reinforcement Learning for Agentic Tool Use</td>
+<td style="text-align: right;">2025</td>
+<td>Training agents for multi-turn tool use</td>
+<td>Agent policy / tool use</td>
+<td>Reinforcement learning over multi-turn user interactions improves an agent’s ability to use tools effectively.</td>
+<td><a href="https://arxiv.org/abs/2508.18669">Link</a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="project-papers" class="level2">
+<h2 class="anchored" data-anchor-id="project-papers">Project Papers</h2>
+<section id="genai4ed" class="level3">
+<h3 class="anchored" data-anchor-id="genai4ed">GenAI4ED</h3>
+<p>Papers collected specifically for the GenAI4ED project.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Paper</th>
+<th style="text-align: right;">Year</th>
+<th>Research Focus</th>
+<th>What Changes</th>
+<th>Key Finding</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Deep Tutor: Towards Agentic Personalized Tutoring</td>
+<td style="text-align: right;">2026</td>
+<td>Agentic personalised tutoring</td>
+<td>Agent behaviour / tutoring process</td>
+<td>An agentic tutoring approach can personalise instruction more effectively than static tutoring systems.</td>
+<td><a href="https://arxiv.org/abs/2604.26962">Link</a></td>
+</tr>
+</tbody>
+</table>
 
 
-</section>
 </section>
 </section>
 

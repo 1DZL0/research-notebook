@@ -1,13 +1,21 @@
 /* Research notebook website styling */
 
 :root {
-  --bg: #F7FAFC;
-  --surface: #F2F6FF;
-  --text: #0B1F3A;
-  --muted: #52637A;
-  --primary: #1D4ED8;
-  --accent: #0D9488;
-  --border: #C9D8EE;
+  --bg: #F0EEE9;
+  --surface: #E7E4DD;
+  --text: #1F1B2B;
+  --muted: #6A6478;
+  --primary: #55407F;
+  --accent: #2F6558;
+  --core: #3F5967;
+  --border: #D8D3C9;
+
+  /* status vocabulary — one colour per word, used everywhere */
+  --st-question: #8F5F30;
+  --st-active: #55407F;
+  --st-evidence: #2F6558;
+  --st-parked: #7A756C;
+  --st-reference: #6B6440;
 }
 
 body {
@@ -15,7 +23,10 @@ body {
   color: var(--text);
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   color: var(--text);
 }
 
@@ -25,16 +36,6 @@ h1, h2, h3, h4 {
   letter-spacing: 0.2px;
 }
 
-.navbar,
-.navbar .navbar-nav,
-.navbar .dropdown-menu {
-  background-color: var(--surface) !important;
-}
-
-.navbar {
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-}
 
 .navbar,
 .navbar a,
@@ -68,7 +69,7 @@ h1, h2, h3, h4 {
 }
 
 .navbar .dropdown-item:hover {
-  background: #EFF6FF;
+  background: var(--surface);
 }
 
 a {
@@ -81,7 +82,7 @@ a:hover {
 
 .callout-note {
   border-left: 4px solid var(--accent);
-  background-color: #F0FDFA;
+  background-color: var(--surface);
   border-color: var(--accent);
 }
 
@@ -97,10 +98,1215 @@ main.content p {
   max-width: 78ch;
 }
 
+/* Keep regular notes as a focused reading column; Papers remains deliberately wide. */
+body:not(.papers-page):not(.hub-home) main.content {
+  max-width: 74ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.research-question {
+  border-top: 1px solid var(--border);
+  margin: 2.5rem 0;
+  padding-top: 1.25rem;
+}
+
+.research-question:first-of-type {
+  margin-top: 1.5rem;
+}
+
+.research-question-key {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin: 0 0 1.5rem;
+}
+
+.research-question-key strong {
+  color: var(--text);
+}
+
+.text-purple {
+  color: var(--primary);
+}
+
+.text-blue,
+.research-status.is-exploring {
+  color: #356D9A;
+}
+
+.text-green,
+.research-status.is-promising {
+  color: var(--accent);
+}
+
+.text-red,
+.research-status.is-not-useful {
+  color: #A13F48;
+}
+
+.research-status {
+  font-weight: 600;
+}
+
+.research-question .callout {
+  margin: 0 0 1rem;
+}
+
+.research-question .callout p {
+  line-height: 1.55;
+}
+
+.research-question > :last-child {
+  margin-bottom: 0;
+}
+
 .quarto-container .sidebar nav[role="doc-toc"] {
   border-left: 1px solid var(--border);
 }
 
 .quarto-container .sidebar .active {
   color: var(--primary) !important;
+}
+
+/* ---------------------------------------------------------------
+   Status badges
+   One fixed vocabulary: question / active / evidence / parked / reference.
+   Classes are applied by _status-badges.html at load.
+   --------------------------------------------------------------- */
+
+.status-badge {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 350;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.14rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  background: transparent;
+  line-height: 1.5;
+}
+
+.status-badge.status-question {
+  color: var(--st-question);
+}
+
+.status-badge.status-active {
+  color: var(--st-active);
+}
+
+.status-badge.status-evidence {
+  color: var(--st-evidence);
+}
+
+.status-badge.status-parked {
+  color: var(--st-parked);
+}
+
+.status-badge.status-reference {
+  color: var(--st-reference);
+}
+
+/* Non-status categories stay quiet, so the status reads first. */
+.listing-category,
+.quarto-category {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+/* ---------------------------------------------------------------
+   Listing cards
+   --------------------------------------------------------------- */
+
+.quarto-listing .card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: box-shadow 140ms ease, transform 140ms ease, border-color 140ms ease;
+}
+
+.quarto-listing .card:hover {
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.09);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.quarto-listing .card-title {
+  font-size: 1.02rem;
+  font-weight: 650;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.quarto-listing .listing-description {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.quarto-listing .listing-date {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+}
+
+/* Table listing */
+
+.quarto-listing table {
+  border-color: var(--border);
+  font-size: 0.9rem;
+}
+
+.quarto-listing thead th {
+  border-bottom: 2px solid var(--border);
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.quarto-listing tbody tr:hover {
+  background: var(--surface);
+}
+
+/* Filter and sort controls */
+
+.quarto-listing .form-control,
+.quarto-listing select {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+}
+
+/* ---------------------------------------------------------------
+   Entry-page furniture: TL;DR block and provenance line
+   --------------------------------------------------------------- */
+
+.tldr {
+  border-left: 4px solid var(--primary);
+  background: var(--surface);
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 0.9rem 1.1rem;
+  margin: 1.4rem 0 1.8rem;
+}
+
+.tldr> :first-child {
+  margin-top: 0;
+}
+
+.tldr> :last-child {
+  margin-bottom: 0;
+}
+
+.tldr::before {
+  content: "TL;DR";
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+  margin-bottom: 0.35rem;
+}
+
+.provenance {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-size: 0.78rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 0.6rem;
+  margin-top: 2.5rem;
+}
+
+.provenance a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+.provenance a:hover {
+  color: var(--primary);
+}
+
+/* ---------------------------------------------------------------
+   Quality floor
+   --------------------------------------------------------------- */
+
+a:focus-visible,
+.quarto-listing .card:focus-within {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .quarto-listing .card,
+  .quarto-listing .card:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
+@media (max-width: 600px) {
+  main.content p {
+    max-width: none;
+  }
+
+  .quarto-listing .card-title {
+    font-size: 0.96rem;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Navbar — wordmark and source link only
+   --------------------------------------------------------------- */
+
+.navbar,
+.navbar .navbar-nav,
+.navbar .dropdown-menu {
+  background-color: var(--bg) !important;
+}
+
+.navbar {
+  border-bottom: none;
+  box-shadow: none;
+  padding: 1.1rem 0;
+}
+
+.navbar>.container-fluid,
+.navbar>.container,
+.navbar>.container-xxl {
+  max-width: none;
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+}
+
+.navbar-title {
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.navbar .quarto-navbar-tools a {
+  color: var(--muted);
+}
+
+.navbar .quarto-navbar-tools a:hover {
+  color: var(--text);
+}
+
+body.hub-home .quarto-title-block,
+body.hub-home #title-block-header {
+  display: none;
+}
+
+/* ---------------------------------------------------------------
+   Back link — left gutter, names the cluster it returns to
+   --------------------------------------------------------------- */
+
+.back-link {
+  --back-color: var(--muted);
+  position: sticky;
+  top: 6rem;
+  float: left;
+  width: 9rem;
+  margin-left: -11rem;
+  font-size: 1rem;
+  color: var(--back-color);
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.back-link:hover {
+  color: var(--back-color);
+  text-decoration: underline;
+}
+
+@media (max-width: 1200px) {
+  .back-link {
+    position: static;
+    float: none;
+    width: auto;
+    margin: 0 0 1.25rem;
+    display: block;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Landing-page hub graph
+   Data comes from _hub-include.html, written by scripts/build_hub.py.
+   Colour encodes section only; status is carried by text.
+   --------------------------------------------------------------- */
+
+.hub-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0rem auto 0.6rem;
+  padding-bottom: 0;
+  font-weight: 600;
+  position: relative;
+}
+
+.hub-eyebrow::before {
+  display: none;
+}
+
+.hub-eyebrow::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 286px;
+  height: 7px;
+  transform: translateX(-50%);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='7' viewBox='0 0 108 7'%3E%3Cdefs%3E%3ClinearGradient id='wave' x1='0' x2='1'%3E%3Cstop offset='0%25' stop-color='%2355407F'/%3E%3Cstop offset='100%25' stop-color='%2355407F' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 3.5C10 0.5 18 0.5 27 3.5S44 6.5 54 3.5 71 0.5 81 3.5 98 6.5 107 3.5' fill='none' stroke='url(%23wave)' stroke-linecap='round' stroke-width='1.7'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+
+.hub-question {
+  font-size: clamp(0.9rem, 0.35vw + 0.68rem, 1.08rem);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  max-width: 60ch;
+  margin: 0 auto 1.2rem;
+  color: var(--text);
+  font-weight: 400;
+  text-align: center;
+}
+
+.hub-current-thread {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin: -0.4rem auto 0.75rem;
+  max-width: 72ch;
+  text-align: center;
+}
+
+.hub-current-thread strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.hub-current-thread a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.hub-current-thread a:hover {
+  text-decoration: underline;
+}
+
+.hub-map-note {
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  margin: 0 auto 0.35rem;
+  max-width: 72ch;
+  text-align: center;
+}
+
+.hub-last-updated {
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  margin: 0.5rem auto 1.4rem;
+  text-align: center;
+}
+
+.hub-strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  max-width: none;
+  margin: 1rem 0 1.15rem;
+}
+
+.hub-strip-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  padding: 0.95rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.hub-strip-item>h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+}
+
+.hub-strip-item>p {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.hub-layout {
+  width: min(calc(100vw - 2rem), 72rem);
+  margin-left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+  padding-right: 0;
+}
+
+.focus-side {
+  position: absolute;
+  right: calc((100vw - 100%) / -2 + 0.75rem);
+  top: 0;
+  width: 22rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  padding: 0.95rem;
+}
+
+.focus-side>h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+}
+
+.focus-side>p {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+#hub {
+  position: relative;
+  z-index: 1;
+}
+
+#hub-svg {
+  width: 100%;
+  margin-left: 0;
+  height: auto;
+  display: block;
+  max-height: 74vh;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.hub-tooltip {
+  background: color-mix(in srgb, var(--surface) 92%, #fff);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  box-shadow: 0 6px 16px rgba(20, 18, 26, 0.09);
+  color: var(--text);
+  max-width: min(13rem, calc(100% - 1rem));
+  opacity: 0;
+  padding: 0.45rem 0.55rem;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-50%, 12px);
+  transition: opacity 130ms ease, visibility 130ms ease;
+  visibility: hidden;
+  width: max-content;
+  z-index: 2;
+}
+
+.hub-tooltip.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hub-tooltip.is-left {
+  transform: translate(calc(-100% - 16px), -50%);
+}
+
+.hub-tooltip.is-below {
+  transform: translate(16px, 16px);
+}
+
+.hub-tooltip.is-left.is-below {
+  transform: translate(calc(-100% - 16px), 16px);
+}
+
+.hub-tooltip.is-above {
+  transform: translate(16px, calc(-100% - 16px));
+}
+
+.hub-tooltip.is-left.is-above {
+  transform: translate(calc(-100% - 16px), calc(-100% - 16px));
+}
+
+.hub-tooltip-title {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.hub-tooltip-body {
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.35;
+  margin: 0.16rem 0 0;
+}
+
+.hub-edges path {
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  opacity: 0.52;
+  transition: opacity 180ms ease;
+}
+
+#hub-svg.is-focused .hub-edges path {
+  opacity: 0.52;
+}
+
+.hub-edges path.is-highlighted,
+.hub-kid-edge.is-highlighted {
+  opacity: 1;
+  stroke-width: 3;
+}
+
+.hub-core {
+  fill: #fff;
+  stroke: var(--core);
+  stroke-width: 2.6;
+}
+
+.hub-core-monogram {
+  fill: var(--core);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.hub-main {
+  cursor: default;
+}
+
+.hub-main.is-dim {
+  opacity: 1;
+}
+
+.hub-main-halo {
+  fill: color-mix(in srgb, currentColor 22%, transparent);
+  stroke-width: 1.5;
+  opacity: 0.72;
+}
+
+.hub-main-dot {
+  stroke-width: 0;
+}
+
+.hub-main-label {
+  font-size: 12px;
+  font-weight: 550;
+  letter-spacing: 0.02em;
+  fill: var(--text);
+}
+
+.hub-main-count {
+  font-size: 10.4px;
+  letter-spacing: 0.06em;
+  fill: color-mix(in srgb, var(--muted) 88%, var(--text));
+}
+
+.hub-main.is-open .hub-main-label {
+  opacity: 1;
+}
+
+.hub-main:focus,
+.hub-kid:focus {
+  outline: none;
+}
+
+.hub-main:focus-visible .hub-main-dot,
+.hub-main:focus-visible .hub-main-halo,
+.hub-kid:focus-visible .hub-kid-dot {
+  stroke: var(--text);
+  stroke-width: 3;
+}
+
+.hub-kid {
+  cursor: pointer;
+}
+
+.hub-kid-edge {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.62;
+  transition: opacity 160ms ease, stroke-width 160ms ease;
+}
+
+.hub-kid-halo {
+  fill: color-mix(in srgb, currentColor 18%, transparent);
+  stroke-width: 1.35;
+  opacity: 0.76;
+  transition: r 120ms ease, opacity 120ms ease;
+}
+
+.hub-kid-dot {
+  fill: currentColor;
+  stroke: #fff;
+  stroke-width: 2;
+  transition: r 120ms ease;
+}
+
+.hub-kid-label {
+  font-size: 12px;
+  font-weight: 400;
+  fill: color-mix(in srgb, var(--text) 88%, var(--muted));
+}
+
+.hub-kid:hover .hub-kid-label {
+  fill: var(--text);
+}
+
+.hub-kid:hover .hub-kid-dot {
+  r: 7px;
+}
+
+.hub-kid:hover .hub-kid-halo {
+  r: 10.5px;
+  opacity: 0.92;
+}
+
+.hub-brief {
+  min-height: 84px;
+  max-width: 66ch;
+  margin: 0.9rem 0 0;
+  border: 1px solid color-mix(in srgb, var(--border) 84%, #fff);
+  border-radius: 0.92rem;
+  background: rgba(255, 255, 255, 0.58);
+  padding: 0.78rem 0.94rem;
+  backdrop-filter: blur(4px);
+}
+
+.hub-brief-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.hub-brief-title {
+  font-weight: 560;
+  color: var(--text);
+}
+
+.hub-brief-body {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0.3rem 0 0;
+}
+
+.hub-brief-empty {
+  font-size: 0.84rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.hub-brief-link {
+  white-space: nowrap;
+}
+
+.notebook-index-section {
+  border-top: 1px solid var(--border);
+  padding: 1rem 0;
+}
+
+.notebook-index-section:first-child {
+  border-top: 0;
+}
+
+.notebook-index-heading {
+  align-items: baseline;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.notebook-index-heading h3 {
+  align-items: center;
+  display: flex;
+  font-size: 1rem;
+  gap: 0.55rem;
+  margin: 0;
+}
+
+.notebook-index-mark {
+  background: var(--index-colour);
+  border-radius: 50%;
+  height: 0.55rem;
+  width: 0.55rem;
+}
+
+.notebook-index-count {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.notebook-index-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  list-style: none;
+  margin: 0.55rem 0 0;
+  padding: 0 0 0 1.1rem;
+}
+
+.notebook-index-links li::marker {
+  color: var(--index-colour);
+}
+
+.notebook-index-links a {
+  font-size: 0.9rem;
+}
+
+.hub-spotlight {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.66), rgba(255, 255, 255, 0.34));
+  border: 1px solid color-mix(in srgb, var(--border) 82%, #fff);
+  border-radius: 0.9rem;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 10px 20px rgba(20, 18, 26, 0.08);
+}
+
+.hub-spotlight-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.hub-spotlight-count {
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hub-spotlight-list {
+  margin: 0.8rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.hub-spotlight-item {
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid color-mix(in srgb, var(--border) 82%, #fff);
+  border-radius: 0.68rem;
+  padding: 0.58rem 0.68rem;
+}
+
+.hub-spotlight-link {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.hub-spotlight-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.hub-spotlight-desc {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.hub-spotlight-more {
+  margin: 0.65rem 0 0;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.focus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin: 0.75rem 0 0;
+}
+
+.focus-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.9rem 0.95rem;
+}
+
+.focus-card h4 {
+  font-size: 0.9rem;
+  margin: 0 0 0.45rem;
+}
+
+.focus-card p {
+  margin-bottom: 0.5rem;
+}
+
+.focus-link {
+  font-size: 0.83rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.focus-link:hover {
+  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .hub-edges path,
+  .hub-main,
+  .hub-main-dot,
+  .hub-main-halo,
+  .hub-kid-dot,
+  .hub-kid-halo {
+    transition: none;
+  }
+}
+
+@media (max-width: 1080px) {
+  .hub-layout {
+    padding-right: 0;
+  }
+
+  .focus-side {
+    position: static;
+    width: auto;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 700px) {
+
+  /* keep map legible on small widths without oversized labels */
+  #hub-svg {
+    width: 100%;
+    margin-left: 0;
+    max-height: none;
+  }
+
+  .hub-main-label {
+    font-size: 19px;
+  }
+
+  .hub-main-count {
+    font-size: 14px;
+  }
+
+  .hub-kid-label {
+    font-size: 15px;
+  }
+
+  .hub-core-label {
+    font-size: 15px;
+    stroke-width: 5;
+  }
+
+  .hub-main-halo {
+    r: 22px;
+  }
+
+  .hub-main-dot {
+    r: 15px;
+  }
+
+  .hub-main:hover .hub-main-dot,
+  .hub-main.is-open .hub-main-dot {
+    r: 18px;
+  }
+
+  .hub-main:hover .hub-main-halo,
+  .hub-main.is-open .hub-main-halo {
+    r: 26px;
+  }
+
+  .hub-kid-halo {
+    r: 12px;
+    stroke-width: 2;
+  }
+
+  .hub-kid-dot {
+    r: 9px;
+    stroke-width: 3;
+  }
+
+  .hub-kid:hover .hub-kid-dot {
+    r: 11px;
+  }
+
+  .hub-kid:hover .hub-kid-halo {
+    r: 14px;
+  }
+
+  .hub-edges path {
+    stroke-width: 2.2;
+  }
+
+  .hub-kid-edge {
+    stroke-width: 2;
+  }
+
+  .hub-core {
+    stroke-width: 2.4;
+  }
+
+  .hub-strip,
+  .focus-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* nothing lives in the navbar menu, so don't offer one */
+  .navbar-toggler {
+    display: none !important;
+  }
+
+  .navbar>.container-fluid {
+    justify-content: space-between;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Override Cosmo's Bootstrap blues so nothing outruns the palette
+   --------------------------------------------------------------- */
+
+:root,
+body {
+  --bs-link-color: var(--primary);
+  --bs-link-hover-color: var(--accent);
+  --bs-link-color-rgb: 85, 64, 127;
+  --bs-link-hover-color-rgb: 47, 101, 88;
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text);
+  --bs-emphasis-color: var(--text);
+  --bs-border-color: var(--border);
+}
+
+body {
+  background-color: var(--bg);
+}
+
+a,
+a:visited {
+  color: var(--primary);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+#TOC a,
+nav[role="doc-toc"] a,
+.sidebar nav a {
+  color: var(--muted);
+}
+
+#TOC a:hover,
+nav[role="doc-toc"] a:hover,
+.sidebar nav a:hover,
+nav[role="doc-toc"] a.active,
+.sidebar nav a.active {
+  color: var(--primary);
+}
+
+nav[role="doc-toc"]>h2,
+.toc-title {
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+}
+
+.tldr::before {
+  color: var(--primary);
+}
+
+.tldr {
+  border-left-color: var(--primary);
+}
+
+code,
+pre code {
+  color: var(--text);
+}
+
+/* ---------------------------------------------------------------
+   Wordmark — Latin then Greek, Greek in the muted tone
+   --------------------------------------------------------------- */
+
+.navbar-title {
+  font-family: "EB Garamond", Georgia, "Times New Roman", serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  color: var(--text);
+}
+
+.navbar-title .greek {
+  color: var(--muted);
+  font-size: 0.92em;
+}
+
+/* ---------------------------------------------------------------
+   Papers page — your existing wide-table layout, preserved
+   --------------------------------------------------------------- */
+
+/* Papers page only: hide TOC and rebalance layout */
+body.papers-page #TOC,
+body.papers-page nav#TOC {
+  display: none !important;
+}
+
+/* Remove the empty margin column on Papers */
+body.papers-page #quarto-margin-sidebar {
+  display: none !important;
+}
+
+body.papers-page main.content {
+  grid-column: page-start / page-end !important;
+  width: min(1300px, calc(100vw - 80px)) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+body.papers-page main.content table {
+  width: 100%;
+  table-layout: fixed;
+  margin-top: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.papers-page main.content table th,
+body.papers-page main.content table td {
+  padding: 0.55rem 0.7rem;
+  vertical-align: top;
+  line-height: 1.35;
+}
+
+/* Clickable, sortable column headers */
+body.papers-page main.content table th {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+body.papers-page main.content table th[data-sort-dir="asc"]::after {
+  content: " \25B2";
+  color: var(--primary);
+}
+
+body.papers-page main.content table th[data-sort-dir="desc"]::after {
+  content: " \25BC";
+  color: var(--primary);
+}
+
+/* Paper */
+body.papers-page main.content table th:nth-child(1),
+body.papers-page main.content table td:nth-child(1) {
+  width: 24%;
+}
+
+/* Year */
+body.papers-page main.content table th:nth-child(2),
+body.papers-page main.content table td:nth-child(2) {
+  width: 7%;
+  white-space: nowrap;
+}
+
+/* Research Focus */
+body.papers-page main.content table th:nth-child(3),
+body.papers-page main.content table td:nth-child(3) {
+  width: 26%;
+}
+
+/* What Changes */
+body.papers-page main.content table th:nth-child(4),
+body.papers-page main.content table td:nth-child(4) {
+  width: 16%;
+}
+
+/* Key Finding */
+body.papers-page main.content table th:nth-child(5),
+body.papers-page main.content table td:nth-child(5) {
+  width: 22%;
+}
+
+/* Source */
+body.papers-page main.content table th:nth-child(6),
+body.papers-page main.content table td:nth-child(6) {
+  width: 5%;
+  white-space: nowrap;
+}
+
+/* The widened Papers layout has no left gutter for the back link */
+body.papers-page .back-link {
+  position: static;
+  float: none;
+  width: auto;
+  margin: 0 0 1.25rem;
+  display: block;
+}
+
+/* ---------------------------------------------------------------
+   Callouts — Quarto hardcodes Bootstrap blue at higher specificity
+   (div.callout-note.callout), so these must match it.
+   --------------------------------------------------------------- */
+
+div.callout.callout-style-default {
+  border-radius: 0;
+  border: none;
+  border-left: 3px solid var(--primary);
+  background: var(--surface);
+}
+
+div.callout-note.callout {
+  border-left-color: var(--primary);
+}
+
+div.callout-tip.callout {
+  border-left-color: var(--accent);
+}
+
+div.callout-warning.callout,
+div.callout-caution.callout {
+  border-left-color: var(--st-question);
+}
+
+div.callout-important.callout {
+  border-left-color: var(--st-parked);
+}
+
+div.callout-note.callout-style-default>.callout-header,
+div.callout-tip.callout-style-default>.callout-header,
+div.callout-warning.callout-style-default>.callout-header,
+div.callout-caution.callout-style-default>.callout-header,
+div.callout-important.callout-style-default>.callout-header {
+  background-color: transparent;
+  border-bottom: none;
+}
+
+.callout.callout-style-default>div.callout-header {
+  font-weight: 500;
+  opacity: 1;
+  color: var(--muted);
+  padding-bottom: 0;
+}
+
+div.callout.callout-titled .callout-icon::before {
+  filter: grayscale(1) opacity(0.45);
+}
+
+.callout .callout-body-container {
+  color: var(--text);
 }

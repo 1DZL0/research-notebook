@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>prisoners-dilemma – Diesel Mears Research Notebook</title>
+<title>Experiment 01 — Prisoner’s Dilemma – Phronesis · Φρόνησις</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -32,10 +32,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -45,20 +41,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-4e28d3ea751b1c5eb5d419e2931c6c5e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-653877cebb4ae6f61504cae7af54dadc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -73,6 +57,18 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&amp;subset=greek,latin&amp;display=swap">
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var t = document.querySelector(".navbar-title");
+    if (!t) return;
+    var parts = t.textContent.split("·");
+    if (parts.length !== 2) return;
+    t.innerHTML = parts[0].trim() + ' <span class="greek">' + parts[1].trim() + "</span>";
+  });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -90,6 +86,172 @@ ul.task-list li input[type="checkbox"] {
     }
   });
 </script>
+<script>
+window.HUB_DATA = {
+  "sections": [
+    {
+      "id": "00-research",
+      "label": "Research",
+      "order": 0,
+      "color": "#4A3A7A",
+      "blurb": "Vision, live questions, and the roadmap.",
+      "entries": [
+        {
+          "title": "Research Development",
+          "url": "00-research/research-development.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        },
+        {
+          "title": "Research Questions",
+          "url": "00-research/research-questions.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        },
+        {
+          "title": "Research Roadmap",
+          "url": "00-research/research-roadmap.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "01-literature",
+      "label": "Literature",
+      "order": 1,
+      "color": "#356D9A",
+      "blurb": "Papers read, and the map connecting them.",
+      "entries": [
+        {
+          "title": "Papers",
+          "url": "01-literature/papers.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "02-projects",
+      "label": "Projects",
+      "order": 2,
+      "color": "#8F5F30",
+      "blurb": "Applied work where the ideas meet something real.",
+      "entries": [
+        {
+          "title": "Project: GenAI4ED",
+          "url": "02-projects/genai4ed.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        },
+        {
+          "title": "Project: Pharos-CY",
+          "url": "02-projects/pharos-cy.html",
+          "status": "active",
+          "description": "Developing the Pharos-CY project.",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "03-experiments",
+      "label": "Experiments",
+      "order": 3,
+      "color": "#8A3E4E",
+      "blurb": "Prototypes and evaluations, with results or an honest blank.",
+      "entries": [
+        {
+          "title": "Experiment 01 — Prisoner's Dilemma",
+          "url": "03-experiments/prisoners-dilemma.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "04-meetings",
+      "label": "Meetings",
+      "order": 4,
+      "color": "#59636E",
+      "blurb": "Supervisor discussions and the decisions from them.",
+      "entries": [
+        {
+          "title": "Other meetings",
+          "url": "04-meetings/other-meetings.html",
+          "status": "active",
+          "description": "Notes and actions from meetings outside regular professor supervision.",
+          "date": ""
+        },
+        {
+          "title": "Professor meeting",
+          "url": "04-meetings/supervisor.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    }
+  ],
+  "lastUpdated": "26 August 2026"
+};
+</script>
+
+<script>
+(function () {
+  var d = window.HUB_DATA;
+  if (!d) return;
+  var parts = window.location.pathname.split("/").filter(Boolean);
+  var folder = parts.length > 1 ? parts[parts.length - 2] : null;
+  var section = null;
+  for (var i = 0; i < d.sections.length; i++) {
+    if (d.sections[i].id === folder) section = d.sections[i];
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    var updated = document.getElementById("hub-last-updated-date");
+    if (updated && d.lastUpdated) updated.textContent = d.lastUpdated;
+    if (!section) return;
+    var host = document.querySelector("#quarto-document-content") ||
+               document.querySelector("main.content");
+    if (!host) return;
+    var a = document.createElement("a");
+    a.className = "back-link";
+    a.href = "../index.html#" + section.id;
+    a.style.setProperty("--back-color", section.color);
+    a.innerHTML = '<span aria-hidden="true">&larr;</span> ' + section.label;
+    host.insertBefore(a, host.firstChild);
+  });
+})();
+</script>
+<script>
+  // Maps a small, fixed status vocabulary onto CSS classes so the same word
+  // looks the same everywhere: listing cards, listing tables, and entry pages.
+  document.addEventListener("DOMContentLoaded", function () {
+    var STATUSES = ["question", "active", "evidence", "parked", "reference"];
+
+    var selectors = [
+      ".listing-category",        // grid + default listings
+      ".quarto-category",         // entry page title block
+      ".listing-status"           // table listing column
+    ].join(",");
+
+    document.querySelectorAll(selectors).forEach(function (el) {
+      var word = el.textContent.trim().toLowerCase();
+      if (STATUSES.indexOf(word) !== -1) {
+        el.classList.add("status-badge", "status-" + word);
+      }
+    });
+  });
+</script>
+<meta name="mermaid-theme" content="neutral">
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -103,82 +265,18 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Diesel Mears Research Notebook</span>
+    <span class="navbar-title">Phronesis · Φρόνησις</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Research</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li>
-    <a class="dropdown-item" href="../00-research/research-development.html">
- <span class="dropdown-text">Research Development</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../00-research/research-questions.html">
- <span class="dropdown-text">Research Questions</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../00-research/research-roadmap.html">
- <span class="dropdown-text">Roadmap</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-literature" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Literature</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-literature">    
-        <li>
-    <a class="dropdown-item" href="../01-literature/literature-map.html">
- <span class="dropdown-text">Literature Map</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../01-literature/papers.html">
- <span class="dropdown-text">Papers</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Projects</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
-        <li>
-    <a class="dropdown-item" href="../02-projects/pharos-cy.html">
- <span class="dropdown-text">Pharos-CY</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../02-projects/genai4ed.html">
- <span class="dropdown-text">GenAI4ED</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-experiments" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Experiments</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-experiments">    
-        <li>
-    <a class="dropdown-item" href="../03-experiments/prisoners-dilemma.html">
- <span class="dropdown-text">Prisoner’s Dilemma</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../04-meetings/supervisor.html"> 
-<span class="menu-text">Meetings</span></a>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/1DZL0/research-notebook"> <i class="bi bi-github" role="img" aria-label="Source repository">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -191,17 +289,277 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#game-design" id="toc-game-design" class="nav-link" data-scroll-target="#game-design">Game Design</a>
+  <ul class="collapse">
+  <li><a href="#payoff-matrix" id="toc-payoff-matrix" class="nav-link" data-scroll-target="#payoff-matrix">Payoff Matrix</a></li>
+  <li><a href="#agent-architecture" id="toc-agent-architecture" class="nav-link" data-scroll-target="#agent-architecture">Agent Architecture</a></li>
+  <li><a href="#what-agents-are-told" id="toc-what-agents-are-told" class="nav-link" data-scroll-target="#what-agents-are-told">What agents are told</a></li>
+  </ul></li>
+  <li><a href="#baseline-run" id="toc-baseline-run" class="nav-link" data-scroll-target="#baseline-run">Baseline Run</a>
+  <ul class="collapse">
+  <li><a href="#round-by-round-results" id="toc-round-by-round-results" class="nav-link" data-scroll-target="#round-by-round-results">Round-by-Round Results</a></li>
+  <li><a href="#agent-reasoning" id="toc-agent-reasoning" class="nav-link" data-scroll-target="#agent-reasoning">Agent Reasoning</a></li>
+  </ul></li>
+  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Experiment 01 — Prisoner’s Dilemma</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
+
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>Do LLM agents cooperate or defect when placed in a repeated strategic interaction — without being told what game they are playing?</p>
+<p>This experiment sets up two teams of agents in a repeated two-choice environment. The agents are given neutral labels (<strong>option_a</strong> and <strong>option_b</strong>) and are never told the payoff structure is a prisoner’s dilemma. The goal is to observe whether cooperation emerges, and how team discussion affects decision-making.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Source code and full results: <strong><a href="https://github.com/1dzl0/agent-game">github.com/1dzl0/agent-game</a></strong></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="game-design" class="level1">
+<h1>Game Design</h1>
+<section id="payoff-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="payoff-matrix">Payoff Matrix</h2>
+<p>Each round, both teams independently choose option_a or option_b. Rewards are determined by the combination of both teams’ choices.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><strong>Team B: option_a</strong></th>
+<th style="text-align: center;"><strong>Team B: option_b</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Team A: option_a</strong></td>
+<td style="text-align: center;">3, 3</td>
+<td style="text-align: center;">0, 5</td>
+</tr>
+<tr class="even">
+<td><strong>Team A: option_b</strong></td>
+<td style="text-align: center;">5, 0</td>
+<td style="text-align: center;">1, 1</td>
+</tr>
+</tbody>
+</table>
+<p>This is the classic prisoner’s dilemma structure:</p>
+<ul>
+<li><strong>Mutual cooperation</strong> (A, A) → both score 3 — best joint outcome</li>
+<li><strong>Mutual defection</strong> (B, B) → both score 1 — worst joint outcome</li>
+<li><strong>Unilateral defection</strong> → defector scores 5, cooperator scores 0</li>
+</ul>
+<p>Agents see only “option_a” and “option_b” in their prompts. The payoff values are revealed through the history of rounds, not upfront.</p>
+</section>
+<section id="agent-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="agent-architecture">Agent Architecture</h2>
+<p>Each team has multiple agents. Before each round, agents share private messages within their team, then each agent votes independently. The team’s final action is determined by majority vote.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    GS[Game State\npublic history + scores] --&gt; OA[Observation Builder]
+    TH[Private Team History] --&gt; OA
+
+    OA --&gt; D1[Agent 1\nDiscussion]
+    OA --&gt; D2[Agent 2\nDiscussion]
+
+    D1 --&gt;|private message| TV[Team Vote]
+    D2 --&gt;|private message| TV
+
+    TV --&gt; DA1[Agent 1\nDecision]
+    TV --&gt; DA2[Agent 2\nDecision]
+
+    DA1 --&gt;|vote| MV[Majority Vote]
+    DA2 --&gt;|vote| MV
+
+    MV --&gt; TA[Team Action]
+    TA --&gt; RM[Reward\nCalculation]
+    RM --&gt; GS
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="what-agents-are-told" class="level2">
+<h2 class="anchored" data-anchor-id="what-agents-are-told">What agents are told</h2>
+<p>Agents receive a prompt like this each round — no mention of game theory, prisoner’s dilemma, or strategic naming:</p>
+<pre><code>You are team_alpha_agent_1, a participant in a repeated decision setting.
+This is round 3 of 5.
+Your team score: 6.
+
+Public history:
+Round 1: team_alpha selected option_a, team_beta selected option_a. team_alpha received 3 points, team_beta received 3 points.
+Round 2: team_alpha selected option_a, team_beta selected option_a. team_alpha received 3 points, team_beta received 3 points.
+
+Private team channel:
+team_alpha_agent_1: ...
+team_alpha_agent_2: ...
+
+The available choices are option_a and option_b.</code></pre>
+<hr>
+</section>
+</section>
+<section id="baseline-run" class="level1">
+<h1>Baseline Run</h1>
+<p><strong>Configuration:</strong> 2 teams × 2 agents, 5 rounds, model: <code>gpt-4.1-nano</code></p>
+<section id="round-by-round-results" class="level2">
+<h2 class="anchored" data-anchor-id="round-by-round-results">Round-by-Round Results</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Round</th>
+<th style="text-align: center;">Team Alpha</th>
+<th style="text-align: center;">Team Beta</th>
+<th style="text-align: center;">Alpha +pts</th>
+<th style="text-align: center;">Beta +pts</th>
+<th style="text-align: center;">Joint</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">option_a</td>
+<td style="text-align: center;">option_a</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">option_a</td>
+<td style="text-align: center;">option_a</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">option_a</td>
+<td style="text-align: center;">option_a</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">option_a</td>
+<td style="text-align: center;">option_a</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">option_a</td>
+<td style="text-align: center;">option_a</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Final scores:</strong> Team Alpha 15, Team Beta 15 — Draw</p>
+<p><strong>Cooperation rate:</strong> 100% (10/10 decisions) · <strong>Mutual cooperation:</strong> 5/5 rounds · <strong>Defections:</strong> 0</p>
+</section>
+<section id="agent-reasoning" class="level2">
+<h2 class="anchored" data-anchor-id="agent-reasoning">Agent Reasoning</h2>
+<p>A selection of private team messages showing how agents reasoned about their choices:</p>
+<p><strong>Round 1 — Team Alpha (no history yet):</strong></p>
+<blockquote class="blockquote">
+<p><em>“In round 1, since there’s no prior history or signals, I’ll choose option_a to start the iteration with a cooperative stance, assuming this may set a positive tone for future rounds.”</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p><em>“Given the initial round and no prior signals, I suggest we choose option_a to promote cooperation early on. This might encourage a collaborative pattern for subsequent rounds.”</em></p>
+</blockquote>
+<p><strong>Round 2 — Team Beta (after mutual cooperation in R1):</strong></p>
+<blockquote class="blockquote">
+<p><em>“Let’s proceed with option_a again this round to maintain consistency and observe team_alpha’s response for potential cooperation or defection in the next rounds.”</em></p>
+</blockquote>
+<p><strong>Round 5 — Team Alpha (final round, scores tied at 12):</strong></p>
+<blockquote class="blockquote">
+<p><em>“Given the history of mutual cooperation on option_a and the steady points we’ve been earning, it is optimal to continue choosing option_a in the final round to maintain this successful pattern.”</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p><em>“Continuing with option_a has maintained mutual cooperation and achieved steady points, so it is strategically sound to sustain this cooperation in the final round to secure the current score.”</em></p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="observations" class="level1">
+<h1>Observations</h1>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Key finding
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Both teams cooperated every round without ever being told the game was a prisoner’s dilemma. Cooperation emerged from inductive reasoning about payoff history — not from explicit knowledge of the game structure.</p>
+</div>
+</div>
+<ul>
+<li><strong>Round 1:</strong> Both teams defaulted to cooperation with no prior history, framing option_a as “setting a positive tone”.</li>
+<li><strong>Rounds 2–5:</strong> Cooperation was self-reinforcing. Each round of mutual option_a gave agents evidence that cooperation was beneficial, reducing any incentive to defect.</li>
+<li><strong>No end-game defection:</strong> Even in round 5 (the final round, where classical game theory predicts defection via backward induction), both teams held the cooperative norm.</li>
+<li><strong>Team discussion reinforced cooperation:</strong> Private messages showed agents building shared rationale — no agent proposed defecting at any point.</li>
+</ul>
+<hr>
+</section>
+<section id="next-steps" class="level1">
+<h1>Next Steps</h1>
+<ul class="task-list">
+<li><label><input type="checkbox">Run with more rounds to see if cooperation holds or breaks down</label></li>
+<li><label><input type="checkbox">Test asymmetric team sizes (e.g.&nbsp;1 agent vs 3 agents)</label></li>
+<li><label><input type="checkbox">Introduce a memory mechanism — do agents build explicit models of the opponent?</label></li>
+<li><label><input type="checkbox">Compare models: does a more capable model defect more strategically?</label></li>
+<li><label><input type="checkbox">Vary the payoff matrix to test different incentive structures</label></li>
+</ul>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

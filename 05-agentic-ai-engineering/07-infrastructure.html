@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Research Questions – Phronesis · Φρόνησις</title>
+<title>infrastructure – Phronesis · Φρόνησις</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -289,167 +289,11 @@ window.HUB_DATA = {
         
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Research Questions</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p>Each question is a working research idea. New questions are added at the top.</p>
-<div class="research-question">
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Q4 — How can capabilities accumulate across agents?</strong></p>
-<p>If one agent discovers a useful capability, that capability may be transferable to another agent, combinable with other capabilities, and reusable to produce something new.</p>
-</div>
-</div>
-</div>
-<p><strong>Working assumptions.</strong></p>
-<ul>
-<li>Agents can represent useful capabilities in a form that another agent can use.</li>
-<li>Shared memory, communication, or social learning can preserve and transfer those capabilities.</li>
-<li>Combining capabilities can produce new behaviour rather than only copying existing behaviour.</li>
-</ul>
-<p><strong>Open questions.</strong></p>
-<ul>
-<li>Under what conditions can a population of agents accumulate capabilities over time?</li>
-<li>How can transferred capabilities be combined without losing what made them useful?</li>
-<li>What would show that the collective system has developed beyond the capability of an individual agent?</li>
-</ul>
-<p><strong>Supporting literature and concepts.</strong> Multi-agent learning; social learning; shared memory; Recursive Multi-Agent Systems; EvolveR; cumulative capability growth.</p>
-<p><strong>Related paper.</strong> This question is closely related to <a href="https://arxiv.org/abs/2604.25917/" target="_blank" rel="noopener">Recursive Multi-Agent Systems</a>, which examines recursive multi-agent reasoning and latent-space communication.</p>
-<p><strong>Current direction.</strong> Explore whether a population of agents can continually develop beyond the capabilities of its individual members.</p>
-<p><strong>Status:</strong> <span class="research-status is-exploring">Exploring</span></p>
-</div>
-<div class="research-question">
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Q3 — Can we map and understand the internal reasoning pathways of AI agents?</strong></p>
-<p>If agents develop different capabilities and reasoning strategies, their internal representations may reveal how those strategies form and where they begin to diverge.</p>
-</div>
-</div>
-</div>
-<p><strong>Working assumptions.</strong></p>
-<ul>
-<li>Internal representations can be observed or recorded in sufficiently small models.</li>
-<li>Changes in internal trajectories can be meaningfully compared across agents.</li>
-<li>Differences in those trajectories may relate to differences in reasoning or outcomes.</li>
-</ul>
-<p><strong>Open questions.</strong></p>
-<ul>
-<li>Which internal states or representations are useful to record?</li>
-<li>How can divergence points be identified without treating normal variation as meaningful?</li>
-<li>Can particular internal patterns be associated with successful reasoning or newly acquired capabilities?</li>
-</ul>
-<p><strong>Supporting literature and concepts.</strong> Mechanistic interpretability; Recursive Multi-Agent Systems and latent-space communication; Q2: Why do identical agents develop different reasoning strategies?</p>
-<p><strong>Related paper.</strong> <a href="https://arxiv.org/abs/2604.25917/" target="_blank" rel="noopener">Recursive Multi-Agent Systems</a> provides a concrete connection to this question through its use of latent representations for communication between agents.</p>
-<p><strong>Possible investigation.</strong> Give several agents the same task and record their internal states throughout reasoning.</p>
-<pre class="text"><code>                     Same Task
-                         |
-            -------------+-------------
-            |            |            |
-         Agent A      Agent B      Agent C
-            |            |            |
-            v            v            v
-       Internal      Internal      Internal
-       trajectory    trajectory    trajectory
-            |            |            |
-            -------------+-------------
-                         v
-                 Compare trajectories
-                         v
-              Identify divergence points
-                         v
-              Compare with final outcomes</code></pre>
-<p><strong>Status:</strong> <span class="research-status is-exploring">Exploring</span></p>
-</div>
-<div class="research-question">
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Q2 - Why do identical agents develop different reasoning strategies?</strong> Multiple agents can start from the same model, receive the same task, and still develop different reasoning strategies and behaviours. Those differences may support exploration and specialisation rather than simply being noise to remove.</p>
-</div>
-</div>
-</div>
-<p><strong>Working assumptions.</strong></p>
-<ul>
-<li>Identical starting models can experience different trajectories through stochasticity, experience, memory, or communication.</li>
-<li>Different strategies can reveal useful alternatives for a collective system.</li>
-<li>Capabilities discovered by one agent may later be transferred or combined with those of another.</li>
-</ul>
-<p><strong>Open questions.</strong></p>
-<ul>
-<li>Which sources of divergence matter most for useful specialisation?</li>
-<li>When does diversity improve collective exploration rather than prevent coordination?</li>
-<li>How can different strategies be compared and transferred between agents?</li>
-</ul>
-<p><strong>Supporting literature and concepts.</strong> Stochasticity and exploration; experience and memory; communication and specialisation; multi-agent learning; shared memory.</p>
-<p><strong>Related paper.</strong> <a href="https://arxiv.org/abs/2406.11776" target="_blank" rel="noopener">Improving Multi-Agent Debate with Sparse Communication Topology</a> is relevant because it tests how changing agent communication structures affects collective reasoning.</p>
-<p><strong>Possible investigation.</strong> Start with identical agents and compare their trajectories under the same task conditions.</p>
-<pre class="text"><code>Same model
-Same initial knowledge
-Same task
-        |
-        +-- Agent A --&gt; trajectory A
-        +-- Agent B --&gt; trajectory B
-        +-- Agent C --&gt; trajectory C
-        +-- Agent D --&gt; trajectory D</code></pre>
-<p><strong>Status:</strong> <span class="research-status is-exploring">Exploring</span></p>
-</div>
-<div class="research-question">
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Q1 - How does an agent know it should learn?</strong> In an open-ended environment, an agent may need to identify its own learning opportunities and decide what to explore without receiving a fixed task or explicit instruction.</p>
-</div>
-</div>
-</div>
-<p><strong>Working assumptions:</strong></p>
-<ul>
-<li>An agent can notice a mismatch between its expectations and an interaction outcome.</li>
-<li>Capability gaps can be identified from uncertainty, novelty, error, or repeated failure.</li>
-<li>Those gaps can be translated into learning objectives or exploratory actions.</li>
-</ul>
-<p><strong>Open questions:</strong></p>
-<ul>
-<li>How can an agent distinguish a useful capability gap from a temporary failure?</li>
-<li>What signals should trigger exploration, learning, or a change in objective?</li>
-<li>Can an agent generate and prioritise its own learning objectives from capability gaps?</li>
-</ul>
-<p><strong>Supporting literature and concepts.</strong> Open-ended learning; intrinsic motivation; curiosity; novelty; Evolver; Darwin Gödel Machine.</p>
-<p><strong>Related paper.</strong> <a href="https://arxiv.org/abs/2510.16179" target="_blank" rel="noopener">Evolver: Self-Evolving LLM Agents through Experience</a> relates to this question by studying how agents turn experience into reusable strategies for future improvement.</p>
-<p><strong>Conceptual example.</strong> Imagine someone is given a cup with an unfamiliar shape. Their first attempt to hold it follows previous experience, but the interaction feels different. The mismatch between expectation and reality triggers exploration and adaptation.</p>
-<p><strong>Status:</strong> <span class="research-status is-exploring">Exploring</span></p>
-</div>
 
 
 

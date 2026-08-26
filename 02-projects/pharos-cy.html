@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Developing the Pharos-CY project.">
 
-<title>pharos-cy – Diesel Mears Research Notebook</title>
+<title>Project: Pharos-CY – Phronesis · Φρόνησις</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -32,10 +33,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -45,20 +42,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-4e28d3ea751b1c5eb5d419e2931c6c5e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-653877cebb4ae6f61504cae7af54dadc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -73,6 +58,18 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&amp;subset=greek,latin&amp;display=swap">
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var t = document.querySelector(".navbar-title");
+    if (!t) return;
+    var parts = t.textContent.split("·");
+    if (parts.length !== 2) return;
+    t.innerHTML = parts[0].trim() + ' <span class="greek">' + parts[1].trim() + "</span>";
+  });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -90,6 +87,168 @@ ul.task-list li input[type="checkbox"] {
     }
   });
 </script>
+<script>
+window.HUB_DATA = {
+  "sections": [
+    {
+      "id": "00-research",
+      "label": "Research",
+      "order": 0,
+      "color": "#4A3A7A",
+      "blurb": "Vision, live questions, and the roadmap.",
+      "entries": [
+        {
+          "title": "Research Development",
+          "url": "00-research/research-development.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        },
+        {
+          "title": "Research Questions",
+          "url": "00-research/research-questions.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        },
+        {
+          "title": "Research Roadmap",
+          "url": "00-research/research-roadmap.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "01-literature",
+      "label": "Literature",
+      "order": 1,
+      "color": "#356D9A",
+      "blurb": "Papers read, and the map connecting them.",
+      "entries": [
+        {
+          "title": "Papers",
+          "url": "01-literature/papers.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "02-projects",
+      "label": "Projects",
+      "order": 2,
+      "color": "#8F5F30",
+      "blurb": "Applied work where the ideas meet something real.",
+      "entries": [
+        {
+          "title": "Project: GenAI4ED",
+          "url": "02-projects/genai4ed.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        },
+        {
+          "title": "Project: Pharos-CY",
+          "url": "02-projects/pharos-cy.html",
+          "status": "active",
+          "description": "Developing the Pharos-CY project.",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "03-experiments",
+      "label": "Experiments",
+      "order": 3,
+      "color": "#8A3E4E",
+      "blurb": "Prototypes and evaluations, with results or an honest blank.",
+      "entries": [
+        {
+          "title": "Experiment 01 — Prisoner's Dilemma",
+          "url": "03-experiments/prisoners-dilemma.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "04-meetings",
+      "label": "Meetings",
+      "order": 4,
+      "color": "#59636E",
+      "blurb": "Supervisor discussions and the decisions from them.",
+      "entries": [
+        {
+          "title": "Other meetings",
+          "url": "04-meetings/other-meetings.html",
+          "status": "active",
+          "description": "Notes and actions from meetings outside regular professor supervision.",
+          "date": ""
+        },
+        {
+          "title": "Professor meeting",
+          "url": "04-meetings/supervisor.html",
+          "status": "active",
+          "description": "",
+          "date": ""
+        }
+      ]
+    }
+  ],
+  "lastUpdated": "26 August 2026"
+};
+</script>
+
+<script>
+(function () {
+  var d = window.HUB_DATA;
+  if (!d) return;
+  var parts = window.location.pathname.split("/").filter(Boolean);
+  var folder = parts.length > 1 ? parts[parts.length - 2] : null;
+  var section = null;
+  for (var i = 0; i < d.sections.length; i++) {
+    if (d.sections[i].id === folder) section = d.sections[i];
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    var updated = document.getElementById("hub-last-updated-date");
+    if (updated && d.lastUpdated) updated.textContent = d.lastUpdated;
+    if (!section) return;
+    var host = document.querySelector("#quarto-document-content") ||
+               document.querySelector("main.content");
+    if (!host) return;
+    var a = document.createElement("a");
+    a.className = "back-link";
+    a.href = "../index.html#" + section.id;
+    a.style.setProperty("--back-color", section.color);
+    a.innerHTML = '<span aria-hidden="true">&larr;</span> ' + section.label;
+    host.insertBefore(a, host.firstChild);
+  });
+})();
+</script>
+<script>
+  // Maps a small, fixed status vocabulary onto CSS classes so the same word
+  // looks the same everywhere: listing cards, listing tables, and entry pages.
+  document.addEventListener("DOMContentLoaded", function () {
+    var STATUSES = ["question", "active", "evidence", "parked", "reference"];
+
+    var selectors = [
+      ".listing-category",        // grid + default listings
+      ".quarto-category",         // entry page title block
+      ".listing-status"           // table listing column
+    ].join(",");
+
+    document.querySelectorAll(selectors).forEach(function (el) {
+      var word = el.textContent.trim().toLowerCase();
+      if (STATUSES.indexOf(word) !== -1) {
+        el.classList.add("status-badge", "status-" + word);
+      }
+    });
+  });
+</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -103,82 +262,18 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Diesel Mears Research Notebook</span>
+    <span class="navbar-title">Phronesis · Φρόνησις</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Research</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li>
-    <a class="dropdown-item" href="../00-research/research-development.html">
- <span class="dropdown-text">Research Development</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../00-research/research-questions.html">
- <span class="dropdown-text">Research Questions</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../00-research/research-roadmap.html">
- <span class="dropdown-text">Roadmap</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-literature" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Literature</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-literature">    
-        <li>
-    <a class="dropdown-item" href="../01-literature/literature-map.html">
- <span class="dropdown-text">Literature Map</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../01-literature/papers.html">
- <span class="dropdown-text">Papers</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Projects</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
-        <li>
-    <a class="dropdown-item" href="../02-projects/pharos-cy.html">
- <span class="dropdown-text">Pharos-CY</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../02-projects/genai4ed.html">
- <span class="dropdown-text">GenAI4ED</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-experiments" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Experiments</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-experiments">    
-        <li>
-    <a class="dropdown-item" href="../03-experiments/prisoners-dilemma.html">
- <span class="dropdown-text">Prisoner’s Dilemma</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../04-meetings/supervisor.html"> 
-<span class="menu-text">Meetings</span></a>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/1DZL0/research-notebook"> <i class="bi bi-github" role="img" aria-label="Source repository">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -193,7 +288,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">Contents</h2>
    
   <ul>
   <li><a href="#project-pharos-cy" id="toc-project-pharos-cy" class="nav-link active" data-scroll-target="#project-pharos-cy">Project: Pharos-CY</a>
@@ -204,9 +299,30 @@ ul.task-list li input[type="checkbox"] {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Project: Pharos-CY</h1>
+</div>
+
+<div>
+  <div class="description">
+    Developing the Pharos-CY project.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="project-pharos-cy" class="level1">

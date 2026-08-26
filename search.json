@@ -1,5 +1,103 @@
 [
   {
+    "objectID": "03-experiments/prisoners-dilemma.html",
+    "href": "03-experiments/prisoners-dilemma.html",
+    "title": "Experiment 01 — Prisoner’s Dilemma",
+    "section": "",
+    "text": "Do LLM agents cooperate or defect when placed in a repeated strategic interaction — without being told what game they are playing?\nThis experiment sets up two teams of agents in a repeated two-choice environment. The agents are given neutral labels (option_a and option_b) and are never told the payoff structure is a prisoner’s dilemma. The goal is to observe whether cooperation emerges, and how team discussion affects decision-making.\n\n\n\n\n\n\nNote\n\n\n\nSource code and full results: github.com/1dzl0/agent-game"
+  },
+  {
+    "objectID": "03-experiments/prisoners-dilemma.html#payoff-matrix",
+    "href": "03-experiments/prisoners-dilemma.html#payoff-matrix",
+    "title": "Experiment 01 — Prisoner’s Dilemma",
+    "section": "Payoff Matrix",
+    "text": "Payoff Matrix\nEach round, both teams independently choose option_a or option_b. Rewards are determined by the combination of both teams’ choices.\n\n\n\n\nTeam B: option_a\nTeam B: option_b\n\n\n\n\nTeam A: option_a\n3, 3\n0, 5\n\n\nTeam A: option_b\n5, 0\n1, 1\n\n\n\nThis is the classic prisoner’s dilemma structure:\n\nMutual cooperation (A, A) → both score 3 — best joint outcome\nMutual defection (B, B) → both score 1 — worst joint outcome\nUnilateral defection → defector scores 5, cooperator scores 0\n\nAgents see only “option_a” and “option_b” in their prompts. The payoff values are revealed through the history of rounds, not upfront."
+  },
+  {
+    "objectID": "03-experiments/prisoners-dilemma.html#agent-architecture",
+    "href": "03-experiments/prisoners-dilemma.html#agent-architecture",
+    "title": "Experiment 01 — Prisoner’s Dilemma",
+    "section": "Agent Architecture",
+    "text": "Agent Architecture\nEach team has multiple agents. Before each round, agents share private messages within their team, then each agent votes independently. The team’s final action is determined by majority vote.\n\n\n\n\n\nflowchart TD\n    GS[Game State\\npublic history + scores] --&gt; OA[Observation Builder]\n    TH[Private Team History] --&gt; OA\n\n    OA --&gt; D1[Agent 1\\nDiscussion]\n    OA --&gt; D2[Agent 2\\nDiscussion]\n\n    D1 --&gt;|private message| TV[Team Vote]\n    D2 --&gt;|private message| TV\n\n    TV --&gt; DA1[Agent 1\\nDecision]\n    TV --&gt; DA2[Agent 2\\nDecision]\n\n    DA1 --&gt;|vote| MV[Majority Vote]\n    DA2 --&gt;|vote| MV\n\n    MV --&gt; TA[Team Action]\n    TA --&gt; RM[Reward\\nCalculation]\n    RM --&gt; GS"
+  },
+  {
+    "objectID": "03-experiments/prisoners-dilemma.html#what-agents-are-told",
+    "href": "03-experiments/prisoners-dilemma.html#what-agents-are-told",
+    "title": "Experiment 01 — Prisoner’s Dilemma",
+    "section": "What agents are told",
+    "text": "What agents are told\nAgents receive a prompt like this each round — no mention of game theory, prisoner’s dilemma, or strategic naming:\nYou are team_alpha_agent_1, a participant in a repeated decision setting.\nThis is round 3 of 5.\nYour team score: 6.\n\nPublic history:\nRound 1: team_alpha selected option_a, team_beta selected option_a. team_alpha received 3 points, team_beta received 3 points.\nRound 2: team_alpha selected option_a, team_beta selected option_a. team_alpha received 3 points, team_beta received 3 points.\n\nPrivate team channel:\nteam_alpha_agent_1: ...\nteam_alpha_agent_2: ...\n\nThe available choices are option_a and option_b."
+  },
+  {
+    "objectID": "03-experiments/prisoners-dilemma.html#round-by-round-results",
+    "href": "03-experiments/prisoners-dilemma.html#round-by-round-results",
+    "title": "Experiment 01 — Prisoner’s Dilemma",
+    "section": "Round-by-Round Results",
+    "text": "Round-by-Round Results\n\n\n\nRound\nTeam Alpha\nTeam Beta\nAlpha +pts\nBeta +pts\nJoint\n\n\n\n\n1\noption_a\noption_a\n3\n3\n6\n\n\n2\noption_a\noption_a\n3\n3\n6\n\n\n3\noption_a\noption_a\n3\n3\n6\n\n\n4\noption_a\noption_a\n3\n3\n6\n\n\n5\noption_a\noption_a\n3\n3\n6\n\n\n\nFinal scores: Team Alpha 15, Team Beta 15 — Draw\nCooperation rate: 100% (10/10 decisions) · Mutual cooperation: 5/5 rounds · Defections: 0"
+  },
+  {
+    "objectID": "03-experiments/prisoners-dilemma.html#agent-reasoning",
+    "href": "03-experiments/prisoners-dilemma.html#agent-reasoning",
+    "title": "Experiment 01 — Prisoner’s Dilemma",
+    "section": "Agent Reasoning",
+    "text": "Agent Reasoning\nA selection of private team messages showing how agents reasoned about their choices:\nRound 1 — Team Alpha (no history yet):\n\n“In round 1, since there’s no prior history or signals, I’ll choose option_a to start the iteration with a cooperative stance, assuming this may set a positive tone for future rounds.”\n\n\n“Given the initial round and no prior signals, I suggest we choose option_a to promote cooperation early on. This might encourage a collaborative pattern for subsequent rounds.”\n\nRound 2 — Team Beta (after mutual cooperation in R1):\n\n“Let’s proceed with option_a again this round to maintain consistency and observe team_alpha’s response for potential cooperation or defection in the next rounds.”\n\nRound 5 — Team Alpha (final round, scores tied at 12):\n\n“Given the history of mutual cooperation on option_a and the steady points we’ve been earning, it is optimal to continue choosing option_a in the final round to maintain this successful pattern.”\n\n\n“Continuing with option_a has maintained mutual cooperation and achieved steady points, so it is strategically sound to sustain this cooperation in the final round to secure the current score.”"
+  },
+  {
+    "objectID": "00-research/research-questions.html",
+    "href": "00-research/research-questions.html",
+    "title": "Research Questions",
+    "section": "",
+    "text": "Each question is a working research idea. New questions are added at the top.\n\n\n\n\n\n\n\nQ4 — How can capabilities accumulate across agents?\nIf one agent discovers a useful capability, that capability may be transferable to another agent, combinable with other capabilities, and reusable to produce something new.\n\n\n\nWorking assumptions.\n\nAgents can represent useful capabilities in a form that another agent can use.\nShared memory, communication, or social learning can preserve and transfer those capabilities.\nCombining capabilities can produce new behaviour rather than only copying existing behaviour.\n\nOpen questions.\n\nUnder what conditions can a population of agents accumulate capabilities over time?\nHow can transferred capabilities be combined without losing what made them useful?\nWhat would show that the collective system has developed beyond the capability of an individual agent?\n\nSupporting literature and concepts. Multi-agent learning; social learning; shared memory; Recursive Multi-Agent Systems; EvolveR; cumulative capability growth.\nRelated paper. This question is closely related to Recursive Multi-Agent Systems, which examines recursive multi-agent reasoning and latent-space communication.\nCurrent direction. Explore whether a population of agents can continually develop beyond the capabilities of its individual members.\nStatus: Exploring\n\n\n\n\n\n\n\n\nQ3 — Can we map and understand the internal reasoning pathways of AI agents?\nIf agents develop different capabilities and reasoning strategies, their internal representations may reveal how those strategies form and where they begin to diverge.\n\n\n\nWorking assumptions.\n\nInternal representations can be observed or recorded in sufficiently small models.\nChanges in internal trajectories can be meaningfully compared across agents.\nDifferences in those trajectories may relate to differences in reasoning or outcomes.\n\nOpen questions.\n\nWhich internal states or representations are useful to record?\nHow can divergence points be identified without treating normal variation as meaningful?\nCan particular internal patterns be associated with successful reasoning or newly acquired capabilities?\n\nSupporting literature and concepts. Mechanistic interpretability; Recursive Multi-Agent Systems and latent-space communication; Q2: Why do identical agents develop different reasoning strategies?\nRelated paper. Recursive Multi-Agent Systems provides a concrete connection to this question through its use of latent representations for communication between agents.\nPossible investigation. Give several agents the same task and record their internal states throughout reasoning.\n                     Same Task\n                         |\n            -------------+-------------\n            |            |            |\n         Agent A      Agent B      Agent C\n            |            |            |\n            v            v            v\n       Internal      Internal      Internal\n       trajectory    trajectory    trajectory\n            |            |            |\n            -------------+-------------\n                         v\n                 Compare trajectories\n                         v\n              Identify divergence points\n                         v\n              Compare with final outcomes\nStatus: Exploring\n\n\n\n\n\n\n\n\nQ2 - Why do identical agents develop different reasoning strategies? Multiple agents can start from the same model, receive the same task, and still develop different reasoning strategies and behaviours. Those differences may support exploration and specialisation rather than simply being noise to remove.\n\n\n\nWorking assumptions.\n\nIdentical starting models can experience different trajectories through stochasticity, experience, memory, or communication.\nDifferent strategies can reveal useful alternatives for a collective system.\nCapabilities discovered by one agent may later be transferred or combined with those of another.\n\nOpen questions.\n\nWhich sources of divergence matter most for useful specialisation?\nWhen does diversity improve collective exploration rather than prevent coordination?\nHow can different strategies be compared and transferred between agents?\n\nSupporting literature and concepts. Stochasticity and exploration; experience and memory; communication and specialisation; multi-agent learning; shared memory.\nRelated paper. Improving Multi-Agent Debate with Sparse Communication Topology is relevant because it tests how changing agent communication structures affects collective reasoning.\nPossible investigation. Start with identical agents and compare their trajectories under the same task conditions.\nSame model\nSame initial knowledge\nSame task\n        |\n        +-- Agent A --&gt; trajectory A\n        +-- Agent B --&gt; trajectory B\n        +-- Agent C --&gt; trajectory C\n        +-- Agent D --&gt; trajectory D\nStatus: Exploring\n\n\n\n\n\n\n\n\nQ1 - How does an agent know it should learn? In an open-ended environment, an agent may need to identify its own learning opportunities and decide what to explore without receiving a fixed task or explicit instruction.\n\n\n\nWorking assumptions:\n\nAn agent can notice a mismatch between its expectations and an interaction outcome.\nCapability gaps can be identified from uncertainty, novelty, error, or repeated failure.\nThose gaps can be translated into learning objectives or exploratory actions.\n\nOpen questions:\n\nHow can an agent distinguish a useful capability gap from a temporary failure?\nWhat signals should trigger exploration, learning, or a change in objective?\nCan an agent generate and prioritise its own learning objectives from capability gaps?\n\nSupporting literature and concepts. Open-ended learning; intrinsic motivation; curiosity; novelty; Evolver; Darwin Gödel Machine.\nRelated paper. Evolver: Self-Evolving LLM Agents through Experience relates to this question by studying how agents turn experience into reusable strategies for future improvement.\nConceptual example. Imagine someone is given a cup with an unfamiliar shape. Their first attempt to hold it follows previous experience, but the interaction feels different. The mismatch between expectation and reality triggers exploration and adaptation.\nStatus: Exploring"
+  },
+  {
+    "objectID": "04-meetings/supervisor.html",
+    "href": "04-meetings/supervisor.html",
+    "title": "Professor meeting",
+    "section": "",
+    "text": "Constantine\nDiesel Mears\n\n\n\n\n\n\nDiscussed OpenEnded/OpenAI research directions and what kinds of long-term research questions are interesting.\nFocused on making sure I develop a solid understanding of agentic AI concepts before committing to future project work.\nIdentified the need to better understand agent architectures, tools/function calling, memory systems, RAG, and multi-agent systems as core foundations..\nAgreed that I should continue reading, taking structured notes, and showing code examples so that I can discuss ideas more critically in future meetings.\n\n\n\n\n\n\nContinue reading agentic AI material.\nConsolidate notes from current readings into the research notebook.\nPrepare a short summary of current understanding and open questions for the next meeting.\nPrepare the agent game example and code for the next meeting"
+  },
+  {
+    "objectID": "04-meetings/supervisor.html#professor-meeting---2026-08-06",
+    "href": "04-meetings/supervisor.html#professor-meeting---2026-08-06",
+    "title": "Professor meeting",
+    "section": "",
+    "text": "Constantine\nDiesel Mears\n\n\n\n\n\n\nDiscussed OpenEnded/OpenAI research directions and what kinds of long-term research questions are interesting.\nFocused on making sure I develop a solid understanding of agentic AI concepts before committing to future project work.\nIdentified the need to better understand agent architectures, tools/function calling, memory systems, RAG, and multi-agent systems as core foundations..\nAgreed that I should continue reading, taking structured notes, and showing code examples so that I can discuss ideas more critically in future meetings.\n\n\n\n\n\n\nContinue reading agentic AI material.\nConsolidate notes from current readings into the research notebook.\nPrepare a short summary of current understanding and open questions for the next meeting.\nPrepare the agent game example and code for the next meeting"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Phronesis · Φρόνησις",
+    "section": "",
+    "text": "Research focus"
+  },
+  {
+    "objectID": "index.html#notebook-index",
+    "href": "index.html#notebook-index",
+    "title": "Phronesis · Φρόνησις",
+    "section": "Notebook index",
+    "text": "Notebook index"
+  },
+  {
+    "objectID": "01-literature/papers.html",
+    "href": "01-literature/papers.html",
+    "title": "Papers",
+    "section": "",
+    "text": "This is my structured collection of papers relevant to my PhD research and associated projects.\nThe categories provide a high-level view of the research landscape. The Key Finding column captures the main takeaway for each paper so comparisons across the literature."
+  },
+  {
+    "objectID": "01-literature/papers.html#phd-papers",
+    "href": "01-literature/papers.html#phd-papers",
+    "title": "Papers",
+    "section": "PhD Papers",
+    "text": "PhD Papers\n\n1. Open-Ended Learning & Self-Evolution\nPapers exploring systems that can continue developing, improving, evolving, or modifying themselves beyond a fixed training procedure\n\n\n\nPaper\nYear\nResearch Focus\nWhat Changes\nKey Finding\nSource\n\n\n\n\nRecursive Multi-Agent Systems\n2026\nLatent-space recursive multi-agent\nInter-agent communication / latent states\nLatent communication can improve multi-agent reasoning while reducing inference cost and token use\nLink\n\n\nDarwin Gödel Machine\n2025\nSelf-improving agents\nAgent code / system\nAn archive of diverse agent lineages helps avoid local optima and enables later improvements from earlier discoveries.\nLink\n\n\nAlphaEvolve\n2025\nAutomated algorithm discovery\nPrograms / algorithms\nEvolutionary search over programs discovers new algorithms that outperform prior human-designed solutions.\nLink\n\n\nEvolver: Self-Evolving LLM Agents through Experience\n2025\nSelf-evolving agents via experience\nAgent policy / behaviour\nAgents can distill experience into reusable strategies and use them to improve future behaviour.\nLink\n\n\nA Self-Improving Coding Agent\n2025\nSelf-improving coding agents\nCoding agent\nAn agent can iteratively rewrite and improve its own coding capabilities without external supervision.\nLink\n\n\n\n\n\n\n2. Multi-Agent Systems & Collective Reasoning\nPapers exploring how multiple agents communicate, debate, coordinate, specialise, or collectively solve problems.\n\n\n\nPaper\nYear\nResearch Focus\nWhat Changes\nKey Finding\nSource\n\n\n\n\nImproving Multi-Agent Debate with Sparse Communication Topology\n2024\nEffect of communication topology on debate\nCommunication topology\nSparse communication topologies can match or exceed fully-connected debate while reducing communication cost.\nLink\n\n\nImproving Factuality and Reasoning in Language Models through Multiagent Debate\n2023\nImproving factual accuracy via debate\nReasoning / decision\nMultiple language model agents debating and critiquing each other’s answers improves factual accuracy and reasoning quality.\nLink\n\n\nReConcile: Round-Table Conference Improves Reasoning via Consensus among Diverse LLMs\n2023\nReaching consensus among diverse LLMs\nFinal decision\nStructured rounds of discussion between diverse LLMs help them converge on more accurate shared answers.\nLink\n\n\n\n\n\n\n3. Agentic Learning, Tools & Interaction\nPapers exploring agents that learn through interaction, tool use, tasks, feedback, or increasingly autonomous workflows.\n\n\n\nPaper\nYear\nResearch Focus\nWhat Changes\nKey Finding\nSource\n\n\n\n\nAutoResearchBench: Benchmarking AI Agents on Complex Scientific Literature Discovery\n2026\nBenchmarking scientific literature discovery\nAgent capability\nCurrent agents still struggle with complex, multi-step scientific literature discovery tasks.\nLink\n\n\nMUA-RL: Multi-turn User-interacting Agent Reinforcement Learning for Agentic Tool Use\n2025\nTraining agents for multi-turn tool use\nAgent policy / tool use\nReinforcement learning over multi-turn user interactions improves an agent’s ability to use tools effectively.\nLink"
+  },
+  {
+    "objectID": "01-literature/papers.html#project-papers",
+    "href": "01-literature/papers.html#project-papers",
+    "title": "Papers",
+    "section": "Project Papers",
+    "text": "Project Papers\n\nGenAI4ED\nPapers collected specifically for the GenAI4ED project.\n\n\n\nPaper\nYear\nResearch Focus\nWhat Changes\nKey Finding\nSource\n\n\n\n\nDeep Tutor: Towards Agentic Personalized Tutoring\n2026\nAgentic personalised tutoring\nAgent behaviour / tutoring process\nAn agentic tutoring approach can personalise instruction more effectively than static tutoring systems.\nLink"
+  },
+  {
     "objectID": "02-projects/genai4ed.html",
     "href": "02-projects/genai4ed.html",
     "title": "Project: GenAI4ED",
@@ -28,88 +126,81 @@
     "text": "Potential Applications\n\nEarly identification of learning difficulties\nPersonalised support recommendations\nClassroom-level learning insights\nEvaluation of learning activities"
   },
   {
+    "objectID": "05-agentic-ai-engineering/01-agent-systems.html",
+    "href": "05-agentic-ai-engineering/01-agent-systems.html",
+    "title": "Agent Systems",
+    "section": "",
+    "text": "An AI agent is a system that uses a large language model (LLM) as a reasoning component combined with tools, memory, and feedback mechanisms to achieve goals autonomously.\nUnlike a traditional LLM application:\nInput → Model → Output\nAn agent operates through an iterative loop where it can observe, reason, act, and update its state.\nflowchart LR\nGoal[Goal] --&gt; Observe[Observe Environment]\nObserve --&gt; Reason[Reason / Plan]\nReason --&gt; Act[Take Action]\nAct --&gt; Feedback[Evaluate Result]\nFeedback --&gt; Memory[Update State / Memory]\nMemory --&gt; Observe\nThe key difference is that an agent can decide actions, use tools, maintain state, and adapt based on feedback.\n\n\n\n\n\n\nComponent\nPurpose\n\n\n\n\nLLM\nReasoning and decision making\n\n\nTools\nInteraction with external systems\n\n\nMemory\nStore and retrieve information\n\n\nState\nTrack task progress\n\n\nEvaluation\nMeasure and improve performance\n\n\n\n\n\n\n\nflowchart TD\nTask[Receive Goal] --&gt; Plan[Create Plan]\nPlan --&gt; Action[Select Action]\nAction --&gt; Tool[Execute Tool]\nTool --&gt; Observation[Receive Result]\nObservation --&gt; Evaluate[Evaluate Outcome]\nEvaluate --&gt; Plan"
+  },
+  {
+    "objectID": "05-agentic-ai-engineering/01-agent-systems.html#overview",
+    "href": "05-agentic-ai-engineering/01-agent-systems.html#overview",
+    "title": "Agent Systems",
+    "section": "",
+    "text": "An AI agent is a system that uses a large language model (LLM) as a reasoning component combined with tools, memory, and feedback mechanisms to achieve goals autonomously.\nUnlike a traditional LLM application:\nInput → Model → Output\nAn agent operates through an iterative loop where it can observe, reason, act, and update its state.\nflowchart LR\nGoal[Goal] --&gt; Observe[Observe Environment]\nObserve --&gt; Reason[Reason / Plan]\nReason --&gt; Act[Take Action]\nAct --&gt; Feedback[Evaluate Result]\nFeedback --&gt; Memory[Update State / Memory]\nMemory --&gt; Observe\nThe key difference is that an agent can decide actions, use tools, maintain state, and adapt based on feedback.\n\n\n\n\n\n\nComponent\nPurpose\n\n\n\n\nLLM\nReasoning and decision making\n\n\nTools\nInteraction with external systems\n\n\nMemory\nStore and retrieve information\n\n\nState\nTrack task progress\n\n\nEvaluation\nMeasure and improve performance\n\n\n\n\n\n\n\nflowchart TD\nTask[Receive Goal] --&gt; Plan[Create Plan]\nPlan --&gt; Action[Select Action]\nAction --&gt; Tool[Execute Tool]\nTool --&gt; Observation[Receive Result]\nObservation --&gt; Evaluate[Evaluate Outcome]\nEvaluate --&gt; Plan"
+  },
+  {
+    "objectID": "05-agentic-ai-engineering/02-frameworks.html",
+    "href": "05-agentic-ai-engineering/02-frameworks.html",
+    "title": "Agent Frameworks",
+    "section": "",
+    "text": "Agent frameworks provide the software infrastructure required to build, orchestrate, and manage AI agents.\nThey provide abstractions for:\n\nagent loops\ntool calling\nstate management\nworkflows\nmemory integration\nmulti-agent coordination\nevaluation\n\nInstead of manually building every component, frameworks provide reusable patterns for developing agent systems."
+  },
+  {
+    "objectID": "05-agentic-ai-engineering/02-frameworks.html#overview",
+    "href": "05-agentic-ai-engineering/02-frameworks.html#overview",
+    "title": "Agent Frameworks",
+    "section": "",
+    "text": "Agent frameworks provide the software infrastructure required to build, orchestrate, and manage AI agents.\nThey provide abstractions for:\n\nagent loops\ntool calling\nstate management\nworkflows\nmemory integration\nmulti-agent coordination\nevaluation\n\nInstead of manually building every component, frameworks provide reusable patterns for developing agent systems."
+  },
+  {
+    "objectID": "05-agentic-ai-engineering/02-frameworks.html#framework-categories",
+    "href": "05-agentic-ai-engineering/02-frameworks.html#framework-categories",
+    "title": "Agent Frameworks",
+    "section": "Framework Categories",
+    "text": "Framework Categories\n\n\n\nCategory\nPurpose\n\n\n\n\nAgent Orchestration\nBuild and control agent workflows\n\n\nMulti-Agent Frameworks\nCoordinate multiple agents\n\n\nData-Centric Frameworks\nBuild agents around knowledge retrieval\n\n\nEnterprise Frameworks\nProduction-focused agent systems"
+  },
+  {
+    "objectID": "05-agentic-ai-engineering/02-frameworks.html#framework-comparison",
+    "href": "05-agentic-ai-engineering/02-frameworks.html#framework-comparison",
+    "title": "Agent Frameworks",
+    "section": "Framework Comparison",
+    "text": "Framework Comparison\n\n\n\n\n\n\n\n\n\n\nFramework\nMain Focus\nStrengths\nLimitations\nUsed\n\n\n\n\nLangGraph\nStateful agent workflows\nFlexible, controllable, production-oriented\nMore engineering required\n[x]\n\n\nLangChain Agents\nGeneral LLM applications\nLarge ecosystem, many integrations\nCan become complex\n[x]\n\n\nAutoGen\nMulti-agent conversations\nEasy agent collaboration\nLess workflow control\n[]\n\n\nCrewAI\nRole-based agents\nSimple and intuitive\nLess low-level control\n[]\n\n\nSemantic Kernel\nEnterprise orchestration\nStrong enterprise integration\nMore abstraction\n[]\n\n\nOpenAI Agents SDK\nLightweight agent development\nSimple, integrated tooling\nOpenAI ecosystem focused\n[]\n\n\nLlamaIndex Agents\nData and RAG agents\nStrong retrieval capabilities\nMore specialised\n[]\n\n\nPydanticAI\nTyped production agents\nPython engineering focus\nSmaller ecosystem\n[]"
+  },
+  {
+    "objectID": "05-agentic-ai-engineering/02-frameworks.html#framework-selection-criteria",
+    "href": "05-agentic-ai-engineering/02-frameworks.html#framework-selection-criteria",
+    "title": "Agent Frameworks",
+    "section": "Framework Selection Criteria",
+    "text": "Framework Selection Criteria\nChoosing an agent framework depends on the requirements of the system being built.\nA major design decision is how much control the developer wants over the agent behaviour.\n\n\n\n\n\n\n\n\n\nApproach\nDescription\nAdvantages\nLimitations\n\n\n\n\nFixed workflows\nDeveloper defines the execution path\nPredictable, easier debugging, safer\nLess flexible\n\n\nGraph-based agents\nDeveloper defines states and transitions\nHigh control while allowing adaptation\nMore engineering effort\n\n\nAutonomous agents\nAgent decides most actions dynamically\nFlexible, powerful for exploration\nHarder to evaluate and control\n\n\n\n\nExample:\nProduction system:\nMore control → predictable behaviour\n\nResearch prototype:\nMore autonomy → explore agent capabilities"
+  },
+  {
     "objectID": "01-literature/literature-map.html",
     "href": "01-literature/literature-map.html",
     "title": "Literature Map",
     "section": "",
-    "text": "Map the major research areas contributing to the development of adaptive intelligent systems.\nThis page provides a high-level overview of connections between research themes, with detailed analysis stored in individual literature notes."
+    "text": "Research focus: Open-ended capability growth in autonomous multi-agent systems.\nOpen-Ended Capability Growth\n│\n├── Open-Ended Learning\n│   ├── Novelty Search\n│   ├── MAP-Elites / Quality-Diversity\n│   ├── POET\n│   ├── Artificial Life\n│   └── Environment Coevolution\n│\n├── Continual Learning\n│   ├── Catastrophic Forgetting\n│   ├── Experience Replay\n│   ├── Stability–Plasticity\n│   └── Online Adaptation\n│\n├── Intrinsic Motivation\n│   ├── Curiosity\n│   ├── Information Gain\n│   ├── Empowerment\n│   └── Active Learning\n│\n├── World Models\n│   ├── Predictive Models\n│   ├── Planning\n│   ├── Uncertainty Estimation\n│   └── Latent Dynamics\n│\n├── Agentic Systems\n│   ├── Planning Agents\n│   ├── Tool Use\n│   ├── Memory Systems\n│   ├── Reflection\n│   └── Self-Improvement\n│\n├── Multi-Agent Systems\n│   ├── Coordination\n│   ├── Communication\n│   ├── Role Allocation\n│   └── Collective Intelligence\n│\n├── Social Learning\n│   ├── Teaching\n│   ├── Imitation\n│   ├── Skill Transfer\n│   └── Cultural Transmission\n│\n├── Shared Memory\n│   ├── Vector Memory\n│   ├── Knowledge Graphs\n│   ├── Episodic Memory\n│   └── Long-Term Memory\n│\n├── Evolutionary Search\n│   ├── Evolutionary Algorithms\n│   ├── Population-Based Training\n│   ├── Architecture Search\n│   └── Self-Modification\n│\n├── Organizational Emergence\n│   ├── Persistent Organizations\n│   ├── Protocol Evolution\n│   ├── Shared Standards\n│   └── Institutional Memory\n│\n├── Interpretability & Observability\n│   ├── Mechanistic Interpretability\n│   ├── Sparse Autoencoders\n│   ├── Reasoning Trajectories\n│   └── Agent Observability\n│\n├── Meta-Learning\n│   ├── Learning to Learn\n│   ├── Strategy Adaptation\n│   ├── Self-Generated Curricula\n│   └── Hyperparameter Adaptation\n│\n├── Evaluation\n│   ├── Capability Growth\n│   ├── Diversity Metrics\n│   ├── Transfer\n│   ├── Long-Horizon Evaluation\n│   └── Open-Endedness Metrics\n│\n└── Safety & Alignment\n    ├── Alignment\n    ├── Goal Stability\n    ├── Reward Hacking\n    ├── Corrigibility\n    └── Verification\n\n\n\nHighest priority\n\nOpen-Ended Learning\nMulti-Agent Systems\nSocial Learning\nShared Memory\nEvolutionary Search\nEvaluation\n\nStrongly related\n\nIntrinsic Motivation\nWorld Models\nContinual Learning\nOrganizational Emergence\n\nSupporting\n\nAgentic Systems\nInterpretability\nMeta-Learning\nSafety & Alignment"
   },
   {
-    "objectID": "01-literature/literature-map.html#goal",
-    "href": "01-literature/literature-map.html#goal",
+    "objectID": "01-literature/literature-map.html#core-areas-for-my-current-direction",
+    "href": "01-literature/literature-map.html#core-areas-for-my-current-direction",
     "title": "Literature Map",
     "section": "",
-    "text": "Map the major research areas contributing to the development of adaptive intelligent systems.\nThis page provides a high-level overview of connections between research themes, with detailed analysis stored in individual literature notes."
+    "text": "Highest priority\n\nOpen-Ended Learning\nMulti-Agent Systems\nSocial Learning\nShared Memory\nEvolutionary Search\nEvaluation\n\nStrongly related\n\nIntrinsic Motivation\nWorld Models\nContinual Learning\nOrganizational Emergence\n\nSupporting\n\nAgentic Systems\nInterpretability\nMeta-Learning\nSafety & Alignment"
   },
   {
-    "objectID": "04-meetings/supervisor.html#actions",
-    "href": "04-meetings/supervisor.html#actions",
-    "title": "Meeting - 2026-08-06",
-    "section": "Actions",
-    "text": "Actions\n\n[ ]"
-  },
-  {
-    "objectID": "00-research/research-roadmap.html",
-    "href": "00-research/research-roadmap.html",
-    "title": "Research Roadmap",
+    "objectID": "04-meetings/other-meetings.html",
+    "href": "04-meetings/other-meetings.html",
+    "title": "Other meetings",
     "section": "",
-    "text": "Used for ideas that move beyond initial exploration.\nOutlines the stages, milestones, and steps required to develop the research question into a structured research direction."
+    "text": "Use this page to keep notes from collaborator, project, workshop, or informal research meetings.\n\n\nDate:\nParticipants:\nDiscussion:\nDecisions:\nActions:\n\n[ ]"
   },
   {
-    "objectID": "00-research/research-questions.html",
-    "href": "00-research/research-questions.html",
-    "title": "Research Questions",
+    "objectID": "04-meetings/other-meetings.html#other-meetings",
+    "href": "04-meetings/other-meetings.html#other-meetings",
+    "title": "Other meetings",
     "section": "",
-    "text": "These pages capture emerging research questions, hypotheses, and conceptual ideas."
-  },
-  {
-    "objectID": "00-research/research-questions.html#intuition",
-    "href": "00-research/research-questions.html#intuition",
-    "title": "Research Questions",
-    "section": "Intuition",
-    "text": "Intuition\nCurrent AI systems are largely treated as black boxes.\nWe observe:\n\ninput\noutput\nbehaviour\n\nbut the internal computational process that produced the result remains difficult to interpret.\nIf we could map how information flows through an agent during reasoning, we may be able to understand:\n\nwhy an error occurred,\nwhy two agents diverged,\nwhich internal pathways lead to successful decisions,\nand how reasoning processes evolve."
-  },
-  {
-    "objectID": "00-research/research-questions.html#scientific-interpretation",
-    "href": "00-research/research-questions.html#scientific-interpretation",
-    "title": "Research Questions",
-    "section": "Scientific Interpretation",
-    "text": "Scientific Interpretation\nA neural network transforms information through a sequence of high-dimensional representations.\nDuring inference, an input is not directly mapped to an output. Instead, the information is progressively transformed through many internal computational stages.\nFor example:\n\nThe input is converted into numerical representations.\nDifferent layers transform these representations into increasingly abstract features.\nThe model gradually builds an internal representation that supports the final decision.\n\nflowchart TD\n\nTask[Same Task Input]\n\nTask --&gt; A[Agent A]\nTask --&gt; B[Agent B]\nTask --&gt; C[Agent C]\n\nA --&gt; A1[Internal Representation Trajectory]\nA1 --&gt; A2[Activation Pattern A]\nA2 --&gt; A3[Decision]\nA3 --&gt; Fail[Incorrect Output]\n\nB --&gt; B1[Internal Representation Trajectory]\nB1 --&gt; B2[Activation Pattern B]\nB2 --&gt; B3[Decision]\nB3 --&gt; Success[Correct Output]\n\nC --&gt; C1[Internal Representation Trajectory]\nC1 --&gt; C2[Compare Trajectories]\nC2 --&gt; C3[Identify Successful Patterns]\nC3 --&gt; C4[Guide Future Reasoning]\n\nFail --&gt; C2\nSuccess --&gt; C2"
-  },
-  {
-    "objectID": "00-research/research-questions.html#intuition-1",
-    "href": "00-research/research-questions.html#intuition-1",
-    "title": "Research Questions",
-    "section": "Intuition",
-    "text": "Intuition\nImagine four scientists are given exactly the same research paper.\nThey have similar knowledge, the same information, and the same objective. However, each scientist may focus on different aspects:\n\none questions assumptions,\none analyses methodology,\none considers applications,\none searches for weaknesses.\n\nThe interesting question is not only why they produce different answers, but why their reasoning diverges despite starting from the same information."
-  },
-  {
-    "objectID": "00-research/research-questions.html#scientific-interpretation-1",
-    "href": "00-research/research-questions.html#scientific-interpretation-1",
-    "title": "Research Questions",
-    "section": "Scientific Interpretation",
-    "text": "Scientific Interpretation\nCurrent multi-agent systems mainly expose:\n\nprompts\nmessages\ntool usage\nfinal outputs\n\nHowever, the internal computational processes that produce these outputs remain largely hidden.\nAgents may diverge because of differences in:\n\nlatent representations\nmemory retrieval\nattention patterns\nstochastic generation\nreasoning trajectories\n\nThe key question becomes:\n\nHow do internal computational processes shape the reasoning and behaviour of AI agents?"
-  },
-  {
-    "objectID": "00-research/research-questions.html#current-multi-agent-view",
-    "href": "00-research/research-questions.html#current-multi-agent-view",
-    "title": "Research Questions",
-    "section": "Current Multi-Agent View",
-    "text": "Current Multi-Agent View\nflowchart LR\n\nPrompt --&gt; AgentA\nPrompt --&gt; AgentB\nPrompt --&gt; AgentC\n\nAgentA --&gt; MessageA\nAgentB --&gt; MessageB\nAgentC --&gt; MessageC\n\nMessageA --&gt; Output\nMessageB --&gt; Output\nMessageC --&gt; Output"
-  },
-  {
-    "objectID": "00-research/research-questions.html#intuition-2",
-    "href": "00-research/research-questions.html#intuition-2",
-    "title": "Research Questions",
-    "section": "Intuition",
-    "text": "Intuition\nHumans often recognise that their internal understanding is incomplete before receiving external feedback.\nRather than immediately changing behaviour after failure, they first detect a mismatch between their expectations and reality."
-  },
-  {
-    "objectID": "00-research/research-questions.html#conceptual-example",
-    "href": "00-research/research-questions.html#conceptual-example",
-    "title": "Research Questions",
-    "section": "Conceptual Example",
-    "text": "Conceptual Example\nImagine someone is given a cup with an unfamiliar shape. Their first attempt to hold it follows previous experience, but the interaction feels different. The mismatch between expectation and reality triggers exploration and adaptation.\nflowchart TD\n\nA[Internal Model] \nB[Interact with Environment] \nC{Prediction matches reality?} \nD[Continue]\nE[Prediction Mismatch]\nF[Generate Hypotheses]\nG[Experiment]\nH[Update Internal Model]\n\nA --&gt; B\nB --&gt; C\nC --&gt;|Yes| D\nC --&gt;|No| E\nE --&gt; F\nF --&gt; G\nG --&gt; H\nH --&gt; A"
+    "text": "Use this page to keep notes from collaborator, project, workshop, or informal research meetings.\n\n\nDate:\nParticipants:\nDiscussion:\nDecisions:\nActions:\n\n[ ]"
   },
   {
     "objectID": "00-research/research-development.html",
@@ -119,66 +210,10 @@
     "text": "This is where the actual work happens."
   },
   {
-    "objectID": "01-literature/papers.html",
-    "href": "01-literature/papers.html",
-    "title": "Papers",
+    "objectID": "00-research/research-roadmap.html",
+    "href": "00-research/research-roadmap.html",
+    "title": "Research Roadmap",
     "section": "",
-    "text": "Use one section per paper with:\n\nCitation\nCore idea\nWhy it matters for this research\nOpen questions it leaves\n\n\n\n\n\n\n\nPaper\nTheme\nRelevance\nStatus\n\n\n\n\n(add paper)\n(cluster)\n(high/med/low)\nTo read\n\n\n(add paper)\n(cluster)\n(high/med/low)\nIn progress\n\n\n\n\n\n\n\n\n\nMain contribution:\nMethod:\nUseful concept for my work:\nPotential criticism:\nFollow-up idea:"
-  },
-  {
-    "objectID": "01-literature/papers.html#reading-log-template",
-    "href": "01-literature/papers.html#reading-log-template",
-    "title": "Papers",
-    "section": "",
-    "text": "Use one section per paper with:\n\nCitation\nCore idea\nWhy it matters for this research\nOpen questions it leaves"
-  },
-  {
-    "objectID": "01-literature/papers.html#active-paper-list",
-    "href": "01-literature/papers.html#active-paper-list",
-    "title": "Papers",
-    "section": "",
-    "text": "Paper\nTheme\nRelevance\nStatus\n\n\n\n\n(add paper)\n(cluster)\n(high/med/low)\nTo read\n\n\n(add paper)\n(cluster)\n(high/med/low)\nIn progress"
-  },
-  {
-    "objectID": "01-literature/papers.html#example-note-structure",
-    "href": "01-literature/papers.html#example-note-structure",
-    "title": "Papers",
-    "section": "",
-    "text": "Main contribution:\nMethod:\nUseful concept for my work:\nPotential criticism:\nFollow-up idea:"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Research Notebook",
-    "section": "",
-    "text": "Last Updated: 06 August 2026\n\n\nThis week I am exploring:\n\nHow autonomous agents can develop adaptive communication protocols\nMemory architectures for long-running AI systems\nMechanisms for coordination, specialization, and self-organisation in multi-agent systems\n\n\n\n\n\nHow can AI systems move beyond isolated task-solving agents towards adaptive systems that can organise, communicate, and improve through experience?"
-  },
-  {
-    "objectID": "index.html#research-status",
-    "href": "index.html#research-status",
-    "title": "Research Notebook",
-    "section": "",
-    "text": "Last Updated: 06 August 2026\n\n\nThis week I am exploring:\n\nHow autonomous agents can develop adaptive communication protocols\nMemory architectures for long-running AI systems\nMechanisms for coordination, specialization, and self-organisation in multi-agent systems\n\n\n\n\n\nHow can AI systems move beyond isolated task-solving agents towards adaptive systems that can organise, communicate, and improve through experience?"
-  },
-  {
-    "objectID": "index.html#research-overview",
-    "href": "index.html#research-overview",
-    "title": "Research Notebook",
-    "section": "Research Overview",
-    "text": "Research Overview\nThis notebook tracks evolving research ideas, literature exploration, experimental designs, and discussions.\n\n\n\n\n\n\nNote\n\n\n\nThis is a working research notebook rather than a collection of final results. Ideas, hypotheses, and directions are expected to change as they are refined through literature analysis and supervisor feedback."
-  },
-  {
-    "objectID": "index.html#research-workflow",
-    "href": "index.html#research-workflow",
-    "title": "Research Notebook",
-    "section": "Research Workflow",
-    "text": "Research Workflow\nflowchart LR\n\nA[Observation / Question]\n--&gt; B[Conceptual Model]\n--&gt; C[Literature Review]\n--&gt; D[Hypothesis]\n--&gt; E[Experiment]\n--&gt; F[Analysis]\n--&gt; G[Refined Question]\n--&gt; A"
-  },
-  {
-    "objectID": "index.html#notebook-navigation",
-    "href": "index.html#notebook-navigation",
-    "title": "Research Notebook",
-    "section": "Notebook Navigation",
-    "text": "Notebook Navigation\n\n\n\nSection\nPurpose\n\n\n\n\nResearch\nHigh-level vision, questions, roadmap\n\n\nLiterature\nPaper summaries and conceptual connections\n\n\nResearch Directions\nIndividual research threads\n\n\nProjects\nApplied project ideas and collaborations\n\n\nExperiments\nPrototype ideas and evaluations\n\n\nMeetings\nDiscussion notes and decisions"
+    "text": "Used for ideas that move beyond initial exploration.\nOutlines the stages, milestones, and steps required to develop the research question into a structured research direction."
   }
 ]
