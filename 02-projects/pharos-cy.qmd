@@ -1,3 +1,9 @@
-﻿# Project: Pharos-CY
+---
+title: "Project: Pharos-CY"
+status: active
+description: "Developing the Pharos-CY project."
+---
+
+# Project: Pharos-CY
 
 ## Project Position

@@ -1,38 +1,29 @@
 ---
 pagetitle: "Phronesis — research notebook"
 toc: false
-listing:
-  - id: all-entries
-    contents:
-      - "00-research/*.qmd"
-      - "01-literature/*.qmd"
-      - "02-projects/*.qmd"
-      - "03-experiments/*.qmd"
-      - "04-meetings/*.qmd"
-      - "05-agentic-ai-engineering/*.qmd"
-    type: table
-    fields: [date, title, status, description]
-    field-display-names:
-      status: "Status"
-      description: "Where it stands"
-    sort: "date desc"
-    filter-ui: true
 include-after-body:
   - text: |
       <script src="hub.js"></script>
 ---
 
 ::: {.hub-eyebrow}
-The question
+Research focus
 :::
 
 ::: {.hub-question}
-How can AI systems move beyond isolated task-solving agents towards adaptive
-systems that organise, communicate, and improve through experience?
+Exploring how AI systems can acquire intelligence through experience, learning not only to solve problems but to understand context, adapt their behaviour, and determine how to act in different situations.
 :::
 
-::: {.hub-hint}
-Hover a node for context, click a section for a focused spotlight.
+
+::: {.hub-map-note}
+Select a smaller node to open its note.
+:::
+
+::: {.hub-layout}
+::: {.hub-canvas}
+::: {#hub}
+:::
+:::
 :::
 
 ::: {.callout-important}
@@ -49,46 +40,7 @@ Hover a node for context, click a section for a focused spotlight.
 - Prepare an experiment-design baseline (protocol adaptation + memory condition matrix) for supervisor review.
 :::
 
-::: {.hub-strip}
-::: {.hub-strip-item}
-### Current focus
-**Last updated:** 06 August 2026
+## Notebook index
 
-::: {.focus-grid}
-::: {.focus-card}
-#### Adaptive communication
-Designing how agents negotiate, align, and adapt their protocols over time.
-<a class="focus-link" href="#00-research">Open research cluster →</a>
-:::
-::: {.focus-card}
-#### Long-running memory
-Comparing memory architectures that stay coherent across long horizons.
-<a class="focus-link" href="#01-literature">Open literature cluster →</a>
-:::
-::: {.focus-card}
-#### Coordination mechanisms
-Testing specialization and self-organisation dynamics in controlled settings.
-<a class="focus-link" href="#03-experiments">Open experiment cluster →</a>
-:::
-:::
-:::
-:::
-
-::: {.hub-layout}
-::: {.hub-canvas}
-::: {#hub}
-:::
-:::
-:::
-
-::: {.callout-note}
-This is a working notebook rather than a collection of final results. Every
-entry carries a status — `question`, `active`, `evidence`, `parked`, or
-`reference` — so directions can change in the open as they are refined through
-literature and supervisor feedback.
-:::
-
-## All entries
-
-::: {#all-entries}
+::: {#notebook-index}
 :::

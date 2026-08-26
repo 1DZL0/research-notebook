@@ -1,0 +1,23 @@
+---
+title: "Other meetings"
+status: active
+description: "Notes and actions from meetings outside regular professor supervision."
+---
+
+## Other meetings
+
+Use this page to keep notes from collaborator, project, workshop, or informal research meetings.
+
+### Meeting template
+
+**Date:**
+
+**Participants:**
+
+**Discussion:**
+
+**Decisions:**
+
+**Actions:**
+
+- [ ]

@@ -21,7 +21,7 @@ OUT = ROOT / "_hub-include.html"
 # folder -> (label shown on the node, order around the circle)
 SECTIONS = {
     "00-research":    ("Research", 0, "#4A3A7A"),
-    "01-literature":  ("Literature", 1, "#2F6558"),
+    "01-literature":  ("Literature", 1, "#356D9A"),
     "02-projects":    ("Projects", 2, "#8F5F30"),
     "03-experiments": ("Experiments", 3, "#8A3E4E"),
     "04-meetings":    ("Meetings", 4, "#59636E"),

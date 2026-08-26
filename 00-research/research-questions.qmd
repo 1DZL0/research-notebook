@@ -2,8 +2,6 @@
 title: "Research Questions"
 ---
 
-# Research Ideas
-
 A running record of research questions and ideas that emerge from the literature.
 
 New ideas are added **at the top** so the page develops from bottom to top over time.
