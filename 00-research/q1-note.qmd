@@ -1,32 +1,143 @@
 ---
-title: "Q1: Learning opportunities"
-description: "How an open-ended agent identifies what to learn next."
+title: "Q1: Knowing what to learn"
+description: "How an agent in an unfamiliar environment decides whether to go looking or to practise."
 ---
 
 ::: {.research-question}
 ::: {.callout-note appearance="simple" icon=false}
-**Q1: How does an agent know it should learn?**
+**Q1: How does an agent decide what to learn next?**
 
-In an open-ended environment, an agent may need to identify its own learning opportunities and decide what to explore without receiving a fixed task or explicit instruction.
+An agent dropped into an environment it knows nothing about it. It's got to work out what is
+possible before it can know what is worth getting good at. It must keep switching between
+finding out what it can do and getting better at what it has already found.
 :::
 
-**Working assumptions.**
+**Conceptual example.** Imagine someone is given a cup with an unfamiliar shape. Their first
+attempt to hold it follows previous experience, but the interaction feels different. Nothing
+failed. The cup was picked up. What triggers exploration is that it did not go the way they
+expected, and that mismatch is enough to make them try it a few more ways.
 
-- An agent can notice a mismatch between its expectations and an interaction outcome.
-- Capability gaps can be identified from uncertainty, novelty, error, or repeated failure.
-- Those gaps can be translated into learning objectives or exploratory actions.
+---
 
-**Open questions.**
+### The problem
 
-- How can an agent distinguish a useful capability gap from a temporary failure?
-- What signals should trigger exploration, learning, or a change in objective?
-- Can an agent generate and prioritise its own learning objectives from capability gaps?
+The obvious answer to **"what should I learn"** is **"whatever I just failed at"**. That answer is
+wrong often enough to be a problem. A failure can mean three different things:
 
-**Supporting literature and concepts.** Open-ended learning; intrinsic motivation; curiosity; novelty; Evolver; Darwin Gödel Machine.
+1. The agent cannot do it. Real gap, worth learning.
+2. The agent can do it but took a bad route this time. Nothing is missing.
+3. There is nothing to learn. The task is random or has no stable answer.
 
-**Related paper.** [Evolver: Self-Evolving LLM Agents through Experience](https://arxiv.org/abs/2510.16179){target="_blank" rel="noopener"} relates to this question by studying how agents turn experience into reusable strategies for future improvement.
+In an unfamiliar environment the agent does not yet know what the possible goals are, 
+so it cannot pick one. It has to discover that something is possible before it can 
+decide whether to want it. That looks circular, and getting out of the circle is 
+the real content of this question.
 
-**Conceptual example.** Imagine someone is given a cup with an unfamiliar shape. Their first attempt to hold it follows previous experience, but the interaction feels different. The mismatch between expectation and reality triggers exploration and adaptation.
+### Working assumptions
+
+- An agent can notice when the environment responded differently from what it expected,
+  even when nothing went wrong.
+- An effect the agent has caused once can be turned into something it aims for on purpose.
+- Skills already acquired can be used to reach situations where further discovery is possible.
+- Whether to explore or to practise is itself a decision the agent can make, rather than a
+  schedule set in advance.
+
+### Open questions
+
+- How can an agent tell a real gap from a bad attempt, and both from something that cannot
+  be learned at all?
+- What is the signal that something interesting has happened, for an agent working in text,
+  code or a browser rather than one with a camera? (robotics)
+- When should the agent stop looking around and start practising, and what makes it switch
+  back?
+- How does it decide that an effect it has just caused is genuinely new, rather than
+  something it already knows how to do?
+
+### Getting out of the circle
+
+H-GRAIL handles the bootstrapping problem in a way that seems repeatable outside robotics.
+1. Its goal set starts empty'
+
+2. "go and find out what is possible" 
+
+3. the agent can choose to do, sitting alongside "get better at what I already know" and a
+selector switches between the two.
+
+It notices new goals by watching for changes in what it can see: press a button, the button lights up, 
+that change becomes a goal it can now aim for on purpose. And it chooses where to start exploring based 
+on which starting points have previously led to finding something new, so it uses skills it already has 
+to put itself somewhere worth exploring from.
+
+The loop that results:
+
+```text
+knows nothing
+     |
+     v
+acts without a goal  ->  the environment changes
+     |
+     v
+that change becomes something it can aim for
+     |
+     v
+learns to cause it reliably
+     |
+     v
+uses that skill to reach places it could not reach before
+     |
+     v
+explores from there  ->  new changes  ->  new goals
+     |
+     v
+repeat, each round starting further out
+```
+
+The agent does not need to know what it can do before it starts. It needs one thing it can
+do and a way to notice when the environment responds.
+
+### What is missing for language agents
+
+A robot gets its novelty signal for free: the pixels. 
+
+An agent working in text, code or a browser gets back a string and has to decide for itself
+whether anything meaningful occurred. There is no equivalent primitive, and that is the gap
+this question is aimed at.
+
+Two related findings make it look worth pursuing. Training an agent purely to complete tasks
+does not produce an agent that explores well, and the resulting narrow behaviour hurts it
+later. And when a language model proposes its own tasks without having interacted with the
+environment, it produces a lot of tasks that are impossible and a lot that the agent can
+already do, because it has no grounding in either the environment or its own current ability.
+
+### Scope note
+
+Two things get run together under "discovering what it can do" and this question separates
+them. The set of actions the agent can attempt is normally fixed and given. What grows is
+the set of effects it knows it can bring about, and that set has no ceiling because effects
+combine. This question is about the second. It does not claim the agent invents new
+primitive actions.
+
+### Supporting literature and concepts
+
+Open-ended learning; intrinsic motivation; competence progress and learning progress;
+novelty and curiosity; goal discovery.
+
+### Related papers
+
+- [A Motivational Architecture for Open-Ended Learning Challenges in Robots (H-GRAIL)](https://arxiv.org/abs/2506.18454){target="_blank" rel="noopener"} starts from an empty goal set and makes goal discovery a motivation the agent can select, alongside improving at goals it has already found.
+- [Look Before You Leap: Autonomous Exploration for LLM Agents](https://arxiv.org/abs/2605.16143){target="_blank" rel="noopener"} introduces a measure of how much of an unfamiliar environment an agent actually discovers, and finds that training for task completion does not produce agents that explore.
+- [Automated Skill Discovery for Language Agents through Exploration and Iterative Feedback](https://arxiv.org/abs/2506.04287){target="_blank" rel="noopener"} shows why letting a model propose its own tasks without grounding produces tasks that are either impossible or already solved.
+- [Voyager: An Open-Ended Embodied Agent with Large Language Models](https://voyager.minedojo.org/){target="_blank" rel="noopener"} pairs a self-generated curriculum with a growing library of skills stored as code for reuse.
+- [EvolveR: Self-Evolving LLM Agents through Experience](https://arxiv.org/abs/2510.16179){target="_blank" rel="noopener"} studies how agents turn experience into strategies they can reuse later.
+- [SoK: Agentic Skills — Beyond Tool Use in LLM Agents](https://arxiv.org/abs/2602.20867){target="_blank" rel="noopener"} surveys the area and notes that fully autonomous discovery is still rare, since most systems rely on a human to define what counts as progress.
+
+### Why this matters for the rest of the work
+
+Nothing else starts until something decides there is a problem worth working on. If the
+tasks are handed to the system, this question does not arise and the work stops being
+open-ended: the [Navigator]{.text-blue} becomes a measurement tool applied to a fixed
+dataset with a fixed ceiling. This question is what keeps the tasks moving as the system
+gets better.
 
 **Status:** <span class="research-status is-exploring">Exploring</span>
 :::

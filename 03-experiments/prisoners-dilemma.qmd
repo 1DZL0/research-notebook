@@ -42,8 +42,8 @@ flowchart TD
     GS[Game State\npublic history + scores] --> OA[Observation Builder]
     TH[Private Team History] --> OA
 
-    OA --> D1[Agent 1\nDiscussion]
-    OA --> D2[Agent 2\nDiscussion]
+    OA --> D1[Agent 1 Discussion]
+    OA --> D2[Agent 2 Discussion]
 
     D1 -->|private message| TV[Team Vote]
     D2 -->|private message| TV
@@ -87,37 +87,12 @@ The available choices are option_a and option_b.
 
 ## Round-by-Round Results
 
-| Round | Team Alpha | Team Beta | Alpha +pts | Beta +pts | Joint |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| 1 | option_a | option_a | 3 | 3 | 6 |
-| 2 | option_a | option_a | 3 | 3 | 6 |
-| 3 | option_a | option_a | 3 | 3 | 6 |
-| 4 | option_a | option_a | 3 | 3 | 6 |
-| 5 | option_a | option_a | 3 | 3 | 6 |
 
-**Final scores:** Team Alpha 15, Team Beta 15 — Draw
+**Final scores:**
 
-**Cooperation rate:** 100% (10/10 decisions) · **Mutual cooperation:** 5/5 rounds · **Defections:** 0
+**Cooperation rate:** 
 
 ## Agent Reasoning
-
-A selection of private team messages showing how agents reasoned about their choices:
-
-**Round 1 — Team Alpha (no history yet):**
-
-> *"In round 1, since there's no prior history or signals, I'll choose option_a to start the iteration with a cooperative stance, assuming this may set a positive tone for future rounds."*
-
-> *"Given the initial round and no prior signals, I suggest we choose option_a to promote cooperation early on. This might encourage a collaborative pattern for subsequent rounds."*
-
-**Round 2 — Team Beta (after mutual cooperation in R1):**
-
-> *"Let's proceed with option_a again this round to maintain consistency and observe team_alpha's response for potential cooperation or defection in the next rounds."*
-
-**Round 5 — Team Alpha (final round, scores tied at 12):**
-
-> *"Given the history of mutual cooperation on option_a and the steady points we've been earning, it is optimal to continue choosing option_a in the final round to maintain this successful pattern."*
-
-> *"Continuing with option_a has maintained mutual cooperation and achieved steady points, so it is strategically sound to sustain this cooperation in the final round to secure the current score."*
 
 ---
 
@@ -125,20 +100,9 @@ A selection of private team messages showing how agents reasoned about their cho
 
 ::: {.callout-important}
 ## Key finding
-Both teams cooperated every round without ever being told the game was a prisoner's dilemma. Cooperation emerged from inductive reasoning about payoff history — not from explicit knowledge of the game structure.
+
 :::
 
-- **Round 1:** Both teams defaulted to cooperation with no prior history, framing option_a as "setting a positive tone".
-- **Rounds 2–5:** Cooperation was self-reinforcing. Each round of mutual option_a gave agents evidence that cooperation was beneficial, reducing any incentive to defect.
-- **No end-game defection:** Even in round 5 (the final round, where classical game theory predicts defection via backward induction), both teams held the cooperative norm.
-- **Team discussion reinforced cooperation:** Private messages showed agents building shared rationale — no agent proposed defecting at any point.
 
 ---
 
-# Next Steps
-
-- [ ] Run with more rounds to see if cooperation holds or breaks down
-- [ ] Test asymmetric team sizes (e.g. 1 agent vs 3 agents)
-- [ ] Introduce a memory mechanism — do agents build explicit models of the opponent?
-- [ ] Compare models: does a more capable model defect more strategically?
-- [ ] Vary the payoff matrix to test different incentive structures
