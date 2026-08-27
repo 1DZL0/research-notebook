@@ -41,7 +41,7 @@ BLURBS = {
 
 VALID_STATUS = {"question", "active", "evidence", "parked", "reference"}
 FM = re.compile(r"\A\ufeff?---\s*\n(.*?)\n---\s*\n", re.S)
-SKIP = {"index.qmd", "notebook.qmd"}
+SKIP = {"index.qmd", "notebook.qmd", "research-questions.qmd"}
 
 
 def front_matter(path):

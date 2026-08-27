@@ -1,0 +1,104 @@
+---
+title: "Q2: Divergent reasoning"
+description: "How alternative reasoning strategies can emerge from the same starting model."
+---
+
+[**Component:** Navigator - finds the points where the reasoning could have gone another way, and checks whether the different routes are genuinely different approaches.]{.text-blue}
+
+::: {.research-question}
+::: {.callout-note appearance="simple" icon=false}
+**Q2: Why do identical agents develop different reasoning strategies?**
+
+This note investigates whether branching at high-entropy decision points can create genuinely different reasoning strategies, rather than only different phrasings or final outcomes.
+:::
+
+**Procedure.**
+
+1. One agent produces a complete reasoning trace and a final answer. This is the reference
+   trace.
+2. The token-level entropy of the reference trace is recorded, and the highest-entropy
+   positions are identified as candidate decision points.
+3. At each decision point, generation is resumed from the preceding prefix with a different
+   continuation, and each branch is run to completion.
+4. The outcomes of the branches are compared against the outcome of the reference trace.
+   A decision point is important if resampling it changes the distribution over final
+   answers. **This is its counterfactual point**
+5. Where the reference trace failed and its branches succeed, the decision point marks
+   where the reasoning went wrong. That position, and the continuation that recovered from
+   it, can be recorded for reuse.
+
+**Working assumptions for this mechanism.**
+
+- High-entropy positions correspond to meaningful choices in the reasoning rather than to
+  surface variation in wording.
+- Failure in a reasoning trace can be localised to a small number of positions rather than
+  being distributed across the whole trace.
+- The alternative continuations produced at a decision point represent different strategies,
+  not different phrasings of the same strategy.
+
+**Open questions for this mechanism.**
+
+- Do branches taken at the same decision point differ in strategy, or only in outcome?
+- What distinguishes a decision point that produces a useful alternative from one that
+  produces an equivalent restatement?
+- How should a recorded failure point be abstracted so that it transfers to a different
+  problem, rather than being tied to the trace it came from?
+- Which level is the right unit of branching: the token, the sentence, or the reasoning step?
+
+**Scope note.** This mechanism addresses only the first source of divergence listed above,
+stochasticity. It says nothing about divergence arising from experience, memory, or
+communication. It also operates on the model's output distribution rather than its internal
+representations; the internal version of the same question is Q3.
+
+**Supporting literature and concepts.** Token entropy and forking tokens; entropy-guided
+decoding and branching; counterfactual importance and step-level attribution; tree search
+over reasoning traces.
+
+**Related papers.**
+
+- [Beyond the 80/20 Rule: High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning](https://arxiv.org/abs/2506.01939) establishes that a small minority of tokens carry most of the branching behaviour in a chain of thought, and that these tokens act as forks steering the model toward different reasoning pathways.
+- [Thought Anchors: Which LLM Reasoning Steps Matter?](https://arxiv.org/abs/2506.19143) measures the counterfactual importance of each sentence in a reasoning trace by resampling from that position, .and finds that planning and uncertainty-management steps matter more than computation steps.
+- [ETTRL: Balancing Exploration and Exploitation in LLM Test-Time Reinforcement Learning](https://arxiv.org/abs/2508.11356) implements fork-based exploration at high-entropy tokens and reuses the low-entropy segments between forks.
+- [Improving Multi-Agent Debate with Sparse Communication Topology](https://arxiv.org/abs/2406.11776) tests how changing agent communication structures affects collective reasoning.
+
+**Possible investigation:** Take one open-weights reasoning model and a set of problems with
+checkable answers. Generate a reference trace per problem, record token entropy, branch at
+the highest-entropy positions, and run each branch to a final answer. Then cluster the
+branches by strategy rather than by correctness, and ask whether branching at a decision
+point produces genuinely distinct approaches or only distinct wordings of one approach.
+
+```text
+                 Reference trace
+                        |
+        low entropy ----+---- low entropy
+                        |
+                 decision point
+            ------------+------------
+            |           |           |
+        branch A    branch B    branch C
+            |           |           |
+            v           v           v
+         outcome     outcome     outcome
+            |           |           |
+            ------------+------------
+                        v
+          Counterfactual importance of
+              this decision point
+                        v
+           Strategy comparison across
+                     branches
+```
+
+**Why this matters for the rest of the work.** This experiment does not answer a question
+on its own. If I want a group of agents that each do
+something different, I first need a way to tell whether two agents are actually doing
+different things, or just saying the same thing in different words. There is no agreed way
+to do that for reasoning yet. Working out how to group reasoning traces by approach is that
+tool. Once I have it, I can give each branch its own memory and follow it across many
+problems (Q2), keep a store of different approaches rather than only the best-scoring one,
+and pass approaches between agents to see if they transfer (Q4).
+
+
+
+**Status:** <span class="research-status is-exploring">Exploring</span>
+:::

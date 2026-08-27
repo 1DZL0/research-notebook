@@ -27,7 +27,10 @@
   };
   var DEFAULT_CHILD_LAYOUT = {
     "01-literature:01-literature/papers.html": { x: 439.5, y: 19.9 },
-    "00-research:00-research/research-questions.html": { x: 621.0, y: 81.3 },
+    "00-research:00-research/q1-note.html": { x: 570.0, y: 70.0 },
+    "00-research:00-research/q2-note.html": { x: 660.0, y: 30.0 },
+    "00-research:00-research/q3-note.html": { x: 750.0, y: 25.0 },
+    "00-research:00-research/q4-note.html": { x: 850.0, y: 55.0 },
     "00-research:00-research/research-development.html": { x: 795.0, y: 113.3 },
     "00-research:00-research/research-roadmap.html": { x: 776.6, y: 167.6 },
     "02-projects:02-projects/pharos-cy.html": { x: 652.9, y: 269.8 },
@@ -292,9 +295,9 @@
     var ly = y + mainLabelOffset[1];
 
     var g = e("g", { "class": "hub-main", "data-id": s.id, tabindex: "0", role: "button" });
-    g.appendChild(e("circle", { cx: x, cy: y, r: 26, fill: "transparent" }));
-    g.appendChild(e("circle", { cx: x, cy: y, r: 14, "class": "hub-main-halo", stroke: s.color }));
-    g.appendChild(e("circle", { cx: x, cy: y, r: 9, "class": "hub-main-dot", fill: s.color, stroke: s.color }));
+    g.appendChild(e("circle", { cx: x, cy: y, r: 22, fill: "transparent" }));
+    g.appendChild(e("circle", { cx: x, cy: y, r: 12, "class": "hub-main-halo", stroke: s.color }));
+    g.appendChild(e("circle", { cx: x, cy: y, r: 7.7, "class": "hub-main-dot", fill: s.color, stroke: s.color }));
 
     var label = e("text", { x: lx, y: ly, "text-anchor": anchor, "class": "hub-main-label" });
     label.textContent = s.label;

@@ -1,0 +1,32 @@
+---
+title: "Q1: Learning opportunities"
+description: "How an open-ended agent identifies what to learn next."
+---
+
+::: {.research-question}
+::: {.callout-note appearance="simple" icon=false}
+**Q1: How does an agent know it should learn?**
+
+In an open-ended environment, an agent may need to identify its own learning opportunities and decide what to explore without receiving a fixed task or explicit instruction.
+:::
+
+**Working assumptions.**
+
+- An agent can notice a mismatch between its expectations and an interaction outcome.
+- Capability gaps can be identified from uncertainty, novelty, error, or repeated failure.
+- Those gaps can be translated into learning objectives or exploratory actions.
+
+**Open questions.**
+
+- How can an agent distinguish a useful capability gap from a temporary failure?
+- What signals should trigger exploration, learning, or a change in objective?
+- Can an agent generate and prioritise its own learning objectives from capability gaps?
+
+**Supporting literature and concepts.** Open-ended learning; intrinsic motivation; curiosity; novelty; Evolver; Darwin Gödel Machine.
+
+**Related paper.** [Evolver: Self-Evolving LLM Agents through Experience](https://arxiv.org/abs/2510.16179){target="_blank" rel="noopener"} relates to this question by studying how agents turn experience into reusable strategies for future improvement.
+
+**Conceptual example.** Imagine someone is given a cup with an unfamiliar shape. Their first attempt to hold it follows previous experience, but the interaction feels different. The mismatch between expectation and reality triggers exploration and adaptation.
+
+**Status:** <span class="research-status is-exploring">Exploring</span>
+:::

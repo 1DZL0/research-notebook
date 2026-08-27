@@ -1,0 +1,32 @@
+---
+title: "Q4: Capability accumulation"
+description: "How useful capabilities could be transferred and combined across agents."
+---
+
+::: {.research-question}
+::: {.callout-note appearance="simple" icon=false}
+**Q4: How can capabilities accumulate across agents?**
+
+If one agent discovers a useful capability, that capability may be transferable to another agent, combinable with other capabilities, and reusable to produce something new.
+:::
+
+**Working assumptions.**
+
+- Agents can represent useful capabilities in a form that another agent can use.
+- Shared memory, communication, or social learning can preserve and transfer those capabilities.
+- Combining capabilities can produce new behaviour rather than only copying existing behaviour.
+
+**Open questions.**
+
+- Under what conditions can a population of agents accumulate capabilities over time?
+- How can transferred capabilities be combined without losing what made them useful?
+- What would show that the collective system has developed beyond the capability of an individual agent?
+
+**Supporting literature and concepts.** Multi-agent learning; social learning; shared memory; Recursive Multi-Agent Systems; Evolver; cumulative capability growth.
+
+**Related paper.** This question is closely related to [Recursive Multi-Agent Systems](https://arxiv.org/abs/2604.25917/){target="_blank" rel="noopener"}, which examines recursive multi-agent reasoning and latent-space communication.
+
+**Current direction.** Explore whether a population of agents can continually develop beyond the capabilities of its individual members.
+
+**Status:** <span class="research-status is-exploring">Exploring</span>
+:::

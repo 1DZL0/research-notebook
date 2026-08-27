@@ -1,0 +1,52 @@
+---
+title: "Q3: Reasoning pathways"
+description: "Whether internal representations can reveal how agent strategies diverge."
+---
+
+::: {.research-question}
+::: {.callout-note appearance="simple" icon=false}
+**Q3: Can we map and understand the internal reasoning pathways of AI agents?**
+
+If agents develop different capabilities and reasoning strategies, their internal representations may reveal how those strategies form and where they begin to diverge.
+:::
+
+**Working assumptions.**
+
+- Internal representations can be observed or recorded in sufficiently small models.
+- Changes in internal trajectories can be meaningfully compared across agents.
+- Differences in those trajectories may relate to differences in reasoning or outcomes.
+
+**Open questions.**
+
+- Which internal states or representations are useful to record?
+- How can divergence points be identified without treating normal variation as meaningful?
+- Can particular internal patterns be associated with successful reasoning or newly acquired capabilities?
+
+**Supporting literature and concepts.** Mechanistic interpretability; Recursive Multi-Agent Systems and latent-space communication; Q2: divergent reasoning strategies.
+
+**Related paper.** [Recursive Multi-Agent Systems](https://arxiv.org/abs/2604.25917/){target="_blank" rel="noopener"} provides a concrete connection to this question through its use of latent representations for communication between agents.
+
+**Possible investigation.** Give several agents the same task and record their internal states throughout reasoning.
+
+```text
+                     Same Task
+                         |
+            -------------+-------------
+            |            |            |
+         Agent A      Agent B      Agent C
+            |            |            |
+            v            v            v
+       Internal      Internal      Internal
+       trajectory    trajectory    trajectory
+            |            |            |
+            -------------+-------------
+                         v
+                 Compare trajectories
+                         v
+              Identify divergence points
+                         v
+              Compare with final outcomes
+```
+
+**Status:** <span class="research-status is-exploring">Exploring</span>
+:::
