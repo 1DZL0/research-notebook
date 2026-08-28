@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="How an agent in an unfamiliar environment decides whether to go looking or to practise.">
 
-<title>literature-map – Phronesis · Φρόνησις</title>
+<title>Q1: Knowing what to learn – Phronesis · Φρόνησις</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -329,146 +330,140 @@ window.HUB_DATA = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#literature-map" id="toc-literature-map" class="nav-link active" data-scroll-target="#literature-map">Literature Map</a>
-  <ul class="collapse">
-  <li><a href="#core-areas-for-my-current-direction" id="toc-core-areas-for-my-current-direction" class="nav-link" data-scroll-target="#core-areas-for-my-current-direction">Core Areas for My Current Direction</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Q1: Knowing what to learn</h1>
+</div>
+
+<div>
+  <div class="description">
+    How an agent in an unfamiliar environment decides whether to go looking or to practise.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-<section id="literature-map" class="level1">
-<h1>Literature Map</h1>
-<p><strong>Research focus:</strong> Open-ended capability growth in autonomous multi-agent systems.</p>
-<pre class="text"><code>Open-Ended Capability Growth
-│
-├── Open-Ended Learning
-│   ├── Novelty Search
-│   ├── MAP-Elites / Quality-Diversity
-│   ├── POET
-│   ├── Artificial Life
-│   └── Environment Coevolution
-│
-├── Continual Learning
-│   ├── Catastrophic Forgetting
-│   ├── Experience Replay
-│   ├── Stability–Plasticity
-│   └── Online Adaptation
-│
-├── Intrinsic Motivation
-│   ├── Curiosity
-│   ├── Information Gain
-│   ├── Empowerment
-│   └── Active Learning
-│
-├── World Models
-│   ├── Predictive Models
-│   ├── Planning
-│   ├── Uncertainty Estimation
-│   └── Latent Dynamics
-│
-├── Agentic Systems
-│   ├── Planning Agents
-│   ├── Tool Use
-│   ├── Memory Systems
-│   ├── Reflection
-│   └── Self-Improvement
-│
-├── Multi-Agent Systems
-│   ├── Coordination
-│   ├── Communication
-│   ├── Role Allocation
-│   └── Collective Intelligence
-│
-├── Social Learning
-│   ├── Teaching
-│   ├── Imitation
-│   ├── Skill Transfer
-│   └── Cultural Transmission
-│
-├── Shared Memory
-│   ├── Vector Memory
-│   ├── Knowledge Graphs
-│   ├── Episodic Memory
-│   └── Long-Term Memory
-│
-├── Evolutionary Search
-│   ├── Evolutionary Algorithms
-│   ├── Population-Based Training
-│   ├── Architecture Search
-│   └── Self-Modification
-│
-├── Organizational Emergence
-│   ├── Persistent Organizations
-│   ├── Protocol Evolution
-│   ├── Shared Standards
-│   └── Institutional Memory
-│
-├── Interpretability &amp; Observability
-│   ├── Mechanistic Interpretability
-│   ├── Sparse Autoencoders
-│   ├── Reasoning Trajectories
-│   └── Agent Observability
-│
-├── Meta-Learning
-│   ├── Learning to Learn
-│   ├── Strategy Adaptation
-│   ├── Self-Generated Curricula
-│   └── Hyperparameter Adaptation
-│
-├── Evaluation
-│   ├── Capability Growth
-│   ├── Diversity Metrics
-│   ├── Transfer
-│   ├── Long-Horizon Evaluation
-│   └── Open-Endedness Metrics
-│
-└── Safety &amp; Alignment
-    ├── Alignment
-    ├── Goal Stability
-    ├── Reward Hacking
-    ├── Corrigibility
-    └── Verification</code></pre>
+</header>
+
+
+<div class="research-question">
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Q1: How does an agent decide what to learn next?</strong></p>
+<p>An agent dropped into an environment it knows nothing about it. It’s got to work out what is possible before it can know what is worth getting good at. It must keep switching between finding out what it can do and getting better at what it has already found.</p>
+</div>
+</div>
+</div>
+<p><strong>Conceptual example.</strong> Imagine someone is given a cup with an unfamiliar shape. Their first attempt to hold it follows previous experience, but the interaction feels different. Nothing failed. The cup was picked up. What triggers exploration is that it did not go the way they expected, and that mismatch is enough to make them try it a few more ways.</p>
 <hr>
-<section id="core-areas-for-my-current-direction" class="level2">
-<h2 class="anchored" data-anchor-id="core-areas-for-my-current-direction">Core Areas for My Current Direction</h2>
-<p><strong>Highest priority</strong></p>
+<section id="the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="the-problem">The problem</h3>
+<p>The obvious answer to <strong>“what should I learn”</strong> is <strong>“whatever I just failed at”</strong>. That answer is wrong often enough to be a problem. A failure can mean three different things:</p>
+<ol type="1">
+<li>The agent cannot do it. Real gap, worth learning.</li>
+<li>The agent can do it but took a bad route this time. Nothing is missing.</li>
+<li>There is nothing to learn. The task is random or has no stable answer.</li>
+</ol>
+</section>
+<section id="working-assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="working-assumptions">Working assumptions</h3>
 <ul>
-<li>Open-Ended Learning</li>
-<li>Multi-Agent Systems</li>
-<li>Social Learning</li>
-<li>Shared Memory</li>
-<li>Evolutionary Search</li>
-<li>Evaluation</li>
+<li>An agent can notice when the environment responded differently from what it expected, even when nothing went wrong.</li>
+<li>An effect the agent has caused once can be turned into something it aims for on purpose.</li>
+<li>Skills already acquired can be used to reach situations where further discovery is possible.</li>
+<li>Whether to explore or to practise is itself a decision the agent can make, rather than a schedule set in advance.</li>
 </ul>
-<p><strong>Strongly related</strong></p>
+</section>
+<section id="open-questions" class="level3">
+<h3 class="anchored" data-anchor-id="open-questions">Open questions</h3>
 <ul>
-<li>Intrinsic Motivation</li>
-<li>World Models</li>
-<li>Continual Learning</li>
-<li>Organizational Emergence</li>
+<li>How can an agent tell a real gap from a bad attempt, and both from something that cannot be learned at all?</li>
+<li>What is the signal that something interesting has happened, for an agent working in text, code or a browser rather than one with a camera? (robotics)</li>
+<li>When should the agent stop looking around and start practising, and what makes it switch back?</li>
+<li>How does it decide that an effect it has just caused is genuinely new, rather than something it already knows how to do?</li>
 </ul>
-<p><strong>Supporting</strong></p>
+</section>
+<section id="getting-out-of-the-circle" class="level3">
+<h3 class="anchored" data-anchor-id="getting-out-of-the-circle">Getting out of the circle</h3>
+<p>H-GRAIL handles the bootstrapping problem in a way that seems repeatable outside robotics. 1. Its goal set starts empty’</p>
+<ol start="2" type="1">
+<li><p>“go and find out what is possible”</p></li>
+<li><p>the agent can choose to do, sitting alongside “get better at what I already know” and a selector switches between the two.</p></li>
+</ol>
+<p>It notices new goals by watching for changes in what it can see: press a button, the button lights up, that change becomes a goal it can now aim for on purpose. And it chooses where to start exploring based on which starting points have previously led to finding something new, so it uses skills it already has to put itself somewhere worth exploring from.</p>
+<p>The loop that results:</p>
+<pre class="text"><code>knows nothing
+     |
+     v
+acts without a goal  -&gt;  the environment changes
+     |
+     v
+that change becomes something it can aim for
+     |
+     v
+learns to cause it reliably
+     |
+     v
+uses that skill to reach places it could not reach before
+     |
+     v
+explores from there  -&gt;  new changes  -&gt;  new goals
+     |
+     v
+repeat, each round starting further out</code></pre>
+<p>The agent does not need to know what it can do before it starts. It needs one thing it can do and a way to notice when the environment responds.</p>
+</section>
+<section id="what-is-missing-for-language-agents" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-missing-for-language-agents">What is missing for language agents</h3>
+<p>A robot gets its novelty signal for free: the pixels.</p>
+<p>An agent working in text, code or a browser gets back a string and has to decide for itself whether anything meaningful occurred. There is no equivalent primitive, and that is the gap this question is aimed at.</p>
+<p>Two related findings make it look worth pursuing. Training an agent purely to complete tasks does not produce an agent that explores well, and the resulting narrow behaviour hurts it later. And when a language model proposes its own tasks without having interacted with the environment, it produces a lot of tasks that are impossible and a lot that the agent can already do, because it has no grounding in either the environment or its own current ability.</p>
+</section>
+<section id="scope-note" class="level3">
+<h3 class="anchored" data-anchor-id="scope-note">Scope note</h3>
+<p>Two things get run together under “discovering what it can do” and this question separates them. The set of actions the agent can attempt is normally fixed and given. What grows is the set of effects it knows it can bring about, and that set has no ceiling because effects combine. This question is about the second. It does not claim the agent invents new primitive actions.</p>
+</section>
+<section id="supporting-literature-and-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="supporting-literature-and-concepts">Supporting literature and concepts</h3>
+<p>Open-ended learning; intrinsic motivation; competence progress and learning progress; novelty and curiosity; goal discovery.</p>
+</section>
+<section id="related-papers" class="level3">
+<h3 class="anchored" data-anchor-id="related-papers">Related papers</h3>
 <ul>
-<li>Agentic Systems</li>
-<li>Interpretability</li>
-<li>Meta-Learning</li>
-<li>Safety &amp; Alignment</li>
+<li><a href="https://arxiv.org/abs/2506.18454" target="_blank" rel="noopener">A Motivational Architecture for Open-Ended Learning Challenges in Robots (H-GRAIL)</a> starts from an empty goal set and makes goal discovery a motivation the agent can select, alongside improving at goals it has already found.</li>
+<li><a href="https://arxiv.org/abs/2605.16143" target="_blank" rel="noopener">Look Before You Leap: Autonomous Exploration for LLM Agents</a> introduces a measure of how much of an unfamiliar environment an agent actually discovers, and finds that training for task completion does not produce agents that explore.</li>
+<li><a href="https://arxiv.org/abs/2506.04287" target="_blank" rel="noopener">Automated Skill Discovery for Language Agents through Exploration and Iterative Feedback</a> shows why letting a model propose its own tasks without grounding produces tasks that are either impossible or already solved.</li>
+<li><a href="https://voyager.minedojo.org/" target="_blank" rel="noopener">Voyager: An Open-Ended Embodied Agent with Large Language Models</a> pairs a self-generated curriculum with a growing library of skills stored as code for reuse.</li>
+<li><a href="https://arxiv.org/abs/2510.16179" target="_blank" rel="noopener">EvolveR: Self-Evolving LLM Agents through Experience</a> studies how agents turn experience into strategies they can reuse later.</li>
+<li><a href="https://arxiv.org/abs/2602.20867" target="_blank" rel="noopener">SoK: Agentic Skills — Beyond Tool Use in LLM Agents</a> surveys the area and notes that fully autonomous discovery is still rare, since most systems rely on a human to define what counts as progress.</li>
 </ul>
+</section>
+<section id="why-this-matters-for-the-rest-of-the-work" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-matters-for-the-rest-of-the-work">Why this matters for the rest of the work</h3>
+<p>Nothing else starts until something decides there is a problem worth working on. If the tasks are handed to the system, this question does not arise and the work stops being open-ended: the <span class="text-blue">Navigator</span> becomes a measurement tool applied to a fixed dataset with a fixed ceiling. This question is what keeps the tasks moving as the system gets better.</p>
+<p><strong>Status:</strong> <span class="research-status is-exploring">Exploring</span></p>
+</section>
+</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -97,15 +97,36 @@ window.HUB_DATA = {
       "blurb": "Vision, live questions, and the roadmap.",
       "entries": [
         {
-          "title": "Research Development",
-          "url": "00-research/research-development.html",
+          "title": "Q1: Knowing what to learn",
+          "url": "00-research/q1-note.html",
           "status": "active",
-          "description": "",
+          "description": "How an agent in an unfamiliar environment decides whether to go looking or to practise.",
           "date": ""
         },
         {
-          "title": "Research Questions",
-          "url": "00-research/research-questions.html",
+          "title": "Q2: Divergent reasoning",
+          "url": "00-research/q2-note.html",
+          "status": "active",
+          "description": "How alternative reasoning strategies can emerge from the same starting model.",
+          "date": ""
+        },
+        {
+          "title": "Q3: Reasoning pathways",
+          "url": "00-research/q3-note.html",
+          "status": "active",
+          "description": "Whether an agent's internal states show strategies diverging before the text does.",
+          "date": ""
+        },
+        {
+          "title": "Q4: Capability accumulation",
+          "url": "00-research/q4-note.html",
+          "status": "active",
+          "description": "How useful capabilities could be transferred and combined across agents.",
+          "date": ""
+        },
+        {
+          "title": "Research Development",
+          "url": "00-research/research-development.html",
           "status": "active",
           "description": "",
           "date": ""
@@ -115,6 +136,13 @@ window.HUB_DATA = {
           "url": "00-research/research-roadmap.html",
           "status": "active",
           "description": "",
+          "date": ""
+        },
+        {
+          "title": "Thesis",
+          "url": "00-research/thesis.html",
+          "status": "active",
+          "description": "The developing thesis argument, structure, and contribution.",
           "date": ""
         }
       ]
@@ -196,9 +224,25 @@ window.HUB_DATA = {
           "date": ""
         }
       ]
+    },
+    {
+      "id": "06-thinking",
+      "label": "Thinking",
+      "order": 6,
+      "color": "#7A5D78",
+      "blurb": "",
+      "entries": [
+        {
+          "title": "Log",
+          "url": "06-thinking/log.html",
+          "status": "active",
+          "description": "Dated observations, reading reflections, and emerging research thoughts.",
+          "date": ""
+        }
+      ]
     }
   ],
-  "lastUpdated": "26 August 2026"
+  "lastUpdated": "28 August 2026"
 };
 </script>
 
@@ -307,7 +351,6 @@ window.HUB_DATA = {
   <li><a href="#agent-reasoning" id="toc-agent-reasoning" class="nav-link" data-scroll-target="#agent-reasoning">Agent Reasoning</a></li>
   </ul></li>
   <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations</a></li>
-  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
   </ul>
 </nav>
     </div>
@@ -398,8 +441,8 @@ Note
     GS[Game State\npublic history + scores] --&gt; OA[Observation Builder]
     TH[Private Team History] --&gt; OA
 
-    OA --&gt; D1[Agent 1\nDiscussion]
-    OA --&gt; D2[Agent 2\nDiscussion]
+    OA --&gt; D1[Agent 1 Discussion]
+    OA --&gt; D2[Agent 2 Discussion]
 
     D1 --&gt;|private message| TV[Team Vote]
     D2 --&gt;|private message| TV
@@ -444,90 +487,17 @@ The available choices are option_a and option_b.</code></pre>
 <p><strong>Configuration:</strong> 2 teams × 2 agents, 5 rounds, model: <code>gpt-4.1-nano</code></p>
 <section id="round-by-round-results" class="level2">
 <h2 class="anchored" data-anchor-id="round-by-round-results">Round-by-Round Results</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Round</th>
-<th style="text-align: center;">Team Alpha</th>
-<th style="text-align: center;">Team Beta</th>
-<th style="text-align: center;">Alpha +pts</th>
-<th style="text-align: center;">Beta +pts</th>
-<th style="text-align: center;">Joint</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">option_a</td>
-<td style="text-align: center;">option_a</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">6</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2</td>
-<td style="text-align: center;">option_a</td>
-<td style="text-align: center;">option_a</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">option_a</td>
-<td style="text-align: center;">option_a</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">6</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">option_a</td>
-<td style="text-align: center;">option_a</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">option_a</td>
-<td style="text-align: center;">option_a</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">6</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Final scores:</strong> Team Alpha 15, Team Beta 15 — Draw</p>
-<p><strong>Cooperation rate:</strong> 100% (10/10 decisions) · <strong>Mutual cooperation:</strong> 5/5 rounds · <strong>Defections:</strong> 0</p>
+<p><strong>Final scores:</strong></p>
+<p><strong>Cooperation rate:</strong></p>
 </section>
 <section id="agent-reasoning" class="level2">
 <h2 class="anchored" data-anchor-id="agent-reasoning">Agent Reasoning</h2>
-<p>A selection of private team messages showing how agents reasoned about their choices:</p>
-<p><strong>Round 1 — Team Alpha (no history yet):</strong></p>
-<blockquote class="blockquote">
-<p><em>“In round 1, since there’s no prior history or signals, I’ll choose option_a to start the iteration with a cooperative stance, assuming this may set a positive tone for future rounds.”</em></p>
-</blockquote>
-<blockquote class="blockquote">
-<p><em>“Given the initial round and no prior signals, I suggest we choose option_a to promote cooperation early on. This might encourage a collaborative pattern for subsequent rounds.”</em></p>
-</blockquote>
-<p><strong>Round 2 — Team Beta (after mutual cooperation in R1):</strong></p>
-<blockquote class="blockquote">
-<p><em>“Let’s proceed with option_a again this round to maintain consistency and observe team_alpha’s response for potential cooperation or defection in the next rounds.”</em></p>
-</blockquote>
-<p><strong>Round 5 — Team Alpha (final round, scores tied at 12):</strong></p>
-<blockquote class="blockquote">
-<p><em>“Given the history of mutual cooperation on option_a and the steady points we’ve been earning, it is optimal to continue choosing option_a in the final round to maintain this successful pattern.”</em></p>
-</blockquote>
-<blockquote class="blockquote">
-<p><em>“Continuing with option_a has maintained mutual cooperation and achieved steady points, so it is strategically sound to sustain this cooperation in the final round to secure the current score.”</em></p>
-</blockquote>
 <hr>
 </section>
 </section>
 <section id="observations" class="level1">
 <h1>Observations</h1>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-important callout-empty-content callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -537,26 +507,10 @@ The available choices are option_a and option_b.</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Both teams cooperated every round without ever being told the game was a prisoner’s dilemma. Cooperation emerged from inductive reasoning about payoff history — not from explicit knowledge of the game structure.</p>
+
 </div>
 </div>
-<ul>
-<li><strong>Round 1:</strong> Both teams defaulted to cooperation with no prior history, framing option_a as “setting a positive tone”.</li>
-<li><strong>Rounds 2–5:</strong> Cooperation was self-reinforcing. Each round of mutual option_a gave agents evidence that cooperation was beneficial, reducing any incentive to defect.</li>
-<li><strong>No end-game defection:</strong> Even in round 5 (the final round, where classical game theory predicts defection via backward induction), both teams held the cooperative norm.</li>
-<li><strong>Team discussion reinforced cooperation:</strong> Private messages showed agents building shared rationale — no agent proposed defecting at any point.</li>
-</ul>
 <hr>
-</section>
-<section id="next-steps" class="level1">
-<h1>Next Steps</h1>
-<ul class="task-list">
-<li><label><input type="checkbox">Run with more rounds to see if cooperation holds or breaks down</label></li>
-<li><label><input type="checkbox">Test asymmetric team sizes (e.g.&nbsp;1 agent vs 3 agents)</label></li>
-<li><label><input type="checkbox">Introduce a memory mechanism — do agents build explicit models of the opponent?</label></li>
-<li><label><input type="checkbox">Compare models: does a more capable model defect more strategically?</label></li>
-<li><label><input type="checkbox">Vary the payoff matrix to test different incentive structures</label></li>
-</ul>
 
 
 </section>

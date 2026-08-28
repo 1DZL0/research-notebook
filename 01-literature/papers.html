@@ -97,15 +97,36 @@ window.HUB_DATA = {
       "blurb": "Vision, live questions, and the roadmap.",
       "entries": [
         {
-          "title": "Research Development",
-          "url": "00-research/research-development.html",
+          "title": "Q1: Knowing what to learn",
+          "url": "00-research/q1-note.html",
           "status": "active",
-          "description": "",
+          "description": "How an agent in an unfamiliar environment decides whether to go looking or to practise.",
           "date": ""
         },
         {
-          "title": "Research Questions",
-          "url": "00-research/research-questions.html",
+          "title": "Q2: Divergent reasoning",
+          "url": "00-research/q2-note.html",
+          "status": "active",
+          "description": "How alternative reasoning strategies can emerge from the same starting model.",
+          "date": ""
+        },
+        {
+          "title": "Q3: Reasoning pathways",
+          "url": "00-research/q3-note.html",
+          "status": "active",
+          "description": "Whether an agent's internal states show strategies diverging before the text does.",
+          "date": ""
+        },
+        {
+          "title": "Q4: Capability accumulation",
+          "url": "00-research/q4-note.html",
+          "status": "active",
+          "description": "How useful capabilities could be transferred and combined across agents.",
+          "date": ""
+        },
+        {
+          "title": "Research Development",
+          "url": "00-research/research-development.html",
           "status": "active",
           "description": "",
           "date": ""
@@ -115,6 +136,13 @@ window.HUB_DATA = {
           "url": "00-research/research-roadmap.html",
           "status": "active",
           "description": "",
+          "date": ""
+        },
+        {
+          "title": "Thesis",
+          "url": "00-research/thesis.html",
+          "status": "active",
+          "description": "The developing thesis argument, structure, and contribution.",
           "date": ""
         }
       ]
@@ -196,9 +224,25 @@ window.HUB_DATA = {
           "date": ""
         }
       ]
+    },
+    {
+      "id": "06-thinking",
+      "label": "Thinking",
+      "order": 6,
+      "color": "#7A5D78",
+      "blurb": "",
+      "entries": [
+        {
+          "title": "Log",
+          "url": "06-thinking/log.html",
+          "status": "active",
+          "description": "Dated observations, reading reflections, and emerging research thoughts.",
+          "date": ""
+        }
+      ]
     }
   ],
-  "lastUpdated": "26 August 2026"
+  "lastUpdated": "28 August 2026"
 };
 </script>
 
@@ -292,9 +336,10 @@ window.HUB_DATA = {
   <ul>
   <li><a href="#phd-papers" id="toc-phd-papers" class="nav-link active" data-scroll-target="#phd-papers">PhD Papers</a>
   <ul class="collapse">
-  <li><a href="#open-ended-learning-self-evolution" id="toc-open-ended-learning-self-evolution" class="nav-link" data-scroll-target="#open-ended-learning-self-evolution">1. Open-Ended Learning &amp; Self-Evolution</a></li>
-  <li><a href="#multi-agent-systems-collective-reasoning" id="toc-multi-agent-systems-collective-reasoning" class="nav-link" data-scroll-target="#multi-agent-systems-collective-reasoning">2. Multi-Agent Systems &amp; Collective Reasoning</a></li>
-  <li><a href="#agentic-learning-tools-interaction" id="toc-agentic-learning-tools-interaction" class="nav-link" data-scroll-target="#agentic-learning-tools-interaction">3. Agentic Learning, Tools &amp; Interaction</a></li>
+  <li><a href="#open-ended-learning" id="toc-open-ended-learning" class="nav-link" data-scroll-target="#open-ended-learning">1. Open-Ended Learning</a></li>
+  <li><a href="#self-evolution-self-improvement" id="toc-self-evolution-self-improvement" class="nav-link" data-scroll-target="#self-evolution-self-improvement">2. Self-Evolution &amp; Self-Improvement</a></li>
+  <li><a href="#multi-agent-systems-collective-reasoning" id="toc-multi-agent-systems-collective-reasoning" class="nav-link" data-scroll-target="#multi-agent-systems-collective-reasoning">3. Multi-Agent Systems &amp; Collective Reasoning</a></li>
+  <li><a href="#agentic-learning-tools-interaction" id="toc-agentic-learning-tools-interaction" class="nav-link" data-scroll-target="#agentic-learning-tools-interaction">4. Agentic Learning, Tools &amp; Interaction</a></li>
   </ul></li>
   <li><a href="#project-papers" id="toc-project-papers" class="nav-link" data-scroll-target="#project-papers">Project Papers</a>
   <ul class="collapse">
@@ -385,9 +430,52 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <section id="phd-papers" class="level2">
 <h2 class="anchored" data-anchor-id="phd-papers">PhD Papers</h2>
-<section id="open-ended-learning-self-evolution" class="level3">
-<h3 class="anchored" data-anchor-id="open-ended-learning-self-evolution">1. Open-Ended Learning &amp; Self-Evolution</h3>
-<p>Papers exploring systems that can continue developing, improving, evolving, or modifying themselves beyond a fixed training procedure</p>
+<section id="open-ended-learning" class="level3">
+<h3 class="anchored" data-anchor-id="open-ended-learning">1. Open-Ended Learning</h3>
+<p>Papers focused on agents that autonomously discover goals, explore unfamiliar environments, acquire skills, and adapt over time. This section is separate from self-evolution: the focus is on continuing to learn from interaction, not rewriting or evolving the agent itself.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Paper</th>
+<th style="text-align: right;">Year</th>
+<th>Research Focus</th>
+<th>What Changes</th>
+<th>Key Finding</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A Motivational Architecture for Open-Ended Learning Challenges in Robots</td>
+<td style="text-align: right;">2025</td>
+<td>Open-ended robotic learning</td>
+<td>Goals, skills, and adaptation</td>
+<td>H-GRAIL combines intrinsic motivations and learning mechanisms to discover goals, acquire skills, sequence them, and adapt to changing environments.</td>
+<td><a href="https://arxiv.org/pdf/2506.18454">Link</a></td>
+</tr>
+<tr class="even">
+<td>Voyager: An Open-Ended Embodied Agent with Large Language Models</td>
+<td style="text-align: right;">2023</td>
+<td>Open-ended embodied agents</td>
+<td>Skill library and exploration</td>
+<td>Voyager builds a reusable skill library through lifelong exploration, enabling strong Minecraft exploration, tech-tree progress, and zero-shot generalisation.</td>
+<td><a href="https://voyager.minedojo.org/">Link</a></td>
+</tr>
+<tr class="odd">
+<td>Look Before You Leap: Autonomous Exploration for LLM Agents</td>
+<td style="text-align: right;">2026</td>
+<td>Autonomous exploration</td>
+<td>Exploration before task execution</td>
+<td>Separating environment exploration from task execution helps agents acquire grounded knowledge and generalise better in unfamiliar environments.</td>
+<td><a href="https://arxiv.org/abs/2605.16143">Link</a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="self-evolution-self-improvement" class="level3">
+<h3 class="anchored" data-anchor-id="self-evolution-self-improvement">2. Self-Evolution &amp; Self-Improvement</h3>
+<p>Papers exploring systems that improve, evolve, or modify their own policies, code, or problem-solving methods beyond a fixed training procedure.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -445,7 +533,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section>
 <section id="multi-agent-systems-collective-reasoning" class="level3">
-<h3 class="anchored" data-anchor-id="multi-agent-systems-collective-reasoning">2. Multi-Agent Systems &amp; Collective Reasoning</h3>
+<h3 class="anchored" data-anchor-id="multi-agent-systems-collective-reasoning">3. Multi-Agent Systems &amp; Collective Reasoning</h3>
 <p>Papers exploring how multiple agents communicate, debate, coordinate, specialise, or collectively solve problems.</p>
 <table class="caption-top table">
 <thead>
@@ -488,7 +576,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section>
 <section id="agentic-learning-tools-interaction" class="level3">
-<h3 class="anchored" data-anchor-id="agentic-learning-tools-interaction">3. Agentic Learning, Tools &amp; Interaction</h3>
+<h3 class="anchored" data-anchor-id="agentic-learning-tools-interaction">4. Agentic Learning, Tools &amp; Interaction</h3>
 <p>Papers exploring agents that learn through interaction, tool use, tasks, feedback, or increasingly autonomous workflows.</p>
 <table class="caption-top table">
 <thead>
@@ -517,6 +605,14 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Agent policy / tool use</td>
 <td>Reinforcement learning over multi-turn user interactions improves an agent’s ability to use tools effectively.</td>
 <td><a href="https://arxiv.org/abs/2508.18669">Link</a></td>
+</tr>
+<tr class="odd">
+<td>SoK: Agentic Skills — Beyond Tool Use in LLM Agents</td>
+<td style="text-align: right;">2026</td>
+<td>Reusable agentic skills</td>
+<td>Procedural capabilities and skill lifecycle</td>
+<td>Agentic skills are reusable modules beyond atomic tool calls; the paper maps their discovery, storage, composition, evaluation, and update.</td>
+<td><a href="https://arxiv.org/abs/2602.20867">Link</a></td>
 </tr>
 </tbody>
 </table>

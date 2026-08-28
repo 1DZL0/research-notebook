@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="How alternative reasoning strategies can emerge from the same starting model.">
 
-<title>literature-map – Phronesis · Φρόνησις</title>
+<title>Q2: Divergent reasoning – Phronesis · Φρόνησις</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -329,146 +330,104 @@ window.HUB_DATA = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#literature-map" id="toc-literature-map" class="nav-link active" data-scroll-target="#literature-map">Literature Map</a>
-  <ul class="collapse">
-  <li><a href="#core-areas-for-my-current-direction" id="toc-core-areas-for-my-current-direction" class="nav-link" data-scroll-target="#core-areas-for-my-current-direction">Core Areas for My Current Direction</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Q2: Divergent reasoning</h1>
+</div>
+
+<div>
+  <div class="description">
+    How alternative reasoning strategies can emerge from the same starting model.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-<section id="literature-map" class="level1">
-<h1>Literature Map</h1>
-<p><strong>Research focus:</strong> Open-ended capability growth in autonomous multi-agent systems.</p>
-<pre class="text"><code>Open-Ended Capability Growth
-│
-├── Open-Ended Learning
-│   ├── Novelty Search
-│   ├── MAP-Elites / Quality-Diversity
-│   ├── POET
-│   ├── Artificial Life
-│   └── Environment Coevolution
-│
-├── Continual Learning
-│   ├── Catastrophic Forgetting
-│   ├── Experience Replay
-│   ├── Stability–Plasticity
-│   └── Online Adaptation
-│
-├── Intrinsic Motivation
-│   ├── Curiosity
-│   ├── Information Gain
-│   ├── Empowerment
-│   └── Active Learning
-│
-├── World Models
-│   ├── Predictive Models
-│   ├── Planning
-│   ├── Uncertainty Estimation
-│   └── Latent Dynamics
-│
-├── Agentic Systems
-│   ├── Planning Agents
-│   ├── Tool Use
-│   ├── Memory Systems
-│   ├── Reflection
-│   └── Self-Improvement
-│
-├── Multi-Agent Systems
-│   ├── Coordination
-│   ├── Communication
-│   ├── Role Allocation
-│   └── Collective Intelligence
-│
-├── Social Learning
-│   ├── Teaching
-│   ├── Imitation
-│   ├── Skill Transfer
-│   └── Cultural Transmission
-│
-├── Shared Memory
-│   ├── Vector Memory
-│   ├── Knowledge Graphs
-│   ├── Episodic Memory
-│   └── Long-Term Memory
-│
-├── Evolutionary Search
-│   ├── Evolutionary Algorithms
-│   ├── Population-Based Training
-│   ├── Architecture Search
-│   └── Self-Modification
-│
-├── Organizational Emergence
-│   ├── Persistent Organizations
-│   ├── Protocol Evolution
-│   ├── Shared Standards
-│   └── Institutional Memory
-│
-├── Interpretability &amp; Observability
-│   ├── Mechanistic Interpretability
-│   ├── Sparse Autoencoders
-│   ├── Reasoning Trajectories
-│   └── Agent Observability
-│
-├── Meta-Learning
-│   ├── Learning to Learn
-│   ├── Strategy Adaptation
-│   ├── Self-Generated Curricula
-│   └── Hyperparameter Adaptation
-│
-├── Evaluation
-│   ├── Capability Growth
-│   ├── Diversity Metrics
-│   ├── Transfer
-│   ├── Long-Horizon Evaluation
-│   └── Open-Endedness Metrics
-│
-└── Safety &amp; Alignment
-    ├── Alignment
-    ├── Goal Stability
-    ├── Reward Hacking
-    ├── Corrigibility
-    └── Verification</code></pre>
-<hr>
-<section id="core-areas-for-my-current-direction" class="level2">
-<h2 class="anchored" data-anchor-id="core-areas-for-my-current-direction">Core Areas for My Current Direction</h2>
-<p><strong>Highest priority</strong></p>
+</header>
+
+
+<p><span class="text-blue"><strong>Component:</strong> Navigator - finds the points where the reasoning could have gone another way, and checks whether the different routes are genuinely different approaches.</span></p>
+<div class="research-question">
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Q2: Why do identical agents develop different reasoning strategies?</strong></p>
+<p>This note investigates whether branching at high-entropy decision points can create genuinely different reasoning strategies, rather than only different phrasings or final outcomes. The agent takes one route. Then it goes back and runs the routes it didn’t take, and learns from those. It learns from things it never did.</p>
+</div>
+</div>
+</div>
+<p><strong>Procedure.</strong></p>
+<ol type="1">
+<li>One agent produces a complete reasoning trace and a final answer. This is the reference trace.</li>
+<li>The token-level entropy of the reference trace is recorded, and the highest-entropy positions are identified as candidate decision points.</li>
+<li>At each decision point, generation is resumed from the preceding prefix with a different continuation, and each branch is run to completion.</li>
+<li>The outcomes of the branches are compared against the outcome of the reference trace. A decision point is important if resampling it changes the distribution over final answers. <strong>This is its counterfactual point</strong></li>
+<li>Where the reference trace failed and its branches succeed, the decision point marks where the reasoning went wrong. That position, and the continuation that recovered from it, can be recorded for reuse.</li>
+</ol>
+<p><strong>Working assumptions for this mechanism.</strong></p>
 <ul>
-<li>Open-Ended Learning</li>
-<li>Multi-Agent Systems</li>
-<li>Social Learning</li>
-<li>Shared Memory</li>
-<li>Evolutionary Search</li>
-<li>Evaluation</li>
+<li>High-entropy positions correspond to meaningful choices in the reasoning rather than to surface variation in wording.</li>
+<li>Failure in a reasoning trace can be localised to a small number of positions rather than being distributed across the whole trace.</li>
+<li>The alternative continuations produced at a decision point represent different strategies, not different phrasings of the same strategy.</li>
 </ul>
-<p><strong>Strongly related</strong></p>
+<p><strong>Open questions for this mechanism.</strong></p>
 <ul>
-<li>Intrinsic Motivation</li>
-<li>World Models</li>
-<li>Continual Learning</li>
-<li>Organizational Emergence</li>
+<li>Do branches taken at the same decision point differ in strategy, or only in outcome?</li>
+<li>What distinguishes a decision point that produces a useful alternative from one that produces an equivalent restatement?</li>
+<li>How should a recorded failure point be abstracted so that it transfers to a different problem, rather than being tied to the trace it came from?</li>
+<li>Which level is the right unit of branching: the token, the sentence, or the reasoning step?</li>
 </ul>
-<p><strong>Supporting</strong></p>
+<p><strong>Scope note.</strong> This mechanism addresses only the first source of divergence listed above, stochasticity. It says nothing about divergence arising from experience, memory, or communication. It also operates on the model’s output distribution rather than its internal representations; the internal version of the same question is Q3.</p>
+<p><strong>Supporting literature and concepts.</strong> Token entropy and forking tokens; entropy-guided decoding and branching; counterfactual importance and step-level attribution; tree search over reasoning traces.</p>
+<p><strong>Related papers.</strong></p>
 <ul>
-<li>Agentic Systems</li>
-<li>Interpretability</li>
-<li>Meta-Learning</li>
-<li>Safety &amp; Alignment</li>
+<li><a href="https://arxiv.org/abs/2506.01939">Beyond the 80/20 Rule: High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning</a> establishes that a small minority of tokens carry most of the branching behaviour in a chain of thought, and that these tokens act as forks steering the model toward different reasoning pathways.</li>
+<li><a href="https://arxiv.org/abs/2506.19143">Thought Anchors: Which LLM Reasoning Steps Matter?</a> measures the counterfactual importance of each sentence in a reasoning trace by resampling from that position, .and finds that planning and uncertainty-management steps matter more than computation steps.</li>
+<li><a href="https://arxiv.org/abs/2508.11356">ETTRL: Balancing Exploration and Exploitation in LLM Test-Time Reinforcement Learning</a> implements fork-based exploration at high-entropy tokens and reuses the low-entropy segments between forks.</li>
+<li><a href="https://arxiv.org/abs/2406.11776">Improving Multi-Agent Debate with Sparse Communication Topology</a> tests how changing agent communication structures affects collective reasoning.</li>
 </ul>
+<p><strong>Possible investigation:</strong> Take one open-weights reasoning model and a set of problems with checkable answers. Generate a reference trace per problem, record token entropy, branch at the highest-entropy positions, and run each branch to a final answer. Then cluster the branches by strategy rather than by correctness, and ask whether branching at a decision point produces genuinely distinct approaches or only distinct wordings of one approach.</p>
+<pre class="text"><code>                 Reference trace
+                        |
+        low entropy ----+---- low entropy
+                        |
+                 decision point
+            ------------+------------
+            |           |           |
+        branch A    branch B    branch C
+            |           |           |
+            v           v           v
+         outcome     outcome     outcome
+            |           |           |
+            ------------+------------
+                        v
+          Counterfactual importance of
+              this decision point
+                        v
+           Strategy comparison across
+                     branches</code></pre>
+<p><strong>Why this matters for the rest of the work.</strong> This experiment does not answer a question on its own. If I want a group of agents that each do something different, I first need a way to tell whether two agents are actually doing different things, or just saying the same thing in different words. There is no agreed way to do that for reasoning yet. Working out how to group reasoning traces by approach is that tool. Once I have it, I can give each branch its own memory and follow it across many problems (Q2), keep a store of different approaches rather than only the best-scoring one, and pass approaches between agents to see if they transfer (Q4).</p>
+<p><strong>Status:</strong> <span class="research-status is-exploring">Exploring</span></p>
+</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
