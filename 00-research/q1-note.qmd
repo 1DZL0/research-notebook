@@ -28,11 +28,6 @@ wrong often enough to be a problem. A failure can mean three different things:
 2. The agent can do it but took a bad route this time. Nothing is missing.
 3. There is nothing to learn. The task is random or has no stable answer.
 
-In an unfamiliar environment the agent does not yet know what the possible goals are, 
-so it cannot pick one. It has to discover that something is possible before it can 
-decide whether to want it. That looks circular, and getting out of the circle is 
-the real content of this question.
-
 ### Working assumptions
 
 - An agent can notice when the environment responded differently from what it expected,

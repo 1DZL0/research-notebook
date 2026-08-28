@@ -9,7 +9,7 @@ description: "How alternative reasoning strategies can emerge from the same star
 ::: {.callout-note appearance="simple" icon=false}
 **Q2: Why do identical agents develop different reasoning strategies?**
 
-This note investigates whether branching at high-entropy decision points can create genuinely different reasoning strategies, rather than only different phrasings or final outcomes.
+This note investigates whether branching at high-entropy decision points can create genuinely different reasoning strategies, rather than only different phrasings or final outcomes. The agent takes one route. Then it goes back and runs the routes it didn't take, and learns from those. It learns from things it never did.
 :::
 
 **Procedure.**

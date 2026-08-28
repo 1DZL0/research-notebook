@@ -27,6 +27,7 @@ SECTIONS = {
     "03-experiments": ("Experiments", 3, "#8A3E4E"),
     "04-meetings":    ("Meetings", 4, "#59636E"),
     "05-reference":   ("Reference", 5, "#6B6440"),
+    "06-thinking":    ("Thinking", 6, "#7A5D78"),
 }
 
 # one-line briefing shown when a section node is hovered

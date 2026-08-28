@@ -1,52 +1,108 @@
 ---
 title: "Q3: Reasoning pathways"
-description: "Whether internal representations can reveal how agent strategies diverge."
+description: "Whether an agent's internal states show strategies diverging before the text does."
 ---
 
 ::: {.research-question}
 ::: {.callout-note appearance="simple" icon=false}
-**Q3: Can we map and understand the internal reasoning pathways of AI agents?**
+**Q3: Can the internal states of an agent show where its reasoning diverged?**
 
-If agents develop different capabilities and reasoning strategies, their internal representations may reveal how those strategies form and where they begin to diverge.
+Two agents running the same model on the same task end up reasoning differently. That
+difference is visible in what they write. The question is whether it is visible inside them
+first, and whether the inside view says anything the text does not.
 :::
 
-**Working assumptions.**
 
-- Internal representations can be observed or recorded in sufficiently small models.
-- Changes in internal trajectories can be meaningfully compared across agents.
-- Differences in those trajectories may relate to differences in reasoning or outcomes.
+---
 
-**Open questions.**
+### The question, sharpened
 
-- Which internal states or representations are useful to record?
-- How can divergence points be identified without treating normal variation as meaningful?
-- Can particular internal patterns be associated with successful reasoning or newly acquired capabilities?
+[Q2](q2.qmd) compares two pieces of reasoning by what the model said. That works, it is
+cheap, and it needs no access to the model's insides. This question asks whether opening the
+model up is worth the extra cost:
 
-**Supporting literature and concepts.** Mechanistic interpretability; Recursive Multi-Agent Systems and latent-space communication; Q2: divergent reasoning strategies.
+> Does the divergence show up in the internal states before it shows up in the text?
 
-**Related paper.** [Recursive Multi-Agent Systems](https://arxiv.org/abs/2604.25917/){target="_blank" rel="noopener"} provides a concrete connection to this question through its use of latent representations for communication between agents.
+If the answer is no, then internal states are a more expensive way of seeing something the
+words already showed, and this question can be closed. If the answer is yes, then the model
+commits to an approach before it writes anything that reveals it, and there is a whole layer
+the text-level view cannot reach.
 
-**Possible investigation.** Give several agents the same task and record their internal states throughout reasoning.
+Everything else on this page depends on that one result, so it is worth settling early.
 
-```text
-                     Same Task
-                         |
-            -------------+-------------
-            |            |            |
-         Agent A      Agent B      Agent C
-            |            |            |
-            v            v            v
-       Internal      Internal      Internal
-       trajectory    trajectory    trajectory
-            |            |            |
-            -------------+-------------
-                         v
-                 Compare trajectories
-                         v
-              Identify divergence points
-                         v
-              Compare with final outcomes
-```
+### Why it might be yes
 
-**Status:** <span class="research-status is-exploring">Exploring</span>
-:::
+Two reasons to expect the inside view to show more:
+
+1. A model does not always write down what actually drove its answer. If that is true, 
+comparing what two agents wrote compares their explanations, not their reasoning.
+
+2. And if there is a line of work where agents pass hidden states to each other instead of text.
+In that setting the reasoning never becomes words at all. If systems keep moving in that direction, 
+reading internal states stops being optional.
+
+### Working assumptions
+
+- Activations can be recorded from any model whose weights are available. Size limits how
+  much can be stored and how easily it can be interpreted.
+- Two agents running the same base model produce states in the same coordinate space, so
+  their internal states can be compared directly.
+- Agents running different models do not share a coordinate space, and comparing them needs
+  a method built for that
+- Some part of a model's internal state carries which approach it is taking, seprate from what it produces (shows)
+
+
+### Open questions
+
+- Does internal divergence come before textual divergence, and by how much?
+- Which states are worth recording: residual stream, attention patterns, or something
+  learned on top of them?
+- Can two agents running different models be compared at all, or only two copies of the
+  same one?
+- Is there anything in the internal state that says an approach is going to fail, before the
+  failure appears in the output?
+
+### Available methods
+
+Some tools already exist and are not specific to this question. 
+
+- Projecting intermediate states onto the vocabulary to see what the model is leaning toward mid-computation. 
+- Training small probes to test whether a given property is present in a state.
+- Sparse autoencoders for pulling apart states that mix many things at once. 
+- Attention analysis for which earlier parts of the text a later part is drawing on. 
+- Representational similarity methods for comparing across models that do not share a coordinate space.
+
+**Note.** [Thought Anchors](https://arxiv.org/abs/2506.19143){target="_blank" rel="noopener"}
+already asks this from both sides. From the outside it rewinds to a step, runs the model
+again many times, and sees whether the answer changes: if it does, that step was a real
+decision. From the inside it blocks the model from looking back at that step and sees what
+breaks. Same question, once from the words and once from the machinery, which is the
+comparison this page is built on.
+
+### Possible investigation
+
+Reuse the branching set-up from [Q2](q2.qmd) rather than building a new one. For each fork
+point, record the internal states in the run-up to it as well as the branches that follow.
+
+Then ask three things in order:
+
+1. Do the internal states shortly before a fork predict which branch gets taken?
+2. Do they predict whether that branch succeeds, earlier than the text does?
+3. If yes to either, how far ahead of the words does the signal appear?
+
+
+### Scope note
+
+This is the same measurement problem as [Q2](q2.qmd) with a different instrument. Q2 asks
+whether two pieces of reasoning are doing the same thing, judged from the output. Q3 asks the
+same, judged from the inside. It is deliberately the second instrument to build, because the
+cheap one should be shown to be insufficient before the expensive one is justified.
+
+
+### Related papers
+
+- [Recursive Multi-Agent Systems](https://arxiv.org/abs/2604.25917){target="_blank" rel="noopener"} 
+- [Thought Anchors: Which LLM Reasoning Steps Matter?](https://arxiv.org/abs/2506.19143){target="_blank" rel="noopener"} pairs text-level resampling with attention-based attribution and attention suppression
+- [Hybrid Latent Reasoning via Reinforcement Learning](https://arxiv.org/abs/2505.18454){target="_blank" rel="noopener"} works on reasoning carried in hidden states rather than in a written chain of thought.
+- [See What I See, Know What I Think: Dense Latent Communication Across Heterogeneous Agents](https://arxiv.org/abs/2606.13594){target="_blank" rel="noopener"} covers latent communication between agents built on different models.
+

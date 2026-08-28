@@ -1,0 +1,16 @@
+---
+title: "Thesis"
+description: "The developing thesis argument, structure, and contribution."
+---
+
+This note is reserved for the thesis once its central argument is ready to take shape.
+
+::: {.callout-note appearance="simple" icon=false}
+**Working thesis.** State the central claim, why it matters, and the contribution this research makes.
+:::
+
+**Questions it brings together.** Add the research questions that the thesis answers or develops.
+
+**Evidence and chapters.** Add the experiments, literature, and chapter structure that support the argument.
+
+**Next step.** Turn the current research roadmap into a first thesis outline when the research direction is settled.

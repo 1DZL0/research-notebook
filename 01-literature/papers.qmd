@@ -71,9 +71,21 @@ The categories provide a high-level view of the research landscape. The Key Find
 
 ## PhD Papers
 
-### 1. Open-Ended Learning & Self-Evolution
+### 1. Open-Ended Learning
 
-Papers exploring systems that can continue developing, improving, evolving, or modifying themselves beyond a fixed training procedure
+Papers focused on agents that autonomously discover goals, explore unfamiliar environments, acquire skills, and adapt over time. This section is separate from self-evolution: the focus is on continuing to learn from interaction, not rewriting or evolving the agent itself.
+
+| Paper | Year | Research Focus | What Changes | Key Finding | Source |
+|---|---:|---|---|---|---|
+| A Motivational Architecture for Open-Ended Learning Challenges in Robots | 2025 | Open-ended robotic learning | Goals, skills, and adaptation | H-GRAIL combines intrinsic motivations and learning mechanisms to discover goals, acquire skills, sequence them, and adapt to changing environments. | [Link](https://arxiv.org/pdf/2506.18454) |
+| Voyager: An Open-Ended Embodied Agent with Large Language Models | 2023 | Open-ended embodied agents | Skill library and exploration | Voyager builds a reusable skill library through lifelong exploration, enabling strong Minecraft exploration, tech-tree progress, and zero-shot generalisation. | [Link](https://voyager.minedojo.org/) |
+| Look Before You Leap: Autonomous Exploration for LLM Agents | 2026 | Autonomous exploration | Exploration before task execution | Separating environment exploration from task execution helps agents acquire grounded knowledge and generalise better in unfamiliar environments. | [Link](https://arxiv.org/abs/2605.16143) |
+
+---
+
+### 2. Self-Evolution & Self-Improvement
+
+Papers exploring systems that improve, evolve, or modify their own policies, code, or problem-solving methods beyond a fixed training procedure.
 
 | Paper | Year | Research Focus | What Changes | Key Finding | Source |
 |---|---:|---|---|---|---|
@@ -82,12 +94,10 @@ Papers exploring systems that can continue developing, improving, evolving, or m
 | AlphaEvolve | 2025 | Automated algorithm discovery | Programs / algorithms | Evolutionary search over programs discovers new algorithms that outperform prior human-designed solutions. | [Link](https://arxiv.org/abs/2506.13131) |
 | **Evolver: Self-Evolving LLM Agents through Experience** | 2025 | Self-evolving agents via experience | Agent policy / behaviour | Agents can distill experience into reusable strategies and use them to improve future behaviour. | [Link](https://arxiv.org/abs/2510.16079) |
 | A Self-Improving Coding Agent | 2025 | Self-improving coding agents | Coding agent | An agent can iteratively rewrite and improve its own coding capabilities without external supervision. | [Link](https://arxiv.org/abs/2504.15228) |
-| A Motivational Architecture for Open-Ended Learning Challenges in Robots | 2025 | Open-ended robotic learning | Goals, skills, and adaptation | H-GRAIL combines intrinsic motivations and learning mechanisms to discover goals, acquire skills, sequence them, and adapt to changing environments. | [Link](https://arxiv.org/pdf/2506.18454) |
-| Voyager: An Open-Ended Embodied Agent with Large Language Models | 2023 | Open-ended embodied agents | Skill library and exploration | Voyager builds a reusable skill library through lifelong exploration, enabling strong Minecraft exploration, tech-tree progress, and zero-shot generalisation. | [Link](https://voyager.minedojo.org/) |
 
 ---
 
-### 2. Multi-Agent Systems & Collective Reasoning
+### 3. Multi-Agent Systems & Collective Reasoning
 
 Papers exploring how multiple agents communicate, debate, coordinate, specialise, or collectively solve problems.
 
@@ -99,7 +109,7 @@ Papers exploring how multiple agents communicate, debate, coordinate, specialise
 
 ---
 
-### 3. Agentic Learning, Tools & Interaction
+### 4. Agentic Learning, Tools & Interaction
 
 Papers exploring agents that learn through interaction, tool use, tasks, feedback, or increasingly autonomous workflows.
 
@@ -108,7 +118,6 @@ Papers exploring agents that learn through interaction, tool use, tasks, feedbac
 | AutoResearchBench: Benchmarking AI Agents on Complex Scientific Literature Discovery | 2026 | Benchmarking scientific literature discovery | Agent capability | Current agents still struggle with complex, multi-step scientific literature discovery tasks. | [Link](https://arxiv.org/abs/2604.25256) |
 | MUA-RL: Multi-turn User-interacting Agent Reinforcement Learning for Agentic Tool Use | 2025 | Training agents for multi-turn tool use | Agent policy / tool use | Reinforcement learning over multi-turn user interactions improves an agent's ability to use tools effectively. | [Link](https://arxiv.org/abs/2508.18669) |
 | SoK: Agentic Skills — Beyond Tool Use in LLM Agents | 2026 | Reusable agentic skills | Procedural capabilities and skill lifecycle | Agentic skills are reusable modules beyond atomic tool calls; the paper maps their discovery, storage, composition, evaluation, and update. | [Link](https://arxiv.org/abs/2602.20867) |
-| Look Before You Leap: Autonomous Exploration for LLM Agents | 2026 | Autonomous exploration | Exploration before task execution | Separating environment exploration from task execution helps agents acquire grounded knowledge and generalise better in unfamiliar environments. | [Link](https://arxiv.org/abs/2605.16143) |
 
 ---
 

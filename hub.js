@@ -15,28 +15,32 @@
 
   // Hand-tuned lanes keep the broad map balanced while giving the denser
   // Research branch room on the right.
-  var BRANCH_ANGLES = [-35, -106, 25, 150, -155];
+  var BRANCH_ANGLES = [-35, -106, 25, 150, -155, 125, 130];
   var TWIST_JITTER = [14, -22, 18, -12, 24, -16, 10];
   var BRANCH_RADII = [250, 170, 250, 245, 250];
-  var MAIN_LABEL_OFFSETS = [[0, 38], [0, 36], [0, -26], [0, -26], [0, 36]];
+  var MAIN_LABEL_OFFSETS = [[0, 38], [0, 36], [0, -26], [0, -26], [0, 36], [0, -26]];
   var DEFAULT_BRANCH_LAYOUT = {
-    "03-experiments": { x: 213.1, y: 110.9 },
-    "04-meetings": { x: 374.2, y: 311.3 },
-    "01-literature": { x: 432.0, y: 106.9 },
-    "02-projects": { x: 576.1, y: 310.5 }
+    "03-experiments": { x: 222.5, y: 144.8 },
+    "04-meetings": { x: 340.2, y: 299.4 },
+    "01-literature": { x: 322.2, y: 116.7 },
+    "02-projects": { x: 601.3, y: 297.2 },
+    "06-thinking": { x: 432.1, y: 205.3 }
   };
   var DEFAULT_CHILD_LAYOUT = {
-    "01-literature:01-literature/papers.html": { x: 439.5, y: 19.9 },
-    "00-research:00-research/q1-note.html": { x: 570.0, y: 70.0 },
-    "00-research:00-research/q2-note.html": { x: 660.0, y: 30.0 },
-    "00-research:00-research/q3-note.html": { x: 750.0, y: 25.0 },
-    "00-research:00-research/q4-note.html": { x: 850.0, y: 55.0 },
-    "00-research:00-research/research-development.html": { x: 795.0, y: 113.3 },
-    "00-research:00-research/research-roadmap.html": { x: 776.6, y: 167.6 },
-    "02-projects:02-projects/pharos-cy.html": { x: 652.9, y: 269.8 },
-    "02-projects:02-projects/genai4ed.html": { x: 654.3, y: 329.6 },
-    "04-meetings:04-meetings/supervisor.html": { x: 310.3, y: 292.9 },
-    "04-meetings:04-meetings/other-meetings.html": { x: 250.0, y: 360.0 }
+    "01-literature:01-literature/papers.html": { x: 299.8, y: 49.5 },
+    "00-research:00-research/q1-note.html": { x: 743.7, y: 6.9 },
+    "00-research:00-research/q2-note.html": { x: 668.6, y: 23.7 },
+    "00-research:00-research/q3-note.html": { x: 591.2, y: 41.6 },
+    "00-research:00-research/q4-note.html": { x: 519.5, y: 54.0 },
+    "00-research:00-research/research-development.html": { x: 815.4, y: 159.3 },
+    "00-research:00-research/research-roadmap.html": { x: 794.1, y: 94.3 },
+    "00-research:00-research/thesis.html": { x: 533.0, y: 123.5 },
+    "02-projects:02-projects/pharos-cy.html": { x: 642.8, y: 271.4 },
+    "02-projects:02-projects/genai4ed.html": { x: 652.9, y: 329.7 },
+    "03-experiments:03-experiments/prisoners-dilemma.html": { x: 140.7, y: 156.0 },
+    "04-meetings:04-meetings/supervisor.html": { x: 280.8, y: 270.3 },
+    "04-meetings:04-meetings/other-meetings.html": { x: 269.6, y: 319.6 },
+    "06-thinking:06-thinking/log.html": { x: 426.5, y: 139.2 }
   };
 
   function e(tag, attrs) {
@@ -295,9 +299,9 @@
     var ly = y + mainLabelOffset[1];
 
     var g = e("g", { "class": "hub-main", "data-id": s.id, tabindex: "0", role: "button" });
-    g.appendChild(e("circle", { cx: x, cy: y, r: 22, fill: "transparent" }));
-    g.appendChild(e("circle", { cx: x, cy: y, r: 12, "class": "hub-main-halo", stroke: s.color }));
-    g.appendChild(e("circle", { cx: x, cy: y, r: 7.7, "class": "hub-main-dot", fill: s.color, stroke: s.color }));
+    g.appendChild(e("circle", { cx: x, cy: y, r: 18, fill: "transparent" }));
+    g.appendChild(e("circle", { cx: x, cy: y, r: 10, "class": "hub-main-halo", stroke: s.color }));
+    g.appendChild(e("circle", { cx: x, cy: y, r: 6.4, "class": "hub-main-dot", fill: s.color, stroke: s.color }));
 
     var label = e("text", { x: lx, y: ly, "text-anchor": anchor, "class": "hub-main-label" });
     label.textContent = s.label;

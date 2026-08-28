@@ -1,0 +1,69 @@
+---
+title: "Log"
+description: "Dated observations, reading reflections, and emerging research thoughts."
+---
+
+New entries are added at the top.
+
+---
+
+## 28 August 2026
+
+### Q2 — Branching
+
+High-entropy points in generation could be used to deliberately fork reasoning,
+run alternative paths, and compare outcomes.
+
+Most of the branching machinery already exists. The interesting gap may be
+using branches to study **strategic differences between agents**, rather than
+only finding the correct answer.
+
+### Q1 — What Should an Agent Learn Next?
+
+H-GRAIL showed a useful approach to autonomous goal discovery: existing
+skills can help an agent reach new states and discover further goals.
+
+For language agents, the harder problem is deciding whether a textual outcome
+represents something worth learning.
+
+### Q3 — Internal Reasoning
+
+RecursiveMAS made the distinction clearer: latent communication is not
+interpretability. This raised a more specific question:
+
+> Does internal divergence happen before textual divergence?
+
+If not, the idea can be dropped.
+
+### Open-Ended Learning
+
+The bigger issue is whether the current questions are actually open-ended.
+
+A fixed set of problems can test Q1–Q4 and eventually finish. Open-ended
+learning needs a continuing process where new things emerge over time.
+
+Three missing elements:
+
+- **Task supply/goal**:new things to learn
+- **Persistence**: discoveries survive/stored over time or can be build upon
+- **Time**: capability develops over an extended process
+
+### Emerging Thesis Direction
+
+A possible direction is a population of agents that develops complementary
+specialisations and uses them to discover capabilities that a single agent
+would not.
+
+The important word is **self-organise**.
+
+### Domain Thoughts
+
+- Maths is useful for controlled measurement 
+- Code may be better for genuinely open-ended generation
+- Science is compelling but difficult to verify
+- Some sort of open lid domain that as limited varables but uncapped combinations
+
+A useful test for a domain:
+
+> If a intelligent agent can finish it, it is probably a benchmark rather than
+> an open-ended domain.
