@@ -5,27 +5,23 @@ description: "Dated observations, reading reflections, and emerging research tho
 
 
 ::: {.thinking-log-entry}
-**30 August 2026 · Defining Openended learning**
+**30 August 2026 · Open-ended learning session**
 
 [Link](https://arxiv.org/abs/2311.00344): This paper helped clarify what actually counts as open-ended learning.
 
-An open-ended process should continue producing novel elements over an indefinite horizon. These elements could be:
+An open-ended process should continue producing novel elements over an indefinite horizon. These elements could be observations, options, reward functions, goals, or skills.
 
-- observations
-- options
-- reward functions
-- goals
-- skills
+The important combination is:
 
-The important part is the combination of:
+- **Novelty**
+- **Continued production**
+- **No fixed endpoint**
 
-- **novelty**
-- **continued production**
-- **no fixed endpoint**
+### Intrinsic motivation
 
-Intrinsic motivation feels important because it gives the agent internal reasons to keep exploring rather than only following an external reward.
+Intrinsic motivation feels important because it gives the agent internal reasons to keep exploring rather than only following an externally defined reward.
 
-From the agent's perspective, this could look like:
+From the agent's perspective:
 
 - Have I seen this before?
 - Did reality surprise my model?
@@ -35,9 +31,33 @@ From the agent's perspective, this could look like:
 
 This feels similar to natural-computing ideas: maintain diversity and explore alternatives rather than only optimise one fixed goal.
 
-The difficult part is deciding what kind of diversity is actually useful. Maximising divergence alone could produce lots of different but pointless behaviours. An open-ended agent probably needs diversity as a **navigation mechanism**, while still favouring discoveries that create useful building blocks for future learning.
+The difficult part is deciding what diversity is actually **useful**. Maximising divergence alone could create lots of different but pointless behaviours. Diversity may be better as a navigation mechanism for finding new possibilities. At the same time, only building on what is already useful could trap the system in one direction. It is like optimising the same square building for maximum height forever — eventually progress may require discovering a completely different architecture.
 
-The tension is that focusing only on building on what is already useful may trap the system in one local direction. It is like optimising the same square building for maximum height forever: eventually, progress may require discovering a completely different architecture rather than improving the current one.
+### Task-specific representations
+
+Doncieux et al. (2018) give another interesting view of OEL: a new task may require the agent to construct a different **MDP**, rather than solving everything inside one fixed state and action space.
+
+Instead of:
+
+`same states + same actions → different tasks`
+
+it could be:
+
+`new task → identify relevant states/actions → solve task`
+
+The useful idea is **abstraction**: ignore sensory information and actions that do not matter for the current task.
+
+This is interesting because open-ended learning may involve changing not only **what the agent learns**, but also **how it represents the problem**.
+
+**This gives an important contrast:**
+
+`external reward → defines goal → learn`
+
+versus intrinsic motivation:
+
+`intrinsic motivation → discover/select goal → define reward from achieving it → learn`
+
+So state/action abstraction may be a useful OEL mechanism, but it is not necessarily what *defines* open-ended learning.
 :::
 
 
