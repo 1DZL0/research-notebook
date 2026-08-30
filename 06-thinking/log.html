@@ -243,7 +243,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "28 August 2026"
+  "lastUpdated": "30 August 2026"
 };
 </script>
 
@@ -330,22 +330,8 @@ window.HUB_DATA = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#august-2026" id="toc-august-2026" class="nav-link active" data-scroll-target="#august-2026">28 August 2026</a>
-  <ul class="collapse">
-  <li><a href="#q2-branching" id="toc-q2-branching" class="nav-link" data-scroll-target="#q2-branching">Q2 — Branching</a></li>
-  <li><a href="#q1-what-should-an-agent-learn-next" id="toc-q1-what-should-an-agent-learn-next" class="nav-link" data-scroll-target="#q1-what-should-an-agent-learn-next">Q1 — What Should an Agent Learn Next?</a></li>
-  <li><a href="#q3-internal-reasoning" id="toc-q3-internal-reasoning" class="nav-link" data-scroll-target="#q3-internal-reasoning">Q3 — Internal Reasoning</a></li>
-  <li><a href="#open-ended-learning" id="toc-open-ended-learning" class="nav-link" data-scroll-target="#open-ended-learning">Open-Ended Learning</a></li>
-  <li><a href="#emerging-thesis-direction" id="toc-emerging-thesis-direction" class="nav-link" data-scroll-target="#emerging-thesis-direction">Emerging Thesis Direction</a></li>
-  <li><a href="#domain-thoughts" id="toc-domain-thoughts" class="nav-link" data-scroll-target="#domain-thoughts">Domain Thoughts</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -374,60 +360,54 @@ window.HUB_DATA = {
 </header>
 
 
-<p>New entries are added at the top.</p>
-<hr>
-<section id="august-2026" class="level2">
-<h2 class="anchored" data-anchor-id="august-2026">28 August 2026</h2>
-<section id="q2-branching" class="level3">
-<h3 class="anchored" data-anchor-id="q2-branching">Q2 — Branching</h3>
-<p>High-entropy points in generation could be used to deliberately fork reasoning, run alternative paths, and compare outcomes.</p>
-<p>Most of the branching machinery already exists. The interesting gap may be using branches to study <strong>strategic differences between agents</strong>, rather than only finding the correct answer.</p>
-</section>
-<section id="q1-what-should-an-agent-learn-next" class="level3">
-<h3 class="anchored" data-anchor-id="q1-what-should-an-agent-learn-next">Q1 — What Should an Agent Learn Next?</h3>
-<p>H-GRAIL showed a useful approach to autonomous goal discovery: existing skills can help an agent reach new states and discover further goals.</p>
-<p>For language agents, the harder problem is deciding whether a textual outcome represents something worth learning.</p>
-</section>
-<section id="q3-internal-reasoning" class="level3">
-<h3 class="anchored" data-anchor-id="q3-internal-reasoning">Q3 — Internal Reasoning</h3>
-<p>RecursiveMAS made the distinction clearer: latent communication is not interpretability. This raised a more specific question:</p>
-<blockquote class="blockquote">
-<p>Does internal divergence happen before textual divergence?</p>
-</blockquote>
-<p>If not, the idea can be dropped.</p>
-</section>
-<section id="open-ended-learning" class="level3">
-<h3 class="anchored" data-anchor-id="open-ended-learning">Open-Ended Learning</h3>
-<p>The bigger issue is whether the current questions are actually open-ended.</p>
-<p>A fixed set of problems can test Q1–Q4 and eventually finish. Open-ended learning needs a continuing process where new things emerge over time.</p>
-<p>Three missing elements:</p>
+<div class="thinking-log-entry">
+<p><strong>30 August 2026 · Defining Openended learning</strong></p>
+<p><a href="https://arxiv.org/abs/2311.00344">Link</a>: This paper helped clarify what actually counts as open-ended learning.</p>
+<p>An open-ended process should continue producing novel elements over an indefinite horizon. These elements could be:</p>
 <ul>
-<li><strong>Task supply/goal</strong>:new things to learn</li>
-<li><strong>Persistence</strong>: discoveries survive/stored over time or can be build upon</li>
-<li><strong>Time</strong>: capability develops over an extended process</li>
+<li>observations</li>
+<li>options</li>
+<li>reward functions</li>
+<li>goals</li>
+<li>skills</li>
 </ul>
-</section>
-<section id="emerging-thesis-direction" class="level3">
-<h3 class="anchored" data-anchor-id="emerging-thesis-direction">Emerging Thesis Direction</h3>
-<p>A possible direction is a population of agents that develops complementary specialisations and uses them to discover capabilities that a single agent would not.</p>
-<p>The important word is <strong>self-organise</strong>.</p>
-</section>
-<section id="domain-thoughts" class="level3">
-<h3 class="anchored" data-anchor-id="domain-thoughts">Domain Thoughts</h3>
+<p>The important part is the combination of:</p>
 <ul>
-<li>Maths is useful for controlled measurement</li>
-<li>Code may be better for genuinely open-ended generation</li>
-<li>Science is compelling but difficult to verify</li>
-<li>Some sort of open lid domain that as limited varables but uncapped combinations</li>
+<li><strong>novelty</strong></li>
+<li><strong>continued production</strong></li>
+<li><strong>no fixed endpoint</strong></li>
 </ul>
-<p>A useful test for a domain:</p>
-<blockquote class="blockquote">
-<p>If a intelligent agent can finish it, it is probably a benchmark rather than an open-ended domain.</p>
-</blockquote>
+<p>Intrinsic motivation feels important because it gives the agent internal reasons to keep exploring rather than only following an external reward.</p>
+<p>From the agent’s perspective, this could look like:</p>
+<ul>
+<li>Have I seen this before?</li>
+<li>Did reality surprise my model?</li>
+<li>Am I getting better at this?</li>
+<li>Is this behaviour different from my other behaviours?</li>
+<li>Is this a new achievable outcome?</li>
+</ul>
+<p>This feels similar to natural-computing ideas: maintain diversity and explore alternatives rather than only optimise one fixed goal.</p>
+<p>The difficult part is deciding what kind of diversity is actually useful. Maximising divergence alone could produce lots of different but pointless behaviours. An open-ended agent probably needs diversity as a <strong>navigation mechanism</strong>, while still favouring discoveries that create useful building blocks for future learning.</p>
+<p>The tension is that focusing only on building on what is already useful may trap the system in one local direction. It is like optimising the same square building for maximum height forever: eventually, progress may require discovering a completely different architecture rather than improving the current one.</p>
+</div>
+<div class="thinking-log-entry">
+<p><strong>28 August 2026 · Open-ended learning session</strong></p>
+<p><strong>Q2: Branching.</strong> High-entropy points in generation could be used to deliberately fork reasoning, run alternative paths, and compare outcomes. Most of the branching machinery already exists. The interesting gap may be using branches to study <strong>strategic differences between agents</strong>, rather than only finding the correct answer.</p>
+<p><strong>Q1: What should an agent learn next?</strong> H-GRAIL showed a useful approach to autonomous goal discovery: existing skills can help an agent reach new states and discover further goals. For language agents, the harder problem is deciding whether a textual outcome represents something worth learning.</p>
+<p><strong>Q3: Internal reasoning.</strong> RecursiveMAS made the distinction clearer: latent communication is not interpretability. This raised a more specific question: <em>does internal divergence happen before textual divergence?</em> If not, the idea can be dropped.</p>
+<p><strong>Open-ended learning.</strong> The bigger issue is whether the current questions are actually open-ended. A fixed set of problems can test Q1–Q4 and eventually finish. Open-ended learning needs a continuing process where new things emerge over time.</p>
+<p><strong>Three missing elements.</strong></p>
+<ul>
+<li><strong>Task supply / goal:</strong> new things to learn.</li>
+<li><strong>Persistence:</strong> discoveries survive over time or can be built upon.</li>
+<li><strong>Time:</strong> capability develops over an extended process.</li>
+</ul>
+<p><strong>Emerging thesis direction.</strong> A possible direction is a population of agents that develops complementary specialisations and uses them to discover capabilities that a single agent would not. The important word is <strong>self-organise</strong>.</p>
+<p><strong>Domain thoughts.</strong> Maths is useful for controlled measurement. Code may be better for genuinely open-ended generation. Science is compelling but difficult to verify. A useful domain may have limited variables but uncapped combinations.</p>
+<p><strong>Test.</strong> If an intelligent agent can finish it, it is probably a benchmark rather than an open-ended domain.</p>
+</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
