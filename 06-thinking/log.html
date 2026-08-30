@@ -361,24 +361,19 @@ window.HUB_DATA = {
 
 
 <div class="thinking-log-entry">
-<p><strong>30 August 2026 · Defining Openended learning</strong></p>
+<p><strong>30 August 2026 · Open-ended learning session</strong></p>
 <p><a href="https://arxiv.org/abs/2311.00344">Link</a>: This paper helped clarify what actually counts as open-ended learning.</p>
-<p>An open-ended process should continue producing novel elements over an indefinite horizon. These elements could be:</p>
+<p>An open-ended process should continue producing novel elements over an indefinite horizon. These elements could be observations, options, reward functions, goals, or skills.</p>
+<p>The important combination is:</p>
 <ul>
-<li>observations</li>
-<li>options</li>
-<li>reward functions</li>
-<li>goals</li>
-<li>skills</li>
+<li><strong>Novelty</strong></li>
+<li><strong>Continued production</strong></li>
+<li><strong>No fixed endpoint</strong></li>
 </ul>
-<p>The important part is the combination of:</p>
-<ul>
-<li><strong>novelty</strong></li>
-<li><strong>continued production</strong></li>
-<li><strong>no fixed endpoint</strong></li>
-</ul>
-<p>Intrinsic motivation feels important because it gives the agent internal reasons to keep exploring rather than only following an external reward.</p>
-<p>From the agent’s perspective, this could look like:</p>
+<section id="intrinsic-motivation" class="level3">
+<h3 class="anchored" data-anchor-id="intrinsic-motivation">Intrinsic motivation</h3>
+<p>Intrinsic motivation feels important because it gives the agent internal reasons to keep exploring rather than only following an externally defined reward.</p>
+<p>From the agent’s perspective:</p>
 <ul>
 <li>Have I seen this before?</li>
 <li>Did reality surprise my model?</li>
@@ -387,8 +382,23 @@ window.HUB_DATA = {
 <li>Is this a new achievable outcome?</li>
 </ul>
 <p>This feels similar to natural-computing ideas: maintain diversity and explore alternatives rather than only optimise one fixed goal.</p>
-<p>The difficult part is deciding what kind of diversity is actually useful. Maximising divergence alone could produce lots of different but pointless behaviours. An open-ended agent probably needs diversity as a <strong>navigation mechanism</strong>, while still favouring discoveries that create useful building blocks for future learning.</p>
-<p>The tension is that focusing only on building on what is already useful may trap the system in one local direction. It is like optimising the same square building for maximum height forever: eventually, progress may require discovering a completely different architecture rather than improving the current one.</p>
+<p>The difficult part is deciding what diversity is actually <strong>useful</strong>. Maximising divergence alone could create lots of different but pointless behaviours. Diversity may be better as a navigation mechanism for finding new possibilities. At the same time, only building on what is already useful could trap the system in one direction. It is like optimising the same square building for maximum height forever — eventually progress may require discovering a completely different architecture.</p>
+</section>
+<section id="task-specific-representations" class="level3">
+<h3 class="anchored" data-anchor-id="task-specific-representations">Task-specific representations</h3>
+<p>Doncieux et al.&nbsp;(2018) give another interesting view of OEL: a new task may require the agent to construct a different <strong>MDP</strong>, rather than solving everything inside one fixed state and action space.</p>
+<p>Instead of:</p>
+<p><code>same states + same actions → different tasks</code></p>
+<p>it could be:</p>
+<p><code>new task → identify relevant states/actions → solve task</code></p>
+<p>The useful idea is <strong>abstraction</strong>: ignore sensory information and actions that do not matter for the current task.</p>
+<p>This is interesting because open-ended learning may involve changing not only <strong>what the agent learns</strong>, but also <strong>how it represents the problem</strong>.</p>
+<p><strong>This gives an important contrast:</strong></p>
+<p><code>external reward → defines goal → learn</code></p>
+<p>versus intrinsic motivation:</p>
+<p><code>intrinsic motivation → discover/select goal → define reward from achieving it → learn</code></p>
+<p>So state/action abstraction may be a useful OEL mechanism, but it is not necessarily what <em>defines</em> open-ended learning.</p>
+</section>
 </div>
 <div class="thinking-log-entry">
 <p><strong>28 August 2026 · Open-ended learning session</strong></p>
