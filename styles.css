@@ -160,6 +160,32 @@ body:not(.papers-page):not(.hub-home) main.content {
   margin-bottom: 0;
 }
 
+.thinking-log-entry {
+  border-left: 2px solid var(--primary);
+  margin: 1.6rem 0;
+  padding: 0.15rem 0 0.15rem 1rem;
+}
+
+.thinking-log-entry p {
+  line-height: 1.65;
+  margin: 0.55rem 0;
+}
+
+.thinking-log-entry p:first-child {
+  color: var(--muted);
+  font-size: 0.84rem;
+  letter-spacing: 0.02em;
+  margin-top: 0;
+}
+
+.thinking-log-entry p:last-child {
+  margin-bottom: 0;
+}
+
+.thinking-log-entry ul {
+  margin: 0.55rem 0;
+}
+
 .quarto-container .sidebar nav[role="doc-toc"] {
   border-left: 1px solid var(--border);
 }

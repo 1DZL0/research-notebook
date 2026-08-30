@@ -3,67 +3,66 @@ title: "Log"
 description: "Dated observations, reading reflections, and emerging research thoughts."
 ---
 
-New entries are added at the top.
 
----
+::: {.thinking-log-entry}
+**30 August 2026 · Defining Openended learning**
 
-## 28 August 2026
+[Link](https://arxiv.org/abs/2311.00344): This paper helped clarify what actually counts as open-ended learning.
 
-### Q2 — Branching
+An open-ended process should continue producing novel elements over an indefinite horizon. These elements could be:
 
-High-entropy points in generation could be used to deliberately fork reasoning,
-run alternative paths, and compare outcomes.
+- observations
+- options
+- reward functions
+- goals
+- skills
 
-Most of the branching machinery already exists. The interesting gap may be
-using branches to study **strategic differences between agents**, rather than
-only finding the correct answer.
+The important part is the combination of:
 
-### Q1 — What Should an Agent Learn Next?
+- **novelty**
+- **continued production**
+- **no fixed endpoint**
 
-H-GRAIL showed a useful approach to autonomous goal discovery: existing
-skills can help an agent reach new states and discover further goals.
+Intrinsic motivation feels important because it gives the agent internal reasons to keep exploring rather than only following an external reward.
 
-For language agents, the harder problem is deciding whether a textual outcome
-represents something worth learning.
+From the agent's perspective, this could look like:
 
-### Q3 — Internal Reasoning
+- Have I seen this before?
+- Did reality surprise my model?
+- Am I getting better at this?
+- Is this behaviour different from my other behaviours?
+- Is this a new achievable outcome?
 
-RecursiveMAS made the distinction clearer: latent communication is not
-interpretability. This raised a more specific question:
+This feels similar to natural-computing ideas: maintain diversity and explore alternatives rather than only optimise one fixed goal.
 
-> Does internal divergence happen before textual divergence?
+The difficult part is deciding what kind of diversity is actually useful. Maximising divergence alone could produce lots of different but pointless behaviours. An open-ended agent probably needs diversity as a **navigation mechanism**, while still favouring discoveries that create useful building blocks for future learning.
 
-If not, the idea can be dropped.
+The tension is that focusing only on building on what is already useful may trap the system in one local direction. It is like optimising the same square building for maximum height forever: eventually, progress may require discovering a completely different architecture rather than improving the current one.
+:::
 
-### Open-Ended Learning
 
-The bigger issue is whether the current questions are actually open-ended.
 
-A fixed set of problems can test Q1–Q4 and eventually finish. Open-ended
-learning needs a continuing process where new things emerge over time.
 
-Three missing elements:
+::: {.thinking-log-entry}
+**28 August 2026 · Open-ended learning session**
 
-- **Task supply/goal**:new things to learn
-- **Persistence**: discoveries survive/stored over time or can be build upon
-- **Time**: capability develops over an extended process
+**Q2: Branching.** High-entropy points in generation could be used to deliberately fork reasoning, run alternative paths, and compare outcomes. Most of the branching machinery already exists. The interesting gap may be using branches to study **strategic differences between agents**, rather than only finding the correct answer.
 
-### Emerging Thesis Direction
+**Q1: What should an agent learn next?** H-GRAIL showed a useful approach to autonomous goal discovery: existing skills can help an agent reach new states and discover further goals. For language agents, the harder problem is deciding whether a textual outcome represents something worth learning.
 
-A possible direction is a population of agents that develops complementary
-specialisations and uses them to discover capabilities that a single agent
-would not.
+**Q3: Internal reasoning.** RecursiveMAS made the distinction clearer: latent communication is not interpretability. This raised a more specific question: *does internal divergence happen before textual divergence?* If not, the idea can be dropped.
 
-The important word is **self-organise**.
+**Open-ended learning.** The bigger issue is whether the current questions are actually open-ended. A fixed set of problems can test Q1–Q4 and eventually finish. Open-ended learning needs a continuing process where new things emerge over time.
 
-### Domain Thoughts
+**Three missing elements.**
 
-- Maths is useful for controlled measurement 
-- Code may be better for genuinely open-ended generation
-- Science is compelling but difficult to verify
-- Some sort of open lid domain that as limited varables but uncapped combinations
+- **Task supply / goal:** new things to learn.
+- **Persistence:** discoveries survive over time or can be built upon.
+- **Time:** capability develops over an extended process.
 
-A useful test for a domain:
+**Emerging thesis direction.** A possible direction is a population of agents that develops complementary specialisations and uses them to discover capabilities that a single agent would not. The important word is **self-organise**.
 
-> If a intelligent agent can finish it, it is probably a benchmark rather than
-> an open-ended domain.
+**Domain thoughts.** Maths is useful for controlled measurement. Code may be better for genuinely open-ended generation. Science is compelling but difficult to verify. A useful domain may have limited variables but uncapped combinations.
+
+**Test.** If an intelligent agent can finish it, it is probably a benchmark rather than an open-ended domain.
+:::
