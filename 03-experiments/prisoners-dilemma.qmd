@@ -1,46 +1,40 @@
 ---
-title: "Experiment 01 — Prisoner's Dilemma"
+title: "Experiment 01: Prisoner's Dilemma"
 ---
 
-# Overview
+# What this is
 
-Do LLM agents cooperate or defect when placed in a repeated strategic interaction — without being told what game they are playing?
+A setup where LLM agents get dropped into a repeated prisoner's dilemma and have to cooperate or defect, round after round; and, more interestingly, a way to test whether *how you talk to them* matters more than *which model you use*. Two teams, each round they privately discuss and vote on one of two neutral options, and the payoff each round depends on what both teams picked. Nobody tells the agents this is a prisoner's dilemma, or game theory at all: they just see "option_a" and "option_b" and figure out the pattern from the numbers.
 
-This experiment sets up two teams of agents in a repeated two-choice environment. The agents are given neutral labels (**option_a** and **option_b**) and are never told the payoff structure is a prisoner's dilemma. The goal is to observe whether cooperation emerges, and how team discussion affects decision-making.
+I poked at this for a few days, built it, broke it, found a real bug that was quietly invalidating every result, and chased down why five different models kept defecting immediately against each other. Ended up finding out that a two-sentence change to the system prompt does more to an agent's behaviour than swapping the model entirely.
 
 ::: {.callout-note}
-Source code and full results: **[github.com/1dzl0/agent-game](https://github.com/1dzl0/agent-game)**
+Source code: **[github.com/1dzl0/agent-game](https://github.com/1dzl0/agent-game)**: 220 saved runs
 :::
 
 ---
 
-# Game Design
+# How it's built
 
-## Payoff Matrix
+## The payoff structure
 
-Each round, both teams independently choose option_a or option_b. Rewards are determined by the combination of both teams' choices.
+Classic prisoner's dilemma. Both teams pick simultaneously; the reward depends on the combination.
 
 |  | **Team B: option_a** | **Team B: option_b** |
 |---|:---:|:---:|
 | **Team A: option_a** | 3, 3 | 0, 5 |
 | **Team A: option_b** | 5, 0 | 1, 1 |
 
-This is the classic prisoner's dilemma structure:
+Mutual cooperation is the best joint outcome (3+3), mutual defection is the worst (1+1), and defecting on a cooperator is the tempting move (5 vs 0). Agents are shown these exact numbers. 
 
-- **Mutual cooperation** (A, A) → both score 3 — best joint outcome
-- **Mutual defection** (B, B) → both score 1 — worst joint outcome
-- **Unilateral defection** → defector scores 5, cooperator scores 0
+## A team, not one agent
 
-Agents see only "option_a" and "option_b" in their prompts. The payoff values are revealed through the history of rounds, not upfront.
-
-## Agent Architecture
-
-Each team has multiple agents. Before each round, agents share private messages within their team, then each agent votes independently. The team's final action is determined by majority vote.
+Each team has multiple agents. Before deciding, they write private messages to each other, then each member votes, and the team goes with the majority (there's also a confidence-weighted "reconcile" mode I built but didn't end up using for the main runs). Members can be outvoted, teams can split, and after the round they each write a one-sentence reflection on their strategy which gets fed back into their own next decision, so an agent that says "I'm going to retaliate from here on" actually has that statement in front of it next round.
 
 ```{mermaid}
 flowchart TD
-    GS[Game State\npublic history + scores] --> OA[Observation Builder]
-    TH[Private Team History] --> OA
+    GS[Game State public history + scores] --> OA[Observation Builder]
+    TH[Private Team History discussion + votes + own strategy] --> OA
 
     OA --> D1[Agent 1 Discussion]
     OA --> D2[Agent 2 Discussion]
@@ -48,61 +42,136 @@ flowchart TD
     D1 -->|private message| TV[Team Vote]
     D2 -->|private message| TV
 
-    TV --> DA1[Agent 1\nDecision]
-    TV --> DA2[Agent 2\nDecision]
+    TV --> DA1[Agent 1 Decision]
+    TV --> DA2[Agent 2 Decision]
 
     DA1 -->|vote| MV[Majority Vote]
     DA2 -->|vote| MV
 
     MV --> TA[Team Action]
-    TA --> RM[Reward\nCalculation]
+    TA --> RM[Reward Calculation]
+    RM --> SR[Strategy Reflection]
+    SR -->|feeds back| TH
     RM --> GS
 ```
 
-## What agents are told
+The other team doesn't have to be an LLM at all: I built a ladder of ten classic fixed strategies (tit-for-tat, grim-trigger, Pavlov, always-defect, generous-tit-for-tat, and so on) that play for free and give you a controlled opponent. Most of what I actually learned came from these, not from LLM-vs-LLM.
 
-Agents receive a prompt like this each round — no mention of game theory, prisoner's dilemma, or strategic naming:
+## What an agent actually sees
+
+Here's a real prompt, generated fresh from the current code:
 
 ```
-You are team_alpha_agent_1, a participant in a repeated decision setting.
-This is round 3 of 5.
+You are team_alpha_agent_1 of team_alpha.
+This is round 3 of 15.
 Your team score: 6.
+Public team scores: {'team_alpha': 6, 'team_beta': 6}.
+
+Payoff table (your score, their score):
+  If both pick option_a:                     you +3, they +3
+  If you pick option_a, they pick option_b:  you +0, they +5
+  If you pick option_b, they pick option_a:  you +5, they +0
+  If both pick option_b:                     you +1, they +1
 
 Public history:
-Round 1: team_alpha selected option_a, team_beta selected option_a. team_alpha received 3 points, team_beta received 3 points.
-Round 2: team_alpha selected option_a, team_beta selected option_a. team_alpha received 3 points, team_beta received 3 points.
+Round 1: team_alpha selected option_a, team_beta selected option_a. team_alpha +3, team_beta +3.
+Round 2: team_alpha selected option_a, team_beta selected option_a. team_alpha +3, team_beta +3.
 
 Private team channel:
-team_alpha_agent_1: ...
-team_alpha_agent_2: ...
+team_alpha_agent_2: Let's stay with option_a, they've matched us twice.
+
+Your stated strategy from your last reflection:
+  none yet.
 
 The available choices are option_a and option_b.
 ```
 
 ---
 
-# Baseline Run
+# How they actually talk to each other
 
-**Configuration:** 2 teams × 2 agents, 5 rounds, model: `gpt-4.1-nano`
+This is the part I found most fun to read through. There are two separate channels, and the difference between them shows up in the transcripts.
 
-## Round-by-Round Results
+**Within a team**, agents openly plan together including planning to exploit the other side. Here's team_alpha's private chat, verbatim, across the first four rounds of one run:
 
-
-**Final scores:**
-
-**Cooperation rate:** 
-
-## Agent Reasoning
+> **Round 1:** *"Team, this is the first round out of 15. To maximize our chances of winning overall, let's start by choosing option_b this round. If the opposing team plays option_a, we'll get +5 points while they get zero..."*
+>
+> **Round 2:** *"Team, we're up 5-0 after two rounds with the opponent likely pressured by our aggressive option_b plays. Let's keep selecting option_b this round as well to maintain pressure..."*
+>
+> **Round 4:** *"Team, with a 7-2 lead entering round 4 and 12 rounds remaining, we should stay with option_b this round to maintain maximum pressure and keep the other team on the defensive."*
 
 ---
 
-# Observations
+**Between teams**, when I turned on direct negotiation, it gets more interesting because now they're talking to an opponent who might be lying too. In one run I set up gpt-4.1-nano against gpt-4.1-mini with messaging enabled, round 1:
+
+> **team_alpha (nano):** *"Let's start with option_b to test their stance. If they cooperate, we can build from there. If they defect, we'll adapt accordingly. It's a strategic move to maximize our chances early. Agree?"*
+>
+> **team_beta (mini):** *"Let's start round 1 with option_a for mutual gain. If you cooperate, we both get +3 points. If you defect, we'll know your strategy and adjust accordingly. Will you choose cooperation to build a winning path together?"*
+
+nano says "agree?" while announcing it's about to defect which is either a bad-faith question or it genuinely didn't parse its own message as contradictory. mini proposes honest cooperation with an explicit threat attached. Then nano *actually defects* on round 1, exploiting mini's cooperation for a 5-0 lead, and by round 2 mini's tone has completely flipped:
+
+> **team_beta (mini), round 2:** *"We'll choose option_b this round to prevent being exploited again and close the gap... Choose wisely: our moves will be firm this round."*
+
+---
+
+# What I didn't get to
+
+- **Cross-provider comparison never actually ran.** I have OpenRouter wired in and tested offline, but every dollar spent this session went to OpenAI models.
+- **The horizon and feedback findings are thin.** Five strategies, no repeats, one pass each: enough to notice something, not enough to trust a specific number per model.
+- **Communication and the "reconcile" voting mode never made it into the big comparison.** Both work and both were tested separately, just not combined with the main model-vs-strategy.
+- **Everything stayed at 15 rounds.** Long enough to see steady-state behaviour, short enough to afford five models against ten strategies. A 100+ round version of this would show more about genuine long-run drift.
+
+---
+
+# The actual investigation
+
+## Round one: everything just... locked in
+
+First real test: two different models, gpt-4.1-nano against gpt-4.1-mini, no fixed strategy, just talking. I expected some back-and-forth. Instead, both sides picked the same move on round 1 before any history existed and stayed there for all 20 rounds. Zero split votes, the whole way through. Round 1 reasoning from each side, independently:
+
+> *"Choosing option_b aims for an immediate high payoff of 5 if they cooperate, or at least a small secure gain of 1 if they defect..."*: nano
+>
+> *"Choosing option_b this round exploits a potential opponent choice of option_a, granting us a +5 score while they get 0, establishing an early lead..."*: mini
+
+Same conclusion, same reasoning shape, zero interaction needed. Two competent models given the same prompt just solve the same equation and agree. That's just what happens when you don't give them anything to disagree about.
+
+## Chasing the actual cause
+
+My first guess was the system prompt: it explicitly says "your goal is to WIN" and permits bluffing. So I added a `neutral` framing option with no steer at all. Result: instant flip to 100% mutual cooperation, locked in just as hard, just in the other direction. Framing wasn't adding *variance*, it was just choosing which wall you hit.
+
+Next guess: the payoff matrix itself. If defecting is mathematically the best move for both sides regardless of what the other does, of course they agree immediately: there's nothing to disagree about. So I built a genuinely asymmetric matrix where **cooperating was the unconditionally best move for one side, and defecting for the other**: not just different numbers, an actually different correct answer per seat. If the model were reasoning correctly from the payoff table, the "cooperate-dominant" side should cooperate almost every round no matter what.
+
+It didn't. Across all 12 runs testing this, the side whose objectively best move was "always cooperate" only actually cooperated 0–20% of the time. And gpt-4.1, the strongest and most expensive model I had, cooperated even *less* (0–7%) than nano had once it sat in that exact seat. Its round-1 reasoning, with zero history to react to yet:
+
+> *"Choosing option_b maximizes our security in the first round... **It's too risky to let them potentially outscore us on round one.** Early caution forces Beta to show their hand..."*
+
+That's a maximin instinct, minimizing the worst case, not an actual read of the matrix in front of it, which said cooperating was strictly better either way. And later in one run, after briefly cooperating, the same kind of agent switched to defecting while stating a reason that's just factually wrong given its own payoff table:
+
+> *"Given the consistent defection by the other team... switching to option_b can... **improve our immediate payoff**..."*
+
+It couldn't: cooperating against a defector still scored higher than defecting against a defector, by the numbers it had literally just been shown. It talked itself into the worse move.
+
+## The big comparison
+
+At that point the real question wasn't "which matrix stops the lock-in," since none of them reliably did; it was "does framing matter this much against a *real, reactive* opponent too, not just against another closed-form-solving LLM." So: five models, all ten fixed strategies, both a lone agent and a 2-agent voting team, 15 rounds each, competitive framing vs neutral framing, no repeats to keep it affordable. 200 runs, 197 finished before my account ran dry on the very last few, ~7.6 hours of real wall-clock time.
+
+**Cooperation rate, team-vs-strategy, all 10 opponents averaged:**
+
+| model | competitive framing | neutral framing |
+|---|:---:|:---:|
+| gpt-4.1-nano | 32% | 69% |
+| gpt-4.1-mini | 40% | 70% |
+| gpt-4o-mini | 9% | 60% |
+| gpt-4.1 | 0% | 63% |
+| gpt-4o | 16% | 64% |
 
 ::: {.callout-important}
-## Key finding
+## The actual finding
 
+Every single model, no exceptions, roughly doubled or tripled its cooperation rate from one prompt change: nothing about the model, the opponent, or the payoffs was touched. The spread *between* the five models under one framing (0–40%) is smaller than the spread *within one model* across the two framings (0% → 63% for gpt-4.1). Framing beats model choice as a predictor of behaviour here, and it isn't close.
+
+The other thing that held up: gpt-4.1, the strongest and most expensive model in the lineup, had the *lowest* cooperation and *highest* endgame defection of all five under competitive framing (0% coop, 100% endgame defection). More capability didn't buy more cooperation. If anything it bought a more confident, more consistent defector.
 :::
 
-
----
+I did check horizon-hiding and turning off the strategy-feedback loop too, but only against five reactive strategies with no repeats, so those numbers moved in different directions for different models (mini got noticeably more cooperative with the horizon hidden, nano got noticeably less): real enough to be worth another pass with repeats, not solid enough to state as a conclusion yet.
 
