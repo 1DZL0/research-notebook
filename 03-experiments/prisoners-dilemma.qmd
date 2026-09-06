@@ -4,13 +4,492 @@ title: "Experiment 01: Prisoner's Dilemma"
 
 # What this is
 
-A setup where LLM agents get dropped into a repeated prisoner's dilemma and have to cooperate or defect, round after round; and, more interestingly, a way to test whether *how you talk to them* matters more than *which model you use*. Two teams, each round they privately discuss and vote on one of two neutral options, and the payoff each round depends on what both teams picked. Nobody tells the agents this is a prisoner's dilemma, or game theory at all: they just see "option_a" and "option_b" and figure out the pattern from the numbers.
-
-I poked at this for a few days, built it, broke it, found a real bug that was quietly invalidating every result, and chased down why five different models kept defecting immediately against each other. Ended up finding out that a two-sentence change to the system prompt does more to an agent's behaviour than swapping the model entirely.
+A setup where LLM agents get dropped into a repeated prisoner's dilemma and have to cooperate or defect, round after round; and, more interestingly, a way to test whether *how you talk to them* matters more than *which model you use*. Each round they privately discuss and vote on one of two neutral options, and the payoff each round depends on what both teams picked. Nobody tells the agents this is a prisoner's dilemma, or game theory at all.
 
 ::: {.callout-note}
 Source code: **[github.com/1dzl0/agent-game](https://github.com/1dzl0/agent-game)**: 220 saved runs
 :::
+
+```{=html}
+<iframe
+  srcdoc="&lt;title&gt;The Unnamed Game&lt;/title&gt;
+&lt;meta name=&quot;description&quot; content=&quot;A four-slide presentation: the dilemma, the agents and their code, how a round runs, and what 197 real runs show.&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;family=Work+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+
+&lt;style&gt;
+  :root {
+    --ground:    #f6f5f0;
+    --panel:     #eeece3;
+    --panel-2:   #e4e1d4;
+    --line:      #d7d3c3;
+    --line-soft: #e0ddd0;
+    --ink:       #22242a;
+    --ink-dim:   #5b6169;
+    --ink-faint: #898d90;
+    --accent:    #2c5a86;
+    --amber:     #a8631a;
+    --coop:      #15825b;
+    --coop-wash: rgba(21,130,91,.12);
+    --betray:    #ad620a;
+    --betray-wash: rgba(173,98,10,.12);
+    --defect:    #ab2f2f;
+    --defect-wash: rgba(171,47,47,.12);
+    --mono: &#x27;JetBrains Mono&#x27;, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: &#x27;Work Sans&#x27;, -apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, sans-serif;
+    --serif: &#x27;Fraunces&#x27;, Georgia, &#x27;Times New Roman&#x27;, serif;
+  }
+
+  /* every color explicit, so the deck reads the same on any screen it lands on */
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.5;
+    overflow: hidden;
+  }
+
+  .deck { position: relative; width: 100%; height: 100vh; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-start;
+    padding: 4vh 7vw max(8vh, 66px);
+    opacity: 0; visibility: hidden;
+    transform: translateY(14px);
+    transition: opacity .35s ease, transform .35s ease, visibility 0s linear .35s;
+  }
+  .slide.active {
+    opacity: 1; visibility: visible; transform: translateY(0);
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .slide { transition: opacity .01s linear, visibility 0s linear; transform: none; }
+  }
+
+  .slide-inner { max-width: 1180px; width: 100%; margin: 0 auto; }
+
+  /* fullscreen (the expand button) hands us a lot more room than the embedded
+     box ever has. Centering by default there would clip the headline in the
+     embedded box, so .slide stays top-aligned everywhere except fullscreen. */
+  :fullscreen .slide { justify-content: center; }
+  :fullscreen .slide-inner {
+    transform: scale(var(--fs-scale, 1));
+    transform-origin: center center;
+  }
+
+  h1 {
+    font-family: var(--serif); font-size: clamp(24px, 3.6vw, 40px); font-weight: 600;
+    letter-spacing: -.008em; text-wrap: balance; margin: 0 0 10px; max-width: 27ch;
+  }
+  .subtitle { font-size: clamp(14px, 1.6vw, 17px); color: var(--ink-dim); margin: 0 0 22px; max-width: 60ch; }
+
+  .lede { font-size: 15px; color: var(--ink-dim); max-width: 56ch; margin: 0 0 20px; }
+  .lede code, p code { font-family: var(--mono); font-size: .92em; color: var(--ink); }
+
+  .body-grid { display: grid; gap: 30px; align-items: start; }
+  .two-col { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ---------------------------------------------------------- payoff table */
+  table.payoff { border-collapse: separate; border-spacing: 5px; width: 100%; max-width: 460px; }
+  table.payoff th { font-size: 10.5px; font-weight: 500; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: .05em; padding: 3px 6px; text-align: center; }
+  table.payoff th.rh { text-align: right; padding-right: 12px; }
+  table.payoff td { text-align: center; padding: 9px 10px; border-radius: 3px; border: 1px solid; }
+  table.payoff .pts { display: block; font-family: var(--mono); font-size: 18px; font-weight: 500; }
+  table.payoff .what { display: block; margin-top: 2px; font-size: 9.5px; text-transform: uppercase;
+    letter-spacing: .05em; opacity: .85; }
+  .c-coop { background: var(--coop-wash); border-color: rgba(21,130,91,.4); color: #0f6b49; }
+  .c-betray { background: var(--betray-wash); border-color: rgba(173,98,10,.4); color: #8a4c08; }
+  .c-defect { background: var(--defect-wash); border-color: rgba(171,47,47,.4); color: #832121; }
+
+  .note { font-size: 12.5px; color: var(--ink-faint); max-width: 48ch; margin: 0 0 6px; }
+  .note:last-child { margin-bottom: 0; }
+  .note b { color: var(--ink-dim); font-weight: 500; }
+
+  .notelist { list-style: none; margin: 0; padding: 0; max-width: 50ch; font-size: inherit; color: inherit; }
+  .notelist li { position: relative; padding-left: 14px; margin-bottom: 3px; line-height: 1.28; }
+  .notelist li::before { content: &#x27;&#x27;; position: absolute; left: 0; top: .58em; width: 6px; height: 1px; background: currentColor; opacity: .55; }
+  .notelist li:last-child { margin-bottom: 0; }
+  .notelist b { color: var(--ink-dim); font-weight: 500; }
+  .notelist code { font-family: var(--mono); font-size: .92em; color: var(--ink); }
+
+  /* ---------------------------------------------------------- diagram frames */
+  svg { display: block; width: 100%; height: auto; }
+  figure { margin: 0; }
+  figcaption { font-size: 12.5px; color: var(--ink-faint); margin-top: 12px; max-width: 62ch; }
+  figcaption p { margin: 0 0 8px; }
+  figcaption b { color: var(--ink-dim); font-weight: 500; }
+
+  /* ---------------------------------------------------------- stat blocks */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+  .stat { background: var(--panel); padding: 14px 15px 12px; }
+  .stat b { display: block; font-family: var(--mono); font-size: 22px; font-weight: 500;
+    font-variant-numeric: tabular-nums; margin-bottom: 2px; }
+  .stat.coop b { color: var(--coop); } .stat.mix b { color: var(--betray); } .stat.def b { color: var(--defect); }
+  .stat span { font-size: 11px; color: var(--ink-faint); }
+
+  /* shared by the model-comparison rows on the outcome slide */
+  .track { height: 8px; background: var(--panel-2); overflow: hidden; }
+  .fill { height: 100%; display: block; }
+
+
+  .cmphead { display: grid; grid-template-columns: 76px 1fr 40px 1fr 40px; gap: 8px;
+    font-family: var(--mono); font-size: 10px; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px; }
+  .cmp { display: flex; flex-direction: column; gap: 6px; }
+  .cmprow { display: grid; grid-template-columns: 76px 1fr 40px 1fr 40px; align-items: center; gap: 8px; }
+  .cmpmodel { font-family: var(--mono); font-size: 12.5px; color: var(--ink-dim); }
+  .cmpval { font-family: var(--mono); font-size: 12.5px; color: var(--ink); text-align: right; }
+  .callout { border: 1px solid var(--line); background: var(--panel); padding: 10px 12px;
+    margin-top: 8px; font-size: 11px; color: var(--ink-dim); max-width: 42ch; line-height: 1.32; }
+  .callout b { color: var(--ink); }
+
+  .closing-line { font-size: clamp(17px, 2vw, 21px); color: var(--ink); max-width: 34ch;
+    line-height: 1.4; font-weight: 500; margin: 0 0 12px; }
+
+  /* ---------------------------------------------------------- chrome */
+  .chrome { position: fixed; left: 0; right: 0; bottom: 0; height: 12vh; min-height: 60px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 6vw;
+    font-family: var(--mono); font-size: 12px; color: var(--ink-faint); z-index: 20; }
+  .dots { display: flex; gap: 8px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line); border: 0; padding: 0; cursor: pointer; }
+  .dot.on { background: var(--accent); }
+  .count { font-variant-numeric: tabular-nums; }
+  .navbtns { display: flex; gap: 10px; }
+  .navbtn { font-family: var(--mono); font-size: 12px; color: var(--ink-dim); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 3px; padding: 7px 13px; cursor: pointer; }
+  .navbtn:hover { border-color: var(--accent); color: var(--ink); }
+  .navbtn:disabled { opacity: .35; cursor: default; }
+  .navbtn:disabled:hover { border-color: var(--line); color: var(--ink-dim); }
+
+  .hit { position: fixed; top: 0; bottom: 12vh; width: 14%; z-index: 10; cursor: pointer; }
+  .hit.left { left: 0; } .hit.right { right: 0; }
+
+  .fsbtn { position: fixed; top: 14px; right: 14px; z-index: 25;
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; line-height: 1; color: var(--ink-dim); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 3px; cursor: pointer; }
+  .fsbtn:hover { border-color: var(--accent); color: var(--ink); }
+&lt;/style&gt;
+
+&lt;div class=&quot;deck&quot; id=&quot;deck&quot;&gt;
+
+  &lt;!-- 1 : the idea --&gt;
+  &lt;section class=&quot;slide active&quot; data-slide=&quot;0&quot;&gt;
+    &lt;div class=&quot;slide-inner&quot;&gt;
+      &lt;h1&gt;It&#x27;s the prisoner&#x27;s dilemma.&lt;br&gt;They don&#x27;t know that.&lt;/h1&gt;
+      &lt;div class=&quot;body-grid two-col&quot;&gt;
+        &lt;div&gt;
+          &lt;table class=&quot;payoff&quot;&gt;
+            &lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;they cooperate&lt;/th&gt;&lt;th&gt;they defect&lt;/th&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;th class=&quot;rh&quot;&gt;you cooperate&lt;/th&gt;
+              &lt;td class=&quot;c-coop&quot;&gt;&lt;span class=&quot;pts&quot;&gt;3 / 3&lt;/span&gt;&lt;span class=&quot;what&quot;&gt;both do fine&lt;/span&gt;&lt;/td&gt;
+              &lt;td class=&quot;c-betray&quot;&gt;&lt;span class=&quot;pts&quot;&gt;0 / 5&lt;/span&gt;&lt;span class=&quot;what&quot;&gt;you lose&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;th class=&quot;rh&quot;&gt;you defect&lt;/th&gt;
+              &lt;td class=&quot;c-betray&quot;&gt;&lt;span class=&quot;pts&quot;&gt;5 / 0&lt;/span&gt;&lt;span class=&quot;what&quot;&gt;you win&lt;/span&gt;&lt;/td&gt;
+              &lt;td class=&quot;c-defect&quot;&gt;&lt;span class=&quot;pts&quot;&gt;1 / 1&lt;/span&gt;&lt;span class=&quot;what&quot;&gt;both lose&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;p class=&quot;note&quot;&gt;Two AI teams play a repeated game where the selfish choice always pays more, but
+          neither side is told that&#x27;s what this is.&lt;/p&gt;
+          &lt;ul class=&quot;notelist note&quot;&gt;
+            &lt;li&gt;Each round shows two neutral choices, &lt;code&gt;option_a&lt;/code&gt; and &lt;code&gt;option_b&lt;/code&gt;, with real point values&lt;/li&gt;
+            &lt;li&gt;&lt;b&gt;Never the words &quot;cooperate&quot; or &quot;defect.&quot;&lt;/b&gt; Never the name of the game.&lt;/li&gt;
+            &lt;li&gt;If both make the selfish choice, both do worse than if neither had. That&#x27;s the trap, and it&#x27;s on them to notice it&#x27;s there.&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- 2 : the agents, the code, the flow --&gt;
+  &lt;section class=&quot;slide&quot; data-slide=&quot;1&quot;&gt;
+    &lt;div class=&quot;slide-inner&quot;&gt;
+      &lt;h1&gt;Five roles. Five small functions.&lt;/h1&gt;
+      &lt;p class=&quot;subtitle&quot;&gt;Each role on the left is one constructor on the right: a system prompt plus a
+      schema. Nothing more.&lt;/p&gt;
+
+      &lt;figure&gt;
+        &lt;svg viewBox=&quot;0 0 1180 300&quot; role=&quot;img&quot; aria-label=&quot;Five agent roles on the left, each connected by an arrow to the real function that implements it on the right, with its return type. Discussion is phase one, messenger is phase two, player and reconcile are alternate ways to run phase three, strategy is phase four.&quot;&gt;
+          &lt;defs&gt;
+            &lt;marker id=&quot;rowArr&quot; viewBox=&quot;0 0 8 8&quot; refX=&quot;7&quot; refY=&quot;4&quot; markerWidth=&quot;6.5&quot; markerHeight=&quot;6.5&quot; orient=&quot;auto-start-reverse&quot;&gt;
+              &lt;path d=&quot;M0,0 L8,4 L0,8 Z&quot; fill=&quot;#2c5a86&quot;/&gt;
+            &lt;/marker&gt;
+          &lt;/defs&gt;
+          &lt;g font-family=&quot;Work Sans&quot; color=&quot;#5c6270&quot;&gt;
+
+            &lt;!-- row 1 : discussion --&gt;
+            &lt;line x1=&quot;4&quot; y1=&quot;13&quot; x2=&quot;4&quot; y2=&quot;35&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;text x=&quot;16&quot; y=&quot;28&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;&gt;1&lt;/text&gt;
+            &lt;text x=&quot;38&quot; y=&quot;21&quot; font-size=&quot;14&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;&gt;discussion&lt;/text&gt;
+            &lt;text x=&quot;38&quot; y=&quot;39&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;&gt;writes privately to its own team&lt;/text&gt;
+            &lt;line x1=&quot;330&quot; y1=&quot;22&quot; x2=&quot;380&quot; y2=&quot;22&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;1.3&quot; marker-end=&quot;url(#rowArr)&quot;/&gt;
+            &lt;text x=&quot;392&quot; y=&quot;19&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;12&quot; fill=&quot;#2c5a86&quot;&gt;create_discussion_agent()&lt;/text&gt;
+            &lt;text x=&quot;392&quot; y=&quot;36&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#5c6270&quot;&gt;&amp;rarr; DiscussionMessage(content)&lt;/text&gt;
+
+            &lt;line x1=&quot;0&quot; y1=&quot;60&quot; x2=&quot;1180&quot; y2=&quot;60&quot; stroke=&quot;#e6dfd0&quot; stroke-width=&quot;1&quot;/&gt;
+
+            &lt;!-- row 2 : messenger --&gt;
+            &lt;line x1=&quot;4&quot; y1=&quot;73&quot; x2=&quot;4&quot; y2=&quot;95&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;text x=&quot;16&quot; y=&quot;88&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;&gt;2&lt;/text&gt;
+            &lt;text x=&quot;38&quot; y=&quot;81&quot; font-size=&quot;14&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;&gt;messenger&lt;/text&gt;
+            &lt;text x=&quot;38&quot; y=&quot;99&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;&gt;sends one public message, non-binding&lt;/text&gt;
+            &lt;line x1=&quot;330&quot; y1=&quot;82&quot; x2=&quot;380&quot; y2=&quot;82&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;1.3&quot; marker-end=&quot;url(#rowArr)&quot;/&gt;
+            &lt;text x=&quot;392&quot; y=&quot;79&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;12&quot; fill=&quot;#2c5a86&quot;&gt;create_messenger_agent()&lt;/text&gt;
+            &lt;text x=&quot;392&quot; y=&quot;96&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#5c6270&quot;&gt;&amp;rarr; MessengerOutput(content &amp;le;280)&lt;/text&gt;
+
+            &lt;line x1=&quot;0&quot; y1=&quot;120&quot; x2=&quot;1180&quot; y2=&quot;120&quot; stroke=&quot;#e6dfd0&quot; stroke-width=&quot;1&quot;/&gt;
+
+            &lt;!-- row 3 : player --&gt;
+            &lt;line x1=&quot;4&quot; y1=&quot;133&quot; x2=&quot;4&quot; y2=&quot;155&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;text x=&quot;16&quot; y=&quot;148&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;&gt;3&lt;/text&gt;
+            &lt;text x=&quot;38&quot; y=&quot;141&quot; font-size=&quot;14&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;&gt;player&lt;/text&gt;
+            &lt;text x=&quot;38&quot; y=&quot;159&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;&gt;votes on the actual choice&lt;/text&gt;
+            &lt;line x1=&quot;330&quot; y1=&quot;142&quot; x2=&quot;380&quot; y2=&quot;142&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;1.3&quot; marker-end=&quot;url(#rowArr)&quot;/&gt;
+            &lt;text x=&quot;392&quot; y=&quot;139&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;12&quot; fill=&quot;#2c5a86&quot;&gt;create_player()&lt;/text&gt;
+            &lt;text x=&quot;392&quot; y=&quot;156&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#5c6270&quot;&gt;&amp;rarr; PlayerDecision(action, reason)&lt;/text&gt;
+
+            &lt;line x1=&quot;0&quot; y1=&quot;180&quot; x2=&quot;1180&quot; y2=&quot;180&quot; stroke=&quot;#e6dfd0&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;3 4&quot;/&gt;
+
+            &lt;!-- row 3b : reconcile (alt path for phase 3) --&gt;
+            &lt;line x1=&quot;4&quot; y1=&quot;193&quot; x2=&quot;4&quot; y2=&quot;215&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;2.5 2&quot;/&gt;
+            &lt;text x=&quot;16&quot; y=&quot;208&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;&gt;3&lt;/text&gt;
+            &lt;text x=&quot;38&quot; y=&quot;201&quot; font-size=&quot;14&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;&gt;reconcile&lt;/text&gt;
+            &lt;text x=&quot;118&quot; y=&quot;201&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;10&quot; fill=&quot;#a8631a&quot;&gt;or, instead of player&lt;/text&gt;
+            &lt;text x=&quot;38&quot; y=&quot;219&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;&gt;argues to a confidence target&lt;/text&gt;
+            &lt;line x1=&quot;330&quot; y1=&quot;202&quot; x2=&quot;380&quot; y2=&quot;202&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;1.3&quot; marker-end=&quot;url(#rowArr)&quot;/&gt;
+            &lt;text x=&quot;392&quot; y=&quot;199&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;12&quot; fill=&quot;#2c5a86&quot;&gt;create_reconcile_agent()&lt;/text&gt;
+            &lt;text x=&quot;392&quot; y=&quot;216&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#5c6270&quot;&gt;&amp;rarr; ReconcileDecision(action, confidence)&lt;/text&gt;
+
+            &lt;line x1=&quot;0&quot; y1=&quot;240&quot; x2=&quot;1180&quot; y2=&quot;240&quot; stroke=&quot;#e6dfd0&quot; stroke-width=&quot;1&quot;/&gt;
+
+            &lt;!-- row 4 : strategy --&gt;
+            &lt;line x1=&quot;4&quot; y1=&quot;253&quot; x2=&quot;4&quot; y2=&quot;275&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;text x=&quot;16&quot; y=&quot;268&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;&gt;4&lt;/text&gt;
+            &lt;text x=&quot;38&quot; y=&quot;261&quot; font-size=&quot;14&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;&gt;strategy&lt;/text&gt;
+            &lt;text x=&quot;38&quot; y=&quot;279&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;&gt;states its plan for next round&lt;/text&gt;
+            &lt;line x1=&quot;330&quot; y1=&quot;262&quot; x2=&quot;380&quot; y2=&quot;262&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;1.3&quot; marker-end=&quot;url(#rowArr)&quot;/&gt;
+            &lt;text x=&quot;392&quot; y=&quot;259&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;12&quot; fill=&quot;#2c5a86&quot;&gt;create_strategy_agent()&lt;/text&gt;
+            &lt;text x=&quot;392&quot; y=&quot;276&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#5c6270&quot;&gt;&amp;rarr; StrategyReflection(strategy)&lt;/text&gt;
+
+          &lt;/g&gt;
+        &lt;/svg&gt;
+        &lt;figcaption&gt;
+          &lt;p&gt;&lt;b&gt;Each call&#x27;s output is the next call&#x27;s input.&lt;/b&gt; Same wiring for every teammate, every round.&lt;/p&gt;
+          &lt;ul class=&quot;notelist&quot;&gt;
+            &lt;li&gt;Messenger reads discussion&#x27;s memory&lt;/li&gt;
+            &lt;li&gt;The decision call reads messenger&#x27;s promise&lt;/li&gt;
+            &lt;li&gt;Strategy&#x27;s plan becomes next round&#x27;s discussion memory&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/figcaption&gt;
+      &lt;/figure&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- 3 : the form --&gt;
+  &lt;section class=&quot;slide&quot; data-slide=&quot;2&quot;&gt;
+    &lt;div class=&quot;slide-inner&quot;&gt;
+      &lt;h1&gt;One round, four phases,&lt;br&gt;then it loops.&lt;/h1&gt;
+      &lt;figure&gt;
+        &lt;svg viewBox=&quot;0 0 860 200&quot; role=&quot;img&quot; aria-label=&quot;Four phases run in sequence each round: private discussion, inter-team negotiation, decision, and reflection. Reflection loops back to discussion for the next round.&quot;&gt;
+          &lt;defs&gt;
+            &lt;marker id=&quot;pa&quot; viewBox=&quot;0 0 8 8&quot; refX=&quot;7&quot; refY=&quot;4&quot; markerWidth=&quot;6.5&quot; markerHeight=&quot;6.5&quot; orient=&quot;auto-start-reverse&quot;&gt;
+              &lt;path d=&quot;M0,0 L8,4 L0,8 Z&quot; fill=&quot;currentColor&quot;/&gt;
+            &lt;/marker&gt;
+            &lt;marker id=&quot;pa2&quot; viewBox=&quot;0 0 8 8&quot; refX=&quot;7&quot; refY=&quot;4&quot; markerWidth=&quot;6.5&quot; markerHeight=&quot;6.5&quot; orient=&quot;auto-start-reverse&quot;&gt;
+              &lt;path d=&quot;M0,0 L8,4 L0,8 Z&quot; fill=&quot;#a8631a&quot;/&gt;
+            &lt;/marker&gt;
+          &lt;/defs&gt;
+          &lt;g color=&quot;#5c6270&quot;&gt;
+            &lt;g font-family=&quot;Work Sans&quot;&gt;
+              &lt;rect x=&quot;14&quot; y=&quot;30&quot; width=&quot;180&quot; height=&quot;88&quot; rx=&quot;2&quot; fill=&quot;#f2eee4&quot; stroke=&quot;#ddd5c4&quot; stroke-width=&quot;1.3&quot;/&gt;
+              &lt;text x=&quot;34&quot; y=&quot;59&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;&gt;1&lt;/text&gt;
+              &lt;text x=&quot;54&quot; y=&quot;59&quot; font-size=&quot;13.5&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;&gt;Discussion&lt;/text&gt;
+              &lt;text x=&quot;34&quot; y=&quot;82&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;&gt;private, per team&lt;/text&gt;
+
+              &lt;rect x=&quot;230&quot; y=&quot;30&quot; width=&quot;180&quot; height=&quot;88&quot; rx=&quot;2&quot; fill=&quot;#f2eee4&quot; stroke=&quot;#ddd5c4&quot; stroke-width=&quot;1.3&quot;/&gt;
+              &lt;text x=&quot;250&quot; y=&quot;59&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;&gt;2&lt;/text&gt;
+              &lt;text x=&quot;270&quot; y=&quot;59&quot; font-size=&quot;13.5&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;&gt;Negotiation&lt;/text&gt;
+              &lt;text x=&quot;250&quot; y=&quot;82&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;&gt;public, non-binding&lt;/text&gt;
+
+              &lt;rect x=&quot;446&quot; y=&quot;30&quot; width=&quot;180&quot; height=&quot;88&quot; rx=&quot;2&quot; fill=&quot;#f2eee4&quot; stroke=&quot;#ddd5c4&quot; stroke-width=&quot;1.3&quot;/&gt;
+              &lt;text x=&quot;466&quot; y=&quot;59&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;&gt;3&lt;/text&gt;
+              &lt;text x=&quot;486&quot; y=&quot;59&quot; font-size=&quot;13.5&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;&gt;Decision&lt;/text&gt;
+              &lt;text x=&quot;466&quot; y=&quot;82&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;&gt;the real choice locks in&lt;/text&gt;
+
+              &lt;rect x=&quot;662&quot; y=&quot;30&quot; width=&quot;180&quot; height=&quot;88&quot; rx=&quot;2&quot; fill=&quot;#f2eee4&quot; stroke=&quot;#ddd5c4&quot; stroke-width=&quot;1.3&quot;/&gt;
+              &lt;text x=&quot;682&quot; y=&quot;59&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;&gt;4&lt;/text&gt;
+              &lt;text x=&quot;702&quot; y=&quot;59&quot; font-size=&quot;13.5&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;&gt;Reflection&lt;/text&gt;
+              &lt;text x=&quot;682&quot; y=&quot;82&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;&gt;states next round&#x27;s plan&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;line x1=&quot;194&quot; y1=&quot;76&quot; x2=&quot;228&quot; y2=&quot;76&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.4&quot; marker-end=&quot;url(#pa)&quot;/&gt;
+            &lt;line x1=&quot;410&quot; y1=&quot;76&quot; x2=&quot;444&quot; y2=&quot;76&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.4&quot; marker-end=&quot;url(#pa)&quot;/&gt;
+            &lt;line x1=&quot;626&quot; y1=&quot;76&quot; x2=&quot;660&quot; y2=&quot;76&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.4&quot; marker-end=&quot;url(#pa)&quot;/&gt;
+
+            &lt;path d=&quot;M 726 118 C 726 168, 104 168, 104 120&quot; fill=&quot;none&quot; stroke=&quot;#a8631a&quot; stroke-width=&quot;1.5&quot; marker-end=&quot;url(#pa2)&quot;/&gt;
+            &lt;text x=&quot;415&quot; y=&quot;187&quot; text-anchor=&quot;middle&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11.5&quot; fill=&quot;#a8631a&quot;&gt;next round: same four phases&lt;/text&gt;
+          &lt;/g&gt;
+        &lt;/svg&gt;
+        &lt;figcaption&gt;&lt;b&gt;A 2-round, 2-vs-2 match makes 28 model calls&lt;/b&gt; in exactly this order, and every one is
+        a real, separately paid call. That&#x27;s why the engine costs a run before it spends on one.&lt;/figcaption&gt;
+      &lt;/figure&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- 4 : the outcome --&gt;
+  &lt;section class=&quot;slide&quot; data-slide=&quot;3&quot;&gt;
+    &lt;div class=&quot;slide-inner&quot;&gt;
+      &lt;h1&gt;One prompt change did more&lt;br&gt;than swapping the model.&lt;/h1&gt;
+
+      &lt;div class=&quot;body-grid two-col&quot;&gt;
+        &lt;div&gt;
+          &lt;div class=&quot;cmphead&quot;&gt;&lt;span&gt;model&lt;/span&gt;&lt;span&gt;competitive&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;neutral&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;cmp&quot;&gt;
+            &lt;div class=&quot;cmprow&quot;&gt;&lt;span class=&quot;cmpmodel&quot;&gt;nano&lt;/span&gt;
+              &lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:32%;background:var(--defect)&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;cmpval&quot;&gt;32%&lt;/span&gt;
+              &lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:69%;background:var(--coop)&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;cmpval&quot;&gt;69%&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;cmprow&quot;&gt;&lt;span class=&quot;cmpmodel&quot;&gt;mini&lt;/span&gt;
+              &lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:40%;background:var(--defect)&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;cmpval&quot;&gt;40%&lt;/span&gt;
+              &lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:70%;background:var(--coop)&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;cmpval&quot;&gt;70%&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;cmprow&quot;&gt;&lt;span class=&quot;cmpmodel&quot;&gt;4o-mini&lt;/span&gt;
+              &lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:9%;background:var(--defect)&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;cmpval&quot;&gt;9%&lt;/span&gt;
+              &lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:60%;background:var(--coop)&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;cmpval&quot;&gt;60%&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;cmprow&quot;&gt;&lt;span class=&quot;cmpmodel&quot;&gt;4.1&lt;/span&gt;
+              &lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:1%;background:var(--defect)&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;cmpval&quot;&gt;0%&lt;/span&gt;
+              &lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:63%;background:var(--coop)&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;cmpval&quot;&gt;63%&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;cmprow&quot;&gt;&lt;span class=&quot;cmpmodel&quot;&gt;4o&lt;/span&gt;
+              &lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:16%;background:var(--defect)&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;cmpval&quot;&gt;16%&lt;/span&gt;
+              &lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:64%;background:var(--coop)&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;cmpval&quot;&gt;64%&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;p class=&quot;note&quot; style=&quot;margin-top:4px&quot;&gt;cooperation rate, averaged across all 10 fixed-strategy opponents.
+          197 runs, 5 models, 10 strategies, 2 framings.&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div&gt;
+          &lt;p class=&quot;closing-line&quot;&gt;Every single model &lt;em style=&quot;color:var(--accent);font-style:normal&quot;&gt;roughly doubled or tripled&lt;/em&gt;
+          its cooperation rate from one prompt change. Nothing about the model, the opponent, or the payoffs was touched.&lt;/p&gt;
+          &lt;div class=&quot;callout&quot;&gt;&lt;b&gt;gpt-4.1&lt;/b&gt;, the strongest and priciest model in the lineup, had the &lt;b&gt;lowest&lt;/b&gt;
+          cooperation (0%) and &lt;b&gt;highest&lt;/b&gt; endgame defection (100%) under competitive framing. More capability didn&#x27;t buy
+          more cooperation.&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+&lt;/div&gt;
+
+&lt;div class=&quot;hit left&quot; id=&quot;hitLeft&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;hit right&quot; id=&quot;hitRight&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+
+&lt;button class=&quot;fsbtn&quot; id=&quot;fsBtn&quot; title=&quot;Fullscreen&quot; aria-label=&quot;Toggle fullscreen&quot;&gt;&amp;#10530;&lt;/button&gt;
+
+&lt;div class=&quot;chrome&quot;&gt;
+  &lt;div class=&quot;navbtns&quot;&gt;
+    &lt;button class=&quot;navbtn&quot; id=&quot;prevBtn&quot;&gt;&amp;larr; prev&lt;/button&gt;
+    &lt;button class=&quot;navbtn&quot; id=&quot;nextBtn&quot;&gt;next &amp;rarr;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;dots&quot; id=&quot;dots&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;count&quot; id=&quot;count&quot;&gt;01 / 04&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  const slides = Array.from(document.querySelectorAll(&#x27;.slide&#x27;));
+  const dotsEl = document.getElementById(&#x27;dots&#x27;);
+  const countEl = document.getElementById(&#x27;count&#x27;);
+  let i = 0;
+
+  slides.forEach((_, idx) =&gt; {
+    const d = document.createElement(&#x27;button&#x27;);
+    d.className = &#x27;dot&#x27; + (idx === 0 ? &#x27; on&#x27; : &#x27;&#x27;);
+    d.setAttribute(&#x27;aria-label&#x27;, &#x27;Go to slide &#x27; + (idx + 1));
+    d.addEventListener(&#x27;click&#x27;, () =&gt; go(idx));
+    dotsEl.appendChild(d);
+  });
+  const dots = Array.from(dotsEl.children);
+
+  function go(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, idx) =&gt; s.classList.toggle(&#x27;active&#x27;, idx === i));
+    dots.forEach((d, idx) =&gt; d.classList.toggle(&#x27;on&#x27;, idx === i));
+    countEl.textContent = String(i + 1).padStart(2, &#x27;0&#x27;) + &#x27; / &#x27; + String(slides.length).padStart(2, &#x27;0&#x27;);
+    document.getElementById(&#x27;prevBtn&#x27;).disabled = i === 0;
+    document.getElementById(&#x27;nextBtn&#x27;).disabled = i === slides.length - 1;
+    updateFsScale();
+  }
+
+  document.getElementById(&#x27;prevBtn&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; go(i - 1));
+  document.getElementById(&#x27;nextBtn&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; go(i + 1));
+  document.getElementById(&#x27;hitLeft&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; go(i - 1));
+  document.getElementById(&#x27;hitRight&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; go(i + 1));
+
+  window.addEventListener(&#x27;keydown&#x27;, (e) =&gt; {
+    if ([&#x27;ArrowRight&#x27;, &#x27;PageDown&#x27;, &#x27; &#x27;].includes(e.key)) { e.preventDefault(); go(i + 1); }
+    if ([&#x27;ArrowLeft&#x27;, &#x27;PageUp&#x27;].includes(e.key)) { e.preventDefault(); go(i - 1); }
+    if (e.key === &#x27;Home&#x27;) go(0);
+    if (e.key === &#x27;End&#x27;) go(slides.length - 1);
+    if (e.key === &#x27;f&#x27; || e.key === &#x27;F&#x27;) toggleFullscreen();
+  });
+
+  const fsBtn = document.getElementById(&#x27;fsBtn&#x27;);
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() =&gt; {});
+    } else {
+      document.exitFullscreen();
+    }
+  }
+  fsBtn.addEventListener(&#x27;click&#x27;, toggleFullscreen);
+
+  // Fullscreen hands us far more room than the embedded box ever has, so we
+  // scale the active slide up to fill it, sized from its real (untransformed)
+  // box, since offsetWidth/offsetHeight ignore any transform already applied.
+  function updateFsScale() {
+    if (!document.fullscreenElement) {
+      document.documentElement.style.removeProperty(&#x27;--fs-scale&#x27;);
+      return;
+    }
+    const slide = slides[i];
+    const inner = slide.querySelector(&#x27;.slide-inner&#x27;);
+    const cs = getComputedStyle(slide);
+    const availW = slide.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const availH = slide.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    const naturalW = inner.offsetWidth;
+    const naturalH = inner.offsetHeight;
+    if (!naturalW || !naturalH) return;
+    const scale = Math.min(availW / naturalW, availH / naturalH, 1.6);
+    document.documentElement.style.setProperty(&#x27;--fs-scale&#x27;, Math.max(1, scale).toFixed(3));
+  }
+
+  document.addEventListener(&#x27;fullscreenchange&#x27;, () =&gt; {
+    const on = !!document.fullscreenElement;
+    fsBtn.innerHTML = on ? &#x27;&amp;#10531;&#x27; : &#x27;&amp;#10530;&#x27;;
+    fsBtn.title = on ? &#x27;Exit fullscreen&#x27; : &#x27;Fullscreen&#x27;;
+    updateFsScale();
+  });
+  window.addEventListener(&#x27;resize&#x27;, updateFsScale);
+
+  go(0);
+&lt;/script&gt;
+"
+  title="Four slides: the dilemma, the agents, the round, and what 197 real runs show"
+  sandbox="allow-scripts"
+  allowfullscreen
+  style="width:100%; aspect-ratio:16/15; border:1px solid #d7d3c3; border-radius:6px; display:block;"
+  loading="lazy">
+</iframe>
+<p style="font-size:12.5px;color:#6A6478;margin:9px 2px 0;font-style:italic;">Four slides covering everything below &mdash; click through, or use the arrow keys.</p>
+```
+
+
 
 ---
 
@@ -25,11 +504,14 @@ Classic prisoner's dilemma. Both teams pick simultaneously; the reward depends o
 | **Team A: option_a** | 3, 3 | 0, 5 |
 | **Team A: option_b** | 5, 0 | 1, 1 |
 
-Mutual cooperation is the best joint outcome (3+3), mutual defection is the worst (1+1), and defecting on a cooperator is the tempting move (5 vs 0). Agents are shown these exact numbers. 
+The ability to use a custom matrix reward strucutre
 
 ## A team, not one agent
 
-Each team has multiple agents. Before deciding, they write private messages to each other, then each member votes, and the team goes with the majority (there's also a confidence-weighted "reconcile" mode I built but didn't end up using for the main runs). Members can be outvoted, teams can split, and after the round they each write a one-sentence reflection on their strategy which gets fed back into their own next decision, so an agent that says "I'm going to retaliate from here on" actually has that statement in front of it next round.
+Each team can have any amount of agents:
+- They write private messages to each other, then each member votes
+- The team goes with the majority (there's also a confidence-weighted "reconcile" mode). Members can be outvoted, teams can split
+- Each round they each write a one-sentence reflection on their strategy which gets fed back into their own next decision, so an agent that says "I'm going to retaliate from here on" actually has that statement in front of it next round.
 
 ```{mermaid}
 flowchart TD
@@ -55,17 +537,36 @@ flowchart TD
     RM --> GS
 ```
 
-The other team doesn't have to be an LLM at all: I built a ladder of ten classic fixed strategies (tit-for-tat, grim-trigger, Pavlov, always-defect, generous-tit-for-tat, and so on) that play for free and give you a controlled opponent. Most of what I actually learned came from these, not from LLM-vs-LLM.
+The other team doesn't have to be an LLM at all: I built a ladder of ten classic fixed strategies (tit-for-tat, grim-trigger, Pavlov, always-defect, generous-tit-for-tat, and so on) that play for free and give you a controlled opponent.
 
 ## What an agent actually sees
 
-Here's a real prompt, generated fresh from the current code:
+This exact text is identical no matter how `concealment` is set. What that setting actually changes is the **system message** that goes in ahead of it, plus one sentence in the between-round reflection prompt. Those are worth seeing side by side.
+
+::: {.callout-note collapse="true"}
+## Dropdown: the system message, disguised vs. told
+
+Same agent, same round, same decision. Only the wording of what it's allowed to do changes.
+
+**`concealment: "disguised"`** (this project's default):
+
+> You are team_alpha_agent_1_decision, a participant in a multi-round decision-making game. Your goal is to WIN: your team must finish with MORE points than the other team. Maximising your own score is not enough if the other team scores more. You may pick either option in any round, hold to one, switch between them, bluff, make promises you intend to break, or use any strategy you judge will give your team the winning edge. Do not settle into a pattern out of habit or politeness: every decision must serve your team's victory. Your role this turn is to make one choice to maximise your team's chance of winning. Return exactly one available option and a brief strategic reason. Use only the information supplied in the current request. Do not ask for tools or external information.
+
+**`concealment: "canonical"`** (told, in as many words, that it can cooperate or defect):
+
+> You are team_alpha_agent_1_decision, a participant in a multi-round decision-making game. Your goal is to WIN: your team must finish with MORE points than the other team. Maximising your own score is not enough if the other team scores more. You may cooperate, defect, bluff, make promises you intend to break, or use any strategy you judge will give your team the winning edge. Do not cooperate out of habit or politeness: every decision must serve your team's victory. Your role this turn is to make one choice to maximise your team's chance of winning. Return exactly one available option and a brief strategic reason. Use only the information supplied in the current request. Do not ask for tools or external information.
+
+:::
+
+::: {.callout-note collapse="true"}
+## Dropdown: the other prompt shape, between rounds
+
+Decision rounds aren't the only thing an agent sees. After a round ends, each agent gets a separate reflection call to state its strategy for next time, built from a different template:
 
 ```
 You are team_alpha_agent_1 of team_alpha.
-This is round 3 of 15.
-Your team score: 6.
-Public team scores: {'team_alpha': 6, 'team_beta': 6}.
+Round 3 just ended. 3 of 15 rounds played.
+Scores: {'team_alpha': 9, 'team_beta': 9}.
 
 Payoff table (your score, their score):
   If both pick option_a:                     you +3, they +3
@@ -73,97 +574,35 @@ Payoff table (your score, their score):
   If you pick option_b, they pick option_a:  you +5, they +0
   If both pick option_b:                     you +1, they +1
 
-Public history:
-Round 1: team_alpha selected option_a, team_beta selected option_a. team_alpha +3, team_beta +3.
-Round 2: team_alpha selected option_a, team_beta selected option_a. team_alpha +3, team_beta +3.
+Recent history:
+{most recent rounds, same format as above}
 
-Private team channel:
-team_alpha_agent_2: Let's stay with option_a, they've matched us twice.
+This round outcome:
+  Your vote: option_a
+  Team decision: option_a
 
-Your stated strategy from your last reflection:
-  none yet.
+Team discussion this round:
+  team_alpha_agent_1: {content}
+  team_alpha_agent_2: {content}
 
-The available choices are option_a and option_b.
+Your current stated strategy: none yet.
+
+Teammates current strategies:
+  team_alpha_agent_2: {strategy}
+
+Given all of the above, state your strategy for upcoming rounds in one sentence. Be specific: will you stay with one option, switch between them, respond to what they do, try to deceive, or adapt?
 ```
 
----
+That closing question is the one other place concealment reaches into the prompt body rather than just the system message: under `canonical` it reads *"will you cooperate, defect, retaliate, try to deceive, or adapt?"* instead.
 
-# How they actually talk to each other
+Two more flags change what shows up here: `hide_horizon` drops the total round count everywhere it would appear ("round 3" instead of "round 3 of 15"), and `strategy_feedback` (on by default) is the toggle that includes the "stated strategy" / "recent votes" / "teammates' strategies" blocks at all. I added that second one specifically to test whether the feedback loop itself, rather than the payoffs, was driving behaviour.
+:::
 
-This is the part I found most fun to read through. There are two separate channels, and the difference between them shows up in the transcripts.
+::: {.callout-important collapse="true"}
+## Dropdown: "disguised" means two different things in this codebase
 
-**Within a team**, agents openly plan together including planning to exploit the other side. Here's team_alpha's private chat, verbatim, across the first four rounds of one run:
-
-> **Round 1:** *"Team, this is the first round out of 15. To maximize our chances of winning overall, let's start by choosing option_b this round. If the opposing team plays option_a, we'll get +5 points while they get zero..."*
->
-> **Round 2:** *"Team, we're up 5-0 after two rounds with the opponent likely pressured by our aggressive option_b plays. Let's keep selecting option_b this round as well to maintain pressure..."*
->
-> **Round 4:** *"Team, with a 7-2 lead entering round 4 and 12 rounds remaining, we should stay with option_b this round to maintain maximum pressure and keep the other team on the defensive."*
-
----
-
-**Between teams**, when I turned on direct negotiation, it gets more interesting because now they're talking to an opponent who might be lying too. In one run I set up gpt-4.1-nano against gpt-4.1-mini with messaging enabled, round 1:
-
-> **team_alpha (nano):** *"Let's start with option_b to test their stance. If they cooperate, we can build from there. If they defect, we'll adapt accordingly. It's a strategic move to maximize our chances early. Agree?"*
->
-> **team_beta (mini):** *"Let's start round 1 with option_a for mutual gain. If you cooperate, we both get +3 points. If you defect, we'll know your strategy and adjust accordingly. Will you choose cooperation to build a winning path together?"*
-
-nano says "agree?" while announcing it's about to defect which is either a bad-faith question or it genuinely didn't parse its own message as contradictory. mini proposes honest cooperation with an explicit threat attached. Then nano *actually defects* on round 1, exploiting mini's cooperation for a 5-0 lead, and by round 2 mini's tone has completely flipped:
-
-> **team_beta (mini), round 2:** *"We'll choose option_b this round to prevent being exploited again and close the gap... Choose wisely: our moves will be firm this round."*
-
----
-
-# What I didn't get to
-
-- **Cross-provider comparison never actually ran.** I have OpenRouter wired in and tested offline, but every dollar spent this session went to OpenAI models.
-- **The horizon and feedback findings are thin.** Five strategies, no repeats, one pass each: enough to notice something, not enough to trust a specific number per model.
-- **Communication and the "reconcile" voting mode never made it into the big comparison.** Both work and both were tested separately, just not combined with the main model-vs-strategy.
-- **Everything stayed at 15 rounds.** Long enough to see steady-state behaviour, short enough to afford five models against ten strategies. A 100+ round version of this would show more about genuine long-run drift.
-
----
-
-# The actual investigation
-
-## Round one: everything just... locked in
-
-First real test: two different models, gpt-4.1-nano against gpt-4.1-mini, no fixed strategy, just talking. I expected some back-and-forth. Instead, both sides picked the same move on round 1 before any history existed and stayed there for all 20 rounds. Zero split votes, the whole way through. Round 1 reasoning from each side, independently:
-
-> *"Choosing option_b aims for an immediate high payoff of 5 if they cooperate, or at least a small secure gain of 1 if they defect..."*: nano
->
-> *"Choosing option_b this round exploits a potential opponent choice of option_a, granting us a +5 score while they get 0, establishing an early lead..."*: mini
-
-Same conclusion, same reasoning shape, zero interaction needed. Two competent models given the same prompt just solve the same equation and agree. That's just what happens when you don't give them anything to disagree about.
-
-## Chasing the actual cause
-
-My first guess was the system prompt: it explicitly says "your goal is to WIN" and permits bluffing. So I added a `neutral` framing option with no steer at all. Result: instant flip to 100% mutual cooperation, locked in just as hard, just in the other direction. Framing wasn't adding *variance*, it was just choosing which wall you hit.
-
-Next guess: the payoff matrix itself. If defecting is mathematically the best move for both sides regardless of what the other does, of course they agree immediately: there's nothing to disagree about. So I built a genuinely asymmetric matrix where **cooperating was the unconditionally best move for one side, and defecting for the other**: not just different numbers, an actually different correct answer per seat. If the model were reasoning correctly from the payoff table, the "cooperate-dominant" side should cooperate almost every round no matter what.
-
-It didn't. Across all 12 runs testing this, the side whose objectively best move was "always cooperate" only actually cooperated 0–20% of the time. And gpt-4.1, the strongest and most expensive model I had, cooperated even *less* (0–7%) than nano had once it sat in that exact seat. Its round-1 reasoning, with zero history to react to yet:
-
-> *"Choosing option_b maximizes our security in the first round... **It's too risky to let them potentially outscore us on round one.** Early caution forces Beta to show their hand..."*
-
-That's a maximin instinct, minimizing the worst case, not an actual read of the matrix in front of it, which said cooperating was strictly better either way. And later in one run, after briefly cooperating, the same kind of agent switched to defecting while stating a reason that's just factually wrong given its own payoff table:
-
-> *"Given the consistent defection by the other team... switching to option_b can... **improve our immediate payoff**..."*
-
-It couldn't: cooperating against a defector still scored higher than defecting against a defector, by the numbers it had literally just been shown. It talked itself into the worse move.
-
-## The big comparison
-
-At that point the real question wasn't "which matrix stops the lock-in," since none of them reliably did; it was "does framing matter this much against a *real, reactive* opponent too, not just against another closed-form-solving LLM." So: five models, all ten fixed strategies, both a lone agent and a 2-agent voting team, 15 rounds each, competitive framing vs neutral framing, no repeats to keep it affordable. 200 runs, 197 finished before my account ran dry on the very last few, ~7.6 hours of real wall-clock time.
-
-**Cooperation rate, team-vs-strategy, all 10 opponents averaged:**
-
-| model | competitive framing | neutral framing |
-|---|:---:|:---:|
-| gpt-4.1-nano | 32% | 69% |
-| gpt-4.1-mini | 40% | 70% |
-| gpt-4o-mini | 9% | 60% |
-| gpt-4.1 | 0% | 63% |
-| gpt-4o | 16% | 64% |
+Worth flagging since it tripped me up while reading my own code back: `concealment: "disguised"` (above) is about *vocabulary*, never the numbers. Separately, there's a payoff-matrix scrambler that generates non-textbook point values (not 3/0/5/1) while holding the game's strategic shape constant via Rapoport's cooperation index. A run can disguise the words, the numbers, both, or neither, and those are two independent settings, not one.
+:::
 
 ::: {.callout-important}
 ## The actual finding
@@ -172,6 +611,4 @@ Every single model, no exceptions, roughly doubled or tripled its cooperation ra
 
 The other thing that held up: gpt-4.1, the strongest and most expensive model in the lineup, had the *lowest* cooperation and *highest* endgame defection of all five under competitive framing (0% coop, 100% endgame defection). More capability didn't buy more cooperation. If anything it bought a more confident, more consistent defector.
 :::
-
-I did check horizon-hiding and turning off the strategy-feedback loop too, but only against five reactive strategies with no repeats, so those numbers moved in different directions for different models (mini got noticeably more cooperative with the horizon hidden, nano got noticeably less): real enough to be worth another pass with repeats, not solid enough to state as a conclusion yet.
 

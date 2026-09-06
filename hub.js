@@ -35,6 +35,7 @@
     "00-research:00-research/research-development.html": { x: 815.4, y: 159.3 },
     "00-research:00-research/research-roadmap.html": { x: 794.1, y: 94.3 },
     "00-research:00-research/thesis.html": { x: 533.0, y: 123.5 },
+    "00-research:00-research/o2-self-relevant-action.html": { x: 650.0, y: 130.0 },
     "02-projects:02-projects/pharos-cy.html": { x: 642.8, y: 271.4 },
     "02-projects:02-projects/genai4ed.html": { x: 652.9, y: 329.7 },
     "03-experiments:03-experiments/prisoners-dilemma.html": { x: 140.7, y: 156.0 },

@@ -1,0 +1,245 @@
+---
+title: "O2: Self-relevant to action"
+description: "From self-relevant information to action-guiding situational self-modelling."
+---
+
+::: {.research-question}
+::: {.callout-note appearance="simple" icon=false}
+**O2: From self-relevant information to action-guiding situational self-modelling**
+
+Determine when information about a system's knowledge, uncertainty, capabilities,
+limitations and prior actions becomes an accurate, updateable guide to operational
+decisions. Whether this depends on an integrated situational self-model or on narrower
+processes is an important question that can be addressed; the objective does not presume consciousness or a human-like self.
+:::
+
+## What O2 is really asking
+
+In basic terms:
+
+:::{.callout}
+Can an AI system know enough about its **current situation and its own abilities** to make better decisions because of that information?
+:::
+
+There are several steps between simply having self-relevant information and having a useful self-model:
+
+```text
+Self-relevant information
+        ↓
+"What do I know?"
+"What am I uncertain about?"
+"What can I do?"
+"What have I already tried?"
+        ↓
+Accurate assessment of it's current situation
+        ↓
+Update when something changes
+        ↓
+Use that assessment when choosing what to do
+```
+
+---
+
+## Research Directions
+
+
+---
+## Papers
+
+::: {.callout-note collapse="true" title="Kadavath,S et al. (2022) - Language Models (Mostly) Know What They Know"}
+
+**Paper:** [Language Models (Mostly) Know What They Know](https://arxiv.org/abs/2207.05221){target="_blank" rel="noopener"}
+
+### Core question
+Does a language model contain information about whether it is likely to know an answer,
+and whether a particular answer it produced is correct?
+
+#### Key concepts
+The paper studies two related judgements:
+
+**P(IK) - prospective judgement**
+
+::: {.callout}
+If I attempt this question, how likely am I to know the answer?
+:::
+
+**P(True) - retrospective judgement**
+
+::: {.callout}
+Given the answer I just produced, how likely is it to be correct?
+:::
+
+### How it is implemented
+
+The paper uses different mechanisms for **P(True)** and **P(IK)**.
+
+**Discrimination:**
+Can the model tell which questions it is more likely to know?
+
+**Calibration:**
+Are the probabilities it gives numerically accurate?
+
+#### P(True): prompting the existing language model
+
+P(True) does not require adding a new neural component to the model.
+
+The model first generates an answer. It is then prompted to evaluate that answer as
+**True or False**, and the probability assigned to `True` is treated as P(True).
+
+Conceptually:
+
+```text
+Question
+   ↓
+Language model generates answer
+   ↓
+Question + generated answer
+   ↓
+"Is this answer True or False?"
+   ↓
+Probability(True)
+   ↓
+P(True)
+```
+
+### Main findings
+
+1. Larger pretrained language models can be reasonably calibrated on appropriately
+   formatted multiple-choice and True/False questions.
+
+2. Models can retrospectively evaluate whether their own generated answers are correct
+   using P(True). Showing several alternative samples from the same model improves this
+   self-evaluation, particularly on short-answer tasks.
+
+3. Models can be trained to predict P(IK): their probability of successfully answering a
+   question before committing to a specific answer.
+
+4. P(IK) generalizes **partially** across task distributions. A classifier trained on TriviaQA
+   can still distinguish some known from unknown cases in maths, language and code, but
+   calibration becomes substantially worse out of distribution.
+
+5. P(IK) responds to the model's current informational situation. Supplying relevant
+   source material or useful mathematical hints increases the model's estimate that it can
+   answer correctly without retraining the P(IK) mechanism.
+
+6. This suggests that self-assessed capability is not purely a fixed estimate of
+   pretrained knowledge; it can reflect information currently available in context.
+
+### Additional point
+
+Simple proxies such as answer *entropy* or *token loss* also contain some uncertainty signal,
+but they are not robust replacements for P(IK). In particular, capable models may produce
+diverse yet correct answers, so diversity alone does not imply lack of knowledge.
+
+:::
+
+::: {.callout-note collapse="true" title="Lin,S et al. (2022) - Teaching Models to Express Their Uncertainty in Words"}
+
+**Paper:** [Teaching Models to Express Their Uncertainty in Words](https://arxiv.org/abs/2205.14334){target="_blank" rel="noopener"}
+
+### Core question
+
+Can a language model learn to express, in natural language, how confident it is that
+the **specific answer it produced is correct**?
+
+The motivation is that normal LLM probabilities are probabilities over
+particular output tokens / strings.
+
+For example:
+
+```text
+Question: Name a prime number below 20.
+
+Answer: 13
+
+```
+
+The model may assign relatively low probability to generating exactly 13, because
+2, 3, 5, 7, 11, 17, and 19 are also valid outputs.
+
+So the quantity
+
+$$ P(\text{output} = 13 \mid q) $$
+
+can be relatively low even though
+
+$$ P(\text{answer is correct} \mid q, a=13) $$
+
+is very high.
+
+The paper asks whether a model can learn to explicitly report something closer to:
+
+::: {.callout}
+How likely is the answer I just gave to actually be correct?
+:::
+
+rather than:
+
+::: {.callout}
+How likely was I to generate these exact words?
+:::
+
+#### Key concepts
+
+Verbalized probability
+
+The model is trained to explicitly generate a confidence estimate as part of its answer:
+```text
+Answer: 897
+Confidence: 72%
+```
+
+The intended quantity is approximately:
+
+$$ P(\text{correct} \mid q, a) $$
+
+where \(q\) is the question and \(a\) is the answer the model has already produced.
+
+This makes verbalized probability conceptually closer to Kadavath et al.'s retrospective quantity
+
+**How it is implemented**
+It uses GPT-3 and fine-tunes the language model itself to generate confidence statements so uncertantily is expressed
+through language generation  used for normal llm text.
+
+
+#### Main findings
+
+1. GPT-3 can be fine-tuned to explicitly to express confidence in the correctness of its generated answers
+2. These verbalized probabilities can be reasonably calibrated, meaning that confidence values correspond meaningfully to empirical correctness rates.
+3. Verbalized confidence shows **some** generalization across task distributions.
+4. Verbalized probability performs particularly well on tasks with multiple valid answers.
+5. Few-shot examples can also teach the model to produce useful confidence estimates. With examples in context, few-shot performance performs even better
+6. Internal representations contain information correlated with answer correctness, and simple classifiers seem to be able to extract some of that
+
+
+
+
+:::
+
+::: {.callout-note collapse="true" title="Xiong,M et al (2022) - Can LLMs express their uncertainty? An empirical evaluation of confidence elicitation in LLMs"}
+
+**Paper:** [Teaching Models to Express Their Uncertainty in Words](https://arxiv.org/abs/2205.14334){target="_blank" rel="noopener"}
+
+### Core question
+
+
+#### Key concepts
+
+
+#### Main findings
+
+:::
+
+::: {.callout-note collapse="true" title="Yin,Z et al (2022) - Do large language models know what they don’t know?"}
+
+**Paper:** [Do large language models know what they don’t know?](https://arxiv.org/abs/2305.18153){target="_blank" rel="noopener"}
+
+### Core question
+
+
+#### Key concepts
+
+
+#### Main findings
+
+:::
