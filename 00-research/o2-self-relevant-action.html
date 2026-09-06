@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="How alternative reasoning strategies can emerge from the same starting model.">
+<meta name="description" content="From self-relevant information to action-guiding situational self-modelling.">
 
-<title>Q2: Divergent reasoning – Phronesis · Φρόνησις</title>
+<title>O2: Self-relevant to action – Phronesis · Φρόνησις</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -301,6 +301,35 @@ window.HUB_DATA = {
   });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -345,12 +374,12 @@ window.HUB_DATA = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Q2: Divergent reasoning</h1>
+<h1 class="title">O2: Self-relevant to action</h1>
 </div>
 
 <div>
   <div class="description">
-    How alternative reasoning strategies can emerge from the same starting model.
+    From self-relevant information to action-guiding situational self-modelling.
   </div>
 </div>
 
@@ -367,7 +396,6 @@ window.HUB_DATA = {
 </header>
 
 
-<p><span class="text-blue"><strong>Component:</strong> Navigator - finds the points where the reasoning could have gone another way, and checks whether the different routes are genuinely different approaches.</span></p>
 <div class="research-question">
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -375,66 +403,260 @@ window.HUB_DATA = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Q2: Why do identical agents develop different reasoning strategies?</strong></p>
-<p>This note investigates whether branching at high-entropy decision points can create genuinely different reasoning strategies, rather than only different phrasings or final outcomes. The agent takes one route. Then it goes back and runs the routes it didn’t take, and learns from those. It learns from things it never did.</p>
+<p><strong>O2: From self-relevant information to action-guiding situational self-modelling</strong></p>
+<p>Determine when information about a system’s knowledge, uncertainty, capabilities, limitations and prior actions becomes an accurate, updateable guide to operational decisions. Whether this depends on an integrated situational self-model or on narrower processes is an important question that can be addressed; the objective does not presume consciousness or a human-like self.</p>
 </div>
 </div>
 </div>
-<p><strong>Procedure.</strong></p>
+<section id="what-o2-is-really-asking" class="level2">
+<h2 class="anchored" data-anchor-id="what-o2-is-really-asking">What O2 is really asking</h2>
+<p>In basic terms:</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Can an AI system know enough about its <strong>current situation and its own abilities</strong> to make better decisions because of that information?</p>
+</div>
+</div>
+</div>
+<p>There are several steps between simply having self-relevant information and having a useful self-model:</p>
+<pre class="text"><code>Self-relevant information
+        ↓
+"What do I know?"
+"What am I uncertain about?"
+"What can I do?"
+"What have I already tried?"
+        ↓
+Accurate assessment of it's current situation
+        ↓
+Update when something changes
+        ↓
+Use that assessment when choosing what to do</code></pre>
+<hr>
+</section>
+<section id="research-directions" class="level2">
+<h2 class="anchored" data-anchor-id="research-directions">Research Directions</h2>
+<hr>
+</section>
+<section id="papers" class="level2">
+<h2 class="anchored" data-anchor-id="papers">Papers</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Kadavath,S et al. (2022) - Language Models (Mostly) Know What They Know">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Kadavath,S et al.&nbsp;(2022) - Language Models (Mostly) Know What They Know
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2207.05221" target="_blank" rel="noopener">Language Models (Mostly) Know What They Know</a></p>
+<section id="core-question" class="level3">
+<h3 class="anchored" data-anchor-id="core-question">Core question</h3>
+<p>Does a language model contain information about whether it is likely to know an answer, and whether a particular answer it produced is correct?</p>
+<section id="key-concepts" class="level4">
+<h4 class="anchored" data-anchor-id="key-concepts">Key concepts</h4>
+<p>The paper studies two related judgements:</p>
+<p><strong>P(IK) - prospective judgement</strong></p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If I attempt this question, how likely am I to know the answer?</p>
+</div>
+</div>
+</div>
+<p><strong>P(True) - retrospective judgement</strong></p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Given the answer I just produced, how likely is it to be correct?</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="how-it-is-implemented" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented">How it is implemented</h3>
+<p>The paper uses different mechanisms for <strong>P(True)</strong> and <strong>P(IK)</strong>.</p>
+<p><strong>Discrimination:</strong> Can the model tell which questions it is more likely to know?</p>
+<p><strong>Calibration:</strong> Are the probabilities it gives numerically accurate?</p>
+<section id="ptrue-prompting-the-existing-language-model" class="level4">
+<h4 class="anchored" data-anchor-id="ptrue-prompting-the-existing-language-model">P(True): prompting the existing language model</h4>
+<p>P(True) does not require adding a new neural component to the model.</p>
+<p>The model first generates an answer. It is then prompted to evaluate that answer as <strong>True or False</strong>, and the probability assigned to <code>True</code> is treated as P(True).</p>
+<p>Conceptually:</p>
+<pre class="text"><code>Question
+   ↓
+Language model generates answer
+   ↓
+Question + generated answer
+   ↓
+"Is this answer True or False?"
+   ↓
+Probability(True)
+   ↓
+P(True)</code></pre>
+</section>
+</section>
+<section id="main-findings" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings">Main findings</h3>
 <ol type="1">
-<li>One agent produces a complete reasoning trace and a final answer. This is the reference trace.</li>
-<li>The token-level entropy of the reference trace is recorded, and the highest-entropy positions are identified as candidate decision points.</li>
-<li>At each decision point, generation is resumed from the preceding prefix with a different continuation, and each branch is run to completion.</li>
-<li>The outcomes of the branches are compared against the outcome of the reference trace. A decision point is important if resampling it changes the distribution over final answers. <strong>This is its counterfactual point</strong></li>
-<li>Where the reference trace failed and its branches succeed, the decision point marks where the reasoning went wrong. That position, and the continuation that recovered from it, can be recorded for reuse.</li>
+<li><p>Larger pretrained language models can be reasonably calibrated on appropriately formatted multiple-choice and True/False questions.</p></li>
+<li><p>Models can retrospectively evaluate whether their own generated answers are correct using P(True). Showing several alternative samples from the same model improves this self-evaluation, particularly on short-answer tasks.</p></li>
+<li><p>Models can be trained to predict P(IK): their probability of successfully answering a question before committing to a specific answer.</p></li>
+<li><p>P(IK) generalizes <strong>partially</strong> across task distributions. A classifier trained on TriviaQA can still distinguish some known from unknown cases in maths, language and code, but calibration becomes substantially worse out of distribution.</p></li>
+<li><p>P(IK) responds to the model’s current informational situation. Supplying relevant source material or useful mathematical hints increases the model’s estimate that it can answer correctly without retraining the P(IK) mechanism.</p></li>
+<li><p>This suggests that self-assessed capability is not purely a fixed estimate of pretrained knowledge; it can reflect information currently available in context.</p></li>
 </ol>
-<p><strong>Working assumptions for this mechanism.</strong></p>
-<ul>
-<li>High-entropy positions correspond to meaningful choices in the reasoning rather than to surface variation in wording.</li>
-<li>Failure in a reasoning trace can be localised to a small number of positions rather than being distributed across the whole trace.</li>
-<li>The alternative continuations produced at a decision point represent different strategies, not different phrasings of the same strategy.</li>
-</ul>
-<p><strong>Open questions for this mechanism.</strong></p>
-<ul>
-<li>Do branches taken at the same decision point differ in strategy, or only in outcome?</li>
-<li>What distinguishes a decision point that produces a useful alternative from one that produces an equivalent restatement?</li>
-<li>How should a recorded failure point be abstracted so that it transfers to a different problem, rather than being tied to the trace it came from?</li>
-<li>Which level is the right unit of branching: the token, the sentence, or the reasoning step?</li>
-</ul>
-<p><strong>Scope note.</strong> This mechanism addresses only the first source of divergence listed above, stochasticity. It says nothing about divergence arising from experience, memory, or communication. It also operates on the model’s output distribution rather than its internal representations; the internal version of the same question is Q3.</p>
-<p><strong>Supporting literature and concepts.</strong> Token entropy and forking tokens; entropy-guided decoding and branching; counterfactual importance and step-level attribution; tree search over reasoning traces.</p>
-<p><strong>Related papers.</strong></p>
-<ul>
-<li><a href="https://arxiv.org/abs/2506.01939">Beyond the 80/20 Rule: High-Entropy Minority Tokens Drive Effective Reinforcement Learning for LLM Reasoning</a> establishes that a small minority of tokens carry most of the branching behaviour in a chain of thought, and that these tokens act as forks steering the model toward different reasoning pathways.</li>
-<li><a href="https://arxiv.org/abs/2506.19143">Thought Anchors: Which LLM Reasoning Steps Matter?</a> measures the counterfactual importance of each sentence in a reasoning trace by resampling from that position, .and finds that planning and uncertainty-management steps matter more than computation steps.</li>
-<li><a href="https://arxiv.org/abs/2508.11356">ETTRL: Balancing Exploration and Exploitation in LLM Test-Time Reinforcement Learning</a> implements fork-based exploration at high-entropy tokens and reuses the low-entropy segments between forks.</li>
-<li><a href="https://arxiv.org/abs/2406.11776">Improving Multi-Agent Debate with Sparse Communication Topology</a> tests how changing agent communication structures affects collective reasoning.</li>
-</ul>
-<p><strong>Possible investigation:</strong> Take one open-weights reasoning model and a set of problems with checkable answers. Generate a reference trace per problem, record token entropy, branch at the highest-entropy positions, and run each branch to a final answer. Then cluster the branches by strategy rather than by correctness, and ask whether branching at a decision point produces genuinely distinct approaches or only distinct wordings of one approach.</p>
-<pre class="text"><code>                 Reference trace
-                        |
-        low entropy ----+---- low entropy
-                        |
-                 decision point
-            ------------+------------
-            |           |           |
-        branch A    branch B    branch C
-            |           |           |
-            v           v           v
-         outcome     outcome     outcome
-            |           |           |
-            ------------+------------
-                        v
-          Counterfactual importance of
-              this decision point
-                        v
-           Strategy comparison across
-                     branches</code></pre>
-<p><strong>Why this matters for the rest of the work.</strong> This experiment does not answer a question on its own. If I want a group of agents that each do something different, I first need a way to tell whether two agents are actually doing different things, or just saying the same thing in different words. There is no agreed way to do that for reasoning yet. Working out how to group reasoning traces by approach is that tool. Once I have it, I can give each branch its own memory and follow it across many problems (Q2), keep a store of different approaches rather than only the best-scoring one, and pass approaches between agents to see if they transfer (Q4).</p>
-<p><strong>Status:</strong> <span class="research-status is-exploring">Exploring</span></p>
+</section>
+<section id="additional-point" class="level3">
+<h3 class="anchored" data-anchor-id="additional-point">Additional point</h3>
+<p>Simple proxies such as answer <em>entropy</em> or <em>token loss</em> also contain some uncertainty signal, but they are not robust replacements for P(IK). In particular, capable models may produce diverse yet correct answers, so diversity alone does not imply lack of knowledge.</p>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Lin,S et al. (2022) - Teaching Models to Express Their Uncertainty in Words">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Lin,S et al.&nbsp;(2022) - Teaching Models to Express Their Uncertainty in Words
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2205.14334" target="_blank" rel="noopener">Teaching Models to Express Their Uncertainty in Words</a></p>
+<section id="core-question-1" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-1">Core question</h3>
+<p>Can a language model learn to express, in natural language, how confident it is that the <strong>specific answer it produced is correct</strong>?</p>
+<p>The motivation is that normal LLM probabilities are probabilities over particular output tokens / strings.</p>
+<p>For example:</p>
+<pre class="text"><code>Question: Name a prime number below 20.
+
+Answer: 13
+</code></pre>
+<p>The model may assign relatively low probability to generating exactly 13, because 2, 3, 5, 7, 11, 17, and 19 are also valid outputs.</p>
+<p>So the quantity</p>
+<p><span class="math display">\[ P(\text{output} = 13 \mid q) \]</span></p>
+<p>can be relatively low even though</p>
+<p><span class="math display">\[ P(\text{answer is correct} \mid q, a=13) \]</span></p>
+<p>is very high.</p>
+<p>The paper asks whether a model can learn to explicitly report something closer to:</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>How likely is the answer I just gave to actually be correct?</p>
+</div>
+</div>
+</div>
+<p>rather than:</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>How likely was I to generate these exact words?</p>
+</div>
+</div>
+</div>
+<section id="key-concepts-1" class="level4">
+<h4 class="anchored" data-anchor-id="key-concepts-1">Key concepts</h4>
+<p>Verbalized probability</p>
+<p>The model is trained to explicitly generate a confidence estimate as part of its answer:</p>
+<pre class="text"><code>Answer: 897
+Confidence: 72%</code></pre>
+<p>The intended quantity is approximately:</p>
+<p><span class="math display">\[ P(\text{correct} \mid q, a) \]</span></p>
+<p>where (q) is the question and (a) is the answer the model has already produced.</p>
+<p>This makes verbalized probability conceptually closer to Kadavath et al.’s retrospective quantity</p>
+<p><strong>How it is implemented</strong> It uses GPT-3 and fine-tunes the language model itself to generate confidence statements so uncertantily is expressed through language generation used for normal llm text.</p>
+</section>
+<section id="main-findings-1" class="level4">
+<h4 class="anchored" data-anchor-id="main-findings-1">Main findings</h4>
+<ol type="1">
+<li>GPT-3 can be fine-tuned to explicitly to express confidence in the correctness of its generated answers</li>
+<li>These verbalized probabilities can be reasonably calibrated, meaning that confidence values correspond meaningfully to empirical correctness rates.</li>
+<li>Verbalized confidence shows <strong>some</strong> generalization across task distributions.</li>
+<li>Verbalized probability performs particularly well on tasks with multiple valid answers.</li>
+<li>Few-shot examples can also teach the model to produce useful confidence estimates. With examples in context, few-shot performance performs even better</li>
+<li>Internal representations contain information correlated with answer correctness, and simple classifiers seem to be able to extract some of that</li>
+</ol>
+</section>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Xiong,M et al (2022) - Can LLMs express their uncertainty? An empirical evaluation of confidence elicitation in LLMs">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Xiong,M et al (2022) - Can LLMs express their uncertainty? An empirical evaluation of confidence elicitation in LLMs
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2205.14334" target="_blank" rel="noopener">Teaching Models to Express Their Uncertainty in Words</a></p>
+<section id="core-question-2" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-2">Core question</h3>
+<section id="key-concepts-2" class="level4">
+<h4 class="anchored" data-anchor-id="key-concepts-2">Key concepts</h4>
+</section>
+<section id="main-findings-2" class="level4">
+<h4 class="anchored" data-anchor-id="main-findings-2">Main findings</h4>
+</section>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Yin,Z et al (2022) - Do large language models know what they don’t know?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Yin,Z et al (2022) - Do large language models know what they don’t know?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2305.18153" target="_blank" rel="noopener">Do large language models know what they don’t know?</a></p>
+<section id="core-question-3" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-3">Core question</h3>
+<section id="key-concepts-3" class="level4">
+<h4 class="anchored" data-anchor-id="key-concepts-3">Key concepts</h4>
+</section>
+<section id="main-findings-3" class="level4">
+<h4 class="anchored" data-anchor-id="main-findings-3">Main findings</h4>
+</section>
+</section>
+</div>
+</div>
 </div>
 
 
+</section>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

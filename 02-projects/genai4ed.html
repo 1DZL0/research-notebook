@@ -41,7 +41,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-653877cebb4ae6f61504cae7af54dadc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0374eff822ed7fda96bd0b93f7af57f2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -96,6 +96,13 @@ window.HUB_DATA = {
       "color": "#4A3A7A",
       "blurb": "Vision, live questions, and the roadmap.",
       "entries": [
+        {
+          "title": "O2: Self-relevant to action",
+          "url": "00-research/o2-self-relevant-action.html",
+          "status": "active",
+          "description": "From self-relevant information to action-guiding situational self-modelling.",
+          "date": ""
+        },
         {
           "title": "Q1: Knowing what to learn",
           "url": "00-research/q1-note.html",
@@ -194,7 +201,7 @@ window.HUB_DATA = {
       "blurb": "Prototypes and evaluations, with results or an honest blank.",
       "entries": [
         {
-          "title": "Experiment 01 — Prisoner's Dilemma",
+          "title": "Experiment 01: Prisoner's Dilemma",
           "url": "03-experiments/prisoners-dilemma.html",
           "status": "active",
           "description": "",
@@ -242,7 +249,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "30 August 2026"
+  "lastUpdated": "6 September 2026"
 };
 </script>
 
@@ -335,16 +342,15 @@ window.HUB_DATA = {
    
   <ul>
   <li><a href="#research-link" id="toc-research-link" class="nav-link active" data-scroll-target="#research-link">Research Link</a></li>
-  <li><a href="#core-idea" id="toc-core-idea" class="nav-link" data-scroll-target="#core-idea">Core Idea</a></li>
-  <li><a href="#direction-1-personalised-learning-assistant" id="toc-direction-1-personalised-learning-assistant" class="nav-link" data-scroll-target="#direction-1-personalised-learning-assistant">Direction 1: Personalised Learning Assistant</a></li>
-  <li><a href="#system-architecture" id="toc-system-architecture" class="nav-link" data-scroll-target="#system-architecture">System Architecture</a></li>
-  <li><a href="#direction-2-student-learning-agents" id="toc-direction-2-student-learning-agents" class="nav-link" data-scroll-target="#direction-2-student-learning-agents">Direction 2: Student Learning Agents</a></li>
-  <li><a href="#system-architecture-1" id="toc-system-architecture-1" class="nav-link" data-scroll-target="#system-architecture-1">System Architecture</a>
+  <li><a href="#the-research-problem" id="toc-the-research-problem" class="nav-link" data-scroll-target="#the-research-problem">The Research Problem</a></li>
+  <li><a href="#implementation-teacher-governed-ai-tutors" id="toc-implementation-teacher-governed-ai-tutors" class="nav-link" data-scroll-target="#implementation-teacher-governed-ai-tutors">Implementation: Teacher-Governed AI Tutors</a>
   <ul class="collapse">
-  <li><a href="#student-agent-role" id="toc-student-agent-role" class="nav-link" data-scroll-target="#student-agent-role">Student Agent Role</a></li>
-  <li><a href="#teacher-intelligence-agent" id="toc-teacher-intelligence-agent" class="nav-link" data-scroll-target="#teacher-intelligence-agent">Teacher Intelligence Agent</a></li>
-  <li><a href="#potential-applications" id="toc-potential-applications" class="nav-link" data-scroll-target="#potential-applications">Potential Applications</a></li>
+  <li><a href="#how-a-lesson-runs" id="toc-how-a-lesson-runs" class="nav-link" data-scroll-target="#how-a-lesson-runs">How a Lesson Runs</a></li>
+  <li><a href="#version-1---how-it-would-actually-be-built" id="toc-version-1---how-it-would-actually-be-built" class="nav-link" data-scroll-target="#version-1---how-it-would-actually-be-built">Version 1 - How It Would Actually Be Built</a></li>
   </ul></li>
+  <li><a href="#earlier-direction-sketches" id="toc-earlier-direction-sketches" class="nav-link" data-scroll-target="#earlier-direction-sketches">Earlier Direction Sketches</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -372,38 +378,94 @@ window.HUB_DATA = {
 
 <section id="research-link" class="level1">
 <h1>Research Link</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>How can generative AI agents support personalised active learning by adapting educational experiences to individual students while providing teachers with meaningful insights into student understanding?</p>
-<hr>
+</div>
+</div>
 </section>
-<section id="core-idea" class="level1">
-<h1>Core Idea</h1>
-<p>The goal is to explore how AI agents can enhance active learning environments.</p>
-<p>Rather than replacing teachers or automatically generating complete lessons, AI systems can act as adaptive layers that understand student interactions and provide personalised support.</p>
-<p>Two possible implementation directions are being considered:</p>
+<section id="the-research-problem" class="level1">
+<h1>The Research Problem</h1>
 <ol type="1">
-<li><strong>Personalised Learning Assistant</strong> (Constantine Idea)</li>
-<li><strong>Student Learning Agents</strong> (Diesel Idea)</li>
+<li><strong>What should the system represent about a learner?</strong> Knowledge state, misconceptions, uncertainty, reasoning, engagement, progression.</li>
+<li><strong>How does adaptation follow from that representation?</strong> Whether the model genuinely drives the change, or generation does the work.</li>
+<li><strong>How does the representation become a teacher-facing insight?</strong> The underexplored part</li>
 </ol>
-<p>Both approaches use generative AI, but they differ in the role and autonomy of the AI system.</p>
 <hr>
 </section>
-<section id="direction-1-personalised-learning-assistant" class="level1">
-<h1>Direction 1: Personalised Learning Assistant</h1>
-<p>The teacher provides a general lesson framework.</p>
-<p>The AI creates personalised versions of the learning experience based on each student’s current understanding.</p>
-<p>The AI can generate:</p>
+<section id="implementation-teacher-governed-ai-tutors" class="level1">
+<h1>Implementation: Teacher-Governed AI Tutors</h1>
+<p>Real candidate school. Ages 14–15. One class, 25–30 students.</p>
+<p><strong>Two agents:</strong></p>
 <ul>
-<li>alternative explanations</li>
-<li>visualisations</li>
-<li>examples</li>
-<li>practice questions</li>
-<li>additional exercises</li>
-<li>targeted feedback</li>
+<li><strong>SA (Student Agent)</strong>: one per student. Private tutor. Only that student can talk to it.</li>
+<li><strong>TA (Teacher Agent)</strong>: works for the teacher.
+<ul>
+<li>Turns her lesson plan into something the SAs can run</li>
+<li>Watches all the SAs at once.</li>
+</ul></li>
 </ul>
+<section id="how-a-lesson-runs" class="level2">
+<h2 class="anchored" data-anchor-id="how-a-lesson-runs">How a Lesson Runs</h2>
+<ul>
+<li>Teacher writes the lesson:
+<ul>
+<li>objectives, materials, exercises, expected answers, help allowed</li>
+</ul></li>
+</ul>
+<p><strong>Then</strong>:</p>
+<ul>
+<li>Teacher approves it and switches it on.</li>
+</ul>
+<p><strong>Then</strong>:</p>
+<ul>
+<li>Students log in, each only sees their own SA.</li>
+<li>SA asks the student to attempt the question first.</li>
+<li>SA looks at the attempt, then gives only the next allowed level of help — never jumps straight to the answer.</li>
+</ul>
+<p><strong>If</strong>:</p>
+<ul>
+<li>Help ladder: attempt → hint → example → full answer (only if teacher allowed it).</li>
+<li>If a student struggles, asks for help, or something looks off, the system flags it.</li>
+</ul>
+<p><strong>Teachers screen</strong>: - Teacher’s screen stays quiet unless flagged she sees a simple list of who needs her. - Teacher can jump in, message a student, pause the class, or explain something to everyone.</p>
+</section>
+<section id="version-1---how-it-would-actually-be-built" class="level2">
+<h2 class="anchored" data-anchor-id="version-1---how-it-would-actually-be-built">Version 1 - How It Would Actually Be Built</h2>
+<ul>
+<li><strong>Teacher console</strong> - normal web form. Teacher types in the lesson, exercises, and answers. Saves to a database.</li>
+<li><strong>Student page</strong>: simple chat screen. Student types, SA replies. One button: “get my teacher.”</li>
+<li><strong>Tutor logic</strong>: backend service. Takes the student’s message, checks a database record for “what help level is this student allowed right now,” asks the AI model for a reply, checks the reply follows the rule, sends it or asks the model again.</li>
+<li><strong>Records database</strong>: one table logging every attempt, every hint given, every answer, timestamped. This is what the teacher’s screen and any later analysis reads from.</li>
+<li><strong>Teacher’s live view</strong>: page that just queries that same database every few seconds and shows a short list: who’s stuck, who asked for help, anything unusual.</li>
+</ul>
+<p>No separate program per student — one shared service, separate rows in the database per student. Ordinary web app, not a swarm of independent agents talking to each other.</p>
 <hr>
 </section>
-<section id="system-architecture" class="level1">
-<h1>System Architecture</h1>
+</section>
+<section id="earlier-direction-sketches" class="level1">
+<h1>Earlier Direction Sketches</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Old idea — Direction 1: Personalised Learning Assistant <em>(Constantine)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Teacher provides a general lesson framework; the AI creates personalised versions based on each student’s current understanding — alternative explanations, visualisations, examples, practice questions, additional exercises, targeted feedback.</p>
 <pre class="mermaid"><code>flowchart TD
 
 Teacher[Teacher defines objectives and materials]
@@ -419,28 +481,23 @@ StudentModel --&gt; LessonC[Student C Learning Path]
 LessonA --&gt; StudentA[Student A]
 LessonB --&gt; StudentB[Student B]
 LessonC --&gt; StudentC[Student C]</code></pre>
-<hr>
-</section>
-<section id="direction-2-student-learning-agents" class="level1">
-<h1>Direction 2: Student Learning Agents</h1>
-<p>This direction explores AI agents that act as personalised learning observers.</p>
-<p>Each student is assigned an AI agent that monitors learning interactions and develops an evolving representation of the student’s learning process.</p>
-<blockquote class="blockquote">
-<p>What does this student understand, where are they struggling, and what learning patterns are emerging?</p>
-</blockquote>
-<p>The student agent maintains information about:</p>
-<ul>
-<li>knowledge state</li>
-<li>misconceptions</li>
-<li>uncertainty</li>
-<li>reasoning patterns</li>
-<li>engagement</li>
-<li>learning progression</li>
-</ul>
-<hr>
-</section>
-<section id="system-architecture-1" class="level1">
-<h1>System Architecture</h1>
+<p><strong>Limitation:</strong> the student model was <em>instrumental</em> — it steers generation, nothing forces it to be inspectable.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Old idea — Direction 2: Student Learning Agents <em>(Diesel)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Each student gets an agent that observes their interactions and builds an evolving model of their learning. A <strong>Teacher Intelligence Agent</strong> aggregates across student agents. The teacher decides interventions.</p>
 <pre class="mermaid"><code>flowchart TD
 
 Teacher[Teacher creates lessons and activities]
@@ -464,44 +521,174 @@ ModelC --&gt; TeacherAI
 TeacherAI --&gt; Dashboard[Teacher Dashboard]
 
 Dashboard --&gt; Teacher</code></pre>
-<hr>
-<section id="student-agent-role" class="level2">
-<h2 class="anchored" data-anchor-id="student-agent-role">Student Agent Role</h2>
-<p>Each student agent builds an evolving model of the student’s learning process by analysing interactions such as:</p>
-<ul>
-<li>answers and mistakes</li>
-<li>homework and activity completion</li>
-<li>engagement patterns</li>
-<li>reasoning and explanations</li>
-<li>confidence and uncertainty</li>
-</ul>
-<p>The goal is not to diagnose students, but to identify learning patterns, misconceptions, and areas where additional support may be needed.</p>
+<p><strong>Limitation:</strong> a persistent monitoring agent per child sharpens every privacy problem, and aggregation was left unsolved.</p>
+</div>
+</div>
+</div>
 <hr>
 </section>
-<section id="teacher-intelligence-agent" class="level2">
-<h2 class="anchored" data-anchor-id="teacher-intelligence-agent">Teacher Intelligence Agent</h2>
-<p>A teacher-level agent aggregates information from student agents and provides higher-level insights.</p>
-<p>Instead of manually reviewing individual interactions, the teacher receives summaries of:</p>
-<ul>
-<li>common misconceptions</li>
-<li>students requiring additional support</li>
-<li>engagement changes</li>
-<li>learning progress</li>
-</ul>
-<p>The teacher remains responsible for deciding interventions.</p>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Paper</th>
+<th>Key Finding</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>P1</td>
+<td><em>LLM Agents for Education</em></td>
+<td>Educational agent work splits into <strong>teaching assistance</strong> and <strong>student support</strong></td>
+<td>Read</td>
+</tr>
+<tr class="even">
+<td>P2</td>
+<td><em>SEM, Impact Factors on Student–AI Agent Interaction</em></td>
+<td>Interaction <strong>willingness</strong> dominates effectiveness far above any content or technology factor.</td>
+<td>Read</td>
+</tr>
+<tr class="odd">
+<td>P3</td>
+<td><em>GenMentor: Goal-oriented Learning in an ITS</em></td>
+<td>A <strong>persistent learner profile</strong>, continuously updated, can drive personalised path and content generation through a multi-agent pipeline but nothing in it faces a teacher</td>
+<td>Read</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Where each one sits:</strong> P2 is the paper that feels close to a actually implmentation: real classroom, builds teacher reports and never evaluates them.</p>
+<p>P3 is the paper it <em>builds from</em>: the mechanism for questions 1 and 2 already works there. P1 is the <em>map</em>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>P1 in detail: LLM Agents for Education Chu et al.&nbsp;(2025)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A survey, not an empirical study.</p>
+<p><strong>Taxonomy:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Tasks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Teaching Assistance Agents</strong></td>
+<td>Classroom Simulation · Feedback Comment Generation · Curriculum Design</td>
+</tr>
+<tr class="even">
+<td><strong>Student Support Agents</strong></td>
+<td>Adaptive Learning · Knowledge Tracing · Error Correction &amp; Detection</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Capability mapping</strong>: Six capabilities across those six tasks. Personalisation is credited to nearly every task; explainability only two.</p>
+<p><strong>Systems named</strong>: CGMI (tree-based cognitive architecture, memory, reflection, planning across teacher/student/supervisor roles), Classroom Simulacra (iterative reflection for behaviour simulation), TeachTune and EduAgent (fine-grained behaviour prediction across student personas). All simulate synthetic students.</p>
+<p>P1 credits multi-agent communication only to classroom simulation.</p>
+<p><strong>Benchmarks listed</strong>: MathDial, MathTutorBench, ErrorRadar, MathCCS, AAAR-1.0, heavily maths-oriented.</p>
+<p><strong>Challenges</strong>: Privacy, bias and fairness · hallucination and overreliance · integration with existing educational ecosystems, no standard deployment frameworks · multimodal agents.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>P2 in detail: SEM, Impact Factors on Student–AI Agent Interaction Wang, Xie &amp; Ke (2025)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Empirical SEM study.</p>
+<p><strong>Setting.</strong> “Generative classrooms” English reading and listening, grades 4–6, one primary school. Two-month experiment; 264 questionnaires distributed, <strong>253 valid</strong>.</p>
+<p><strong>Their system.</strong> Three subsystems: pre-class preparation (Learning Analysis Agent, Lesson Analysis Agent → diagnostic report, intelligent suite, resource packages)· in-class multi-agent interaction · after-class assessment (Data Analysis Agent for teachers, Academic Analysis Agent for students). Two dialogue agents built on Qwen and Doubao: an <strong>Assistant Agent</strong> (scaffolding for independent learning) and a <strong>Peer Agent</strong> (real-time equal interaction, expression skills).</p>
+<p><strong>Constructs.</strong> Eight latent variables, 24 observed, 5-point Likert: content usefulness (CU), content ease of use (CEU), perceived enjoyment (PE), teacher guidance (TG), interaction atmosphere (IA), technological facilitation (TF), interaction willingness (IW), interaction effectiveness (IE).</p>
+<p><strong>Reading it critically</strong> <em>(project reasoning)</em>: IE is measured as <em>perceived</em> effectiveness on a Likert scale: self-reported by grades 4–6 students. So P2 is strong evidence about what shapes willingness to engage, and weak evidence about what actually teaches anyone.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>P3 in detail: GenMentor Wang et al.&nbsp;(2025)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Multi-agent intelligent tutoring framework.</p>
+<p><strong>Setting</strong>: Goal-oriented learning for <strong>adult professional learners</strong> pursuing self-set goals, not a classroom, no children, no teacher anywhere in the system.</p>
+<p><strong>Their architecture.</strong> Four agents:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Agent</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Skill Gap Identification</strong></td>
+<td>Maps a learning goal to required skills, then to the learner’s gaps. Fine-tuned LLM on a purpose-built goal-to-skill dataset with chain-of-thought prompting</td>
+</tr>
+<tr class="even">
+<td><strong>Adaptive Learner Modeling</strong></td>
+<td>Maintains a <strong>Comprehensive Learner Profile</strong>: knowledge status, preferences, behavioural patterns — updated continuously from real-time interaction</td>
+</tr>
+<tr class="odd">
+<td><strong>Path Scheduler</strong></td>
+<td>Evolvable learning-path scheduling, with an embedded <em>learner simulator</em> used to anticipate how the learner will respond</td>
+</tr>
+<tr class="even">
+<td><strong>Content Creator</strong></td>
+<td>Generates tailored material via an exploration → drafting → integration mechanism</td>
+</tr>
+</tbody>
+</table>
+<p>This is the existing proof that a <strong>persistent learner model can genuinely drive adaptation</strong> rather than sit decoratively beside a generator.</p>
+</div>
+</div>
+</div>
 <hr>
 </section>
-<section id="potential-applications" class="level2">
-<h2 class="anchored" data-anchor-id="potential-applications">Potential Applications</h2>
-<ul>
-<li>Early identification of learning difficulties</li>
-<li>Personalised support recommendations</li>
-<li>Classroom-level learning insights</li>
-<li>Evaluation of learning activities</li>
-</ul>
+<section id="references" class="level1">
+<h1>References</h1>
+<p><strong>P1</strong> — Chu, Z., Wang, S., Xie, J., Zhu, T., Yan, Y., Ye, J., Zhong, A., Hu, X., Liang, J., Yu, P. S., &amp; Wen, Q. (2025). <em>LLM Agents for Education: Advances and Applications</em>. Findings of the ACL: EMNLP 2025, 13782–13810. <a href="https://arxiv.org/abs/2503.11733">arXiv:2503.11733</a> · <a href="https://aclanthology.org/2025.findings-emnlp.743/">ACL Anthology</a></p>
+<p><strong>P2</strong> — Wang, L., Xie, Y., &amp; Ke, J. (2025). <em>Using Structural Equation Modeling to Analyze Impact Factors on Students and AI Agents Interaction Effectiveness in Elementary English Classes</em>. 2025 International Symposium on Educational Technology (ISET), 330–334. School of Educational Information Technology, South China Normal University. DOI <a href="https://doi.org/10.1109/ISET65607.2025.00071">10.1109/ISET65607.2025.00071</a> · <a href="https://ieeexplore.ieee.org/document/11113575/">IEEE Xplore 11113575</a></p>
+<p><strong>P3</strong> — Wang, T., Zhan, Y., Lian, J., Hu, Z., Yuan, N. J., Zhang, Q., Xie, X., &amp; Xiong, H. (2025). <em>LLM-powered Multi-agent Framework for Goal-oriented Learning in Intelligent Tutoring System</em>. Companion Proceedings of the ACM Web Conference 2025. DOI <a href="https://doi.org/10.1145/3701716.3715244">10.1145/3701716.3715244</a> · <a href="https://arxiv.org/abs/2501.15749">arXiv:2501.15749</a></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

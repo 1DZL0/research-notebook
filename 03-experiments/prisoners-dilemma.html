@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Experiment 01 — Prisoner’s Dilemma – Phronesis · Φρόνησις</title>
+<title>Experiment 01: Prisoner’s Dilemma – Phronesis · Φρόνησις</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -41,7 +41,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-653877cebb4ae6f61504cae7af54dadc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0374eff822ed7fda96bd0b93f7af57f2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -96,6 +96,13 @@ window.HUB_DATA = {
       "color": "#4A3A7A",
       "blurb": "Vision, live questions, and the roadmap.",
       "entries": [
+        {
+          "title": "O2: Self-relevant to action",
+          "url": "00-research/o2-self-relevant-action.html",
+          "status": "active",
+          "description": "From self-relevant information to action-guiding situational self-modelling.",
+          "date": ""
+        },
         {
           "title": "Q1: Knowing what to learn",
           "url": "00-research/q1-note.html",
@@ -194,7 +201,7 @@ window.HUB_DATA = {
       "blurb": "Prototypes and evaluations, with results or an honest blank.",
       "entries": [
         {
-          "title": "Experiment 01 — Prisoner's Dilemma",
+          "title": "Experiment 01: Prisoner's Dilemma",
           "url": "03-experiments/prisoners-dilemma.html",
           "status": "active",
           "description": "",
@@ -242,7 +249,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "30 August 2026"
+  "lastUpdated": "6 September 2026"
 };
 </script>
 
@@ -338,19 +345,13 @@ window.HUB_DATA = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#game-design" id="toc-game-design" class="nav-link" data-scroll-target="#game-design">Game Design</a>
+  <li><a href="#what-this-is" id="toc-what-this-is" class="nav-link active" data-scroll-target="#what-this-is">What this is</a></li>
+  <li><a href="#how-its-built" id="toc-how-its-built" class="nav-link" data-scroll-target="#how-its-built">How it’s built</a>
   <ul class="collapse">
-  <li><a href="#payoff-matrix" id="toc-payoff-matrix" class="nav-link" data-scroll-target="#payoff-matrix">Payoff Matrix</a></li>
-  <li><a href="#agent-architecture" id="toc-agent-architecture" class="nav-link" data-scroll-target="#agent-architecture">Agent Architecture</a></li>
-  <li><a href="#what-agents-are-told" id="toc-what-agents-are-told" class="nav-link" data-scroll-target="#what-agents-are-told">What agents are told</a></li>
+  <li><a href="#the-payoff-structure" id="toc-the-payoff-structure" class="nav-link" data-scroll-target="#the-payoff-structure">The payoff structure</a></li>
+  <li><a href="#a-team-not-one-agent" id="toc-a-team-not-one-agent" class="nav-link" data-scroll-target="#a-team-not-one-agent">A team, not one agent</a></li>
+  <li><a href="#what-an-agent-actually-sees" id="toc-what-an-agent-actually-sees" class="nav-link" data-scroll-target="#what-an-agent-actually-sees">What an agent actually sees</a></li>
   </ul></li>
-  <li><a href="#baseline-run" id="toc-baseline-run" class="nav-link" data-scroll-target="#baseline-run">Baseline Run</a>
-  <ul class="collapse">
-  <li><a href="#round-by-round-results" id="toc-round-by-round-results" class="nav-link" data-scroll-target="#round-by-round-results">Round-by-Round Results</a></li>
-  <li><a href="#agent-reasoning" id="toc-agent-reasoning" class="nav-link" data-scroll-target="#agent-reasoning">Agent Reasoning</a></li>
-  </ul></li>
-  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations</a></li>
   </ul>
 </nav>
     </div>
@@ -359,7 +360,7 @@ window.HUB_DATA = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Experiment 01 — Prisoner’s Dilemma</h1>
+<h1 class="title">Experiment 01: Prisoner’s Dilemma</h1>
 </div>
 
 
@@ -376,10 +377,9 @@ window.HUB_DATA = {
 </header>
 
 
-<section id="overview" class="level1">
-<h1>Overview</h1>
-<p>Do LLM agents cooperate or defect when placed in a repeated strategic interaction — without being told what game they are playing?</p>
-<p>This experiment sets up two teams of agents in a repeated two-choice environment. The agents are given neutral labels (<strong>option_a</strong> and <strong>option_b</strong>) and are never told the payoff structure is a prisoner’s dilemma. The goal is to observe whether cooperation emerges, and how team discussion affects decision-making.</p>
+<section id="what-this-is" class="level1">
+<h1>What this is</h1>
+<p>A setup where LLM agents get dropped into a repeated prisoner’s dilemma and have to cooperate or defect, round after round; and, more interestingly, a way to test whether <em>how you talk to them</em> matters more than <em>which model you use</em>. Each round they privately discuss and vote on one of two neutral options, and the payoff each round depends on what both teams picked. Nobody tells the agents this is a prisoner’s dilemma, or game theory at all.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -390,16 +390,486 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Source code and full results: <strong><a href="https://github.com/1dzl0/agent-game">github.com/1dzl0/agent-game</a></strong></p>
+<p>Source code: <strong><a href="https://github.com/1dzl0/agent-game">github.com/1dzl0/agent-game</a></strong>: 220 saved runs</p>
 </div>
 </div>
+<iframe srcdoc="<title>The Unnamed Game</title>
+<meta name=&quot;description&quot; content=&quot;A four-slide presentation: the dilemma, the agents and their code, how a round runs, and what 197 real runs show.&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;family=Work+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+
+<style>
+  :root {
+    --ground:    #f6f5f0;
+    --panel:     #eeece3;
+    --panel-2:   #e4e1d4;
+    --line:      #d7d3c3;
+    --line-soft: #e0ddd0;
+    --ink:       #22242a;
+    --ink-dim:   #5b6169;
+    --ink-faint: #898d90;
+    --accent:    #2c5a86;
+    --amber:     #a8631a;
+    --coop:      #15825b;
+    --coop-wash: rgba(21,130,91,.12);
+    --betray:    #ad620a;
+    --betray-wash: rgba(173,98,10,.12);
+    --defect:    #ab2f2f;
+    --defect-wash: rgba(171,47,47,.12);
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  }
+
+  /* every color explicit, so the deck reads the same on any screen it lands on */
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.5;
+    overflow: hidden;
+  }
+
+  .deck { position: relative; width: 100%; height: 100vh; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-start;
+    padding: 4vh 7vw max(8vh, 66px);
+    opacity: 0; visibility: hidden;
+    transform: translateY(14px);
+    transition: opacity .35s ease, transform .35s ease, visibility 0s linear .35s;
+  }
+  .slide.active {
+    opacity: 1; visibility: visible; transform: translateY(0);
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .slide { transition: opacity .01s linear, visibility 0s linear; transform: none; }
+  }
+
+  .slide-inner { max-width: 1180px; width: 100%; margin: 0 auto; }
+
+  /* fullscreen (the expand button) hands us a lot more room than the embedded
+     box ever has. Centering by default there would clip the headline in the
+     embedded box, so .slide stays top-aligned everywhere except fullscreen. */
+  :fullscreen .slide { justify-content: center; }
+  :fullscreen .slide-inner {
+    transform: scale(var(--fs-scale, 1));
+    transform-origin: center center;
+  }
+
+  h1 {
+    font-family: var(--serif); font-size: clamp(24px, 3.6vw, 40px); font-weight: 600;
+    letter-spacing: -.008em; text-wrap: balance; margin: 0 0 10px; max-width: 27ch;
+  }
+  .subtitle { font-size: clamp(14px, 1.6vw, 17px); color: var(--ink-dim); margin: 0 0 22px; max-width: 60ch; }
+
+  .lede { font-size: 15px; color: var(--ink-dim); max-width: 56ch; margin: 0 0 20px; }
+  .lede code, p code { font-family: var(--mono); font-size: .92em; color: var(--ink); }
+
+  .body-grid { display: grid; gap: 30px; align-items: start; }
+  .two-col { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ---------------------------------------------------------- payoff table */
+  table.payoff { border-collapse: separate; border-spacing: 5px; width: 100%; max-width: 460px; }
+  table.payoff th { font-size: 10.5px; font-weight: 500; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: .05em; padding: 3px 6px; text-align: center; }
+  table.payoff th.rh { text-align: right; padding-right: 12px; }
+  table.payoff td { text-align: center; padding: 9px 10px; border-radius: 3px; border: 1px solid; }
+  table.payoff .pts { display: block; font-family: var(--mono); font-size: 18px; font-weight: 500; }
+  table.payoff .what { display: block; margin-top: 2px; font-size: 9.5px; text-transform: uppercase;
+    letter-spacing: .05em; opacity: .85; }
+  .c-coop { background: var(--coop-wash); border-color: rgba(21,130,91,.4); color: #0f6b49; }
+  .c-betray { background: var(--betray-wash); border-color: rgba(173,98,10,.4); color: #8a4c08; }
+  .c-defect { background: var(--defect-wash); border-color: rgba(171,47,47,.4); color: #832121; }
+
+  .note { font-size: 12.5px; color: var(--ink-faint); max-width: 48ch; margin: 0 0 6px; }
+  .note:last-child { margin-bottom: 0; }
+  .note b { color: var(--ink-dim); font-weight: 500; }
+
+  .notelist { list-style: none; margin: 0; padding: 0; max-width: 50ch; font-size: inherit; color: inherit; }
+  .notelist li { position: relative; padding-left: 14px; margin-bottom: 3px; line-height: 1.28; }
+  .notelist li::before { content: ''; position: absolute; left: 0; top: .58em; width: 6px; height: 1px; background: currentColor; opacity: .55; }
+  .notelist li:last-child { margin-bottom: 0; }
+  .notelist b { color: var(--ink-dim); font-weight: 500; }
+  .notelist code { font-family: var(--mono); font-size: .92em; color: var(--ink); }
+
+  /* ---------------------------------------------------------- diagram frames */
+  svg { display: block; width: 100%; height: auto; }
+  figure { margin: 0; }
+  figcaption { font-size: 12.5px; color: var(--ink-faint); margin-top: 12px; max-width: 62ch; }
+  figcaption p { margin: 0 0 8px; }
+  figcaption b { color: var(--ink-dim); font-weight: 500; }
+
+  /* ---------------------------------------------------------- stat blocks */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+  .stat { background: var(--panel); padding: 14px 15px 12px; }
+  .stat b { display: block; font-family: var(--mono); font-size: 22px; font-weight: 500;
+    font-variant-numeric: tabular-nums; margin-bottom: 2px; }
+  .stat.coop b { color: var(--coop); } .stat.mix b { color: var(--betray); } .stat.def b { color: var(--defect); }
+  .stat span { font-size: 11px; color: var(--ink-faint); }
+
+  /* shared by the model-comparison rows on the outcome slide */
+  .track { height: 8px; background: var(--panel-2); overflow: hidden; }
+  .fill { height: 100%; display: block; }
+
+
+  .cmphead { display: grid; grid-template-columns: 76px 1fr 40px 1fr 40px; gap: 8px;
+    font-family: var(--mono); font-size: 10px; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px; }
+  .cmp { display: flex; flex-direction: column; gap: 6px; }
+  .cmprow { display: grid; grid-template-columns: 76px 1fr 40px 1fr 40px; align-items: center; gap: 8px; }
+  .cmpmodel { font-family: var(--mono); font-size: 12.5px; color: var(--ink-dim); }
+  .cmpval { font-family: var(--mono); font-size: 12.5px; color: var(--ink); text-align: right; }
+  .callout { border: 1px solid var(--line); background: var(--panel); padding: 10px 12px;
+    margin-top: 8px; font-size: 11px; color: var(--ink-dim); max-width: 42ch; line-height: 1.32; }
+  .callout b { color: var(--ink); }
+
+  .closing-line { font-size: clamp(17px, 2vw, 21px); color: var(--ink); max-width: 34ch;
+    line-height: 1.4; font-weight: 500; margin: 0 0 12px; }
+
+  /* ---------------------------------------------------------- chrome */
+  .chrome { position: fixed; left: 0; right: 0; bottom: 0; height: 12vh; min-height: 60px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 6vw;
+    font-family: var(--mono); font-size: 12px; color: var(--ink-faint); z-index: 20; }
+  .dots { display: flex; gap: 8px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line); border: 0; padding: 0; cursor: pointer; }
+  .dot.on { background: var(--accent); }
+  .count { font-variant-numeric: tabular-nums; }
+  .navbtns { display: flex; gap: 10px; }
+  .navbtn { font-family: var(--mono); font-size: 12px; color: var(--ink-dim); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 3px; padding: 7px 13px; cursor: pointer; }
+  .navbtn:hover { border-color: var(--accent); color: var(--ink); }
+  .navbtn:disabled { opacity: .35; cursor: default; }
+  .navbtn:disabled:hover { border-color: var(--line); color: var(--ink-dim); }
+
+  .hit { position: fixed; top: 0; bottom: 12vh; width: 14%; z-index: 10; cursor: pointer; }
+  .hit.left { left: 0; } .hit.right { right: 0; }
+
+  .fsbtn { position: fixed; top: 14px; right: 14px; z-index: 25;
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; line-height: 1; color: var(--ink-dim); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 3px; cursor: pointer; }
+  .fsbtn:hover { border-color: var(--accent); color: var(--ink); }
+</style>
+
+<div class=&quot;deck&quot; id=&quot;deck&quot;>
+
+  <!-- 1 : the idea -->
+  <section class=&quot;slide active&quot; data-slide=&quot;0&quot;>
+    <div class=&quot;slide-inner&quot;>
+      <h1>It's the prisoner's dilemma.<br>They don't know that.</h1>
+      <div class=&quot;body-grid two-col&quot;>
+        <div>
+          <table class=&quot;payoff&quot;>
+            <tr><th></th><th>they cooperate</th><th>they defect</th></tr>
+            <tr><th class=&quot;rh&quot;>you cooperate</th>
+              <td class=&quot;c-coop&quot;><span class=&quot;pts&quot;>3 / 3</span><span class=&quot;what&quot;>both do fine</span></td>
+              <td class=&quot;c-betray&quot;><span class=&quot;pts&quot;>0 / 5</span><span class=&quot;what&quot;>you lose</span></td></tr>
+            <tr><th class=&quot;rh&quot;>you defect</th>
+              <td class=&quot;c-betray&quot;><span class=&quot;pts&quot;>5 / 0</span><span class=&quot;what&quot;>you win</span></td>
+              <td class=&quot;c-defect&quot;><span class=&quot;pts&quot;>1 / 1</span><span class=&quot;what&quot;>both lose</span></td></tr>
+          </table>
+        </div>
+        <div>
+          <p class=&quot;note&quot;>Two AI teams play a repeated game where the selfish choice always pays more, but
+          neither side is told that's what this is.</p>
+          <ul class=&quot;notelist note&quot;>
+            <li>Each round shows two neutral choices, <code>option_a</code> and <code>option_b</code>, with real point values</li>
+            <li><b>Never the words &quot;cooperate&quot; or &quot;defect.&quot;</b> Never the name of the game.</li>
+            <li>If both make the selfish choice, both do worse than if neither had. That's the trap, and it's on them to notice it's there.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 : the agents, the code, the flow -->
+  <section class=&quot;slide&quot; data-slide=&quot;1&quot;>
+    <div class=&quot;slide-inner&quot;>
+      <h1>Five roles. Five small functions.</h1>
+      <p class=&quot;subtitle&quot;>Each role on the left is one constructor on the right: a system prompt plus a
+      schema. Nothing more.</p>
+
+      <figure>
+        <svg viewBox=&quot;0 0 1180 300&quot; role=&quot;img&quot; aria-label=&quot;Five agent roles on the left, each connected by an arrow to the real function that implements it on the right, with its return type. Discussion is phase one, messenger is phase two, player and reconcile are alternate ways to run phase three, strategy is phase four.&quot;>
+          <defs>
+            <marker id=&quot;rowArr&quot; viewBox=&quot;0 0 8 8&quot; refX=&quot;7&quot; refY=&quot;4&quot; markerWidth=&quot;6.5&quot; markerHeight=&quot;6.5&quot; orient=&quot;auto-start-reverse&quot;>
+              <path d=&quot;M0,0 L8,4 L0,8 Z&quot; fill=&quot;#2c5a86&quot;/>
+            </marker>
+          </defs>
+          <g font-family=&quot;Work Sans&quot; color=&quot;#5c6270&quot;>
+
+            <!-- row 1 : discussion -->
+            <line x1=&quot;4&quot; y1=&quot;13&quot; x2=&quot;4&quot; y2=&quot;35&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;2&quot;/>
+            <text x=&quot;16&quot; y=&quot;28&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;>1</text>
+            <text x=&quot;38&quot; y=&quot;21&quot; font-size=&quot;14&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;>discussion</text>
+            <text x=&quot;38&quot; y=&quot;39&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;>writes privately to its own team</text>
+            <line x1=&quot;330&quot; y1=&quot;22&quot; x2=&quot;380&quot; y2=&quot;22&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;1.3&quot; marker-end=&quot;url(#rowArr)&quot;/>
+            <text x=&quot;392&quot; y=&quot;19&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;12&quot; fill=&quot;#2c5a86&quot;>create_discussion_agent()</text>
+            <text x=&quot;392&quot; y=&quot;36&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#5c6270&quot;>&amp;rarr; DiscussionMessage(content)</text>
+
+            <line x1=&quot;0&quot; y1=&quot;60&quot; x2=&quot;1180&quot; y2=&quot;60&quot; stroke=&quot;#e6dfd0&quot; stroke-width=&quot;1&quot;/>
+
+            <!-- row 2 : messenger -->
+            <line x1=&quot;4&quot; y1=&quot;73&quot; x2=&quot;4&quot; y2=&quot;95&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;2&quot;/>
+            <text x=&quot;16&quot; y=&quot;88&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;>2</text>
+            <text x=&quot;38&quot; y=&quot;81&quot; font-size=&quot;14&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;>messenger</text>
+            <text x=&quot;38&quot; y=&quot;99&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;>sends one public message, non-binding</text>
+            <line x1=&quot;330&quot; y1=&quot;82&quot; x2=&quot;380&quot; y2=&quot;82&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;1.3&quot; marker-end=&quot;url(#rowArr)&quot;/>
+            <text x=&quot;392&quot; y=&quot;79&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;12&quot; fill=&quot;#2c5a86&quot;>create_messenger_agent()</text>
+            <text x=&quot;392&quot; y=&quot;96&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#5c6270&quot;>&amp;rarr; MessengerOutput(content &amp;le;280)</text>
+
+            <line x1=&quot;0&quot; y1=&quot;120&quot; x2=&quot;1180&quot; y2=&quot;120&quot; stroke=&quot;#e6dfd0&quot; stroke-width=&quot;1&quot;/>
+
+            <!-- row 3 : player -->
+            <line x1=&quot;4&quot; y1=&quot;133&quot; x2=&quot;4&quot; y2=&quot;155&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;2&quot;/>
+            <text x=&quot;16&quot; y=&quot;148&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;>3</text>
+            <text x=&quot;38&quot; y=&quot;141&quot; font-size=&quot;14&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;>player</text>
+            <text x=&quot;38&quot; y=&quot;159&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;>votes on the actual choice</text>
+            <line x1=&quot;330&quot; y1=&quot;142&quot; x2=&quot;380&quot; y2=&quot;142&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;1.3&quot; marker-end=&quot;url(#rowArr)&quot;/>
+            <text x=&quot;392&quot; y=&quot;139&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;12&quot; fill=&quot;#2c5a86&quot;>create_player()</text>
+            <text x=&quot;392&quot; y=&quot;156&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#5c6270&quot;>&amp;rarr; PlayerDecision(action, reason)</text>
+
+            <line x1=&quot;0&quot; y1=&quot;180&quot; x2=&quot;1180&quot; y2=&quot;180&quot; stroke=&quot;#e6dfd0&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;3 4&quot;/>
+
+            <!-- row 3b : reconcile (alt path for phase 3) -->
+            <line x1=&quot;4&quot; y1=&quot;193&quot; x2=&quot;4&quot; y2=&quot;215&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;2.5 2&quot;/>
+            <text x=&quot;16&quot; y=&quot;208&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;>3</text>
+            <text x=&quot;38&quot; y=&quot;201&quot; font-size=&quot;14&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;>reconcile</text>
+            <text x=&quot;118&quot; y=&quot;201&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;10&quot; fill=&quot;#a8631a&quot;>or, instead of player</text>
+            <text x=&quot;38&quot; y=&quot;219&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;>argues to a confidence target</text>
+            <line x1=&quot;330&quot; y1=&quot;202&quot; x2=&quot;380&quot; y2=&quot;202&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;1.3&quot; marker-end=&quot;url(#rowArr)&quot;/>
+            <text x=&quot;392&quot; y=&quot;199&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;12&quot; fill=&quot;#2c5a86&quot;>create_reconcile_agent()</text>
+            <text x=&quot;392&quot; y=&quot;216&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#5c6270&quot;>&amp;rarr; ReconcileDecision(action, confidence)</text>
+
+            <line x1=&quot;0&quot; y1=&quot;240&quot; x2=&quot;1180&quot; y2=&quot;240&quot; stroke=&quot;#e6dfd0&quot; stroke-width=&quot;1&quot;/>
+
+            <!-- row 4 : strategy -->
+            <line x1=&quot;4&quot; y1=&quot;253&quot; x2=&quot;4&quot; y2=&quot;275&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;2&quot;/>
+            <text x=&quot;16&quot; y=&quot;268&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;>4</text>
+            <text x=&quot;38&quot; y=&quot;261&quot; font-size=&quot;14&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;>strategy</text>
+            <text x=&quot;38&quot; y=&quot;279&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;>states its plan for next round</text>
+            <line x1=&quot;330&quot; y1=&quot;262&quot; x2=&quot;380&quot; y2=&quot;262&quot; stroke=&quot;#2c5a86&quot; stroke-width=&quot;1.3&quot; marker-end=&quot;url(#rowArr)&quot;/>
+            <text x=&quot;392&quot; y=&quot;259&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;12&quot; fill=&quot;#2c5a86&quot;>create_strategy_agent()</text>
+            <text x=&quot;392&quot; y=&quot;276&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#5c6270&quot;>&amp;rarr; StrategyReflection(strategy)</text>
+
+          </g>
+        </svg>
+        <figcaption>
+          <p><b>Each call's output is the next call's input.</b> Same wiring for every teammate, every round.</p>
+          <ul class=&quot;notelist&quot;>
+            <li>Messenger reads discussion's memory</li>
+            <li>The decision call reads messenger's promise</li>
+            <li>Strategy's plan becomes next round's discussion memory</li>
+          </ul>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 3 : the form -->
+  <section class=&quot;slide&quot; data-slide=&quot;2&quot;>
+    <div class=&quot;slide-inner&quot;>
+      <h1>One round, four phases,<br>then it loops.</h1>
+      <figure>
+        <svg viewBox=&quot;0 0 860 200&quot; role=&quot;img&quot; aria-label=&quot;Four phases run in sequence each round: private discussion, inter-team negotiation, decision, and reflection. Reflection loops back to discussion for the next round.&quot;>
+          <defs>
+            <marker id=&quot;pa&quot; viewBox=&quot;0 0 8 8&quot; refX=&quot;7&quot; refY=&quot;4&quot; markerWidth=&quot;6.5&quot; markerHeight=&quot;6.5&quot; orient=&quot;auto-start-reverse&quot;>
+              <path d=&quot;M0,0 L8,4 L0,8 Z&quot; fill=&quot;currentColor&quot;/>
+            </marker>
+            <marker id=&quot;pa2&quot; viewBox=&quot;0 0 8 8&quot; refX=&quot;7&quot; refY=&quot;4&quot; markerWidth=&quot;6.5&quot; markerHeight=&quot;6.5&quot; orient=&quot;auto-start-reverse&quot;>
+              <path d=&quot;M0,0 L8,4 L0,8 Z&quot; fill=&quot;#a8631a&quot;/>
+            </marker>
+          </defs>
+          <g color=&quot;#5c6270&quot;>
+            <g font-family=&quot;Work Sans&quot;>
+              <rect x=&quot;14&quot; y=&quot;30&quot; width=&quot;180&quot; height=&quot;88&quot; rx=&quot;2&quot; fill=&quot;#f2eee4&quot; stroke=&quot;#ddd5c4&quot; stroke-width=&quot;1.3&quot;/>
+              <text x=&quot;34&quot; y=&quot;59&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;>1</text>
+              <text x=&quot;54&quot; y=&quot;59&quot; font-size=&quot;13.5&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;>Discussion</text>
+              <text x=&quot;34&quot; y=&quot;82&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;>private, per team</text>
+
+              <rect x=&quot;230&quot; y=&quot;30&quot; width=&quot;180&quot; height=&quot;88&quot; rx=&quot;2&quot; fill=&quot;#f2eee4&quot; stroke=&quot;#ddd5c4&quot; stroke-width=&quot;1.3&quot;/>
+              <text x=&quot;250&quot; y=&quot;59&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;>2</text>
+              <text x=&quot;270&quot; y=&quot;59&quot; font-size=&quot;13.5&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;>Negotiation</text>
+              <text x=&quot;250&quot; y=&quot;82&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;>public, non-binding</text>
+
+              <rect x=&quot;446&quot; y=&quot;30&quot; width=&quot;180&quot; height=&quot;88&quot; rx=&quot;2&quot; fill=&quot;#f2eee4&quot; stroke=&quot;#ddd5c4&quot; stroke-width=&quot;1.3&quot;/>
+              <text x=&quot;466&quot; y=&quot;59&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;>3</text>
+              <text x=&quot;486&quot; y=&quot;59&quot; font-size=&quot;13.5&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;>Decision</text>
+              <text x=&quot;466&quot; y=&quot;82&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;>the real choice locks in</text>
+
+              <rect x=&quot;662&quot; y=&quot;30&quot; width=&quot;180&quot; height=&quot;88&quot; rx=&quot;2&quot; fill=&quot;#f2eee4&quot; stroke=&quot;#ddd5c4&quot; stroke-width=&quot;1.3&quot;/>
+              <text x=&quot;682&quot; y=&quot;59&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11&quot; fill=&quot;#2c5a86&quot;>4</text>
+              <text x=&quot;702&quot; y=&quot;59&quot; font-size=&quot;13.5&quot; font-weight=&quot;600&quot; fill=&quot;#24262b&quot;>Reflection</text>
+              <text x=&quot;682&quot; y=&quot;82&quot; font-size=&quot;11.5&quot; fill=&quot;#5c6270&quot;>states next round's plan</text>
+            </g>
+
+            <line x1=&quot;194&quot; y1=&quot;76&quot; x2=&quot;228&quot; y2=&quot;76&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.4&quot; marker-end=&quot;url(#pa)&quot;/>
+            <line x1=&quot;410&quot; y1=&quot;76&quot; x2=&quot;444&quot; y2=&quot;76&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.4&quot; marker-end=&quot;url(#pa)&quot;/>
+            <line x1=&quot;626&quot; y1=&quot;76&quot; x2=&quot;660&quot; y2=&quot;76&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.4&quot; marker-end=&quot;url(#pa)&quot;/>
+
+            <path d=&quot;M 726 118 C 726 168, 104 168, 104 120&quot; fill=&quot;none&quot; stroke=&quot;#a8631a&quot; stroke-width=&quot;1.5&quot; marker-end=&quot;url(#pa2)&quot;/>
+            <text x=&quot;415&quot; y=&quot;187&quot; text-anchor=&quot;middle&quot; font-family=&quot;JetBrains Mono&quot; font-size=&quot;11.5&quot; fill=&quot;#a8631a&quot;>next round: same four phases</text>
+          </g>
+        </svg>
+        <figcaption><b>A 2-round, 2-vs-2 match makes 28 model calls</b> in exactly this order, and every one is
+        a real, separately paid call. That's why the engine costs a run before it spends on one.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 4 : the outcome -->
+  <section class=&quot;slide&quot; data-slide=&quot;3&quot;>
+    <div class=&quot;slide-inner&quot;>
+      <h1>One prompt change did more<br>than swapping the model.</h1>
+
+      <div class=&quot;body-grid two-col&quot;>
+        <div>
+          <div class=&quot;cmphead&quot;><span>model</span><span>competitive</span><span></span><span>neutral</span><span></span></div>
+          <div class=&quot;cmp&quot;>
+            <div class=&quot;cmprow&quot;><span class=&quot;cmpmodel&quot;>nano</span>
+              <div class=&quot;track&quot;><div class=&quot;fill&quot; style=&quot;width:32%;background:var(--defect)&quot;></div></div><span class=&quot;cmpval&quot;>32%</span>
+              <div class=&quot;track&quot;><div class=&quot;fill&quot; style=&quot;width:69%;background:var(--coop)&quot;></div></div><span class=&quot;cmpval&quot;>69%</span></div>
+            <div class=&quot;cmprow&quot;><span class=&quot;cmpmodel&quot;>mini</span>
+              <div class=&quot;track&quot;><div class=&quot;fill&quot; style=&quot;width:40%;background:var(--defect)&quot;></div></div><span class=&quot;cmpval&quot;>40%</span>
+              <div class=&quot;track&quot;><div class=&quot;fill&quot; style=&quot;width:70%;background:var(--coop)&quot;></div></div><span class=&quot;cmpval&quot;>70%</span></div>
+            <div class=&quot;cmprow&quot;><span class=&quot;cmpmodel&quot;>4o-mini</span>
+              <div class=&quot;track&quot;><div class=&quot;fill&quot; style=&quot;width:9%;background:var(--defect)&quot;></div></div><span class=&quot;cmpval&quot;>9%</span>
+              <div class=&quot;track&quot;><div class=&quot;fill&quot; style=&quot;width:60%;background:var(--coop)&quot;></div></div><span class=&quot;cmpval&quot;>60%</span></div>
+            <div class=&quot;cmprow&quot;><span class=&quot;cmpmodel&quot;>4.1</span>
+              <div class=&quot;track&quot;><div class=&quot;fill&quot; style=&quot;width:1%;background:var(--defect)&quot;></div></div><span class=&quot;cmpval&quot;>0%</span>
+              <div class=&quot;track&quot;><div class=&quot;fill&quot; style=&quot;width:63%;background:var(--coop)&quot;></div></div><span class=&quot;cmpval&quot;>63%</span></div>
+            <div class=&quot;cmprow&quot;><span class=&quot;cmpmodel&quot;>4o</span>
+              <div class=&quot;track&quot;><div class=&quot;fill&quot; style=&quot;width:16%;background:var(--defect)&quot;></div></div><span class=&quot;cmpval&quot;>16%</span>
+              <div class=&quot;track&quot;><div class=&quot;fill&quot; style=&quot;width:64%;background:var(--coop)&quot;></div></div><span class=&quot;cmpval&quot;>64%</span></div>
+          </div>
+          <p class=&quot;note&quot; style=&quot;margin-top:4px&quot;>cooperation rate, averaged across all 10 fixed-strategy opponents.
+          197 runs, 5 models, 10 strategies, 2 framings.</p>
+        </div>
+
+        <div>
+          <p class=&quot;closing-line&quot;>Every single model <em style=&quot;color:var(--accent);font-style:normal&quot;>roughly doubled or tripled</em>
+          its cooperation rate from one prompt change. Nothing about the model, the opponent, or the payoffs was touched.</p>
+          <div class=&quot;callout&quot;><b>gpt-4.1</b>, the strongest and priciest model in the lineup, had the <b>lowest</b>
+          cooperation (0%) and <b>highest</b> endgame defection (100%) under competitive framing. More capability didn't buy
+          more cooperation.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class=&quot;hit left&quot; id=&quot;hitLeft&quot; aria-hidden=&quot;true&quot;></div>
+<div class=&quot;hit right&quot; id=&quot;hitRight&quot; aria-hidden=&quot;true&quot;></div>
+
+<button class=&quot;fsbtn&quot; id=&quot;fsBtn&quot; title=&quot;Fullscreen&quot; aria-label=&quot;Toggle fullscreen&quot;>&amp;#10530;</button>
+
+<div class=&quot;chrome&quot;>
+  <div class=&quot;navbtns&quot;>
+    <button class=&quot;navbtn&quot; id=&quot;prevBtn&quot;>&amp;larr; prev</button>
+    <button class=&quot;navbtn&quot; id=&quot;nextBtn&quot;>next &amp;rarr;</button>
+  </div>
+  <div class=&quot;dots&quot; id=&quot;dots&quot;></div>
+  <div class=&quot;count&quot; id=&quot;count&quot;>01 / 04</div>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dotsEl = document.getElementById('dots');
+  const countEl = document.getElementById('count');
+  let i = 0;
+
+  slides.forEach((_, idx) => {
+    const d = document.createElement('button');
+    d.className = 'dot' + (idx === 0 ? ' on' : '');
+    d.setAttribute('aria-label', 'Go to slide ' + (idx + 1));
+    d.addEventListener('click', () => go(idx));
+    dotsEl.appendChild(d);
+  });
+  const dots = Array.from(dotsEl.children);
+
+  function go(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    dots.forEach((d, idx) => d.classList.toggle('on', idx === i));
+    countEl.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+    document.getElementById('prevBtn').disabled = i === 0;
+    document.getElementById('nextBtn').disabled = i === slides.length - 1;
+    updateFsScale();
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => go(i - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => go(i + 1));
+  document.getElementById('hitLeft').addEventListener('click', () => go(i - 1));
+  document.getElementById('hitRight').addEventListener('click', () => go(i + 1));
+
+  window.addEventListener('keydown', (e) => {
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(i + 1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(i - 1); }
+    if (e.key === 'Home') go(0);
+    if (e.key === 'End') go(slides.length - 1);
+    if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+  });
+
+  const fsBtn = document.getElementById('fsBtn');
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen();
+    }
+  }
+  fsBtn.addEventListener('click', toggleFullscreen);
+
+  // Fullscreen hands us far more room than the embedded box ever has, so we
+  // scale the active slide up to fill it, sized from its real (untransformed)
+  // box, since offsetWidth/offsetHeight ignore any transform already applied.
+  function updateFsScale() {
+    if (!document.fullscreenElement) {
+      document.documentElement.style.removeProperty('--fs-scale');
+      return;
+    }
+    const slide = slides[i];
+    const inner = slide.querySelector('.slide-inner');
+    const cs = getComputedStyle(slide);
+    const availW = slide.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const availH = slide.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    const naturalW = inner.offsetWidth;
+    const naturalH = inner.offsetHeight;
+    if (!naturalW || !naturalH) return;
+    const scale = Math.min(availW / naturalW, availH / naturalH, 1.6);
+    document.documentElement.style.setProperty('--fs-scale', Math.max(1, scale).toFixed(3));
+  }
+
+  document.addEventListener('fullscreenchange', () => {
+    const on = !!document.fullscreenElement;
+    fsBtn.innerHTML = on ? '&amp;#10531;' : '&amp;#10530;';
+    fsBtn.title = on ? 'Exit fullscreen' : 'Fullscreen';
+    updateFsScale();
+  });
+  window.addEventListener('resize', updateFsScale);
+
+  go(0);
+</script>
+" title="Four slides: the dilemma, the agents, the round, and what 197 real runs show" sandbox="allow-scripts" allowfullscreen="" style="width:100%; aspect-ratio:16/15; border:1px solid #d7d3c3; border-radius:6px; display:block;" loading="lazy">
+</iframe>
+<p style="font-size:12.5px;color:#6A6478;margin:9px 2px 0;font-style:italic;">Four slides covering everything below — click through, or use the arrow keys.</p>
 <hr>
 </section>
-<section id="game-design" class="level1">
-<h1>Game Design</h1>
-<section id="payoff-matrix" class="level2">
-<h2 class="anchored" data-anchor-id="payoff-matrix">Payoff Matrix</h2>
-<p>Each round, both teams independently choose option_a or option_b. Rewards are determined by the combination of both teams’ choices.</p>
+<section id="how-its-built" class="level1">
+<h1>How it’s built</h1>
+<section id="the-payoff-structure" class="level2">
+<h2 class="anchored" data-anchor-id="the-payoff-structure">The payoff structure</h2>
+<p>Classic prisoner’s dilemma. Both teams pick simultaneously; the reward depends on the combination.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -421,25 +891,19 @@ Note
 </tr>
 </tbody>
 </table>
-<p>This is the classic prisoner’s dilemma structure:</p>
-<ul>
-<li><strong>Mutual cooperation</strong> (A, A) → both score 3 — best joint outcome</li>
-<li><strong>Mutual defection</strong> (B, B) → both score 1 — worst joint outcome</li>
-<li><strong>Unilateral defection</strong> → defector scores 5, cooperator scores 0</li>
-</ul>
-<p>Agents see only “option_a” and “option_b” in their prompts. The payoff values are revealed through the history of rounds, not upfront.</p>
+<p>The ability to use a custom matrix reward strucutre</p>
 </section>
-<section id="agent-architecture" class="level2">
-<h2 class="anchored" data-anchor-id="agent-architecture">Agent Architecture</h2>
-<p>Each team has multiple agents. Before each round, agents share private messages within their team, then each agent votes independently. The team’s final action is determined by majority vote.</p>
+<section id="a-team-not-one-agent" class="level2">
+<h2 class="anchored" data-anchor-id="a-team-not-one-agent">A team, not one agent</h2>
+<p>Each team can have any amount of agents: - They write private messages to each other, then each member votes - The team goes with the majority (there’s also a confidence-weighted “reconcile” mode). Members can be outvoted, teams can split - Each round they each write a one-sentence reflection on their strategy which gets fed back into their own next decision, so an agent that says “I’m going to retaliate from here on” actually has that statement in front of it next round.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart TD
-    GS[Game State\npublic history + scores] --&gt; OA[Observation Builder]
-    TH[Private Team History] --&gt; OA
+    GS[Game State public history + scores] --&gt; OA[Observation Builder]
+    TH[Private Team History discussion + votes + own strategy] --&gt; OA
 
     OA --&gt; D1[Agent 1 Discussion]
     OA --&gt; D2[Agent 2 Discussion]
@@ -447,14 +911,16 @@ Note
     D1 --&gt;|private message| TV[Team Vote]
     D2 --&gt;|private message| TV
 
-    TV --&gt; DA1[Agent 1\nDecision]
-    TV --&gt; DA2[Agent 2\nDecision]
+    TV --&gt; DA1[Agent 1 Decision]
+    TV --&gt; DA2[Agent 2 Decision]
 
     DA1 --&gt;|vote| MV[Majority Vote]
     DA2 --&gt;|vote| MV
 
     MV --&gt; TA[Team Action]
-    TA --&gt; RM[Reward\nCalculation]
+    TA --&gt; RM[Reward Calculation]
+    RM --&gt; SR[Strategy Reflection]
+    SR --&gt;|feeds back| TH
     RM --&gt; GS
 </pre>
 </div>
@@ -462,57 +928,113 @@ Note
 </div>
 </div>
 </div>
+<p>The other team doesn’t have to be an LLM at all: I built a ladder of ten classic fixed strategies (tit-for-tat, grim-trigger, Pavlov, always-defect, generous-tit-for-tat, and so on) that play for free and give you a controlled opponent.</p>
 </section>
-<section id="what-agents-are-told" class="level2">
-<h2 class="anchored" data-anchor-id="what-agents-are-told">What agents are told</h2>
-<p>Agents receive a prompt like this each round — no mention of game theory, prisoner’s dilemma, or strategic naming:</p>
-<pre><code>You are team_alpha_agent_1, a participant in a repeated decision setting.
-This is round 3 of 5.
-Your team score: 6.
+<section id="what-an-agent-actually-sees" class="level2">
+<h2 class="anchored" data-anchor-id="what-an-agent-actually-sees">What an agent actually sees</h2>
+<p>This exact text is identical no matter how <code>concealment</code> is set. What that setting actually changes is the <strong>system message</strong> that goes in ahead of it, plus one sentence in the between-round reflection prompt. Those are worth seeing side by side.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Dropdown: the system message, disguised vs.&nbsp;told
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Same agent, same round, same decision. Only the wording of what it’s allowed to do changes.</p>
+<p><strong><code>concealment: "disguised"</code></strong> (this project’s default):</p>
+<blockquote class="blockquote">
+<p>You are team_alpha_agent_1_decision, a participant in a multi-round decision-making game. Your goal is to WIN: your team must finish with MORE points than the other team. Maximising your own score is not enough if the other team scores more. You may pick either option in any round, hold to one, switch between them, bluff, make promises you intend to break, or use any strategy you judge will give your team the winning edge. Do not settle into a pattern out of habit or politeness: every decision must serve your team’s victory. Your role this turn is to make one choice to maximise your team’s chance of winning. Return exactly one available option and a brief strategic reason. Use only the information supplied in the current request. Do not ask for tools or external information.</p>
+</blockquote>
+<p><strong><code>concealment: "canonical"</code></strong> (told, in as many words, that it can cooperate or defect):</p>
+<blockquote class="blockquote">
+<p>You are team_alpha_agent_1_decision, a participant in a multi-round decision-making game. Your goal is to WIN: your team must finish with MORE points than the other team. Maximising your own score is not enough if the other team scores more. You may cooperate, defect, bluff, make promises you intend to break, or use any strategy you judge will give your team the winning edge. Do not cooperate out of habit or politeness: every decision must serve your team’s victory. Your role this turn is to make one choice to maximise your team’s chance of winning. Return exactly one available option and a brief strategic reason. Use only the information supplied in the current request. Do not ask for tools or external information.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Dropdown: the other prompt shape, between rounds
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Decision rounds aren’t the only thing an agent sees. After a round ends, each agent gets a separate reflection call to state its strategy for next time, built from a different template:</p>
+<pre><code>You are team_alpha_agent_1 of team_alpha.
+Round 3 just ended. 3 of 15 rounds played.
+Scores: {'team_alpha': 9, 'team_beta': 9}.
 
-Public history:
-Round 1: team_alpha selected option_a, team_beta selected option_a. team_alpha received 3 points, team_beta received 3 points.
-Round 2: team_alpha selected option_a, team_beta selected option_a. team_alpha received 3 points, team_beta received 3 points.
+Payoff table (your score, their score):
+  If both pick option_a:                     you +3, they +3
+  If you pick option_a, they pick option_b:  you +0, they +5
+  If you pick option_b, they pick option_a:  you +5, they +0
+  If both pick option_b:                     you +1, they +1
 
-Private team channel:
-team_alpha_agent_1: ...
-team_alpha_agent_2: ...
+Recent history:
+{most recent rounds, same format as above}
 
-The available choices are option_a and option_b.</code></pre>
-<hr>
-</section>
-</section>
-<section id="baseline-run" class="level1">
-<h1>Baseline Run</h1>
-<p><strong>Configuration:</strong> 2 teams × 2 agents, 5 rounds, model: <code>gpt-4.1-nano</code></p>
-<section id="round-by-round-results" class="level2">
-<h2 class="anchored" data-anchor-id="round-by-round-results">Round-by-Round Results</h2>
-<p><strong>Final scores:</strong></p>
-<p><strong>Cooperation rate:</strong></p>
-</section>
-<section id="agent-reasoning" class="level2">
-<h2 class="anchored" data-anchor-id="agent-reasoning">Agent Reasoning</h2>
-<hr>
-</section>
-</section>
-<section id="observations" class="level1">
-<h1>Observations</h1>
-<div class="callout callout-style-default callout-important callout-empty-content callout-titled">
+This round outcome:
+  Your vote: option_a
+  Team decision: option_a
+
+Team discussion this round:
+  team_alpha_agent_1: {content}
+  team_alpha_agent_2: {content}
+
+Your current stated strategy: none yet.
+
+Teammates current strategies:
+  team_alpha_agent_2: {strategy}
+
+Given all of the above, state your strategy for upcoming rounds in one sentence. Be specific: will you stay with one option, switch between them, respond to what they do, try to deceive, or adapt?</code></pre>
+<p>That closing question is the one other place concealment reaches into the prompt body rather than just the system message: under <code>canonical</code> it reads <em>“will you cooperate, defect, retaliate, try to deceive, or adapt?”</em> instead.</p>
+<p>Two more flags change what shows up here: <code>hide_horizon</code> drops the total round count everywhere it would appear (“round 3” instead of “round 3 of 15”), and <code>strategy_feedback</code> (on by default) is the toggle that includes the “stated strategy” / “recent votes” / “teammates’ strategies” blocks at all. I added that second one specifically to test whether the feedback loop itself, rather than the payoffs, was driving behaviour.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Dropdown: “disguised” means two different things in this codebase
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Worth flagging since it tripped me up while reading my own code back: <code>concealment: "disguised"</code> (above) is about <em>vocabulary</em>, never the numbers. Separately, there’s a payoff-matrix scrambler that generates non-textbook point values (not 3/0/5/1) while holding the game’s strategic shape constant via Rapoport’s cooperation index. A run can disguise the words, the numbers, both, or neither, and those are two independent settings, not one.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Key finding
+<span class="screen-reader-only">Important</span>The actual finding
 </div>
 </div>
 <div class="callout-body-container callout-body">
-
+<p>Every single model, no exceptions, roughly doubled or tripled its cooperation rate from one prompt change: nothing about the model, the opponent, or the payoffs was touched. The spread <em>between</em> the five models under one framing (0–40%) is smaller than the spread <em>within one model</em> across the two framings (0% → 63% for gpt-4.1). Framing beats model choice as a predictor of behaviour here, and it isn’t close.</p>
+<p>The other thing that held up: gpt-4.1, the strongest and most expensive model in the lineup, had the <em>lowest</em> cooperation and <em>highest</em> endgame defection of all five under competitive framing (0% coop, 100% endgame defection). More capability didn’t buy more cooperation. If anything it bought a more confident, more consistent defector.</p>
 </div>
 </div>
-<hr>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
