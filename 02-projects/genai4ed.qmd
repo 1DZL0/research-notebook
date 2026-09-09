@@ -18,116 +18,189 @@ How can generative AI agents support personalised active learning by adapting ed
 
 ***
 
-# Implementation: Teacher-Governed AI Tutors
-
-Real candidate school. Ages 14–15. One class, 25–30 students.
-
-**Two agents:**
-
-- **SA (Student Agent)**: one per student. Private tutor. Only that student can talk to it.
-- **TA (Teacher Agent)**: works for the teacher. 
-    - Turns her lesson plan into something the SAs can run
-    - Watches all the SAs at once.
-
-## How a Lesson Runs
-
-- Teacher writes the lesson: 
-    - objectives, materials, exercises, expected answers, help allowed
-
-**Then**:
-
-- Teacher approves it and switches it on.
-
-**Then**:
-
-- Students log in, each only sees their own SA.
-- SA asks the student to attempt the question first.
-- SA looks at the attempt, then gives only the next allowed level of help — never jumps straight to the answer.
-
-**If**:
-
-- Help ladder: attempt → hint → example → full answer (only if teacher allowed it).
-- If a student struggles, asks for help, or something looks off, the system flags it.
-
-**Teachers screen**:
-- Teacher's screen stays quiet unless flagged she sees a simple list of who needs her.
-- Teacher can jump in, message a student, pause the class, or explain something to everyone.
-
-## Version 1 - How It Would Actually Be Built
-
-- **Teacher console** - normal web form. Teacher types in the lesson, exercises, and answers. Saves to a database.
-- **Student page**: simple chat screen. Student types, SA replies. One button: "get my teacher."
-- **Tutor logic**: backend service. Takes the student's message, checks a database record for "what help level is this student allowed right now," asks the AI model for a reply, checks the reply follows the rule, sends it or asks the model again.
-- **Records database**: one table logging every attempt, every hint given, every answer, timestamped. This is what the teacher's screen and any later analysis reads from.
-- **Teacher's live view**: page that just queries that same database every few seconds and shows a short list: who's stuck, who asked for help, anything unusual.
-
-No separate program per student — one shared service, separate rows in the database per student. Ordinary web app, not a swarm of independent agents talking to each other.
-
-***
-
-# Earlier Direction Sketches
-
 ::: {.callout-note collapse="true"}
-## Old idea — Direction 1: Personalised Learning Assistant *(Constantine)*
 
-Teacher provides a general lesson framework; the AI creates personalised versions based on each student's current understanding — alternative explanations, visualisations, examples, practice questions, additional exercises, targeted feedback.
+# Software Architecture
 
-```mermaid
-flowchart TD
+## Baseline Stack
 
-Teacher[Teacher defines objectives and materials]
+```text
+Next.js / React / TypeScript
+        ↓
+FastAPI / Pydantic
+        ↓
+SQLAlchemy
+        ↓
+PostgreSQL
+        ↑
+Alembic manages schema changes
 
-Teacher --> AI[Personalised Learning System]
-
-AI --> StudentModel[Student Understanding]
-
-StudentModel --> LessonA[Student A Learning Path]
-StudentModel --> LessonB[Student B Learning Path]
-StudentModel --> LessonC[Student C Learning Path]
-
-LessonA --> StudentA[Student A]
-LessonB --> StudentB[Student B]
-LessonC --> StudentC[Student C]
+OpenAI API ← Tutor / AI logic
+SSE        ← Live teacher updates
 ```
 
-**Limitation:** the student model was *instrumental* — it steers generation, nothing forces it to be inspectable.
-:::
+### Frontend
 
-::: {.callout-note collapse="true"}
-## Old idea — Direction 2: Student Learning Agents *(Diesel)*
+**Next.js + React + TypeScript**
 
-Each student gets an agent that observes their interactions and builds an evolving model of their learning. A **Teacher Intelligence Agent** aggregates across student agents. The teacher decides interventions.
+The teacher interface may become more interactive as the project develops, including:
 
-```mermaid
-flowchart TD
+- live classroom dashboards
+- multiple classes
+- progress views
+- exception queues
+- transcript drill-down
+- research visualisations
 
-Teacher[Teacher creates lessons and activities]
+Use:
 
-Teacher --> Lesson[Homework, Questions, Quizzes, Activities]
+- **Tailwind CSS** for styling
+- **shadcn/ui** for reusable UI components
 
-Lesson --> Students[Students]
+---
 
-Students --> AgentA[Student Agent A]
-Students --> AgentB[Student Agent B]
-Students --> AgentC[Student Agent C]
+## Backend
 
-AgentA --> ModelA[Student Learning Model]
-AgentB --> ModelB[Student Learning Model]
-AgentC --> ModelC[Student Learning Model]
+**FastAPI + Pydantic**
 
-ModelA --> TeacherAI[Teacher Intelligence Agent]
-ModelB --> TeacherAI
-ModelC --> TeacherAI
+Keep the main AI and research logic in Python.
 
-TeacherAI --> Dashboard[Teacher Dashboard]
+This includes:
 
-Dashboard --> Teacher
+- tutor logic
+- assistance-policy enforcement
+- student evidence/memory
+- LLM calls
+- experiment conditions
+- teacher-alert logic
+- evaluation and later research analysis
+
+Pydantic validates API data and structured LLM outputs.
+
+No need for **LangChain or LangGraph initially**.
+
+---
+
+## Database
+
+**PostgreSQL**
+
+PostgreSQL is the core database rather than committing the application to a specific hosting provider.
+
+### SQLAlchemy
+
+SQLAlchemy is the Python database layer:
+
+```text
+Python / FastAPI
+      ↓
+SQLAlchemy
+      ↓
+PostgreSQL
 ```
 
-**Limitation:** a persistent monitoring agent per child sharpens every privacy problem, and aggregation was left unsolved.
+This keeps database operations in the same Python ecosystem as the tutor and research code.
+
+### Alembic
+
+Alembic manages changes to the PostgreSQL schema over time.
+
+Example:
+
+```text
+Initial:
+student_attempts
+- id
+- student_id
+- answer
+
+Later:
++ objective_id
++ correct
++ experiment_condition
++ policy_version
+```
+You just push a head update to chaneg the entire DB without a reformat
+
+---
+
+## Hosting
+
+Hosting should be decided separately from the software architecture.
+
+Possible options:
+
+- **Supabase** - PostgreSQL plus easy authentication; managed or self-hosted
+- **Firebase** -  Google ecosystem; less preferred
+- **Encore** - useful infrastructure tooling, but TypeScript/Go focused rather than Python
+- **Standard PostgreSQL hosting** — university, school, cloud provider, or self-hosted
+
+For development, PostgreSQL can simply run locally in Docker.
+
+The final hosting decision should depend partly on where student data is permitted to be stored.
+
+---
+
+## AI
+
+**Different model access**
+
+The backend sends controlled requests to the model and expects structured responses.
+
+```text
+Student attempt
+      ↓
+Tutor policy determines permitted help
+      ↓
+AI model generates structured response
+      ↓
+Pydantic validates output
+      ↓
+Policy check
+      ↓
+Response sent to student
+      ↓
+Interaction stored in PostgreSQL
+```
+
+## Realtime Updates
+
+Use **Server-Sent Events (SSE)** initially for live teacher updates such as:
+
+- student requested teacher
+- repeated incorrect attempts
+- tutor uncertainty
+- student completed task
+- exception created
+
+WebSockets or additional realtime infrastructure can be introduced later if genuinely required.
+
+## Current Decision
+
+```text
+Frontend:
+Next.js + React + TypeScript
+Tailwind CSS + shadcn/ui
+
+Backend:
+FastAPI + Pydantic
+SQLAlchemy + Alembic
+
+Database:
+PostgreSQL
+
+AI:
+OpenAI API
+
+Realtime:
+SSE
+```
+
+**The architecture should remain modular so that the database host, authentication provider, LLM provider, memory system, and later orchestration tools can be changed without redesigning the whole application.**
+
 :::
 
-***
+
 
 # Literature
 

@@ -7,3 +7,78 @@ description: "Developing the Pharos-CY project."
 # Project: Pharos-CY
 
 ## Project Position
+
+## Training event: AI Security & Responsible Deployment
+
+### Rationale
+
+Many companies on the platform will consume HPC-hosted datasets and models. A growing number will also *build* AI applications and agentic workflows and integrate them into their own systems. This course introduces the key ideas around AI security and safety for that audience. It can run standalone or as a module attached to another training event.
+
+### Audience and framing
+
+- Engineers and technical leads building AI apps / agents, not ML researchers.
+- Assume they can already call a model and wire a tool; assume they have *not* thought hard about isolation, permissions, injection, or monitoring.
+- Keep it practical and demo-led: show the failure, then show the mitigation.
+
+### Two deliverables
+
+1. **Live session (conference / on-site demo).** A curated sequence of live demos: each shows a concrete failure mode, then the fix. Needs to run reliably offline.
+2. **Take-home pack.** A repo other people (the SEO team, other companies) can clone and work through on their own: runnable examples, a written walkthrough, and a deployment checklist. This is what makes the session reproducible rather than a one-off talk.
+
+### Content outline
+
+**A. Running AI-generated / untrusted code**
+- Why you never run model output on the host.
+- Sandboxing options: containers, gVisor/Firecracker, WASM, ephemeral VMs, restricted subprocess. Trade-offs (startup cost, escape surface, GPU access).
+- Demo: agent writes and executes code; show it reading an env var / file it shouldn't; then re-run inside a sandbox with no network and a scratch FS.
+
+**B. Agent permissions and limits**
+- Least-privilege: scoped credentials, read-only by default, per-tool allowlists.
+- Resource limits: time, memory, token budget, tool-call count, spend caps.
+- Demo: agent given a broad token vs a scoped token; show blast radius difference.
+
+**C. Prompt injection**
+- Direct vs indirect (via retrieved docs, web pages, file contents, tool output).
+- Why input filtering is not a fix; defence in depth treat model output as untrusted, gate side effects, human-in-the-loop for high-impact actions.
+- Demo: a poisoned document in a RAG corpus that makes the agent exfiltrate or misbehave; then show the gated version refusing.
+
+**D. Tools reaching further than intended**
+- Agents bypassing instructions, path traversal, over-broad file/network access, confused-deputy.
+- Secure tool design: narrow interfaces, validated arguments, no raw shell, explicit resource scoping.
+- Demo: a "read a file" tool that accepts `../../` ; fix with path canonicalisation + allowlist.
+
+**E. Handling sensitive data**
+- Data minimisation into prompts, redaction, PII detection, not logging raw prompts/outputs, retention.
+- Provider data-use / residency considerations; when to use a local model instead.
+
+**F. Monitoring and observability**
+- Trace every prompt, tool call, and decision; log with correlation IDs.
+- Detection signals: anomalous tool use, permission-denied spikes, injection patterns, cost spikes.
+- Alerting and kill-switch; incident response for an agent gone wrong.
+
+**G. Governance and deployment architecture**
+- Regulatory context (EU AI Act risk tiers, sector rules), model/agent registry, sign-off before production.
+- Reference secure deployment architecture: untrusted zone (model + sandbox) vs trusted zone (data, actions), gateway between them.
+- Best practice for integrating AI into existing workflows incrementally.
+
+### What to look at first
+
+- Sandboxing tech comparison for the demo box — pick one that runs on a laptop offline (likely Docker + no-network + read-only mount, or a WASM runtime for the code-exec demo).
+- A minimal agent framework to build the demos on (keep it small so the security points are visible, not buried in framework code).
+- Existing material to borrow / cite: OWASP LLM Top 10, OWASP Agentic threats, NIST AI RMF, Anthropic/Google agent safety guidance, known prompt-injection write-ups.
+- Decide standalone vs bolt-on, session length, and how much is live-coded vs pre-built.
+
+### Open questions
+
+- How long is the slot, and is there a hands-on lab component or just demos?
+- Do attendees get machines / can they run Docker, or is the take-home pack the only hands-on part?
+- Cypri / platform-specific angle: should demos use the HPC-hosted models specifically?
+- How much governance/regulatory depth vs pure technical.
+
+### Next steps
+
+- [ ] Draft the short note (due 23 September 2026).
+- [ ] Choose the sandbox stack and agent framework for the demos.
+- [ ] Build demo A (code execution) end to end as the reference pattern.
+- [ ] Scope the take-home repo structure and checklist.
+- [ ] Confirm slot format and audience with the training organisers.

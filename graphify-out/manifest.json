@@ -1,0 +1,170 @@
+{
+  "hub.js": {
+    "mtime": 1788896771.733694,
+    "seen": 1788955127.12166,
+    "ast_hash": "b87029377ee6acb2941fe7cc2de7e5d8",
+    "semantic_hash": "b87029377ee6acb2941fe7cc2de7e5d8"
+  },
+  "scripts/build_hub.py": {
+    "mtime": 1787914592.892882,
+    "seen": 1788955127.12166,
+    "ast_hash": "657830713ca101f230998910cd1e9e80",
+    "semantic_hash": "657830713ca101f230998910cd1e9e80"
+  },
+  ".github/workflows/publish.yml": {
+    "mtime": 1786046801.6438594,
+    "seen": 1788955127.12166,
+    "ast_hash": "f366208664878b1a1767d6190ea554f9",
+    "semantic_hash": "f366208664878b1a1767d6190ea554f9"
+  },
+  "00-research/o2-self-relevant-action.qmd": {
+    "mtime": 1788718238.3030396,
+    "seen": 1788955127.12166,
+    "ast_hash": "b1fa03a91e6989d027aa256f43ed0cf7",
+    "semantic_hash": "b1fa03a91e6989d027aa256f43ed0cf7"
+  },
+  "00-research/q1-note.qmd": {
+    "mtime": 1787824779.323095,
+    "seen": 1788955127.12166,
+    "ast_hash": "6a5a4bd0ddbb82e4ae2f1e56c7148fd1",
+    "semantic_hash": "6a5a4bd0ddbb82e4ae2f1e56c7148fd1"
+  },
+  "00-research/q2-note.qmd": {
+    "mtime": 1787827688.5709786,
+    "seen": 1788955127.12166,
+    "ast_hash": "6ccd5a615e81b58b71643f0e14a98043",
+    "semantic_hash": "6ccd5a615e81b58b71643f0e14a98043"
+  },
+  "00-research/q3-note.qmd": {
+    "mtime": 1787826586.0002756,
+    "seen": 1788955127.12166,
+    "ast_hash": "5f817fa60ca51fc641446f0b4c1ad480",
+    "semantic_hash": "5f817fa60ca51fc641446f0b4c1ad480"
+  },
+  "00-research/research-development.qmd": {
+    "mtime": 1786046801.7731702,
+    "seen": 1788955127.12166,
+    "ast_hash": "f7e0216d95aaafa0bd95ec7b1ccbdb4a",
+    "semantic_hash": "f7e0216d95aaafa0bd95ec7b1ccbdb4a"
+  },
+  "00-research/research-questions.qmd": {
+    "mtime": 1787770074.5039127,
+    "seen": 1788955127.12166,
+    "ast_hash": "08dcdfa06c9028e798f8f25cf6a4be0f",
+    "semantic_hash": "08dcdfa06c9028e798f8f25cf6a4be0f"
+  },
+  "00-research/research-roadmap.qmd": {
+    "mtime": 1786046801.7746801,
+    "seen": 1788955127.12166,
+    "ast_hash": "878566bc805916ad9fd2c9d0e42a72ac",
+    "semantic_hash": "878566bc805916ad9fd2c9d0e42a72ac"
+  },
+  "00-research/thesis.qmd": {
+    "mtime": 1787914592.913566,
+    "seen": 1788955127.12166,
+    "ast_hash": "88d2d26c2a6ce8a255e32199ddd3285b",
+    "semantic_hash": "88d2d26c2a6ce8a255e32199ddd3285b"
+  },
+  "01-literature/literature-map.qmd": {
+    "mtime": 1788354174.1454804,
+    "seen": 1788955127.12166,
+    "ast_hash": "e26cb2d1dc0ff3d02a0d08ac9c079805",
+    "semantic_hash": "e26cb2d1dc0ff3d02a0d08ac9c079805"
+  },
+  "01-literature/papers.qmd": {
+    "mtime": 1788253548.9045148,
+    "seen": 1788955127.12166,
+    "ast_hash": "0252f6dfb68dd21a4dff7d586a6a0b30",
+    "semantic_hash": "0252f6dfb68dd21a4dff7d586a6a0b30"
+  },
+  "02-projects/genai4ed.qmd": {
+    "mtime": 1788953471.9370954,
+    "seen": 1788955127.12166,
+    "ast_hash": "2a37d50d64b039a62313dcbeb1bad584",
+    "semantic_hash": "2a37d50d64b039a62313dcbeb1bad584"
+  },
+  "02-projects/pharos-cy.qmd": {
+    "mtime": 1788953906.766683,
+    "seen": 1788955127.12166,
+    "ast_hash": "aef6eab51cf0d84054d696e18a626f28",
+    "semantic_hash": "aef6eab51cf0d84054d696e18a626f28"
+  },
+  "03-experiments/prisoners-dilemma.qmd": {
+    "mtime": 1788710700.9310324,
+    "seen": 1788955127.12166,
+    "ast_hash": "3d7ee68923ab082bd0be1ea54585acf4",
+    "semantic_hash": "3d7ee68923ab082bd0be1ea54585acf4"
+  },
+  "04-meetings/other-meetings.qmd": {
+    "mtime": 1787754317.7279277,
+    "seen": 1788955127.12166,
+    "ast_hash": "b63106a7b2fcf267db449dd5ecfb9e8b",
+    "semantic_hash": "b63106a7b2fcf267db449dd5ecfb9e8b"
+  },
+  "04-meetings/supervisor.qmd": {
+    "mtime": 1787754301.312701,
+    "seen": 1788955127.12166,
+    "ast_hash": "e38beaf9c1991afffa8be37890adfac3",
+    "semantic_hash": "e38beaf9c1991afffa8be37890adfac3"
+  },
+  "05-agentic-ai-engineering/01-agent-systems.qmd": {
+    "mtime": 1786294850.2413044,
+    "seen": 1788955127.12166,
+    "ast_hash": "b3598931890dd849a27dda140bc8086c",
+    "semantic_hash": "b3598931890dd849a27dda140bc8086c"
+  },
+  "05-agentic-ai-engineering/02-frameworks.qmd": {
+    "mtime": 1786294850.2413044,
+    "seen": 1788955127.12166,
+    "ast_hash": "0c756bdf7d105c3ecf965eb870fe012d",
+    "semantic_hash": "0c756bdf7d105c3ecf965eb870fe012d"
+  },
+  "06-thinking/log.qmd": {
+    "mtime": 1788952648.0012865,
+    "seen": 1788955127.12166,
+    "ast_hash": "53244f55246337bf66a6677c099f25af",
+    "semantic_hash": "53244f55246337bf66a6677c099f25af"
+  },
+  "_fonts.html": {
+    "mtime": 1787657530.8468845,
+    "seen": 1788955127.12166,
+    "ast_hash": "2cc4d72b935a6ae424fad443755d56a0",
+    "semantic_hash": "2cc4d72b935a6ae424fad443755d56a0"
+  },
+  "_hub-include.html": {
+    "mtime": 1788953491.3650625,
+    "seen": 1788955127.12166,
+    "ast_hash": "27255f8275921d5b2c3d8aff706cfa5b",
+    "semantic_hash": "27255f8275921d5b2c3d8aff706cfa5b"
+  },
+  "_quarto.yml": {
+    "mtime": 1787662644.1459043,
+    "seen": 1788955127.12166,
+    "ast_hash": "4cffd60653531c31316e140e60267c17",
+    "semantic_hash": "4cffd60653531c31316e140e60267c17"
+  },
+  "_status-badges.html": {
+    "mtime": 1787735493.2222867,
+    "seen": 1788955127.12166,
+    "ast_hash": "313e9ed088c9157b580b7b3d5f0d2dfc",
+    "semantic_hash": "313e9ed088c9157b580b7b3d5f0d2dfc"
+  },
+  "index.qmd": {
+    "mtime": 1787770098.2102726,
+    "seen": 1788955127.12166,
+    "ast_hash": "717c02b28462fbee57067453689a9d29",
+    "semantic_hash": "717c02b28462fbee57067453689a9d29"
+  },
+  "mermaid-init.html": {
+    "mtime": 1786086941.839791,
+    "seen": 1788955127.12166,
+    "ast_hash": "cd9209633920a666fdbde49ddbee76c8",
+    "semantic_hash": "cd9209633920a666fdbde49ddbee76c8"
+  },
+  "00-research/q4-note.qmd": {
+    "mtime": 1787770076.4493384,
+    "seen": 1788955127.12166,
+    "ast_hash": "bb2c0a4affd5b8ae54c2f8fdac4be1d2",
+    "semantic_hash": "bb2c0a4affd5b8ae54c2f8fdac4be1d2"
+  }
+}

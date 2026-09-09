@@ -3,6 +3,60 @@ title: "Log"
 description: "Dated observations, reading reflections, and emerging research thoughts."
 ---
 
+::: {.thinking-log-entry}
+**09 September 2026 · Things to do**
+
+1. **PhD Project** - *due 28 September 2026*
+
+    Read / synthesize all Papers for O2
+        - Implement research from some papers
+        - Technically dig deep
+
+---
+
+2. **Pharos Project** - *due 21 September 2026*
+
+    Idea: AI Security & Responsible Deployment training. A course (training event) for companies that are not just using HPC-hosted datasets/models but building AI applications and agentic workflows. 
+
+    Two deliverables:
+
+    - Live session (conference demo)
+    - Find Topics to cover
+
+    Next step: draft the short note, then build out the full scope in [pharos-cy.qmd](../02-projects/pharos-cy.qmd) what to look at first, demo design, take-home structure.
+
+---
+
+3. **GenAI Project** — *By November: full prototype to show*
+
+    Frontend: Next.js / React / TypeScript
+
+        - Alternative: Jinja2 / HTMX
+        - Prefer Next.js for richer teacher dashboards and UI
+        - Tailwind CSS + shadcn/ui for styling/components
+
+    Backend: FastAPI + Pydantic
+
+        - Keep AI/research logic in Python
+        - No LangChain/LangGraph needed initially
+
+    Database: PostgreSQL
+
+        - SQLAlchemy for Python database access
+        - Alembic for database schema/migrations
+
+    Hosting options:
+
+        - Firebase — Google hosted, not preferred
+        - Supabase — easy PostgreSQL/Auth, hosted or self-hosted
+        - Encore — TypeScript/Go, less suitable for Python-first backend
+        - Final choice depends on where student data needs to be hosted
+
+    Baseline:
+
+        - Next.js/React → FastAPI/Pydantic → SQLAlchemy/Alembic → PostgreSQL → OpenAI API
+
+:::
 
 ::: {.thinking-log-entry}
 **30 August 2026 · Open-ended learning session**
