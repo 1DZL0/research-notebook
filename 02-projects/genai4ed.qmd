@@ -21,7 +21,7 @@ How can generative AI agents support personalised active learning by adapting ed
 **Direction**
 
 - Of knowledge state, misconceptions, uncertainty, reasoning, engagement - which matters most to a teacher?
-- Optimise for student engagement first, or hold out for a real learning-outcome measure?
+- Optimise for student engagement first(what do you think would work), or hold out for a real learning-outcome measure?(hardest / best long term g)
 - Prioritise the teacher-facing side (dashboards, alerts) or the student-facing tutor first?
 
 **Measurement**
