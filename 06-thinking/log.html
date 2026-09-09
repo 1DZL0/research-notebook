@@ -250,7 +250,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "6 September 2026"
+  "lastUpdated": "9 September 2026"
 };
 </script>
 
@@ -367,6 +367,45 @@ window.HUB_DATA = {
 </header>
 
 
+<div class="thinking-log-entry">
+<p><strong>09 September 2026 · Things to do</strong></p>
+<ol type="1">
+<li><p><strong>PhD Project</strong> - <em>due 28 September 2026</em></p>
+<p>Read / synthesize all Papers for O2 - Implement research from some papers - Technically dig deep</p></li>
+</ol>
+<hr>
+<ol start="2" type="1">
+<li><p><strong>Pharos Project</strong> - <em>due 21 September 2026</em></p>
+<p>Idea: AI Security &amp; Responsible Deployment training. A course (training event) for companies that are not just using HPC-hosted datasets/models but building AI applications and agentic workflows.</p>
+<p>Two deliverables:</p>
+<ul>
+<li>Live session (conference demo)</li>
+<li>Find Topics to cover</li>
+</ul>
+<p>Next step: draft the short note, then build out the full scope in <a href="../02-projects/pharos-cy.html">pharos-cy.qmd</a> what to look at first, demo design, take-home structure.</p></li>
+</ol>
+<hr>
+<ol start="3" type="1">
+<li><p><strong>GenAI Project</strong> — <em>By November: full prototype to show</em></p>
+<p>Frontend: Next.js / React / TypeScript</p>
+<pre><code> - Alternative: Jinja2 / HTMX
+ - Prefer Next.js for richer teacher dashboards and UI
+ - Tailwind CSS + shadcn/ui for styling/components</code></pre>
+<p>Backend: FastAPI + Pydantic</p>
+<pre><code> - Keep AI/research logic in Python
+ - No LangChain/LangGraph needed initially</code></pre>
+<p>Database: PostgreSQL</p>
+<pre><code> - SQLAlchemy for Python database access
+ - Alembic for database schema/migrations</code></pre>
+<p>Hosting options:</p>
+<pre><code> - Firebase — Google hosted, not preferred
+ - Supabase — easy PostgreSQL/Auth, hosted or self-hosted
+ - Encore — TypeScript/Go, less suitable for Python-first backend
+ - Final choice depends on where student data needs to be hosted</code></pre>
+<p>Baseline:</p>
+<pre><code> - Next.js/React → FastAPI/Pydantic → SQLAlchemy/Alembic → PostgreSQL → OpenAI API</code></pre></li>
+</ol>
+</div>
 <div class="thinking-log-entry">
 <p><strong>30 August 2026 · Open-ended learning session</strong></p>
 <p><a href="https://arxiv.org/abs/2311.00344">Link</a>: This paper helped clarify what actually counts as open-ended learning.</p>

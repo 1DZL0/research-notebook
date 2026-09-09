@@ -250,7 +250,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "6 September 2026"
+  "lastUpdated": "9 September 2026"
 };
 </script>
 
@@ -345,6 +345,16 @@ window.HUB_DATA = {
   <li><a href="#project-pharos-cy" id="toc-project-pharos-cy" class="nav-link active" data-scroll-target="#project-pharos-cy">Project: Pharos-CY</a>
   <ul class="collapse">
   <li><a href="#project-position" id="toc-project-position" class="nav-link" data-scroll-target="#project-position">Project Position</a></li>
+  <li><a href="#training-event-ai-security-responsible-deployment" id="toc-training-event-ai-security-responsible-deployment" class="nav-link" data-scroll-target="#training-event-ai-security-responsible-deployment">Training event: AI Security &amp; Responsible Deployment</a>
+  <ul class="collapse">
+  <li><a href="#rationale" id="toc-rationale" class="nav-link" data-scroll-target="#rationale">Rationale</a></li>
+  <li><a href="#audience-and-framing" id="toc-audience-and-framing" class="nav-link" data-scroll-target="#audience-and-framing">Audience and framing</a></li>
+  <li><a href="#two-deliverables" id="toc-two-deliverables" class="nav-link" data-scroll-target="#two-deliverables">Two deliverables</a></li>
+  <li><a href="#content-outline" id="toc-content-outline" class="nav-link" data-scroll-target="#content-outline">Content outline</a></li>
+  <li><a href="#what-to-look-at-first" id="toc-what-to-look-at-first" class="nav-link" data-scroll-target="#what-to-look-at-first">What to look at first</a></li>
+  <li><a href="#open-questions" id="toc-open-questions" class="nav-link" data-scroll-target="#open-questions">Open questions</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -380,8 +390,68 @@ window.HUB_DATA = {
 <h1>Project: Pharos-CY</h1>
 <section id="project-position" class="level2">
 <h2 class="anchored" data-anchor-id="project-position">Project Position</h2>
+</section>
+<section id="training-event-ai-security-responsible-deployment" class="level2">
+<h2 class="anchored" data-anchor-id="training-event-ai-security-responsible-deployment">Training event: AI Security &amp; Responsible Deployment</h2>
+<section id="rationale" class="level3">
+<h3 class="anchored" data-anchor-id="rationale">Rationale</h3>
+<p>Many companies on the platform will consume HPC-hosted datasets and models. A growing number will also <em>build</em> AI applications and agentic workflows and integrate them into their own systems. This course introduces the key ideas around AI security and safety for that audience. It can run standalone or as a module attached to another training event.</p>
+</section>
+<section id="audience-and-framing" class="level3">
+<h3 class="anchored" data-anchor-id="audience-and-framing">Audience and framing</h3>
+<ul>
+<li>Engineers and technical leads building AI apps / agents, not ML researchers.</li>
+<li>Assume they can already call a model and wire a tool; assume they have <em>not</em> thought hard about isolation, permissions, injection, or monitoring.</li>
+<li>Keep it practical and demo-led: show the failure, then show the mitigation.</li>
+</ul>
+</section>
+<section id="two-deliverables" class="level3">
+<h3 class="anchored" data-anchor-id="two-deliverables">Two deliverables</h3>
+<ol type="1">
+<li><strong>Live session (conference / on-site demo).</strong> A curated sequence of live demos: each shows a concrete failure mode, then the fix. Needs to run reliably offline.</li>
+<li><strong>Take-home pack.</strong> A repo other people (the SEO team, other companies) can clone and work through on their own: runnable examples, a written walkthrough, and a deployment checklist. This is what makes the session reproducible rather than a one-off talk.</li>
+</ol>
+</section>
+<section id="content-outline" class="level3">
+<h3 class="anchored" data-anchor-id="content-outline">Content outline</h3>
+<p><strong>A. Running AI-generated / untrusted code</strong> - Why you never run model output on the host. - Sandboxing options: containers, gVisor/Firecracker, WASM, ephemeral VMs, restricted subprocess. Trade-offs (startup cost, escape surface, GPU access). - Demo: agent writes and executes code; show it reading an env var / file it shouldn’t; then re-run inside a sandbox with no network and a scratch FS.</p>
+<p><strong>B. Agent permissions and limits</strong> - Least-privilege: scoped credentials, read-only by default, per-tool allowlists. - Resource limits: time, memory, token budget, tool-call count, spend caps. - Demo: agent given a broad token vs a scoped token; show blast radius difference.</p>
+<p><strong>C. Prompt injection</strong> - Direct vs indirect (via retrieved docs, web pages, file contents, tool output). - Why input filtering is not a fix; defence in depth treat model output as untrusted, gate side effects, human-in-the-loop for high-impact actions. - Demo: a poisoned document in a RAG corpus that makes the agent exfiltrate or misbehave; then show the gated version refusing.</p>
+<p><strong>D. Tools reaching further than intended</strong> - Agents bypassing instructions, path traversal, over-broad file/network access, confused-deputy. - Secure tool design: narrow interfaces, validated arguments, no raw shell, explicit resource scoping. - Demo: a “read a file” tool that accepts <code>../../</code> ; fix with path canonicalisation + allowlist.</p>
+<p><strong>E. Handling sensitive data</strong> - Data minimisation into prompts, redaction, PII detection, not logging raw prompts/outputs, retention. - Provider data-use / residency considerations; when to use a local model instead.</p>
+<p><strong>F. Monitoring and observability</strong> - Trace every prompt, tool call, and decision; log with correlation IDs. - Detection signals: anomalous tool use, permission-denied spikes, injection patterns, cost spikes. - Alerting and kill-switch; incident response for an agent gone wrong.</p>
+<p><strong>G. Governance and deployment architecture</strong> - Regulatory context (EU AI Act risk tiers, sector rules), model/agent registry, sign-off before production. - Reference secure deployment architecture: untrusted zone (model + sandbox) vs trusted zone (data, actions), gateway between them. - Best practice for integrating AI into existing workflows incrementally.</p>
+</section>
+<section id="what-to-look-at-first" class="level3">
+<h3 class="anchored" data-anchor-id="what-to-look-at-first">What to look at first</h3>
+<ul>
+<li>Sandboxing tech comparison for the demo box — pick one that runs on a laptop offline (likely Docker + no-network + read-only mount, or a WASM runtime for the code-exec demo).</li>
+<li>A minimal agent framework to build the demos on (keep it small so the security points are visible, not buried in framework code).</li>
+<li>Existing material to borrow / cite: OWASP LLM Top 10, OWASP Agentic threats, NIST AI RMF, Anthropic/Google agent safety guidance, known prompt-injection write-ups.</li>
+<li>Decide standalone vs bolt-on, session length, and how much is live-coded vs pre-built.</li>
+</ul>
+</section>
+<section id="open-questions" class="level3">
+<h3 class="anchored" data-anchor-id="open-questions">Open questions</h3>
+<ul>
+<li>How long is the slot, and is there a hands-on lab component or just demos?</li>
+<li>Do attendees get machines / can they run Docker, or is the take-home pack the only hands-on part?</li>
+<li>Cypri / platform-specific angle: should demos use the HPC-hosted models specifically?</li>
+<li>How much governance/regulatory depth vs pure technical.</li>
+</ul>
+</section>
+<section id="next-steps" class="level3">
+<h3 class="anchored" data-anchor-id="next-steps">Next steps</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Draft the short note (due 23 September 2026).</label></li>
+<li><label><input type="checkbox">Choose the sandbox stack and agent framework for the demos.</label></li>
+<li><label><input type="checkbox">Build demo A (code execution) end to end as the reference pattern.</label></li>
+<li><label><input type="checkbox">Scope the take-home repo structure and checklist.</label></li>
+<li><label><input type="checkbox">Confirm slot format and audience with the training organisers.</label></li>
+</ul>
 
 
+</section>
 </section>
 </section>
 

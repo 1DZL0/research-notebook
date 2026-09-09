@@ -13,8 +13,6 @@
 
 
 
-  // Hand-tuned lanes keep the broad map balanced while giving the denser
-  // Research branch room on the right.
   var BRANCH_ANGLES = [-35, -106, 25, 150, -155, 125, 130];
   var TWIST_JITTER = [14, -22, 18, -12, 24, -16, 10];
   var BRANCH_RADII = [250, 170, 250, 245, 250];
@@ -248,13 +246,13 @@
       return '<section class="notebook-index-section" style="--index-colour:' +
         escapeHtml(section.color) + '">' +
         '<div class="notebook-index-heading">' +
-          '<h3><span class="notebook-index-mark" aria-hidden="true"></span>' +
-          escapeHtml(section.label) + "</h3>" +
-          '<span class="notebook-index-count">' + entries.length +
-          (entries.length === 1 ? " note" : " notes") + "</span>" +
+        '<h3><span class="notebook-index-mark" aria-hidden="true"></span>' +
+        escapeHtml(section.label) + "</h3>" +
+        '<span class="notebook-index-count">' + entries.length +
+        (entries.length === 1 ? " note" : " notes") + "</span>" +
         "</div>" +
         '<ul class="notebook-index-links">' + links + "</ul>" +
-      "</section>";
+        "</section>";
     }).join("");
   }
 
@@ -280,46 +278,46 @@
     gMains = e("g", {});
 
     sections.forEach(function (s, i) {
-    var point = sectionPoint(i);
-    var a = point.angle;
-    var x = point.x, y = point.y;
-    var twist = 20 + TWIST_JITTER[i % TWIST_JITTER.length];
-    var c1x = CX + Math.cos(a - 0.5) * (point.radius * 0.42) * X_SPREAD;
-    var c1y = CY + Math.sin(a - 0.5) * (point.radius * 0.34);
-    var c2x = x - Math.cos(a + 0.2) * twist;
-    var c2y = y - Math.sin(a + 0.2) * twist;
-    gEdges.appendChild(e("path", {
-      stroke: s.color,
-      "data-id": s.id,
-      d: "M" + CX + "," + CY + " C" + c1x + "," + c1y + " " + c2x + "," + c2y + " " + x + "," + y
-    }));
+      var point = sectionPoint(i);
+      var a = point.angle;
+      var x = point.x, y = point.y;
+      var twist = 20 + TWIST_JITTER[i % TWIST_JITTER.length];
+      var c1x = CX + Math.cos(a - 0.5) * (point.radius * 0.42) * X_SPREAD;
+      var c1y = CY + Math.sin(a - 0.5) * (point.radius * 0.34);
+      var c2x = x - Math.cos(a + 0.2) * twist;
+      var c2y = y - Math.sin(a + 0.2) * twist;
+      gEdges.appendChild(e("path", {
+        stroke: s.color,
+        "data-id": s.id,
+        d: "M" + CX + "," + CY + " C" + c1x + "," + c1y + " " + c2x + "," + c2y + " " + x + "," + y
+      }));
 
-    var mainLabelOffset = MAIN_LABEL_OFFSETS[i % MAIN_LABEL_OFFSETS.length];
-    var anchor = "middle";
-    var lx = x + mainLabelOffset[0];
-    var ly = y + mainLabelOffset[1];
+      var mainLabelOffset = MAIN_LABEL_OFFSETS[i % MAIN_LABEL_OFFSETS.length];
+      var anchor = "middle";
+      var lx = x + mainLabelOffset[0];
+      var ly = y + mainLabelOffset[1];
 
-    var g = e("g", { "class": "hub-main", "data-id": s.id, tabindex: "0", role: "button" });
-    g.appendChild(e("circle", { cx: x, cy: y, r: 18, fill: "transparent" }));
-    g.appendChild(e("circle", { cx: x, cy: y, r: 10, "class": "hub-main-halo", stroke: s.color }));
-    g.appendChild(e("circle", { cx: x, cy: y, r: 6.4, "class": "hub-main-dot", fill: s.color, stroke: s.color }));
+      var g = e("g", { "class": "hub-main", "data-id": s.id, tabindex: "0", role: "button" });
+      g.appendChild(e("circle", { cx: x, cy: y, r: 18, fill: "transparent" }));
+      g.appendChild(e("circle", { cx: x, cy: y, r: 10, "class": "hub-main-halo", stroke: s.color }));
+      g.appendChild(e("circle", { cx: x, cy: y, r: 6.4, "class": "hub-main-dot", fill: s.color, stroke: s.color }));
 
-    var label = e("text", { x: lx, y: ly, "text-anchor": anchor, "class": "hub-main-label" });
-    label.textContent = s.label;
-    g.appendChild(label);
+      var label = e("text", { x: lx, y: ly, "text-anchor": anchor, "class": "hub-main-label" });
+      label.textContent = s.label;
+      g.appendChild(label);
 
-    function peek() { setBrief(s.label, s.blurb, x, y); }
-    g.addEventListener("mouseenter", peek);
-    g.addEventListener("focus", peek);
-    g.addEventListener("mouseleave", clearBrief);
-    g.addEventListener("click", function (ev) {
-      ev.stopPropagation();
-      expand(s, i);
-    });
-    g.addEventListener("keydown", function (ev) {
-      if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); expand(s, i); }
-      if (ev.key === "Escape") collapse();
-    });
+      function peek() { setBrief(s.label, s.blurb, x, y); }
+      g.addEventListener("mouseenter", peek);
+      g.addEventListener("focus", peek);
+      g.addEventListener("mouseleave", clearBrief);
+      g.addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        expand(s, i);
+      });
+      g.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); expand(s, i); }
+        if (ev.key === "Escape") collapse();
+      });
       gMains.appendChild(g);
     });
 

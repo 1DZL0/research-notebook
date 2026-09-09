@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>genai4ed – Phronesis · Φρόνησις</title>
+<title>graph_report – Phronesis · Φρόνησις</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -341,386 +341,207 @@ window.HUB_DATA = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#research-link" id="toc-research-link" class="nav-link active" data-scroll-target="#research-link">Research Link</a></li>
-  <li><a href="#the-research-problem" id="toc-the-research-problem" class="nav-link" data-scroll-target="#the-research-problem">The Research Problem</a></li>
-  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#graph-report---research-notebook-2026-09-09" id="toc-graph-report---research-notebook-2026-09-09" class="nav-link active" data-scroll-target="#graph-report---research-notebook-2026-09-09">Graph Report - research-notebook (2026-09-09)</a>
+  <ul class="collapse">
+  <li><a href="#corpus-check" id="toc-corpus-check" class="nav-link" data-scroll-target="#corpus-check">Corpus Check</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#community-hubs-navigation" id="toc-community-hubs-navigation" class="nav-link" data-scroll-target="#community-hubs-navigation">Community Hubs (Navigation)</a></li>
+  <li><a href="#god-nodes-most-connected---your-core-abstractions" id="toc-god-nodes-most-connected---your-core-abstractions" class="nav-link" data-scroll-target="#god-nodes-most-connected---your-core-abstractions">God Nodes (most connected - your core abstractions)</a></li>
+  <li><a href="#surprising-connections-you-probably-didnt-know-these" id="toc-surprising-connections-you-probably-didnt-know-these" class="nav-link" data-scroll-target="#surprising-connections-you-probably-didnt-know-these">Surprising Connections (you probably didn’t know these)</a></li>
+  <li><a href="#import-cycles" id="toc-import-cycles" class="nav-link" data-scroll-target="#import-cycles">Import Cycles</a></li>
+  <li><a href="#hyperedges-group-relationships" id="toc-hyperedges-group-relationships" class="nav-link" data-scroll-target="#hyperedges-group-relationships">Hyperedges (group relationships)</a></li>
+  <li><a href="#communities-19-total-5-thin-omitted" id="toc-communities-19-total-5-thin-omitted" class="nav-link" data-scroll-target="#communities-19-total-5-thin-omitted">Communities (19 total, 5 thin omitted)</a>
+  <ul class="collapse">
+  <li><a href="#community-0---reasoning-quality-rl-papers" id="toc-community-0---reasoning-quality-rl-papers" class="nav-link" data-scroll-target="#community-0---reasoning-quality-rl-papers">Community 0 - “Reasoning Quality &amp; RL Papers”</a></li>
+  <li><a href="#community-1---open-ended-learning-curiosity" id="toc-community-1---open-ended-learning-curiosity" class="nav-link" data-scroll-target="#community-1---open-ended-learning-curiosity">Community 1 - “Open-Ended Learning &amp; Curiosity”</a></li>
+  <li><a href="#community-2---hub.js-functions" id="toc-community-2---hub.js-functions" class="nav-link" data-scroll-target="#community-2---hub.js-functions">Community 2 - “Hub.js Functions”</a></li>
+  <li><a href="#community-3---site-pages-publishing" id="toc-community-3---site-pages-publishing" class="nav-link" data-scroll-target="#community-3---site-pages-publishing">Community 3 - “Site Pages &amp; Publishing”</a></li>
+  <li><a href="#community-4---supervisor-meeting-notes" id="toc-community-4---supervisor-meeting-notes" class="nav-link" data-scroll-target="#community-4---supervisor-meeting-notes">Community 4 - “Supervisor Meeting Notes”</a></li>
+  <li><a href="#community-5---genai4ed-architecture-rationale" id="toc-community-5---genai4ed-architecture-rationale" class="nav-link" data-scroll-target="#community-5---genai4ed-architecture-rationale">Community 5 - “GenAI4ED Architecture &amp; Rationale”</a></li>
+  <li><a href="#community-6---agent-game-agent-functions" id="toc-community-6---agent-game-agent-functions" class="nav-link" data-scroll-target="#community-6---agent-game-agent-functions">Community 6 - “Agent-Game Agent Functions”</a></li>
+  <li><a href="#community-7---pharos-cy-security-governance" id="toc-community-7---pharos-cy-security-governance" class="nav-link" data-scroll-target="#community-7---pharos-cy-security-governance">Community 7 - “Pharos-CY Security &amp; Governance”</a></li>
+  <li><a href="#community-8---agent-frameworks" id="toc-community-8---agent-frameworks" class="nav-link" data-scroll-target="#community-8---agent-frameworks">Community 8 - “Agent Frameworks”</a></li>
+  <li><a href="#community-9---open-ended-learning-definitions" id="toc-community-9---open-ended-learning-definitions" class="nav-link" data-scroll-target="#community-9---open-ended-learning-definitions">Community 9 - “Open-Ended Learning Definitions”</a></li>
+  <li><a href="#community-10---genai4ed-infra-hosting" id="toc-community-10---genai4ed-infra-hosting" class="nav-link" data-scroll-target="#community-10---genai4ed-infra-hosting">Community 10 - “GenAI4ED Infra &amp; Hosting”</a></li>
+  <li><a href="#community-11---llm-self-knowledge-papers" id="toc-community-11---llm-self-knowledge-papers" class="nav-link" data-scroll-target="#community-11---llm-self-knowledge-papers">Community 11 - “LLM Self-Knowledge Papers”</a></li>
+  <li><a href="#community-12---hub-build-script" id="toc-community-12---hub-build-script" class="nav-link" data-scroll-target="#community-12---hub-build-script">Community 12 - “Hub Build Script”</a></li>
+  <li><a href="#community-13---multi-agent-debate-papers" id="toc-community-13---multi-agent-debate-papers" class="nav-link" data-scroll-target="#community-13---multi-agent-debate-papers">Community 13 - “Multi-Agent Debate Papers”</a></li>
+  </ul></li>
+  <li><a href="#knowledge-gaps" id="toc-knowledge-gaps" class="nav-link" data-scroll-target="#knowledge-gaps">Knowledge Gaps</a></li>
+  <li><a href="#suggested-questions" id="toc-suggested-questions" class="nav-link" data-scroll-target="#suggested-questions">Suggested Questions</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Project: GenAI4ED</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="research-link" class="level1">
-<h1>Research Link</h1>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>How can generative AI agents support personalised active learning by adapting educational experiences to individual students while providing teachers with meaningful insights into student understanding?</p>
-</div>
-</div>
+<section id="graph-report---research-notebook-2026-09-09" class="level1">
+<h1>Graph Report - research-notebook (2026-09-09)</h1>
+<section id="corpus-check" class="level2">
+<h2 class="anchored" data-anchor-id="corpus-check">Corpus Check</h2>
+<ul>
+<li>Corpus is ~15,855 words - fits in a single context window. You may not need a graph.</li>
+</ul>
 </section>
-<section id="the-research-problem" class="level1">
-<h1>The Research Problem</h1>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li>214 nodes · 248 edges · 19 communities (14 shown, 5 thin omitted)</li>
+<li>Extraction: 89% EXTRACTED · 11% INFERRED · 0% AMBIGUOUS · INFERRED: 27 edges (avg confidence: 0.88)</li>
+<li>Token cost: 209,667 input · 0 output</li>
+</ul>
+</section>
+<section id="community-hubs-navigation" class="level2">
+<h2 class="anchored" data-anchor-id="community-hubs-navigation">Community Hubs (Navigation)</h2>
+<ul>
+<li>Reasoning Quality &amp; RL Papers</li>
+<li>Open-Ended Learning &amp; Curiosity</li>
+<li>Hub.js Functions</li>
+<li>Site Pages &amp; Publishing</li>
+<li>Supervisor Meeting Notes</li>
+<li>GenAI4ED Architecture &amp; Rationale</li>
+<li>Agent-Game Agent Functions</li>
+<li>Pharos-CY Security &amp; Governance</li>
+<li>Agent Frameworks</li>
+<li>Open-Ended Learning Definitions</li>
+<li>GenAI4ED Infra &amp; Hosting</li>
+<li>LLM Self-Knowledge Papers</li>
+<li>Hub Build Script</li>
+<li>Multi-Agent Debate Papers</li>
+<li>Literature Map Overview</li>
+<li>Latent Communication (RecursiveMAS)</li>
+<li>Fixed Workflows</li>
+<li>Branching / High-Entropy Forks</li>
+<li>H-GRAIL Goal Discovery</li>
+</ul>
+</section>
+<section id="god-nodes-most-connected---your-core-abstractions" class="level2">
+<h2 class="anchored" data-anchor-id="god-nodes-most-connected---your-core-abstractions">God Nodes (most connected - your core abstractions)</h2>
 <ol type="1">
-<li><strong>What should the system represent about a learner?</strong> Knowledge state, misconceptions, uncertainty, reasoning, engagement, progression.</li>
-<li><strong>How does adaptation follow from that representation?</strong> Whether the model genuinely drives the change, or generation does the work.</li>
-<li><strong>How does the representation become a teacher-facing insight?</strong> The underexplored part</li>
+<li><code>Q1: How Does an Agent Decide What to Learn Next?</code> - 13 edges</li>
+<li><code>AI Security &amp; Responsible Deployment Training Event</code> - 12 edges</li>
+<li><code>GenAI4ED Project</code> - 11 edges</li>
+<li><code>Experiment 01: Prisoner's Dilemma</code> - 11 edges</li>
+<li><code>GenAI Project (prototype by November)</code> - 11 edges</li>
+<li><code>Q2: Why Do Identical Agents Develop Different Reasoning Strategies?</code> - 10 edges</li>
+<li><code>Professor Meeting - 2026-08-06</code> - 10 edges</li>
+<li><code>renderExpandedSection()</code> - 9 edges</li>
+<li><code>AI Agent</code> - 9 edges</li>
+<li><code>Agent Frameworks</code> - 9 edges</li>
 </ol>
-<hr>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Software Architecture
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<section id="baseline-stack" class="level2">
-<h2 class="anchored" data-anchor-id="baseline-stack">Baseline Stack</h2>
-<pre class="text"><code>Next.js / React / TypeScript
-        ↓
-FastAPI / Pydantic
-        ↓
-SQLAlchemy
-        ↓
-PostgreSQL
-        ↑
-Alembic manages schema changes
-
-OpenAI API ← Tutor / AI logic
-SSE        ← Live teacher updates</code></pre>
-<section id="frontend" class="level3">
-<h3 class="anchored" data-anchor-id="frontend">Frontend</h3>
-<p><strong>Next.js + React + TypeScript</strong></p>
-<p>The teacher interface may become more interactive as the project develops, including:</p>
+</section>
+<section id="surprising-connections-you-probably-didnt-know-these" class="level2">
+<h2 class="anchored" data-anchor-id="surprising-connections-you-probably-didnt-know-these">Surprising Connections (you probably didn’t know these)</h2>
 <ul>
-<li>live classroom dashboards</li>
-<li>multiple classes</li>
-<li>progress views</li>
-<li>exception queues</li>
-<li>transcript drill-down</li>
-<li>research visualisations</li>
+<li><code>Population of self-organising specialised agents (thesis direction)</code> –semantically_similar_to–&gt; <code>AI Agent</code> [INFERRED] [semantically similar] 06-thinking/log.qmd → 05-agentic-ai-engineering/01-agent-systems.qmd</li>
+<li><code>A Motivational Architecture for Open-Ended Learning Challenges in Robots (H-GRAIL)</code> –semantically_similar_to–&gt; <code>A Motivational Architecture for Open-Ended Learning Challenges in Robots (H-GRAIL)</code> [INFERRED] [semantically similar] 01-literature/papers.qmd → 00-research/q1-note.qmd</li>
+<li><code>Look Before You Leap: Autonomous Exploration for LLM Agents</code> –semantically_similar_to–&gt; <code>Look Before You Leap: Autonomous Exploration for LLM Agents</code> [INFERRED] [semantically similar] 01-literature/papers.qmd → 00-research/q1-note.qmd</li>
+<li><code>Voyager: An Open-Ended Embodied Agent with Large Language Models</code> –semantically_similar_to–&gt; <code>Voyager: An Open-Ended Embodied Agent with Large Language Models</code> [INFERRED] [semantically similar] 01-literature/papers.qmd → 00-research/q1-note.qmd</li>
+<li><code>Evolver: Self-Evolving LLM Agents through Experience</code> –semantically_similar_to–&gt; <code>EvolveR: Self-Evolving LLM Agents through Experience</code> [INFERRED] [semantically similar] 01-literature/papers.qmd → 00-research/q1-note.qmd</li>
 </ul>
-<p>Use:</p>
+</section>
+<section id="import-cycles" class="level2">
+<h2 class="anchored" data-anchor-id="import-cycles">Import Cycles</h2>
 <ul>
-<li><strong>Tailwind CSS</strong> for styling</li>
-<li><strong>shadcn/ui</strong> for reusable UI components</li>
+<li>None detected.</li>
 </ul>
-<hr>
 </section>
-</section>
-<section id="backend" class="level2">
-<h2 class="anchored" data-anchor-id="backend">Backend</h2>
-<p><strong>FastAPI + Pydantic</strong></p>
-<p>Keep the main AI and research logic in Python.</p>
-<p>This includes:</p>
+<section id="hyperedges-group-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="hyperedges-group-relationships">Hyperedges (group relationships)</h2>
 <ul>
-<li>tutor logic</li>
-<li>assistance-policy enforcement</li>
-<li>student evidence/memory</li>
-<li>LLM calls</li>
-<li>experiment conditions</li>
-<li>teacher-alert logic</li>
-<li>evaluation and later research analysis</li>
+<li><strong>Q1-Q4 Research Question Progression</strong> — 00_research_q1_note_q1, 00_research_q2_note_q2, 00_research_q3_note_q3, 00_research_q4_note_q4 [INFERRED 0.85]</li>
+<li><strong>GenAI4ED Literature Foundation (P1, P2, P3)</strong> — 02_projects_genai4ed_p1, 02_projects_genai4ed_p2, 02_projects_genai4ed_p3, 02_projects_genai4ed_project [EXTRACTED 1.00]</li>
+<li><strong>Prisoner’s Dilemma Round Pipeline</strong> — 03_experiments_prisoners_dilemma_discussion_agent, 03_experiments_prisoners_dilemma_messenger_agent, 03_experiments_prisoners_dilemma_player_agent, 03_experiments_prisoners_dilemma_strategy_agent [EXTRACTED 1.00]</li>
+<li><strong>GenAI Project Technology Stack</strong> — 06_thinking_log_genai_project, 06_thinking_log_nextjs, 06_thinking_log_fastapi, 06_thinking_log_postgresql, 06_thinking_log_sqlalchemy, 06_thinking_log_alembic [EXTRACTED 1.00]</li>
+<li><strong>Quarto Site Build &amp; Publish Pipeline</strong> — quarto_project_config, github_workflows_publish_workflow, hub_include_hub_data, index_page [INFERRED 0.85]</li>
+<li><strong>Agentic AI Foundations Under Study</strong> — 04_meetings_supervisor_page, 05_agentic_ai_engineering_01_agent_systems_ai_agent, 05_agentic_ai_engineering_02_frameworks_agent_frameworks [INFERRED 0.85]</li>
 </ul>
-<p>Pydantic validates API data and structured LLM outputs.</p>
-<p>No need for <strong>LangChain or LangGraph initially</strong>.</p>
-<hr>
 </section>
-<section id="database" class="level2">
-<h2 class="anchored" data-anchor-id="database">Database</h2>
-<p><strong>PostgreSQL</strong></p>
-<p>PostgreSQL is the core database rather than committing the application to a specific hosting provider.</p>
-<section id="sqlalchemy" class="level3">
-<h3 class="anchored" data-anchor-id="sqlalchemy">SQLAlchemy</h3>
-<p>SQLAlchemy is the Python database layer:</p>
-<pre class="text"><code>Python / FastAPI
-      ↓
-SQLAlchemy
-      ↓
-PostgreSQL</code></pre>
-<p>This keeps database operations in the same Python ecosystem as the tutor and research code.</p>
+<section id="communities-19-total-5-thin-omitted" class="level2">
+<h2 class="anchored" data-anchor-id="communities-19-total-5-thin-omitted">Communities (19 total, 5 thin omitted)</h2>
+<section id="community-0---reasoning-quality-rl-papers" class="level3">
+<h3 class="anchored" data-anchor-id="community-0---reasoning-quality-rl-papers">Community 0 - “Reasoning Quality &amp; RL Papers”</h3>
+<p>Cohesion: 0.10 Nodes (25): EvolveR: Self-Evolving LLM Agents through Experience, Counterfactual Importance of a Decision Point, ETTRL: Balancing Exploration and Exploitation in LLM Test-Time Reinforcement Learning, Beyond the 80/20 Rule: High-Entropy Minority Tokens Drive Effective RL for LLM Reasoning, Navigator (Component), Q2: Why Do Identical Agents Develop Different Reasoning Strategies?, Thought Anchors: Which LLM Reasoning Steps Matter?, Token Entropy and Forking Tokens (+17 more)</p>
 </section>
-<section id="alembic" class="level3">
-<h3 class="anchored" data-anchor-id="alembic">Alembic</h3>
-<p>Alembic manages changes to the PostgreSQL schema over time.</p>
-<p>Example:</p>
-<pre class="text"><code>Initial:
-student_attempts
-- id
-- student_id
-- answer
-
-Later:
-+ objective_id
-+ correct
-+ experiment_condition
-+ policy_version</code></pre>
-<p>You just push a head update to chaneg the entire DB without a reformat</p>
-<hr>
+<section id="community-1---open-ended-learning-curiosity" class="level3">
+<h3 class="anchored" data-anchor-id="community-1---open-ended-learning-curiosity">Community 1 - “Open-Ended Learning &amp; Curiosity”</h3>
+<p>Cohesion: 0.09 Nodes (23): Automated Skill Discovery for Language Agents through Exploration and Iterative Feedback, Competence Progress and Learning Progress, Goal Discovery, A Motivational Architecture for Open-Ended Learning Challenges in Robots (H-GRAIL), Intrinsic Motivation, Look Before You Leap: Autonomous Exploration for LLM Agents, Navigator (Component), Novelty and Curiosity (+15 more)</p>
+</section>
+<section id="community-2---hub.js-functions" class="level3">
+<h3 class="anchored" data-anchor-id="community-2---hub.js-functions">Community 2 - “Hub.js Functions”</h3>
+<p>Cohesion: 0.20 Nodes (18): angleFor(), clearBranchHighlight(), clearBrief(), collapse(), compactHubLabel(), e(), escapeHtml(), expand() (+10 more)</p>
+</section>
+<section id="community-3---site-pages-publishing" class="level3">
+<h3 class="anchored" data-anchor-id="community-3---site-pages-publishing">Community 3 - “Site Pages &amp; Publishing”</h3>
+<p>Cohesion: 0.12 Nodes (20): Research Development, Research Roadmap, Thesis, Other Meetings (page), EB Garamond Google Font, Navbar Title Greek-Split Script, gh-pages target, quarto-dev/quarto-actions/publish@v2 (+12 more)</p>
+</section>
+<section id="community-4---supervisor-meeting-notes" class="level3">
+<h3 class="anchored" data-anchor-id="community-4---supervisor-meeting-notes">Community 4 - “Supervisor Meeting Notes”</h3>
+<p>Cohesion: 0.12 Nodes (18): Agent architectures (foundation topic), Agent game example (action item), Constantine, Diesel Mears, Memory systems (foundation topic), OpenEnded/OpenAI research directions, Professor Meeting - 2026-08-06, RAG (foundation topic) (+10 more)</p>
+</section>
+<section id="community-5---genai4ed-architecture-rationale" class="level3">
+<h3 class="anchored" data-anchor-id="community-5---genai4ed-architecture-rationale">Community 5 - “GenAI4ED Architecture &amp; Rationale”</h3>
+<p>Cohesion: 0.12 Nodes (17): Deep Tutor: Towards Agentic Personalized Tutoring, Alembic Schema Migrations, FastAPI / Pydantic Backend, Comprehensive Learner Profile, Rationale: Modular Architecture for Swappable Providers, Next.js / React / TypeScript Frontend, Rationale: No LangChain/LangGraph Initially, OpenAI API (Tutor/AI Logic) (+9 more)</p>
+</section>
+<section id="community-6---agent-game-agent-functions" class="level3">
+<h3 class="anchored" data-anchor-id="community-6---agent-game-agent-functions">Community 6 - “Agent-Game Agent Functions”</h3>
+<p>Cohesion: 0.12 Nodes (12): agent-game Repository (github.com/1dzl0/agent-game), Concealment Setting (Disguised vs.&nbsp;Canonical Framing), Discussion Agent (Phase 1), Experiment 01: Prisoner’s Dilemma, Rationale: Framing Beats Model Choice as a Predictor of Cooperation, Fixed Strategy Ladder (Tit-for-Tat, Grim-Trigger, Pavlov, etc.), Messenger Agent (Phase 2), Payoff-Matrix Scrambler (Rapoport Cooperation Index) (+4 more)</p>
+</section>
+<section id="community-7---pharos-cy-security-governance" class="level3">
+<h3 class="anchored" data-anchor-id="community-7---pharos-cy-security-governance">Community 7 - “Pharos-CY Security &amp; Governance”</h3>
+<p>Cohesion: 0.15 Nodes (13): Governance and Deployment Architecture, Agent Permissions and Least-Privilege Limits, Live Session Deliverable (Conference Demo), Monitoring and Observability, OWASP LLM Top 10 / OWASP Agentic Threats / NIST AI RMF, Pharos-CY Project, Prompt Injection (Direct and Indirect), Rationale: Course for HPC Platform Companies Building Agentic Workflows (+5 more)</p>
+</section>
+<section id="community-8---agent-frameworks" class="level3">
+<h3 class="anchored" data-anchor-id="community-8---agent-frameworks">Community 8 - “Agent Frameworks”</h3>
+<p>Cohesion: 0.17 Nodes (12): Multi-agent systems (foundation topic), Agent Frameworks, AutoGen, Autonomous agents (control approach), CrewAI, Graph-based agents (control approach), LangChain Agents, LangGraph (+4 more)</p>
+</section>
+<section id="community-9---open-ended-learning-definitions" class="level3">
+<h3 class="anchored" data-anchor-id="community-9---open-ended-learning-definitions">Community 9 - “Open-Ended Learning Definitions”</h3>
+<p>Cohesion: 0.18 Nodes (11): Abstraction (ignore irrelevant states/actions), arXiv:2311.00344 (OEL definition paper), Doncieux et al.&nbsp;(2018), Intrinsic motivation, MDP (Markov Decision Process, task-specific), Open-ended learning (OEL), Thinking Log (page), Pharos Project (AI Security &amp; Responsible Deployment training) (+3 more)</p>
+</section>
+<section id="community-10---genai4ed-infra-hosting" class="level3">
+<h3 class="anchored" data-anchor-id="community-10---genai4ed-infra-hosting">Community 10 - “GenAI4ED Infra &amp; Hosting”</h3>
+<p>Cohesion: 0.22 Nodes (11): Alembic, Encore (hosting option), FastAPI + Pydantic, Firebase (hosting option, not preferred), GenAI Project (prototype by November), Next.js / React / TypeScript, OpenAI API, PostgreSQL (+3 more)</p>
+</section>
+<section id="community-11---llm-self-knowledge-papers" class="level3">
+<h3 class="anchored" data-anchor-id="community-11---llm-self-knowledge-papers">Community 11 - “LLM Self-Knowledge Papers”</h3>
+<p>Cohesion: 0.29 Nodes (8): Kadavath et al.&nbsp;(2022) - Language Models (Mostly) Know What They Know, Lin et al.&nbsp;(2022) - Teaching Models to Express Their Uncertainty in Words, O2: From Self-Relevant Information to Action-Guiding Situational Self-Modelling, P(IK) - Prospective Judgement, P(True) - Retrospective Judgement, Verbalized Probability, Xiong et al.&nbsp;(2022) - Can LLMs Express Their Uncertainty?, Yin et al.&nbsp;(2022) - Do Large Language Models Know What They Don’t Know?</p>
+</section>
+<section id="community-12---hub-build-script" class="level3">
+<h3 class="anchored" data-anchor-id="community-12---hub-build-script">Community 12 - “Hub Build Script”</h3>
+<p>Cohesion: 0.53 Nodes (5): collect(), front_matter(), latest_update_date(), main(), Scan entry front matter and emit hub-data.js for the landing-page graph. Run…</p>
+</section>
+<section id="community-13---multi-agent-debate-papers" class="level3">
+<h3 class="anchored" data-anchor-id="community-13---multi-agent-debate-papers">Community 13 - “Multi-Agent Debate Papers”</h3>
+<p>Cohesion: 0.40 Nodes (5): Improving Multi-Agent Debate with Sparse Communication Topology, Multi-Agent Systems &amp; Collective Reasoning (Category), Improving Multi-Agent Debate with Sparse Communication Topology, Improving Factuality and Reasoning in Language Models through Multiagent Debate, ReConcile: Round-Table Conference Improves Reasoning via Consensus among Diverse LLMs</p>
 </section>
 </section>
-<section id="hosting" class="level2">
-<h2 class="anchored" data-anchor-id="hosting">Hosting</h2>
-<p>Hosting should be decided separately from the software architecture.</p>
-<p>Possible options:</p>
+<section id="knowledge-gaps" class="level2">
+<h2 class="anchored" data-anchor-id="knowledge-gaps">Knowledge Gaps</h2>
 <ul>
-<li><strong>Supabase</strong> - PostgreSQL plus easy authentication; managed or self-hosted</li>
-<li><strong>Firebase</strong> - Google ecosystem; less preferred</li>
-<li><strong>Encore</strong> - useful infrastructure tooling, but TypeScript/Go focused rather than Python</li>
-<li><strong>Standard PostgreSQL hosting</strong> — university, school, cloud provider, or self-hosted</li>
+<li><strong>91 isolated node(s):</strong> <code>P(IK) - Prospective Judgement</code>, <code>Xiong et al. (2022) - Can LLMs Express Their Uncertainty?</code>, <code>Yin et al. (2022) - Do Large Language Models Know What They Don't Know?</code>, <code>Navigator (Component)</code>, <code>Automated Skill Discovery for Language Agents through Exploration and Iterative Feedback</code> (+86 more) These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 107 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)</li>
+<li><strong>5 thin communities (&lt;3 nodes) omitted from report</strong> — run <code>graphify query</code> to explore isolated nodes.</li>
 </ul>
-<p>For development, PostgreSQL can simply run locally in Docker.</p>
-<p>The final hosting decision should depend partly on where student data is permitted to be stored.</p>
-<hr>
 </section>
-<section id="ai" class="level2">
-<h2 class="anchored" data-anchor-id="ai">AI</h2>
-<p><strong>Different model access</strong></p>
-<p>The backend sends controlled requests to the model and expects structured responses.</p>
-<pre class="text"><code>Student attempt
-      ↓
-Tutor policy determines permitted help
-      ↓
-AI model generates structured response
-      ↓
-Pydantic validates output
-      ↓
-Policy check
-      ↓
-Response sent to student
-      ↓
-Interaction stored in PostgreSQL</code></pre>
-</section>
-<section id="realtime-updates" class="level2">
-<h2 class="anchored" data-anchor-id="realtime-updates">Realtime Updates</h2>
-<p>Use <strong>Server-Sent Events (SSE)</strong> initially for live teacher updates such as:</p>
+<section id="suggested-questions" class="level2">
+<h2 class="anchored" data-anchor-id="suggested-questions">Suggested Questions</h2>
+<p><em>Questions this graph is uniquely positioned to answer:</em></p>
 <ul>
-<li>student requested teacher</li>
-<li>repeated incorrect attempts</li>
-<li>tutor uncertainty</li>
-<li>student completed task</li>
-<li>exception created</li>
+<li><strong>Why does <code>HUB_DATA (site section/entry index)</code> connect <code>Site Pages &amp; Publishing</code> to <code>Open-Ended Learning Definitions</code>, <code>Supervisor Meeting Notes</code>?</strong> <em>High betweenness centrality (0.055) - this node is a cross-community bridge.</em></li>
+<li><strong>Why does <code>Thinking Log (page)</code> connect <code>Open-Ended Learning Definitions</code> to <code>GenAI4ED Infra &amp; Hosting</code>, <code>Site Pages &amp; Publishing</code>?</strong> <em>High betweenness centrality (0.044) - this node is a cross-community bridge.</em></li>
+<li><strong>Why does <code>Q1: How Does an Agent Decide What to Learn Next?</code> connect <code>Open-Ended Learning &amp; Curiosity</code> to <code>Reasoning Quality &amp; RL Papers</code>?</strong> <em>High betweenness centrality (0.038) - this node is a cross-community bridge.</em></li>
+<li><strong>What connects <code>P(IK) - Prospective Judgement</code>, <code>Xiong et al. (2022) - Can LLMs Express Their Uncertainty?</code>, <code>Yin et al. (2022) - Do Large Language Models Know What They Don't Know?</code> to the rest of the system?</strong> <em>91 weakly-connected nodes found - possible documentation gaps or missing edges.</em></li>
+<li><strong>Should <code>Reasoning Quality &amp; RL Papers</code> be split into smaller, more focused modules?</strong> <em>Cohesion score 0.1 - nodes in this community are weakly interconnected.</em></li>
+<li><strong>Should <code>Open-Ended Learning &amp; Curiosity</code> be split into smaller, more focused modules?</strong> <em>Cohesion score 0.09486166007905138 - nodes in this community are weakly interconnected.</em></li>
+<li><strong>Should <code>Site Pages &amp; Publishing</code> be split into smaller, more focused modules?</strong> <em>Cohesion score 0.12105263157894737 - nodes in this community are weakly interconnected.</em></li>
 </ul>
-<p>WebSockets or additional realtime infrastructure can be introduced later if genuinely required.</p>
+
+
 </section>
-<section id="current-decision" class="level2">
-<h2 class="anchored" data-anchor-id="current-decision">Current Decision</h2>
-<pre class="text"><code>Frontend:
-Next.js + React + TypeScript
-Tailwind CSS + shadcn/ui
-
-Backend:
-FastAPI + Pydantic
-SQLAlchemy + Alembic
-
-Database:
-PostgreSQL
-
-AI:
-OpenAI API
-
-Realtime:
-SSE</code></pre>
-<p><strong>The architecture should remain modular so that the database host, authentication provider, LLM provider, memory system, and later orchestration tools can be changed without redesigning the whole application.</strong></p>
-</section>
-</div>
-</div>
-</div>
-</section>
-<section id="literature" class="level1">
-<h1>Literature</h1>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>#</th>
-<th>Paper</th>
-<th>Key Finding</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>P1</td>
-<td><em>LLM Agents for Education</em></td>
-<td>Educational agent work splits into <strong>teaching assistance</strong> and <strong>student support</strong></td>
-<td>Read</td>
-</tr>
-<tr class="even">
-<td>P2</td>
-<td><em>SEM, Impact Factors on Student–AI Agent Interaction</em></td>
-<td>Interaction <strong>willingness</strong> dominates effectiveness far above any content or technology factor.</td>
-<td>Read</td>
-</tr>
-<tr class="odd">
-<td>P3</td>
-<td><em>GenMentor: Goal-oriented Learning in an ITS</em></td>
-<td>A <strong>persistent learner profile</strong>, continuously updated, can drive personalised path and content generation through a multi-agent pipeline but nothing in it faces a teacher</td>
-<td>Read</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Where each one sits:</strong> P2 is the paper that feels close to a actually implmentation: real classroom, builds teacher reports and never evaluates them.</p>
-<p>P3 is the paper it <em>builds from</em>: the mechanism for questions 1 and 2 already works there. P1 is the <em>map</em>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>P1 in detail: LLM Agents for Education Chu et al.&nbsp;(2025)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>A survey, not an empirical study.</p>
-<p><strong>Taxonomy:</strong></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Family</th>
-<th>Tasks</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Teaching Assistance Agents</strong></td>
-<td>Classroom Simulation · Feedback Comment Generation · Curriculum Design</td>
-</tr>
-<tr class="even">
-<td><strong>Student Support Agents</strong></td>
-<td>Adaptive Learning · Knowledge Tracing · Error Correction &amp; Detection</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Capability mapping</strong>: Six capabilities across those six tasks. Personalisation is credited to nearly every task; explainability only two.</p>
-<p><strong>Systems named</strong>: CGMI (tree-based cognitive architecture, memory, reflection, planning across teacher/student/supervisor roles), Classroom Simulacra (iterative reflection for behaviour simulation), TeachTune and EduAgent (fine-grained behaviour prediction across student personas). All simulate synthetic students.</p>
-<p>P1 credits multi-agent communication only to classroom simulation.</p>
-<p><strong>Benchmarks listed</strong>: MathDial, MathTutorBench, ErrorRadar, MathCCS, AAAR-1.0, heavily maths-oriented.</p>
-<p><strong>Challenges</strong>: Privacy, bias and fairness · hallucination and overreliance · integration with existing educational ecosystems, no standard deployment frameworks · multimodal agents.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>P2 in detail: SEM, Impact Factors on Student–AI Agent Interaction Wang, Xie &amp; Ke (2025)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Empirical SEM study.</p>
-<p><strong>Setting.</strong> “Generative classrooms” English reading and listening, grades 4–6, one primary school. Two-month experiment; 264 questionnaires distributed, <strong>253 valid</strong>.</p>
-<p><strong>Their system.</strong> Three subsystems: pre-class preparation (Learning Analysis Agent, Lesson Analysis Agent → diagnostic report, intelligent suite, resource packages)· in-class multi-agent interaction · after-class assessment (Data Analysis Agent for teachers, Academic Analysis Agent for students). Two dialogue agents built on Qwen and Doubao: an <strong>Assistant Agent</strong> (scaffolding for independent learning) and a <strong>Peer Agent</strong> (real-time equal interaction, expression skills).</p>
-<p><strong>Constructs.</strong> Eight latent variables, 24 observed, 5-point Likert: content usefulness (CU), content ease of use (CEU), perceived enjoyment (PE), teacher guidance (TG), interaction atmosphere (IA), technological facilitation (TF), interaction willingness (IW), interaction effectiveness (IE).</p>
-<p><strong>Reading it critically</strong> <em>(project reasoning)</em>: IE is measured as <em>perceived</em> effectiveness on a Likert scale: self-reported by grades 4–6 students. So P2 is strong evidence about what shapes willingness to engage, and weak evidence about what actually teaches anyone.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>P3 in detail: GenMentor Wang et al.&nbsp;(2025)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Multi-agent intelligent tutoring framework.</p>
-<p><strong>Setting</strong>: Goal-oriented learning for <strong>adult professional learners</strong> pursuing self-set goals, not a classroom, no children, no teacher anywhere in the system.</p>
-<p><strong>Their architecture.</strong> Four agents:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Agent</th>
-<th>Role</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Skill Gap Identification</strong></td>
-<td>Maps a learning goal to required skills, then to the learner’s gaps. Fine-tuned LLM on a purpose-built goal-to-skill dataset with chain-of-thought prompting</td>
-</tr>
-<tr class="even">
-<td><strong>Adaptive Learner Modeling</strong></td>
-<td>Maintains a <strong>Comprehensive Learner Profile</strong>: knowledge status, preferences, behavioural patterns — updated continuously from real-time interaction</td>
-</tr>
-<tr class="odd">
-<td><strong>Path Scheduler</strong></td>
-<td>Evolvable learning-path scheduling, with an embedded <em>learner simulator</em> used to anticipate how the learner will respond</td>
-</tr>
-<tr class="even">
-<td><strong>Content Creator</strong></td>
-<td>Generates tailored material via an exploration → drafting → integration mechanism</td>
-</tr>
-</tbody>
-</table>
-<p>This is the existing proof that a <strong>persistent learner model can genuinely drive adaptation</strong> rather than sit decoratively beside a generator.</p>
-</div>
-</div>
-</div>
-<hr>
-</section>
-<section id="references" class="level1">
-<h1>References</h1>
-<p><strong>P1</strong> — Chu, Z., Wang, S., Xie, J., Zhu, T., Yan, Y., Ye, J., Zhong, A., Hu, X., Liang, J., Yu, P. S., &amp; Wen, Q. (2025). <em>LLM Agents for Education: Advances and Applications</em>. Findings of the ACL: EMNLP 2025, 13782–13810. <a href="https://arxiv.org/abs/2503.11733">arXiv:2503.11733</a> · <a href="https://aclanthology.org/2025.findings-emnlp.743/">ACL Anthology</a></p>
-<p><strong>P2</strong> — Wang, L., Xie, Y., &amp; Ke, J. (2025). <em>Using Structural Equation Modeling to Analyze Impact Factors on Students and AI Agents Interaction Effectiveness in Elementary English Classes</em>. 2025 International Symposium on Educational Technology (ISET), 330–334. School of Educational Information Technology, South China Normal University. DOI <a href="https://doi.org/10.1109/ISET65607.2025.00071">10.1109/ISET65607.2025.00071</a> · <a href="https://ieeexplore.ieee.org/document/11113575/">IEEE Xplore 11113575</a></p>
-<p><strong>P3</strong> — Wang, T., Zhan, Y., Lian, J., Hu, Z., Yuan, N. J., Zhang, Q., Xie, X., &amp; Xiong, H. (2025). <em>LLM-powered Multi-agent Framework for Goal-oriented Learning in Intelligent Tutoring System</em>. Companion Proceedings of the ACM Web Conference 2025. DOI <a href="https://doi.org/10.1145/3701716.3715244">10.1145/3701716.3715244</a> · <a href="https://arxiv.org/abs/2501.15749">arXiv:2501.15749</a></p>
-
-
 </section>
 
 </main> <!-- /main -->
