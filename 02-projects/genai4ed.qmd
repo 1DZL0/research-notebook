@@ -16,6 +16,20 @@ How can generative AI agents support personalised active learning by adapting ed
 2. **How does adaptation follow from that representation?** Whether the model genuinely drives the change, or generation does the work.
 3. **How does the representation become a teacher-facing insight?** The underexplored part
 
+### Questions to bring to the next discussion
+
+**Direction**
+
+- Of knowledge state, misconceptions, uncertainty, reasoning, engagement - which matters most to a teacher?
+- Optimise for student engagement first, or hold out for a real learning-outcome measure?
+- Prioritise the teacher-facing side (dashboards, alerts) or the student-facing tutor first?
+
+**Measurement**
+
+- Is a self-reported survey good enough at first, or do we need real outcome data from day one?
+- What actually counts as a "meaningful teacher insight" — a metric, an alert, a summary?
+- What are the data rules for real student data, and does that decide hosting?
+
 ***
 
 ::: {.callout-note collapse="true"}
