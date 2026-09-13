@@ -179,17 +179,24 @@ window.HUB_DATA = {
       "blurb": "Applied work where the ideas meet something real.",
       "entries": [
         {
-          "title": "Project: GenAI4ED",
-          "url": "02-projects/genai4ed.html",
+          "title": "Pharos-CY Training: AI Security & Responsible Deployment",
+          "url": "02-projects/pharos-cy.html",
+          "status": "active",
+          "description": "",
+          "date": "last-modified"
+        },
+        {
+          "title": "AI Security &<br>Responsible Deployment",
+          "url": "02-projects/ai-security-training-deck.html",
           "status": "active",
           "description": "",
           "date": ""
         },
         {
-          "title": "Project: Pharos-CY",
-          "url": "02-projects/pharos-cy.html",
+          "title": "Project: GenAI4ED",
+          "url": "02-projects/genai4ed.html",
           "status": "active",
-          "description": "Developing the Pharos-CY project.",
+          "description": "",
           "date": ""
         }
       ]
@@ -250,7 +257,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "9 September 2026"
+  "lastUpdated": "13 September 2026"
 };
 </script>
 
@@ -366,8 +373,16 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#what-o2-is-really-asking" id="toc-what-o2-is-really-asking" class="nav-link active" data-scroll-target="#what-o2-is-really-asking">What O2 is really asking</a></li>
+  <li><a href="#research-directions" id="toc-research-directions" class="nav-link" data-scroll-target="#research-directions">Research Directions</a></li>
+  <li><a href="#papers" id="toc-papers" class="nav-link" data-scroll-target="#papers">Papers</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -408,6 +423,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
+</div>
 <section id="what-o2-is-really-asking" class="level2">
 <h2 class="anchored" data-anchor-id="what-o2-is-really-asking">What O2 is really asking</h2>
 <p>In basic terms:</p>
@@ -442,13 +458,49 @@ Use that assessment when choosing what to do</code></pre>
 </section>
 <section id="papers" class="level2">
 <h2 class="anchored" data-anchor-id="papers">Papers</h2>
-<div class="callout callout-style-default callout-note callout-titled" title="Kadavath,S et al. (2022) - Language Models (Mostly) Know What They Know">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Paper</th>
+<th>Main idea</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kadavath et al.&nbsp;(2022)</td>
+<td>P(True) and P(IK)</td>
+<td>Prompting + trained value head</td>
+</tr>
+<tr class="even">
+<td>Lin et al.&nbsp;(2022)</td>
+<td>Verbalized probability</td>
+<td>Fine-tuning + few-shot prompting</td>
+</tr>
+<tr class="odd">
+<td>Xiong et al.&nbsp;(2023)</td>
+<td>Black-box confidence</td>
+<td>Prompting + sampling + aggregation</td>
+</tr>
+<tr class="even">
+<td>Yin et al.&nbsp;(2023)</td>
+<td>Recognising unanswerable questions</td>
+<td>Behavioural evaluation</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="Kadavath et al. (2022) - Language Models (Mostly) Know What They Know">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Kadavath,S et al.&nbsp;(2022) - Language Models (Mostly) Know What They Know
+<span class="screen-reader-only">Note</span>Kadavath et al.&nbsp;(2022) - Language Models (Mostly) Know What They Know
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -458,10 +510,11 @@ Use that assessment when choosing what to do</code></pre>
 <section id="core-question" class="level3">
 <h3 class="anchored" data-anchor-id="core-question">Core question</h3>
 <p>Does a language model contain information about whether it is likely to know an answer, and whether a particular answer it produced is correct?</p>
-<section id="key-concepts" class="level4">
-<h4 class="anchored" data-anchor-id="key-concepts">Key concepts</h4>
+</section>
+<section id="key-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts">Key concepts</h3>
 <p>The paper studies two related judgements:</p>
-<p><strong>P(IK) - prospective judgement</strong></p>
+<p><span class="text-blue"><strong>P(IK) — prospective judgement</strong></span></p>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -472,7 +525,7 @@ Use that assessment when choosing what to do</code></pre>
 </div>
 </div>
 </div>
-<p><strong>P(True) - retrospective judgement</strong></p>
+<p><span class="text-blue"><strong>P(True) — retrospective judgement</strong></span></p>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -483,18 +536,11 @@ Use that assessment when choosing what to do</code></pre>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="how-it-is-implemented" class="level3">
-<h3 class="anchored" data-anchor-id="how-it-is-implemented">How it is implemented</h3>
-<p>The paper uses different mechanisms for <strong>P(True)</strong> and <strong>P(IK)</strong>.</p>
-<p><strong>Discrimination:</strong> Can the model tell which questions it is more likely to know?</p>
-<p><strong>Calibration:</strong> Are the probabilities it gives numerically accurate?</p>
-<section id="ptrue-prompting-the-existing-language-model" class="level4">
-<h4 class="anchored" data-anchor-id="ptrue-prompting-the-existing-language-model">P(True): prompting the existing language model</h4>
-<p>P(True) does not require adding a new neural component to the model.</p>
-<p>The model first generates an answer. It is then prompted to evaluate that answer as <strong>True or False</strong>, and the probability assigned to <code>True</code> is treated as P(True).</p>
-<p>Conceptually:</p>
+<p><span class="text-blue"><strong>Discrimination</strong></span></p>
+<p>Can the model tell which questions it is more likely to know?</p>
+<p><span class="text-blue"><strong>Calibration</strong></span></p>
+<p>Are the probabilities it gives numerically accurate?</p>
+<p><span class="text-blue"><strong>Conceptual P(True) flow</strong></span></p>
 <pre class="text"><code>Question
    ↓
 Language model generates answer
@@ -507,6 +553,25 @@ Probability(True)
    ↓
 P(True)</code></pre>
 </section>
+<section id="how-it-is-implemented" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented">How it is implemented</h3>
+<p>The paper uses two different mechanisms. P(True) reuses the language model through prompting, whereas P(IK) requires supervised training with an additional output head.</p>
+<p><span class="text-blue"><strong>P(True): prompt-based self-evaluation</strong></span></p>
+<ol type="1">
+<li>The language model first generates an answer.</li>
+<li>The question and proposed answer are placed into a new multiple-choice prompt asking whether the answer is <strong>(A) True</strong> or <strong>(B) False</strong>.</li>
+<li>The probabilities assigned to the <code>A</code> and <code>B</code> answer tokens are used to calculate P(True). This does not require a new component</li>
+<li>In a stronger version, the model is also shown several alternative answers sampled from itself before judging the proposed answer(batching / aggregation). These comparison samples improve self-evaluation, especially for short-answer tasks.</li>
+</ol>
+<p><span class="text-blue"><strong>P(IK): a trained value head</strong></span></p>
+<p>This is a <strong>value head</strong>, not an attention head. It is an additional binary-classification output attached to the language model.</p>
+<ol type="1">
+<li>For every training question, the researchers sample 30 answers from the model at temperature 1 and mark each answer as correct (<code>IK</code>) or incorrect (<code>IDK</code>). The fraction answered correctly is the empirical ground-truth P(IK) for that question.</li>
+<li>They represent this soft target as repeated hard-labelled examples. For example, if 20 of 30 answers are correct, training uses 20 <code>(question, IK)</code> examples and 10 <code>(question, IDK)</code> examples.</li>
+<li>They fine-tune the language model and the added value head with cross-entropy loss.</li>
+<li>At evaluation time, the value-head output at that final token is read as P(IK) the predicted probability that this model can answer the question correctly.</li>
+</ol>
+<p>The authors also tried asking the model to state P(IK) directly as a percentage in natural language, but early experiments did not show a major advantage, so the paper’s main P(IK) experiments use the value-head method.</p>
 </section>
 <section id="main-findings" class="level3">
 <h3 class="anchored" data-anchor-id="main-findings">Main findings</h3>
@@ -523,16 +588,20 @@ P(True)</code></pre>
 <h3 class="anchored" data-anchor-id="additional-point">Additional point</h3>
 <p>Simple proxies such as answer <em>entropy</em> or <em>token loss</em> also contain some uncertainty signal, but they are not robust replacements for P(IK). In particular, capable models may produce diverse yet correct answers, so diversity alone does not imply lack of knowledge.</p>
 </section>
+<section id="relevance-to-o2" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2">Relevance to O2</h3>
+<p>This paper directly tests whether a model can represent its own likely knowledge and update that estimate when useful information enters its context. P(IK) is therefore an early, narrow form of the action-guiding self-assessment proposed in O2.</p>
+</section>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Lin,S et al. (2022) - Teaching Models to Express Their Uncertainty in Words">
+<div class="callout callout-style-default callout-note callout-titled" title="Lin et al. (2022) - Teaching Models to Express Their Uncertainty in Words">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Lin,S et al.&nbsp;(2022) - Teaching Models to Express Their Uncertainty in Words
+<span class="screen-reader-only">Note</span>Lin et al.&nbsp;(2022) - Teaching Models to Express Their Uncertainty in Words
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -576,9 +645,10 @@ Answer: 13
 </div>
 </div>
 </div>
-<section id="key-concepts-1" class="level4">
-<h4 class="anchored" data-anchor-id="key-concepts-1">Key concepts</h4>
-<p>Verbalized probability</p>
+</section>
+<section id="key-concepts-1" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-1">Key concepts</h3>
+<p><span class="text-blue"><strong>Verbalized probability</strong></span></p>
 <p>The model is trained to explicitly generate a confidence estimate as part of its answer:</p>
 <pre class="text"><code>Answer: 897
 Confidence: 72%</code></pre>
@@ -586,10 +656,13 @@ Confidence: 72%</code></pre>
 <p><span class="math display">\[ P(\text{correct} \mid q, a) \]</span></p>
 <p>where (q) is the question and (a) is the answer the model has already produced.</p>
 <p>This makes verbalized probability conceptually closer to Kadavath et al.’s retrospective quantity</p>
-<p><strong>How it is implemented</strong> It uses GPT-3 and fine-tunes the language model itself to generate confidence statements so uncertantily is expressed through language generation used for normal llm text.</p>
 </section>
-<section id="main-findings-1" class="level4">
-<h4 class="anchored" data-anchor-id="main-findings-1">Main findings</h4>
+<section id="how-it-is-implemented-1" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-1">How it is implemented</h3>
+<p>The authors fine-tune GPT-3 to generate an answer and a confidence statement together, such as a percentage or a verbal category. The confidence is therefore expressed through ordinary language generation without requiring access to the model’s logits. They evaluate whether these reported confidence levels match the model’s observed accuracy, including under distribution shift.</p>
+</section>
+<section id="main-findings-1" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-1">Main findings</h3>
 <ol type="1">
 <li>GPT-3 can be fine-tuned to explicitly to express confidence in the correctness of its generated answers</li>
 <li>These verbalized probabilities can be reasonably calibrated, meaning that confidence values correspond meaningfully to empirical correctness rates.</li>
@@ -599,42 +672,130 @@ Confidence: 72%</code></pre>
 <li>Internal representations contain information correlated with answer correctness, and simple classifiers seem to be able to extract some of that</li>
 </ol>
 </section>
+<section id="relevance-to-o2-1" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-1">Relevance to O2</h3>
+<p>The paper shows that uncertainty can be translated into an explicit, communicable signal. For O2, the next question is whether an agent can use that signal to change its behaviour—for example, by abstaining, asking for help, or gathering more information.</p>
 </section>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Xiong,M et al (2022) - Can LLMs express their uncertainty? An empirical evaluation of confidence elicitation in LLMs">
+<div class="callout callout-style-default callout-note callout-titled" title="Xiong et al. (2024) -  Can LLMs Express Their Uncertainty?">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Xiong,M et al (2022) - Can LLMs express their uncertainty? An empirical evaluation of confidence elicitation in LLMs
+<span class="screen-reader-only">Note</span>Xiong et al.&nbsp;(2024) - Can LLMs Express Their Uncertainty?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2205.14334" target="_blank" rel="noopener">Teaching Models to Express Their Uncertainty in Words</a></p>
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2306.13063" target="_blank" rel="noopener">Can LLMs Express Their Uncertainty?</a></p>
 <section id="core-question-2" class="level3">
 <h3 class="anchored" data-anchor-id="core-question-2">Core question</h3>
-<section id="key-concepts-2" class="level4">
-<h4 class="anchored" data-anchor-id="key-concepts-2">Key concepts</h4>
+<p>Can modern LLMs accurately express how uncertain they are about their own answers when we only have <strong>black-box access</strong> to the model?</p>
+<p>In other words:</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If the model gives an answer, can we obtain a confidence estimate that actually tells us how likely that answer is to be correct?</p>
+</div>
+</div>
+</div>
+<p>The paper is motivated by the fact that many current LLMs are accessed through APIs, so we may not have access to:</p>
+<ul>
+<li>hidden states,</li>
+<li>logits,</li>
+<li>internal activations,</li>
+<li>or the ability to fine-tune the model.</li>
+</ul>
+<p>The authors therefore focus mainly on methods that work using only:</p>
+<pre class="text"><code>prompt → model output</code></pre>
 </section>
-<section id="main-findings-2" class="level4">
-<h4 class="anchored" data-anchor-id="main-findings-2">Main findings</h4>
+<section id="key-concepts-2" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-2">Key concepts</h3>
+<p><span class="text-blue"><strong>Black-box uncertainty estimation</strong></span></p>
+<p>A black-box method estimates uncertainty without accessing the internal structure of the model.</p>
+<pre class="text"><code>Question → LLM API → Answer + observable outputs → Estimate uncertainty</code></pre>
+<p><span class="text-blue"><strong>Verbalized confidence</strong></span></p>
+<p>One approach is simply to ask the model to state its own confidence.</p>
+<ul>
+<li>Same approach as <strong>Teaching Models to Express Their Uncertainty in Words</strong></li>
+</ul>
+<p><span class="text-blue"><strong>Calibration</strong></span></p>
+<p>Calibration measures whether stated confidence corresponds to actual correctness.</p>
+<p>Ideally:</p>
+<p><span class="math display">\[P(\text{correct} \mid \hat{p}=0.8) \approx 0.8\]</span></p>
+<p>where () is the confidence reported by the model.</p>
+<p>If only 50 out of 100 are correct despite the model reporting 80% confidence, then it is overconfident.</p>
+<p><span class="text-blue"><strong>Failure prediction</strong></span></p>
+<blockquote class="blockquote">
+<p>Can the uncertainty estimate distinguish answers that are likely to be correct from answers that are likely to fail?</p>
+</blockquote>
+<p>Calibration <span class="math display">\[=\]</span> Are the probabilities numerically correct?</p>
+<p>Failure prediction <span class="math display">\[=\]</span> Can confidence separate likely success from likely failure?</p>
+<p><span class="text-blue"><strong>Consistency</strong></span> A second part of uncertainty signals comes from generating multiple answers to the same question.</p>
+<ul>
+<li>Frequncy <strong>=</strong> potentially higher confidence</li>
+</ul>
+<pre class="text"><code>Sample 1: Paris
+Sample 2: Paris
+Sample 3: Paris
+Sample 4: Lyon
+Sample 5: Paris
+</code></pre>
+<p>This is similar to the multiple-sampling ideas in <strong>Kadavath et al</strong></p>
 </section>
+<section id="how-it-is-implemented-2" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-2">How it is implemented</h3>
+<p>The paper organizes black-box confidence elicitation into three main components:</p>
+<p>Prompting ↓ Sampling ↓ Aggregation</p>
+<ol type="1">
+<li>Prompting</li>
+</ol>
+<p>The model is prompted to provide an answer and, in some settings, an explicit confidence estimate.</p>
+<ol start="2" type="1">
+<li>Sampling</li>
+</ol>
+<p>Instead of relying on a single response, the model can be queried multiple times.</p>
+<ol start="3" type="1">
+<li>Aggregation</li>
+</ol>
+<p>The sampled answers and confidence values are then combined into one final confidence estimate.</p>
+</section>
+<section id="main-findings-2" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-2">Main findings</h3>
+<p>Main findings</p>
+<ol type="1">
+<li><p>LLMs tend to be overconfident when directly verbalizing confidence. A model may produce: <strong>Confidence: 90%</strong> when its actual probability of being correct is substantially lower. So direct self-report is not automatically a reliable measure of uncertainty.</p></li>
+<li><p>As model capability increases, both calibration and failure-prediction performance tend to improve. However, even stronger models remain far from perfectly calibrated or perfectly able to identify their own failures.</p></li>
+<li><p>Prompt design affects confidence quality. More carefully designed, human-inspired prompts can reduce some of the overconfidence produced by simple direct prompting.</p></li>
+<li><p>Multiple-sample consistency provides useful uncertainty information. If several independently sampled responses agree. Aggregation can improve uncertainty estimates.</p></li>
+</ol>
+<p>5.Combining confidence across multiple responses can improve calibration and failure prediction compared with relying on one model response alone.</p>
+<ol start="6" type="1">
+<li><p>All methods struggle on difficult domains. Performance becomes substantially worse on challenging tasks, particularly those requiring professional or specialized knowledge.</p></li>
+<li><p>The paper reports an example AUROC difference of approximately: <span class="math display">\[ 0.522 \rightarrow 0.605 \]</span> between black-box and white-box approaches.</p></li>
+</ol>
+</section>
+<section id="relevance-to-o2-2" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-2">Relevance to O2</h3>
+<p>This paper tests whether useful self-assessment can be elicited when an agent exposes only ordinary outputs. It helps separate a genuinely action-guiding uncertainty signal from a confidence statement that merely sounds plausible.</p>
 </section>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Yin,Z et al (2022) - Do large language models know what they don’t know?">
+<div class="callout callout-style-default callout-note callout-titled" title="Yin et al. (2023) - Do Large Language Models Know What They Don't Know?">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Yin,Z et al (2022) - Do large language models know what they don’t know?
+<span class="screen-reader-only">Note</span>Yin et al.&nbsp;(2023) - Do Large Language Models Know What They Don’t Know?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -643,12 +804,545 @@ Confidence: 72%</code></pre>
 <p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2305.18153" target="_blank" rel="noopener">Do large language models know what they don’t know?</a></p>
 <section id="core-question-3" class="level3">
 <h3 class="anchored" data-anchor-id="core-question-3">Core question</h3>
-<section id="key-concepts-3" class="level4">
-<h4 class="anchored" data-anchor-id="key-concepts-3">Key concepts</h4>
+<p>Can an LLM recognise that a question has no reliable answer and express uncertainty instead of producing a confident but unsupported response?</p>
 </section>
-<section id="main-findings-3" class="level4">
-<h4 class="anchored" data-anchor-id="main-findings-3">Main findings</h4>
+<section id="key-concepts-3" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-3">Key concepts</h3>
+<p><span class="text-blue"><strong>Self-knowledge</strong></span></p>
+<p>The ability of a model to recognise the boundary between questions it can answer and questions for which it lacks a reliable answer.</p>
+<p><span class="text-blue"><strong>SelfAware dataset</strong></span></p>
+<p>A benchmark containing unanswerable questions from five categories, no scientific consensus, imagination, complete subjectivity, too many variables, and philosophical questions—together with answerable questions for comparison.</p>
+<p><span class="text-blue"><strong>Uncertainty detection</strong></span></p>
+<p>An automated way to identify whether a generated response contains language that signals uncertainty.</p>
 </section>
+<section id="how-it-is-implemented-3" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-3">How it is implemented</h3>
+<ol type="1">
+<li><p>The authors construct the <strong>SelfAware</strong> dataset containing both answerable and unanswerable questions.</p>
+<p>The unanswerable questions cover five categories:</p>
+<ul>
+<li>no scientific consensus,</li>
+<li>imagination or speculation,</li>
+<li>subjective questions,</li>
+<li>questions depending on too many variables,</li>
+<li>philosophical questions.</li>
+</ul>
+<p>Answerable questions are selected from existing QA datasets and chosen to be semantically similar to the unanswerable questions, making the classification problem less trivial.</p></li>
+<li><p>They evaluate <strong>20 language models</strong>, including GPT-3, InstructGPT and LLaMA-family models, using three input formats:</p>
+<ul>
+<li><strong>Direct</strong>: present the question normally.</li>
+<li><strong>Instruction</strong>: explicitly tell the model to acknowledge uncertainty when the answer is unknown.</li>
+<li><strong>In-context learning (ICL)</strong>: provide examples of answerable and unanswerable questions together with appropriate responses before the test question.</li>
+</ul></li>
+<li><p>Because model responses can express uncertainty in many different ways, the authors introduce an automatic uncertainty detector. They define 16 reference expressions representing uncertainty</p></li>
+<li><p>Performance is primarily evaluated using the F1 score</p></li>
+</ol>
+</section>
+<section id="main-findings-3" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-3">Main findings</h3>
+<ol type="1">
+<li><p>LLMs show some ability to distinguish <strong>answerable from unanswerable questions</strong>, meaning they have limited awareness of knowledge boundaries.</p></li>
+<li><p><strong>Larger and instruction-tuned models perform better</strong>, suggesting self-knowledge improves with model capability and alignment.</p></li>
+<li><p>Explicit instructions and <strong>in-context examples</strong> substantially improve recognition of unanswerable questions.</p></li>
+<li><p>Performance is still far from perfect and below human performance, so models often either answer questions they should reject or express uncertainty when they could answer.</p></li>
+<li><p>The result is behavioural: it shows models can sometimes <strong>recognise when an answer should not be given</strong>, but does not establish an internal or persistent self-model.</p></li>
+</ol>
+</section>
+<section id="relevance-to-o2-3" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-3">Relevance to O2</h3>
+<p>SelfAware provides a behavioural test of whether a model can recognise the boundary between situations it should answer and situations where it should acknowledge that the answer is unavailable or unknowable. the paper only demonstrates observable behaviour. It does not establish that the model contains an explicit or integrated self-model of its knowledge boundary.</p>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Sapoor S et al. (2024) - Large Language Models Must Be Taught to Know What They Don’t Know">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Sapoor S et al.&nbsp;(2024) - Large Language Models Must Be Taught to Know What They Don’t Know
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2406.08391" target="_blank" rel="noopener">Large Language Models Must Be Taught to Know What They Don’t Know</a></p>
+<section id="core-question-4" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-4">Core question</h3>
+<p>Can LLMs produce reliable uncertainty estimates simply through prompting, or must they be explicitly trained to recognise when their own answers are likely to be wrong?</p>
+</section>
+<section id="key-concepts-4" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-4">Key concepts</h3>
+<ul>
+<li>Prompted uncertainty vs learned uncertainty</li>
+<li>Calibration</li>
+<li>Graded examples</li>
+<li>Fine-tuned uncertainty estimator</li>
+<li>LoRA</li>
+<li>Model-specific vs general-purpose uncertainty estimation</li>
+<li>ECE and AUROC as Metrics</li>
+<li>Temperature scaling</li>
+</ul>
+</section>
+<section id="how-it-is-implemented-4" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-4">How it is implemented</h3>
+<ol type="1">
+<li>Generate answers from language models.</li>
+<li>Grade those answers as correct <span class="math inline">\(P(True)\)</span> or incorrect <span class="math inline">\(P(False)\)</span>.</li>
+<li>Fine-tune the model on a relatively small set of these graded examples so that it learns to estimate whether an answer is likely to be correct.</li>
+<li>For large open-source models, use LoRA to make this training computationally practical.</li>
+<li>Compare the learned estimator against prompting-based and sampling-based uncertainty methods.</li>
+<li>Test whether the learned uncertainty estimator generalizes across datasets and whether one model can estimate the uncertainty of another model.</li>
+</ol>
+</section>
+<section id="main-findings-4" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-4">Main findings</h3>
+<p>Prompting alone is not sufficient for reliable calibration. Fine-tuning on roughly 1,000(more to 5k) graded examples produces substantially better uncertainty estimates and can generalize beyond the training data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/o2/confidence-calibration-results.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Short description</figcaption>
+</figure>
+</div>
+</section>
+<section id="relevance-to-o2-4" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-4">Relevance to O2</h3>
+<p>The paper suggests that useful self-relevant uncertainty may not automatically become an accurate self-assessment simply because the model is prompted to report it.</p>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[38] Wang et al. (2026) - Are LLM Decisions Faithful to Verbal Confidence?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[38] Wang et al.&nbsp;(2026) - Are LLM Decisions Faithful to Verbal Confidence?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2601.07767" target="_blank" rel="noopener">Are LLM Decisions Faithful to Verbal Confidence?</a></p>
+<section id="core-question-5" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-5">Core question</h3>
+</section>
+<section id="key-concepts-5" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-5">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-5" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-5">How it is implemented</h3>
+</section>
+<section id="main-findings-5" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-5">Main findings</h3>
+</section>
+<section id="relevance-to-o2-5" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-5">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[39] Li et al. (2025) - Adaptive Tool Use in Large Language Models with Meta-Cognition Trigger">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[39] Li et al.&nbsp;(2025) - Adaptive Tool Use in Large Language Models with Meta-Cognition Trigger
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://aclanthology.org/2025.acl-long.655/" target="_blank" rel="noopener">Adaptive Tool Use in Large Language Models with Meta-Cognition Trigger</a></p>
+<section id="core-question-6" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-6">Core question</h3>
+</section>
+<section id="key-concepts-6" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-6">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-6" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-6">How it is implemented</h3>
+</section>
+<section id="main-findings-6" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-6">Main findings</h3>
+</section>
+<section id="relevance-to-o2-6" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-6">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[40] Berglund et al. (2023) - Taken out of Context: On Measuring Situational Awareness in LLMs">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[40] Berglund et al.&nbsp;(2023) - Taken out of Context: On Measuring Situational Awareness in LLMs
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2309.00667" target="_blank" rel="noopener">Taken out of Context: On Measuring Situational Awareness in LLMs</a></p>
+<section id="core-question-7" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-7">Core question</h3>
+</section>
+<section id="key-concepts-7" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-7">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-7" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-7">How it is implemented</h3>
+</section>
+<section id="main-findings-7" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-7">Main findings</h3>
+</section>
+<section id="relevance-to-o2-7" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-7">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[41] Laine et al. (2024) - Me, Myself, and AI: The Situational Awareness Dataset (SAD) for LLMs">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[41] Laine et al.&nbsp;(2024) - Me, Myself, and AI: The Situational Awareness Dataset (SAD) for LLMs
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/7537726385a4a6f94321e3adf8bd827e-Abstract-Datasets_and_Benchmarks_Track.html" target="_blank" rel="noopener">Me, Myself, and AI: The Situational Awareness Dataset (SAD) for LLMs</a></p>
+<section id="core-question-8" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-8">Core question</h3>
+</section>
+<section id="key-concepts-8" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-8">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-8" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-8">How it is implemented</h3>
+</section>
+<section id="main-findings-8" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-8">Main findings</h3>
+</section>
+<section id="relevance-to-o2-8" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-8">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[42] Needham et al. (2025) - Large Language Models Often Know When They Are Being Evaluated">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[42] Needham et al.&nbsp;(2025) - Large Language Models Often Know When They Are Being Evaluated
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2505.23836" target="_blank" rel="noopener">Large Language Models Often Know When They Are Being Evaluated</a></p>
+<section id="core-question-9" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-9">Core question</h3>
+</section>
+<section id="key-concepts-9" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-9">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-9" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-9">How it is implemented</h3>
+</section>
+<section id="main-findings-9" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-9">Main findings</h3>
+</section>
+<section id="relevance-to-o2-9" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-9">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[43] Nguyen et al. (2025) - Probing and Steering Evaluation Awareness of Language Models">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[43] Nguyen et al.&nbsp;(2025) - Probing and Steering Evaluation Awareness of Language Models
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2507.01786" target="_blank" rel="noopener">Probing and Steering Evaluation Awareness of Language Models</a></p>
+<section id="core-question-10" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-10">Core question</h3>
+</section>
+<section id="key-concepts-10" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-10">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-10" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-10">How it is implemented</h3>
+</section>
+<section id="main-findings-10" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-10">Main findings</h3>
+</section>
+<section id="relevance-to-o2-10" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-10">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[44] Abdelnabi and Salem (2025) - The Hawthorne Effect in Reasoning Models: Evaluating and Steering Test Awareness">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[44] Abdelnabi and Salem (2025) - The Hawthorne Effect in Reasoning Models: Evaluating and Steering Test Awareness
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://proceedings.neurips.cc/paper_files/paper/2025/hash/cf42f133f355e0e07a8957b508b26a1b-Abstract-Conference.html" target="_blank" rel="noopener">The Hawthorne Effect in Reasoning Models: Evaluating and Steering Test Awareness</a></p>
+<section id="core-question-11" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-11">Core question</h3>
+</section>
+<section id="key-concepts-11" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-11">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-11" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-11">How it is implemented</h3>
+</section>
+<section id="main-findings-11" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-11">Main findings</h3>
+</section>
+<section id="relevance-to-o2-11" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-11">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[45] Hua et al. (2026) - Steering Evaluation-Aware Language Models to Act Like They Are Deployed">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[45] Hua et al.&nbsp;(2026) - Steering Evaluation-Aware Language Models to Act Like They Are Deployed
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://openreview.net/forum?id=1TdRdf0fkw" target="_blank" rel="noopener">Steering Evaluation-Aware Language Models to Act Like They Are Deployed</a></p>
+<section id="core-question-12" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-12">Core question</h3>
+</section>
+<section id="key-concepts-12" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-12">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-12" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-12">How it is implemented</h3>
+</section>
+<section id="main-findings-12" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-12">Main findings</h3>
+</section>
+<section id="relevance-to-o2-12" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-12">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[46] Li et al. (2026) - Decomposing and Measuring Evaluation Awareness">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[46] Li et al.&nbsp;(2026) - Decomposing and Measuring Evaluation Awareness
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2605.23055" target="_blank" rel="noopener">Decomposing and Measuring Evaluation Awareness</a></p>
+<section id="core-question-13" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-13">Core question</h3>
+</section>
+<section id="key-concepts-13" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-13">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-13" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-13">How it is implemented</h3>
+</section>
+<section id="main-findings-13" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-13">Main findings</h3>
+</section>
+<section id="relevance-to-o2-13" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-13">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[47] Nayan et al. (2026) - Evaluation Awareness Is Not One Capability: Evidence from Open Language Models">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[47] Nayan et al.&nbsp;(2026) - Evaluation Awareness Is Not One Capability: Evidence from Open Language Models
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2606.23583" target="_blank" rel="noopener">Evaluation Awareness Is Not One Capability: Evidence from Open Language Models</a></p>
+<section id="core-question-14" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-14">Core question</h3>
+</section>
+<section id="key-concepts-14" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-14">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-14" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-14">How it is implemented</h3>
+</section>
+<section id="main-findings-14" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-14">Main findings</h3>
+</section>
+<section id="relevance-to-o2-14" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-14">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[48] Betley et al. (2025) - Tell Me About Yourself: LLMs Are Aware of Their Learned Behaviors">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[48] Betley et al.&nbsp;(2025) - Tell Me About Yourself: LLMs Are Aware of Their Learned Behaviors
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://openreview.net/forum?id=IjQ2Jtemzy" target="_blank" rel="noopener">Tell Me About Yourself: LLMs Are Aware of Their Learned Behaviors</a></p>
+<section id="core-question-15" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-15">Core question</h3>
+</section>
+<section id="key-concepts-15" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-15">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-15" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-15">How it is implemented</h3>
+</section>
+<section id="main-findings-15" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-15">Main findings</h3>
+</section>
+<section id="relevance-to-o2-15" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-15">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[49] Greenblatt et al. (2024) - Alignment Faking in Large Language Models">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[49] Greenblatt et al.&nbsp;(2024) - Alignment Faking in Large Language Models
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2412.14093" target="_blank" rel="noopener">Alignment Faking in Large Language Models</a></p>
+<section id="core-question-16" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-16">Core question</h3>
+</section>
+<section id="key-concepts-16" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-16">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-16" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-16">How it is implemented</h3>
+</section>
+<section id="main-findings-16" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-16">Main findings</h3>
+</section>
+<section id="relevance-to-o2-16" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-16">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[50] van der Weij et al. (2025) - AI Sandbagging: Language Models Can Strategically Underperform on Evaluations">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[50] van der Weij et al.&nbsp;(2025) - AI Sandbagging: Language Models Can Strategically Underperform on Evaluations
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://openreview.net/forum?id=7Qa2SpjxIS" target="_blank" rel="noopener">AI Sandbagging: Language Models Can Strategically Underperform on Evaluations</a></p>
+<section id="core-question-17" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-17">Core question</h3>
+</section>
+<section id="key-concepts-17" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-17">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-17" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-17">How it is implemented</h3>
+</section>
+<section id="main-findings-17" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-17">Main findings</h3>
+</section>
+<section id="relevance-to-o2-17" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-17">Relevance to O2</h3>
+</section>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="[51] Meinke et al. (2024) - Frontier Models Are Capable of In-Context Scheming">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>[51] Meinke et al.&nbsp;(2024) - Frontier Models Are Capable of In-Context Scheming
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2412.04984" target="_blank" rel="noopener">Frontier Models Are Capable of In-Context Scheming</a></p>
+<section id="core-question-18" class="level3">
+<h3 class="anchored" data-anchor-id="core-question-18">Core question</h3>
+</section>
+<section id="key-concepts-18" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts-18">Key concepts</h3>
+</section>
+<section id="how-it-is-implemented-18" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-implemented-18">How it is implemented</h3>
+</section>
+<section id="main-findings-18" class="level3">
+<h3 class="anchored" data-anchor-id="main-findings-18">Main findings</h3>
+</section>
+<section id="relevance-to-o2-18" class="level3">
+<h3 class="anchored" data-anchor-id="relevance-to-o2-18">Relevance to O2</h3>
 </section>
 </div>
 </div>
@@ -656,7 +1350,6 @@ Confidence: 72%</code></pre>
 
 
 </section>
-</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Developing the Pharos-CY project.">
+<meta name="dcterms.date" content="2026-09-13">
 
-<title>Project: Pharos-CY – Phronesis · Φρόνησις</title>
+<title>Pharos-CY Training: AI Security &amp; Responsible Deployment – Phronesis · Φρόνησις</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -179,17 +179,24 @@ window.HUB_DATA = {
       "blurb": "Applied work where the ideas meet something real.",
       "entries": [
         {
-          "title": "Project: GenAI4ED",
-          "url": "02-projects/genai4ed.html",
+          "title": "Pharos-CY Training: AI Security & Responsible Deployment",
+          "url": "02-projects/pharos-cy.html",
+          "status": "active",
+          "description": "",
+          "date": "last-modified"
+        },
+        {
+          "title": "AI Security &<br>Responsible Deployment",
+          "url": "02-projects/ai-security-training-deck.html",
           "status": "active",
           "description": "",
           "date": ""
         },
         {
-          "title": "Project: Pharos-CY",
-          "url": "02-projects/pharos-cy.html",
+          "title": "Project: GenAI4ED",
+          "url": "02-projects/genai4ed.html",
           "status": "active",
-          "description": "Developing the Pharos-CY project.",
+          "description": "",
           "date": ""
         }
       ]
@@ -250,7 +257,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "9 September 2026"
+  "lastUpdated": "13 September 2026"
 };
 </script>
 
@@ -342,20 +349,17 @@ window.HUB_DATA = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#project-pharos-cy" id="toc-project-pharos-cy" class="nav-link active" data-scroll-target="#project-pharos-cy">Project: Pharos-CY</a>
-  <ul class="collapse">
-  <li><a href="#project-position" id="toc-project-position" class="nav-link" data-scroll-target="#project-position">Project Position</a></li>
-  <li><a href="#training-event-ai-security-responsible-deployment" id="toc-training-event-ai-security-responsible-deployment" class="nav-link" data-scroll-target="#training-event-ai-security-responsible-deployment">Training event: AI Security &amp; Responsible Deployment</a>
-  <ul class="collapse">
-  <li><a href="#rationale" id="toc-rationale" class="nav-link" data-scroll-target="#rationale">Rationale</a></li>
-  <li><a href="#audience-and-framing" id="toc-audience-and-framing" class="nav-link" data-scroll-target="#audience-and-framing">Audience and framing</a></li>
-  <li><a href="#two-deliverables" id="toc-two-deliverables" class="nav-link" data-scroll-target="#two-deliverables">Two deliverables</a></li>
-  <li><a href="#content-outline" id="toc-content-outline" class="nav-link" data-scroll-target="#content-outline">Content outline</a></li>
-  <li><a href="#what-to-look-at-first" id="toc-what-to-look-at-first" class="nav-link" data-scroll-target="#what-to-look-at-first">What to look at first</a></li>
+  <li><a href="#the-presentation" id="toc-the-presentation" class="nav-link active" data-scroll-target="#the-presentation">The presentation</a></li>
+  <li><a href="#the-one-line-thesis" id="toc-the-one-line-thesis" class="nav-link" data-scroll-target="#the-one-line-thesis">The one-line thesis</a></li>
+  <li><a href="#framing-decisions" id="toc-framing-decisions" class="nav-link" data-scroll-target="#framing-decisions">Framing decisions</a></li>
+  <li><a href="#what-stays-live-vs-what-ships-in-the-pack" id="toc-what-stays-live-vs-what-ships-in-the-pack" class="nav-link" data-scroll-target="#what-stays-live-vs-what-ships-in-the-pack">What stays live vs what ships in the pack</a></li>
+  <li><a href="#the-attack-chain" id="toc-the-attack-chain" class="nav-link" data-scroll-target="#the-attack-chain">The attack chain</a></li>
+  <li><a href="#the-visualisation" id="toc-the-visualisation" class="nav-link" data-scroll-target="#the-visualisation">The visualisation</a></li>
+  <li><a href="#the-take-home-pack" id="toc-the-take-home-pack" class="nav-link" data-scroll-target="#the-take-home-pack">The take-home pack</a></li>
+  <li><a href="#the-idea" id="toc-the-idea" class="nav-link" data-scroll-target="#the-idea">The idea</a></li>
+  <li><a href="#the-path" id="toc-the-path" class="nav-link" data-scroll-target="#the-path">The path</a></li>
+  <li><a href="#whats-in-the-box" id="toc-whats-in-the-box" class="nav-link" data-scroll-target="#whats-in-the-box">What’s in the box</a></li>
   <li><a href="#open-questions" id="toc-open-questions" class="nav-link" data-scroll-target="#open-questions">Open questions</a></li>
-  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
-  </ul></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -364,19 +368,20 @@ window.HUB_DATA = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project: Pharos-CY</h1>
+<h1 class="title">Pharos-CY Training: AI Security &amp; Responsible Deployment</h1>
 </div>
 
-<div>
-  <div class="description">
-    Developing the Pharos-CY project.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 13, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -386,73 +391,179 @@ window.HUB_DATA = {
 </header>
 
 
-<section id="project-pharos-cy" class="level1">
-<h1>Project: Pharos-CY</h1>
-<section id="project-position" class="level2">
-<h2 class="anchored" data-anchor-id="project-position">Project Position</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What this is
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The working design for the WP3 training event. It’s the single source both deliverables build from:</p>
+<p>The <strong>live session</strong> (what runs on stage if we can get a confrence)</p>
+<p>The <strong>take-home pack</strong>.</p>
+<p><strong>Short note due:</strong> 23 September 2026.</p>
+</div>
+</div>
+<section id="the-presentation" class="level1">
+<h1>The presentation</h1>
+<p><a href="ai-security-training-deck.html" class="btn btn-primary" target="_blank">▶ Open the presentation full screen</a></p>
+<div style="position:relative; width:100%; aspect-ratio:16/9; margin-top:1rem;">
+<iframe src="ai-security-training-deck.html" title="AI Security training deck" style="position:absolute; inset:0; width:100%; height:100%; border:1px solid #ccc; border-radius:6px;" allowfullscreen="">
+</iframe>
+</div>
+<p><em>Click inside the preview and use the arrow keys to move through the slides. Press <code>F</code> for full screen.</em></p>
 </section>
-<section id="training-event-ai-security-responsible-deployment" class="level2">
-<h2 class="anchored" data-anchor-id="training-event-ai-security-responsible-deployment">Training event: AI Security &amp; Responsible Deployment</h2>
-<section id="rationale" class="level3">
-<h3 class="anchored" data-anchor-id="rationale">Rationale</h3>
-<p>Many companies on the platform will consume HPC-hosted datasets and models. A growing number will also <em>build</em> AI applications and agentic workflows and integrate them into their own systems. This course introduces the key ideas around AI security and safety for that audience. It can run standalone or as a module attached to another training event.</p>
+<section id="the-one-line-thesis" class="level1">
+<h1>The one-line thesis</h1>
+<blockquote class="blockquote">
+<p>A compromised agent acts with the <strong>deployer’s</strong> authority, not the attacker’s. The attacker only needs standard user access. The blast radius is everything the agent was trusted to touch.</p>
+</blockquote>
 </section>
-<section id="audience-and-framing" class="level3">
-<h3 class="anchored" data-anchor-id="audience-and-framing">Audience and framing</h3>
+<section id="framing-decisions" class="level1">
+<h1>Framing decisions</h1>
 <ul>
-<li>Engineers and technical leads building AI apps / agents, not ML researchers.</li>
-<li>Assume they can already call a model and wire a tool; assume they have <em>not</em> thought hard about isolation, permissions, injection, or monitoring.</li>
-<li>Keep it practical and demo-led: show the failure, then show the mitigation.</li>
+<li><strong>The target:</strong> a <strong>company’s own containerised ops/dev assistant</strong>, running in Docker/Kubernetes (everyone has run a <code>docker run</code>). Container is both the agent’s home <strong>and</strong> the mitigation surface.</li>
+<li><strong>Structure:</strong> one deliberately vulnerable agent, ~150 lines of glue over an off-the-shelf SDK, with a config flag switching <code>unsafe</code> to <code>hardened</code>.</li>
+<li><strong>Two-passes:</strong> run the whole attack chain, then run the hardening / midigation fix</li>
 </ul>
 </section>
-<section id="two-deliverables" class="level3">
-<h3 class="anchored" data-anchor-id="two-deliverables">Two deliverables</h3>
+<section id="what-stays-live-vs-what-ships-in-the-pack" class="level1">
+<h1>What stays live vs what ships in the pack</h1>
+<p>The boring part is the <em>explanation</em> of the mitigation. so that should be a takehome</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stays <strong>live</strong> (shown)</th>
+<th>Ships in the <strong>pack</strong> (read)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Every attack</td>
+<td>How to actually choose/configure a sandbox</td>
+</tr>
+<tr class="even">
+<td>The <strong>naive fix failing</strong></td>
+<td>Path canonicalisation &amp; allowlist code</td>
+</tr>
+<tr class="odd">
+<td>The real fix <strong>holding</strong> (re-run)</td>
+<td>Monitoring signals &amp; alert thresholds</td>
+</tr>
+<tr class="even">
+<td>The reference architecture slide</td>
+<td>The full deployment checklist</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Anything where the answer is “it depends on your stack”</td>
+</tr>
+</tbody>
+</table>
+<p>The rule: keep everything that can be <strong>shown</strong>, ship everything that has to be <strong>read</strong>.</p>
+</section>
+<section id="the-attack-chain" class="level1">
+<h1>The attack chain</h1>
+<p><strong>1. Poisoned MCP tool.</strong> The company installs an MCP tool for a routine lookup; its return carries a hidden instruction the agent follows. <em>Naive fix:</em> “only allow vetted servers” but this one <strong>was</strong> vetted; the poison is in the data it returned, not the server. <em>Real fix:</em> tool-level authorization; treat all tool returns as untrusted.</p>
+<p><strong>2. Code execution.</strong> The injected instruction gets the agent to run code inside its container. <em>Naive fix:</em> “just run it in a container” you already are. <em>Real fix:</em> harden the sandbox: no socket, read-only FS, drop caps, non-root.</p>
+<p><strong>3. Container escape.</strong> The code breaks out to the host. <em>Naive fix:</em> “containers isolate by default” a mounted Docker socket is root on the host. <em>Real fix:</em> remove the socket mount; user namespaces; seccomp/AppArmor.</p>
+<p><strong>4. Reaches what it shouldn’t.</strong> On the host, the agent reads secrets / hits an internal service and the damage spreads. <em>Naive fix:</em> blocklist <code>..</code> / allow known domains. <em>Real fix:</em> path canonicalisation; scoped network and credentials.</p>
+<p><strong>5. Hides and persists.</strong> The agent sends a reassuring “all done” and writes to its own memory, so tomorrow’s clean session is still compromised. <em>Naive fix:</em> “clear context each session.” <em>Real fix:</em> gate memory writes; sign/verify persisted state.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Still to decide: what the agent reaches in step 4.</p>
+</div>
+</div>
+</section>
+<section id="the-visualisation" class="level1">
+<h1>The visualisation</h1>
+<p>Not a diagram, an <strong>instrument panel over the running agent</strong>. It’s a dumb renderer tailing the agent’s trace log.</p>
+<ul>
+<li><strong>Two panels, side by side.</strong> Left = what the user sees (calm, helpful chat). Right = what actually happened (each tool call as a card: real arguments, real return). <strong>The lesson is the mismatch.</strong></li>
+<li><strong>Colour the context by origin.</strong> Every block in the agent’s context gets a colour by source: system prompt / user / retrieved data / tool output. Show the agent obeying an instruction sitting in an <em>untrusted-coloured</em> block exactly as if it were trusted. This is the “the model can’t tell instructions from data” point, made visible.</li>
+<li><strong>Run both versions in lockstep.</strong> Same prompt, <code>unsafe</code> left, <code>hardened</code> right, stepping together. Identical for N steps, then one goes red with the reason and the other keeps going. Same agent, flag flipped → divergence point is unambiguous.</li>
+<li><strong>Blast radius as a map, not a list.</strong> Draw what the agent can reach as a shaded region over the company (host, containers, services, machines). Watch the attack walk, and stay inside the lit region. Least-privilege becomes spatial.</li>
+<li><strong>Put the damage somewhere other than the terminal.</strong> Exfiltrated data appears in a receiver window next to the agent; runaway resource use shows as a live counter ticking up. A log line lands as an abstraction; a reaction lands as a reaction.</li>
+</ul>
+</section>
+<section id="the-take-home-pack" class="level1">
+<h1>The take-home pack</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What this is
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The repo people take away from the session and the thing that makes the session reproducible without anyone presenting it. It’s the <strong>sandboxed emulator</strong> deliverable too: built once, shipped as both.</p>
+<p>It’s a kit <strong>and</strong> a path. Grab the code if you know what you want, or follow the five stops in order and come out having done the whole thing yourself.</p>
+</div>
+</div>
+</section>
+<section id="the-idea" class="level1">
+<h1>The idea</h1>
+<p>Everything is built around one vulnerable agent with a single flag: <code>unsafe</code> to <code>hardened</code>. You run the attack, watch it work, try the obvious fix, watch it fail, then flip the flag and watch the real fix hold. Security stops looking like a product you buy and starts looking like config you set.</p>
+</section>
+<section id="the-path" class="level1">
+<h1>The path</h1>
+<p>Five stops, mirroring the attack chain from the session. At each one: <strong>run it, break it, fix it, read the why.</strong></p>
+<p><strong>1. Poisoned tool.</strong> Run the agent with the demo MCP tool. Watch it follow a hidden instruction from the tool’s return. Try “only allow vetted servers” — see it fail. Apply the real fix (treat tool returns as untrusted). Walkthrough: tool authorization.</p>
+<p><strong>2. Code execution.</strong> Trigger the agent to run code in its container. Try “just run it in a container” — you already are. Apply the sandbox hardening flags. Walkthrough: sandbox trade-offs and config.</p>
+<p><strong>3. Container escape.</strong> Watch the code break out to the host through a mounted socket. Swap <code>compose.unsafe.yml</code> for <code>compose.hardened.yml</code> and watch the escape die. Walkthrough: container isolation.</p>
+<p><strong>4. Reaching too far.</strong> See the agent read secrets / hit an internal service. Try blocklisting <code>..</code> — watch it get around it. Apply scoped network and creds. Walkthrough: path canonicalisation, least privilege.</p>
+<p><strong>5. Persistence.</strong> Watch the agent write to its own memory so a clean session tomorrow is still compromised. Apply gated memory writes. Walkthrough: monitoring and persistence.</p>
+<p>Then point the <strong>harness</strong> at your own agent and get a score.</p>
+</section>
+<section id="whats-in-the-box" class="level1">
+<h1>What’s in the box</h1>
 <ol type="1">
-<li><strong>Live session (conference / on-site demo).</strong> A curated sequence of live demos: each shows a concrete failure mode, then the fix. Needs to run reliably offline.</li>
-<li><strong>Take-home pack.</strong> A repo other people (the SEO team, other companies) can clone and work through on their own: runnable examples, a written walkthrough, and a deployment checklist. This is what makes the session reproducible rather than a one-off talk.</li>
+<li><strong>The vulnerable agent</strong> — the exact one from stage, with the <code>unsafe</code> to <code>hardened</code> flag. Clone and run both.</li>
+<li><strong>The trace renderer</strong> — point it at <em>your own</em> agent’s logs, not just the demo. The part worth more than the demos.</li>
+<li><strong>The attack harness</strong> — point it at your own agent, get a score against the set of attacks. A harness gets re-run; a checklist gets read once.</li>
+<li><strong>Written walkthroughs</strong> — the depth cut from the live session: sandbox comparison &amp; config, path canonicalisation, monitoring signals, sensitive-data handling.</li>
+<li><strong>Deployment checklist</strong> — the read-and-do artifact for a team shipping an agent.</li>
+<li><strong>Conformity / ethics self-assessment</strong> — each attack tagged to its OWASP entry and AI Act article, so the same repo feeds T3.6 at near-zero extra cost.</li>
 </ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Borrow / cite
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>OWASP GenAI/LLM Top 10 (2025), OWASP Agentic threats, NIST AI RMF, published prompt-injection write-ups, the July 2026 incidents (HF dataset dead-drop; the DSEwiki agent-coordination case) as <em>framing</em> for “agents turn innocent shared surfaces into channels”.</p>
+</div>
+</div>
 </section>
-<section id="content-outline" class="level3">
-<h3 class="anchored" data-anchor-id="content-outline">Content outline</h3>
-<p><strong>A. Running AI-generated / untrusted code</strong> - Why you never run model output on the host. - Sandboxing options: containers, gVisor/Firecracker, WASM, ephemeral VMs, restricted subprocess. Trade-offs (startup cost, escape surface, GPU access). - Demo: agent writes and executes code; show it reading an env var / file it shouldn’t; then re-run inside a sandbox with no network and a scratch FS.</p>
-<p><strong>B. Agent permissions and limits</strong> - Least-privilege: scoped credentials, read-only by default, per-tool allowlists. - Resource limits: time, memory, token budget, tool-call count, spend caps. - Demo: agent given a broad token vs a scoped token; show blast radius difference.</p>
-<p><strong>C. Prompt injection</strong> - Direct vs indirect (via retrieved docs, web pages, file contents, tool output). - Why input filtering is not a fix; defence in depth treat model output as untrusted, gate side effects, human-in-the-loop for high-impact actions. - Demo: a poisoned document in a RAG corpus that makes the agent exfiltrate or misbehave; then show the gated version refusing.</p>
-<p><strong>D. Tools reaching further than intended</strong> - Agents bypassing instructions, path traversal, over-broad file/network access, confused-deputy. - Secure tool design: narrow interfaces, validated arguments, no raw shell, explicit resource scoping. - Demo: a “read a file” tool that accepts <code>../../</code> ; fix with path canonicalisation + allowlist.</p>
-<p><strong>E. Handling sensitive data</strong> - Data minimisation into prompts, redaction, PII detection, not logging raw prompts/outputs, retention. - Provider data-use / residency considerations; when to use a local model instead.</p>
-<p><strong>F. Monitoring and observability</strong> - Trace every prompt, tool call, and decision; log with correlation IDs. - Detection signals: anomalous tool use, permission-denied spikes, injection patterns, cost spikes. - Alerting and kill-switch; incident response for an agent gone wrong.</p>
-<p><strong>G. Governance and deployment architecture</strong> - Regulatory context (EU AI Act risk tiers, sector rules), model/agent registry, sign-off before production. - Reference secure deployment architecture: untrusted zone (model + sandbox) vs trusted zone (data, actions), gateway between them. - Best practice for integrating AI into existing workflows incrementally.</p>
-</section>
-<section id="what-to-look-at-first" class="level3">
-<h3 class="anchored" data-anchor-id="what-to-look-at-first">What to look at first</h3>
+<section id="open-questions" class="level1">
+<h1>Open questions</h1>
 <ul>
-<li>Sandboxing tech comparison for the demo box — pick one that runs on a laptop offline (likely Docker + no-network + read-only mount, or a WASM runtime for the code-exec demo).</li>
-<li>A minimal agent framework to build the demos on (keep it small so the security points are visible, not buried in framework code).</li>
-<li>Existing material to borrow / cite: OWASP LLM Top 10, OWASP Agentic threats, NIST AI RMF, Anthropic/Google agent safety guidance, known prompt-injection write-ups.</li>
-<li>Decide standalone vs bolt-on, session length, and how much is live-coded vs pre-built.</li>
-</ul>
-</section>
-<section id="open-questions" class="level3">
-<h3 class="anchored" data-anchor-id="open-questions">Open questions</h3>
-<ul>
-<li>How long is the slot, and is there a hands-on lab component or just demos?</li>
-<li>Do attendees get machines / can they run Docker, or is the take-home pack the only hands-on part?</li>
-<li>Cypri / platform-specific angle: should demos use the HPC-hosted models specifically?</li>
-<li>How much governance/regulatory depth vs pure technical.</li>
-</ul>
-</section>
-<section id="next-steps" class="level3">
-<h3 class="anchored" data-anchor-id="next-steps">Next steps</h3>
-<ul class="task-list">
-<li><label><input type="checkbox">Draft the short note (due 23 September 2026).</label></li>
-<li><label><input type="checkbox">Choose the sandbox stack and agent framework for the demos.</label></li>
-<li><label><input type="checkbox">Build demo A (code execution) end to end as the reference pattern.</label></li>
-<li><label><input type="checkbox">Scope the take-home repo structure and checklist.</label></li>
-<li><label><input type="checkbox">Confirm slot format and audience with the training organisers.</label></li>
+<li><strong>Step 4 target</strong>: production DB / secrets store / internal service / a person’s machine?</li>
+<li><strong>Real-platform garnish</strong> do we wire the <em>safe</em> read-only tools (<code>query_model</code>, <code>get_dataset_card</code>) to anything real for credibility, or keep it all local?</li>
 </ul>
 
 
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->

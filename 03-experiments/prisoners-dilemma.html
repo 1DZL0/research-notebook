@@ -178,17 +178,24 @@ window.HUB_DATA = {
       "blurb": "Applied work where the ideas meet something real.",
       "entries": [
         {
-          "title": "Project: GenAI4ED",
-          "url": "02-projects/genai4ed.html",
+          "title": "Pharos-CY Training: AI Security & Responsible Deployment",
+          "url": "02-projects/pharos-cy.html",
+          "status": "active",
+          "description": "",
+          "date": "last-modified"
+        },
+        {
+          "title": "AI Security &<br>Responsible Deployment",
+          "url": "02-projects/ai-security-training-deck.html",
           "status": "active",
           "description": "",
           "date": ""
         },
         {
-          "title": "Project: Pharos-CY",
-          "url": "02-projects/pharos-cy.html",
+          "title": "Project: GenAI4ED",
+          "url": "02-projects/genai4ed.html",
           "status": "active",
-          "description": "Developing the Pharos-CY project.",
+          "description": "",
           "date": ""
         }
       ]
@@ -249,7 +256,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "9 September 2026"
+  "lastUpdated": "13 September 2026"
 };
 </script>
 
@@ -351,6 +358,12 @@ window.HUB_DATA = {
   <li><a href="#the-payoff-structure" id="toc-the-payoff-structure" class="nav-link" data-scroll-target="#the-payoff-structure">The payoff structure</a></li>
   <li><a href="#a-team-not-one-agent" id="toc-a-team-not-one-agent" class="nav-link" data-scroll-target="#a-team-not-one-agent">A team, not one agent</a></li>
   <li><a href="#what-an-agent-actually-sees" id="toc-what-an-agent-actually-sees" class="nav-link" data-scroll-target="#what-an-agent-actually-sees">What an agent actually sees</a></li>
+  </ul></li>
+  <li><a href="#the-full-experiment-log" id="toc-the-full-experiment-log" class="nav-link" data-scroll-target="#the-full-experiment-log">The full experiment log</a>
+  <ul class="collapse">
+  <li><a href="#team-size-solo-agents-defect-less-than-teams-do" id="toc-team-size-solo-agents-defect-less-than-teams-do" class="nav-link" data-scroll-target="#team-size-solo-agents-defect-less-than-teams-do">Team size: solo agents defect less than teams do</a></li>
+  <li><a href="#horizon-hiding-and-the-feedback-loop-two-flags-five-strategies-no-clean-story" id="toc-horizon-hiding-and-the-feedback-loop-two-flags-five-strategies-no-clean-story" class="nav-link" data-scroll-target="#horizon-hiding-and-the-feedback-loop-two-flags-five-strategies-no-clean-story">Horizon-hiding and the feedback loop: two flags, five strategies, no clean story</a></li>
+  <li><a href="#payoff-structure-beats-model-choice-when-the-structure-is-lopsided-enough" id="toc-payoff-structure-beats-model-choice-when-the-structure-is-lopsided-enough" class="nav-link" data-scroll-target="#payoff-structure-beats-model-choice-when-the-structure-is-lopsided-enough">Payoff structure beats model choice, when the structure is lopsided enough</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1018,6 +1031,168 @@ Given all of the above, state your strategy for upcoming rounds in one sentence.
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="the-full-experiment-log" class="level1">
+<h1>The full experiment log</h1>
+<p>197 runs is only the headline campaign. The engine has been run 238 times total across ten distinct campaigns, most of them testing one variable while holding everything else from the main grid fixed. Some of these landed clean results; some are pilots too small to read yet. Both kinds are listed here, because a research notebook that only shows what worked isn’t honest about what a small sample can and can’t tell you.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Campaign</th>
+<th style="text-align: right;">Runs</th>
+<th>What it varied</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>grid-team</code> vs <code>grid-neutral</code></td>
+<td style="text-align: right;">100</td>
+<td>framing: competitive vs neutral, 5 models × 10 strategies, 2‑agent teams</td>
+<td><strong>The headline finding</strong> — see below</td>
+</tr>
+<tr class="even">
+<td><code>grid-agent</code> vs <code>grid-team</code></td>
+<td style="text-align: right;">50</td>
+<td>team size: one agent alone vs.&nbsp;a 2‑agent team, same 5×10 grid, competitive framing</td>
+<td>Solo agents cooperate somewhat more than teams for 4 of 5 models</td>
+</tr>
+<tr class="odd">
+<td><code>grid-horizon</code></td>
+<td style="text-align: right;">25</td>
+<td><code>hide_horizon=True</code> vs.&nbsp;the matching baseline, 5 models × 5 reactive strategies</td>
+<td>Mixed, no shared direction across models</td>
+</tr>
+<tr class="even">
+<td><code>grid-nofeedback</code></td>
+<td style="text-align: right;">25</td>
+<td><code>strategy_feedback=False</code> vs.&nbsp;the matching baseline, same 5×5 subset</td>
+<td>Large swings for two models, flat for the rest</td>
+</tr>
+<tr class="odd">
+<td><code>asymA-magnitude</code></td>
+<td style="text-align: right;">6</td>
+<td>asymmetric payoff <em>sizes</em> (alpha 4/0/5/1, beta 2/6/0/1), 3 model pairings, 2 repeats each</td>
+<td>Too small and noisy to read past “the asymmetry itself matters”</td>
+</tr>
+<tr class="even">
+<td><code>asymB-structural</code> + <code>asymB-swap</code></td>
+<td style="text-align: right;">12</td>
+<td>a structurally lopsided matrix, held fixed while swapping which model sat in the favoured seat</td>
+<td>The favoured seat won 12 of 12, regardless of model</td>
+</tr>
+<tr class="odd">
+<td><code>probe-comms</code>, <code>probe-gap</code></td>
+<td style="text-align: right;">2</td>
+<td>single pilots: negotiation switched on; a capability-gap matchup (nano vs.&nbsp;gpt-4.1)</td>
+<td>One run each — pilots, not evidence</td>
+</tr>
+</tbody>
+</table>
+<section id="team-size-solo-agents-defect-less-than-teams-do" class="level2">
+<h2 class="anchored" data-anchor-id="team-size-solo-agents-defect-less-than-teams-do">Team size: solo agents defect less than teams do</h2>
+<p><code>grid-agent</code> reruns the exact same 5-model × 10-strategy competitive grid as the headline comparison, but with <strong>one</strong> agent per side instead of two. Nobody had checked whether adding a second teammate to argue with changes anything:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th style="text-align: right;">Solo (<code>grid-agent</code>)</th>
+<th style="text-align: right;">Team of 2 (<code>grid-team</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>nano</td>
+<td style="text-align: right;">39.3%</td>
+<td style="text-align: right;">32.0%</td>
+</tr>
+<tr class="even">
+<td>mini</td>
+<td style="text-align: right;">47.3%</td>
+<td style="text-align: right;">40.0%</td>
+</tr>
+<tr class="odd">
+<td>4o-mini</td>
+<td style="text-align: right;">10.0%</td>
+<td style="text-align: right;">9.3%</td>
+</tr>
+<tr class="even">
+<td>4.1</td>
+<td style="text-align: right;">0.7%</td>
+<td style="text-align: right;">0.0%</td>
+</tr>
+<tr class="odd">
+<td>4o</td>
+<td style="text-align: right;">12.7%</td>
+<td style="text-align: right;">16.0%</td>
+</tr>
+</tbody>
+</table>
+<p>Four of five models cooperate a bit more when deciding alone. 4o is the one exception, slightly <em>more</em> cooperative as a team. The direction is small and consistent enough to be worth a repeat run, not yet strong enough to call a real effect — but it points the opposite way from what I’d have guessed: talking it over with a teammate nudges these models toward defection, not away from it.</p>
+</section>
+<section id="horizon-hiding-and-the-feedback-loop-two-flags-five-strategies-no-clean-story" class="level2">
+<h2 class="anchored" data-anchor-id="horizon-hiding-and-the-feedback-loop-two-flags-five-strategies-no-clean-story">Horizon-hiding and the feedback loop: two flags, five strategies, no clean story</h2>
+<p>Two more flags got tested against the same matched subset — the five reactive/“nice” strategies (<code>tit_for_tat</code>, <code>generous_tit_for_tat</code>, <code>grim_trigger</code>, <code>pavlov</code>, <code>tit_for_two_tats</code>), 2-agent teams, competitive framing — so each row below compares directly against the identical baseline column:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th style="text-align: right;">Baseline</th>
+<th style="text-align: right;"><code>hide_horizon=True</code></th>
+<th style="text-align: right;"><code>strategy_feedback=False</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>nano</td>
+<td style="text-align: right;">33.3%</td>
+<td style="text-align: right;">8.0%</td>
+<td style="text-align: right;">97.3%</td>
+</tr>
+<tr class="even">
+<td>mini</td>
+<td style="text-align: right;">54.7%</td>
+<td style="text-align: right;">81.3%</td>
+<td style="text-align: right;">61.3%</td>
+</tr>
+<tr class="odd">
+<td>4o-mini</td>
+<td style="text-align: right;">16.0%</td>
+<td style="text-align: right;">6.7%</td>
+<td style="text-align: right;">0.0%</td>
+</tr>
+<tr class="even">
+<td>4.1</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">14.7%</td>
+</tr>
+<tr class="odd">
+<td>4o</td>
+<td style="text-align: right;">14.7%</td>
+<td style="text-align: right;">14.7%</td>
+<td style="text-align: right;">8.9%*</td>
+</tr>
+</tbody>
+</table>
+<p><small>*4o’s <code>strategy_feedback=False</code> cell is 3 runs, not 5 — the other two are missing from the results directory rather than deliberately excluded, one of the handful of runs this codebase has actually lost.</small></p>
+<p>Hiding the round count moves nano and mini in <em>opposite</em> directions — nano drops hard, mini rises hard — while the other three barely move. Removing the strategy-feedback loop very nearly triples nano’s cooperation rate and zeroes out 4o-mini’s, while 4.1 and 4o stay close to where they started. Five strategies and no repeats is not enough to call any of this a finding. What it does rule out is the boring null hypothesis — if the flag did nothing, all five rows would sit near their baseline, and they don’t. Whatever’s driving it is model-specific, not a single shared mechanism.</p>
+</section>
+<section id="payoff-structure-beats-model-choice-when-the-structure-is-lopsided-enough" class="level2">
+<h2 class="anchored" data-anchor-id="payoff-structure-beats-model-choice-when-the-structure-is-lopsided-enough">Payoff structure beats model choice, when the structure is lopsided enough</h2>
+<p><code>asymB-structural</code> and <code>asymB-swap</code> used the same deliberately asymmetric matrix — team_alpha’s seat scores higher on every outcome except mutual defection — and then swapped which model sat in which seat across nano, mini, and gpt-4.1:</p>
+<blockquote class="blockquote">
+<p><code>option_a</code>/<code>option_a</code>: alpha 5, beta 3 · <code>option_a</code>/<code>option_b</code>: alpha 4, beta 6 · <code>option_b</code>/<code>option_a</code>: alpha 3, beta 0 · <code>option_b</code>/<code>option_b</code>: alpha 2, beta 1</p>
+</blockquote>
+<p><strong>team_alpha won all 12 of 12 runs</strong> — every model pairing, every swap. Put the weakest model (nano) in the favoured seat against the strongest (gpt-4.1) in the disfavoured one, and the seat still won. That’s a small sample by the same standard as everything else on this page, but the result is about as clean as a 12-run pilot gets: here, the shape of the payoff table decided the winner more than which model was playing.</p>
+<p><code>asymA-magnitude</code> tried a gentler asymmetry (alpha ahead on mutual cooperation, beta ahead on betrayal) across the same three pairings, and didn’t reproduce anything this clean — 6 runs split 3 wins for the model in the beta seat, 1 for alpha, 2 draws. Worth a real run, not worth a conclusion yet.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
