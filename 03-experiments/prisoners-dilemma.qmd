@@ -604,6 +604,91 @@ Two more flags change what shows up here: `hide_horizon` drops the total round c
 Worth flagging since it tripped me up while reading my own code back: `concealment: "disguised"` (above) is about *vocabulary*, never the numbers. Separately, there's a payoff-matrix scrambler that generates non-textbook point values (not 3/0/5/1) while holding the game's strategic shape constant via Rapoport's cooperation index. A run can disguise the words, the numbers, both, or neither, and those are two independent settings, not one.
 :::
 
+# The full experiment log
+
+197 runs is only the headline campaign. The engine has been run 238 times total across ten
+distinct campaigns, most of them testing one variable while holding everything else from the
+main grid fixed. Some of these landed clean results; some are pilots too small to read yet.
+Both kinds are listed here, because a research notebook that only shows what worked isn't
+honest about what a small sample can and can't tell you.
+
+| Campaign | Runs | What it varied | Result |
+|---|---:|---|---|
+| `grid-team` vs `grid-neutral` | 100 | framing: competitive vs neutral, 5 models × 10 strategies, 2‑agent teams | **The headline finding** — see below |
+| `grid-agent` vs `grid-team` | 50 | team size: one agent alone vs. a 2‑agent team, same 5×10 grid, competitive framing | Solo agents cooperate somewhat more than teams for 4 of 5 models |
+| `grid-horizon` | 25 | `hide_horizon=True` vs. the matching baseline, 5 models × 5 reactive strategies | Mixed, no shared direction across models |
+| `grid-nofeedback` | 25 | `strategy_feedback=False` vs. the matching baseline, same 5×5 subset | Large swings for two models, flat for the rest |
+| `asymA-magnitude` | 6 | asymmetric payoff *sizes* (alpha 4/0/5/1, beta 2/6/0/1), 3 model pairings, 2 repeats each | Too small and noisy to read past "the asymmetry itself matters" |
+| `asymB-structural` + `asymB-swap` | 12 | a structurally lopsided matrix, held fixed while swapping which model sat in the favoured seat | The favoured seat won 12 of 12, regardless of model |
+| `probe-comms`, `probe-gap` | 2 | single pilots: negotiation switched on; a capability-gap matchup (nano vs. gpt-4.1) | One run each — pilots, not evidence |
+
+## Team size: solo agents defect less than teams do
+
+`grid-agent` reruns the exact same 5-model × 10-strategy competitive grid as the headline
+comparison, but with **one** agent per side instead of two. Nobody had checked whether adding
+a second teammate to argue with changes anything:
+
+| Model | Solo (`grid-agent`) | Team of 2 (`grid-team`) |
+|---|---:|---:|
+| nano | 39.3% | 32.0% |
+| mini | 47.3% | 40.0% |
+| 4o-mini | 10.0% | 9.3% |
+| 4.1 | 0.7% | 0.0% |
+| 4o | 12.7% | 16.0% |
+
+Four of five models cooperate a bit more when deciding alone. 4o is the one exception, slightly
+*more* cooperative as a team. The direction is small and consistent enough to be worth a repeat
+run, not yet strong enough to call a real effect — but it points the opposite way from what I'd
+have guessed: talking it over with a teammate nudges these models toward defection, not away
+from it.
+
+## Horizon-hiding and the feedback loop: two flags, five strategies, no clean story
+
+Two more flags got tested against the same matched subset — the five reactive/"nice" strategies
+(`tit_for_tat`, `generous_tit_for_tat`, `grim_trigger`, `pavlov`, `tit_for_two_tats`), 2-agent
+teams, competitive framing — so each row below compares directly against the identical baseline
+column:
+
+| Model | Baseline | `hide_horizon=True` | `strategy_feedback=False` |
+|---|---:|---:|---:|
+| nano | 33.3% | 8.0% | 97.3% |
+| mini | 54.7% | 81.3% | 61.3% |
+| 4o-mini | 16.0% | 6.7% | 0.0% |
+| 4.1 | 0.0% | 0.0% | 14.7% |
+| 4o | 14.7% | 14.7% | 8.9%* |
+
+<small>*4o's `strategy_feedback=False` cell is 3 runs, not 5 — the other two are missing from
+the results directory rather than deliberately excluded, one of the handful of runs this
+codebase has actually lost.</small>
+
+Hiding the round count moves nano and mini in *opposite* directions — nano drops hard, mini
+rises hard — while the other three barely move. Removing the strategy-feedback loop very
+nearly triples nano's cooperation rate and zeroes out 4o-mini's, while 4.1 and 4o stay close to
+where they started. Five strategies and no repeats is not enough to call any of this a finding.
+What it does rule out is the boring null hypothesis — if the flag did nothing, all five rows
+would sit near their baseline, and they don't. Whatever's driving it is model-specific, not a
+single shared mechanism.
+
+## Payoff structure beats model choice, when the structure is lopsided enough
+
+`asymB-structural` and `asymB-swap` used the same deliberately asymmetric matrix — team_alpha's
+seat scores higher on every outcome except mutual defection — and then swapped which model sat
+in which seat across nano, mini, and gpt-4.1:
+
+> `option_a`/`option_a`: alpha 5, beta 3 · `option_a`/`option_b`: alpha 4, beta 6 ·
+> `option_b`/`option_a`: alpha 3, beta 0 · `option_b`/`option_b`: alpha 2, beta 1
+
+**team_alpha won all 12 of 12 runs** — every model pairing, every swap. Put the weakest model
+(nano) in the favoured seat against the strongest (gpt-4.1) in the disfavoured one, and the seat
+still won. That's a small sample by the same standard as everything else on this page, but the
+result is about as clean as a 12-run pilot gets: here, the shape of the payoff table decided the
+winner more than which model was playing.
+
+`asymA-magnitude` tried a gentler asymmetry (alpha ahead on mutual cooperation, beta ahead on
+betrayal) across the same three pairings, and didn't reproduce anything this clean — 6 runs
+split 3 wins for the model in the beta seat, 1 for alpha, 2 draws. Worth a real run, not worth
+a conclusion yet.
+
 ::: {.callout-important}
 ## The actual finding
 

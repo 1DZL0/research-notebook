@@ -1,84 +1,194 @@
 ---
-title: "Project: Pharos-CY"
-status: active
-description: "Developing the Pharos-CY project."
+title: "Pharos-CY Training: AI Security & Responsible Deployment"
+date: last-modified
+format:
+  html:
+    toc: true
+    toc-depth: 3
 ---
 
-# Project: Pharos-CY
+::: {.callout-note}
+## What this is
+The working design for the WP3 training event. It's the single source both
+deliverables build from:
 
-## Project Position
+The **live session** (what runs on stage if we can get a confrence) 
 
-## Training event: AI Security & Responsible Deployment
+The **take-home pack**. 
 
-### Rationale
+**Short note due:** 23 September 2026.
+:::
 
-Many companies on the platform will consume HPC-hosted datasets and models. A growing number will also *build* AI applications and agentic workflows and integrate them into their own systems. This course introduces the key ideas around AI security and safety for that audience. It can run standalone or as a module attached to another training event.
+# The presentation
 
-### Audience and framing
+[▶ Open the presentation full screen](ai-security-training-deck.html){.btn .btn-primary target="_blank"}
 
-- Engineers and technical leads building AI apps / agents, not ML researchers.
-- Assume they can already call a model and wire a tool; assume they have *not* thought hard about isolation, permissions, injection, or monitoring.
-- Keep it practical and demo-led: show the failure, then show the mitigation.
+<div style="position:relative; width:100%; aspect-ratio:16/9; margin-top:1rem;">
+<iframe src="ai-security-training-deck.html" title="AI Security training deck"
+  style="position:absolute; inset:0; width:100%; height:100%; border:1px solid #ccc; border-radius:6px;"
+  allowfullscreen></iframe>
+</div>
 
-### Two deliverables
+*Click inside the preview and use the arrow keys to move through the slides. Press `F` for full screen.*
 
-1. **Live session (conference / on-site demo).** A curated sequence of live demos: each shows a concrete failure mode, then the fix. Needs to run reliably offline.
-2. **Take-home pack.** A repo other people (the SEO team, other companies) can clone and work through on their own: runnable examples, a written walkthrough, and a deployment checklist. This is what makes the session reproducible rather than a one-off talk.
+# The one-line thesis
 
-### Content outline
+> A compromised agent acts with the **deployer's** authority, not the attacker's.
+> The attacker only needs standard user access. The blast radius is everything the
+> agent was trusted to touch.
 
-**A. Running AI-generated / untrusted code**
-- Why you never run model output on the host.
-- Sandboxing options: containers, gVisor/Firecracker, WASM, ephemeral VMs, restricted subprocess. Trade-offs (startup cost, escape surface, GPU access).
-- Demo: agent writes and executes code; show it reading an env var / file it shouldn't; then re-run inside a sandbox with no network and a scratch FS.
+# Framing decisions
 
-**B. Agent permissions and limits**
-- Least-privilege: scoped credentials, read-only by default, per-tool allowlists.
-- Resource limits: time, memory, token budget, tool-call count, spend caps.
-- Demo: agent given a broad token vs a scoped token; show blast radius difference.
+- **The target:** a **company's own containerised ops/dev assistant**, running in
+  Docker/Kubernetes (everyone has run a `docker run`). Container is both the agent's home **and** the mitigation surface.
+- **Structure:** one deliberately vulnerable agent, ~150 lines of glue over an
+  off-the-shelf SDK, with a config flag switching `unsafe` to  `hardened`.
+- **Two-passes:** run the whole attack chain, then run the hardening / midigation fix
 
-**C. Prompt injection**
-- Direct vs indirect (via retrieved docs, web pages, file contents, tool output).
-- Why input filtering is not a fix; defence in depth treat model output as untrusted, gate side effects, human-in-the-loop for high-impact actions.
-- Demo: a poisoned document in a RAG corpus that makes the agent exfiltrate or misbehave; then show the gated version refusing.
+# What stays live vs what ships in the pack
 
-**D. Tools reaching further than intended**
-- Agents bypassing instructions, path traversal, over-broad file/network access, confused-deputy.
-- Secure tool design: narrow interfaces, validated arguments, no raw shell, explicit resource scoping.
-- Demo: a "read a file" tool that accepts `../../` ; fix with path canonicalisation + allowlist.
+The boring part is the *explanation* of the mitigation. so that should be a takehome
 
-**E. Handling sensitive data**
-- Data minimisation into prompts, redaction, PII detection, not logging raw prompts/outputs, retention.
-- Provider data-use / residency considerations; when to use a local model instead.
+| Stays **live** (shown) | Ships in the **pack** (read) |
+|---|---|
+| Every attack | How to actually choose/configure a sandbox |
+| The **naive fix failing** | Path canonicalisation & allowlist code |
+| The real fix **holding** (re-run) | Monitoring signals & alert thresholds |
+| The reference architecture slide | The full deployment checklist |
+| | Anything where the answer is "it depends on your stack" |
 
-**F. Monitoring and observability**
-- Trace every prompt, tool call, and decision; log with correlation IDs.
-- Detection signals: anomalous tool use, permission-denied spikes, injection patterns, cost spikes.
-- Alerting and kill-switch; incident response for an agent gone wrong.
+The rule: keep everything that can be **shown**, ship everything that has to be
+**read**.
 
-**G. Governance and deployment architecture**
-- Regulatory context (EU AI Act risk tiers, sector rules), model/agent registry, sign-off before production.
-- Reference secure deployment architecture: untrusted zone (model + sandbox) vs trusted zone (data, actions), gateway between them.
-- Best practice for integrating AI into existing workflows incrementally.
+# The attack chain
 
-### What to look at first
+**1. Poisoned MCP tool.** The company installs an MCP tool for a routine lookup;
+its return carries a hidden instruction the agent follows.
+*Naive fix:* "only allow vetted servers" but this one **was** vetted; the poison
+is in the data it returned, not the server. *Real fix:* tool-level authorization;
+treat all tool returns as untrusted.
 
-- Sandboxing tech comparison for the demo box — pick one that runs on a laptop offline (likely Docker + no-network + read-only mount, or a WASM runtime for the code-exec demo).
-- A minimal agent framework to build the demos on (keep it small so the security points are visible, not buried in framework code).
-- Existing material to borrow / cite: OWASP LLM Top 10, OWASP Agentic threats, NIST AI RMF, Anthropic/Google agent safety guidance, known prompt-injection write-ups.
-- Decide standalone vs bolt-on, session length, and how much is live-coded vs pre-built.
+**2. Code execution.** The injected instruction gets the agent to run code inside
+its container.
+*Naive fix:* "just run it in a container" you already are. *Real fix:* harden the
+sandbox: no socket, read-only FS, drop caps, non-root. 
 
-### Open questions
+**3. Container escape.** The code breaks out to the host.
+*Naive fix:* "containers isolate by default" a mounted Docker socket is root on
+the host. *Real fix:* remove the socket mount; user namespaces; seccomp/AppArmor.
 
-- How long is the slot, and is there a hands-on lab component or just demos?
-- Do attendees get machines / can they run Docker, or is the take-home pack the only hands-on part?
-- Cypri / platform-specific angle: should demos use the HPC-hosted models specifically?
-- How much governance/regulatory depth vs pure technical.
+**4. Reaches what it shouldn't.** On the host, the agent reads secrets / hits an
+internal service and the damage spreads.
+*Naive fix:* blocklist `..` / allow known domains. *Real fix:* path
+canonicalisation; scoped network and credentials.
 
-### Next steps
+**5. Hides and persists.** The agent sends a reassuring "all done" and writes to
+its own memory, so tomorrow's clean session is still compromised.
+*Naive fix:* "clear context each session." *Real fix:* gate memory writes;
+sign/verify persisted state.
 
-- [ ] Draft the short note (due 23 September 2026).
-- [ ] Choose the sandbox stack and agent framework for the demos.
-- [ ] Build demo A (code execution) end to end as the reference pattern.
-- [ ] Scope the take-home repo structure and checklist.
-- [ ] Confirm slot format and audience with the training organisers.
+::: {.callout-note}
+Still to decide: what the agent reaches in step 4.
+:::
+
+# The visualisation
+
+Not a diagram, an **instrument panel over the running agent**. It's a dumb
+renderer tailing the agent's trace log.
+
+- **Two panels, side by side.** Left = what the user sees (calm, helpful chat).
+  Right = what actually happened (each tool call as a card: real arguments, real
+  return). **The lesson is the mismatch.**
+- **Colour the context by origin.** Every block in the agent's context gets a
+  colour by source: system prompt / user / retrieved data / tool output. Show the
+  agent obeying an instruction sitting in an *untrusted-coloured* block exactly as
+  if it were trusted. This is the "the model can't tell instructions from data"
+  point, made visible.
+- **Run both versions in lockstep.** Same prompt, `unsafe` left, `hardened` right,
+  stepping together. Identical for N steps, then one goes red with the reason and
+  the other keeps going. Same agent, flag flipped → divergence point is
+  unambiguous.
+- **Blast radius as a map, not a list.** Draw what the agent can reach as a shaded
+  region over the company (host, containers, services, machines). Watch the attack
+  walk, and stay inside the lit region. Least-privilege becomes spatial.
+- **Put the damage somewhere other than the terminal.** Exfiltrated data appears
+  in a receiver window next to the agent; runaway resource use shows as a live
+  counter ticking up. A log line lands as an abstraction; a reaction lands as a
+  reaction.
+
+# The take-home pack
+
+::: {.callout-note}
+## What this is
+The repo people take away from the session and the thing that makes the session
+reproducible without anyone presenting it. It's the **sandboxed emulator**
+deliverable too: built once, shipped as both.
+
+It's a kit **and** a path. Grab the code if you know what you want, or follow the
+five stops in order and come out having done the whole thing yourself.
+:::
+
+# The idea
+
+Everything is built around one vulnerable agent with a single flag:
+`unsafe` to `hardened`. You run the attack, watch it work, try the obvious fix,
+watch it fail, then flip the flag and watch the real fix hold. Security stops
+looking like a product you buy and starts looking like config you set.
+
+# The path
+
+Five stops, mirroring the attack chain from the session. At each one: **run it,
+break it, fix it, read the why.**
+
+**1. Poisoned tool.** Run the agent with the demo MCP tool. Watch it follow a
+hidden instruction from the tool's return. Try "only allow vetted servers" — see
+it fail. Apply the real fix (treat tool returns as untrusted). Walkthrough:
+tool authorization.
+
+**2. Code execution.** Trigger the agent to run code in its container. Try "just
+run it in a container" — you already are. Apply the sandbox hardening flags.
+Walkthrough: sandbox trade-offs and config.
+
+**3. Container escape.** Watch the code break out to the host through a mounted
+socket. Swap `compose.unsafe.yml` for `compose.hardened.yml` and watch the escape
+die. Walkthrough: container isolation.
+
+**4. Reaching too far.** See the agent read secrets / hit an internal service.
+Try blocklisting `..` — watch it get around it. Apply scoped network and creds.
+Walkthrough: path canonicalisation, least privilege.
+
+**5. Persistence.** Watch the agent write to its own memory so a clean session
+tomorrow is still compromised. Apply gated memory writes. Walkthrough: monitoring
+and persistence.
+
+Then point the **harness** at your own agent and get a score.
+
+# What's in the box
+
+1. **The vulnerable agent** — the exact one from stage, with the `unsafe` to
+   `hardened` flag. Clone and run both.
+2. **The trace renderer** — point it at *your own* agent's logs, not just the demo.
+   The part worth more than the demos.
+3. **The attack harness** — point it at your own agent, get a score against the
+   set of attacks. A harness gets re-run; a checklist gets read once.
+4. **Written walkthroughs** — the depth cut from the live session: sandbox
+   comparison & config, path canonicalisation, monitoring signals, sensitive-data
+   handling.
+5. **Deployment checklist** — the read-and-do artifact for a team shipping an agent.
+6. **Conformity / ethics self-assessment** — each attack tagged to its OWASP entry
+   and AI Act article, so the same repo feeds T3.6 at near-zero extra cost.
+
+::: {.callout-note}
+## Borrow / cite 
+OWASP GenAI/LLM Top 10 (2025), OWASP Agentic threats, NIST AI RMF, published
+prompt-injection write-ups, the July 2026 incidents (HF dataset dead-drop; the
+DSEwiki agent-coordination case) as *framing* for "agents turn innocent shared
+surfaces into channels".
+:::
+
+# Open questions
+
+- **Step 4 target**:  production DB / secrets store / internal service / a person's
+  machine? 
+- **Real-platform garnish** do we wire the *safe* read-only tools (`query_model`,
+  `get_dataset_card`) to anything real for credibility, or keep it all local?

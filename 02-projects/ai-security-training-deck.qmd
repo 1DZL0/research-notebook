@@ -1,0 +1,439 @@
+---
+title: "AI Security &<br>Responsible Deployment"
+subtitle: "A proposed Pharos-CY training event"
+lang: en-GB
+format:
+  revealjs:
+    theme: default
+    width: 1280
+    height: 720
+    margin: 0.08
+    center: false
+    slide-number: "c/t"
+    transition: fade
+    background-transition: none
+    incremental: false
+    navigation-mode: linear
+    controls-layout: edges
+    controls-tutorial: false
+    progress: true
+    hash: true
+    embed-resources: true
+    html-math-method: plain
+    pdf-separate-fragments: false
+    auto-stretch: false
+    title-slide-attributes:
+      data-background-color: "#101a2b"
+    include-in-header:
+      text: |
+        <style>
+        :root {
+          --deck-bg: #101a2b;
+          --deck-text: #f3f5f8;
+          --deck-muted: #c0cbd8;
+          --deck-accent: #62dccb;
+          --deck-rule: #405267;
+        }
+        .reveal-viewport { background: var(--deck-bg); }
+        .reveal {
+          font-family: "Segoe UI", Arial, sans-serif;
+          font-size: 36px;
+          font-weight: 400;
+          line-height: 1.35;
+          color: var(--deck-text);
+        }
+        .reveal .slides { text-align: left; }
+        .reveal .slides section { box-sizing: border-box; }
+        .reveal .slides section.slide.level2 { padding-top: 32px; }
+        .reveal h1, .reveal h2, .reveal h3 {
+          font-family: inherit;
+          color: var(--deck-text);
+          font-weight: 650;
+          letter-spacing: -0.025em;
+          text-transform: none;
+          line-height: 1.12;
+        }
+        .reveal h1 { font-size: 68px; }
+        .reveal h2 { font-size: 54px; margin: 0 0 44px; max-width: 1200px; }
+        .reveal h3 { font-size: 34px; margin: 0 0 24px; }
+        .reveal p { margin: 0 0 24px; }
+        .reveal strong { color: var(--deck-accent); font-weight: 650; }
+        .reveal code { font-size: 0.92em; color: var(--deck-accent); background: none; }
+        .reveal .lead { font-size: 44px; line-height: 1.35; max-width: 1140px; }
+        .reveal .muted { color: var(--deck-muted); }
+        .reveal .columns { display: flex; gap: 64px; margin: 0; }
+        .reveal .columns > .column { flex: 1 1 0; min-width: 0; }
+        .reveal .columns > .column + .column {
+          border-left: 1px solid var(--deck-rule);
+          padding-left: 40px;
+        }
+        .reveal .columns p { color: var(--deck-muted); }
+        .reveal .takeaway {
+          margin-top: 40px;
+          padding-top: 24px;
+          border-top: 1px solid var(--deck-rule);
+          font-size: 32px;
+        }
+        .reveal .takeaway p:last-child { margin-bottom: 0; }
+        .reveal .statement { max-width: 1140px; margin-top: 40px; }
+        .reveal .statement p { font-size: 60px; line-height: 1.22; }
+        .reveal .steps { margin: 0; padding-left: 48px; }
+        .reveal .steps li { margin: 0 0 28px; padding-left: 12px; }
+        .reveal .steps li::marker { color: var(--deck-accent); font-weight: 650; }
+        .reveal .steps li p { margin: 0; }
+        .reveal .steps.compact li { margin-bottom: 24px; }
+        .reveal .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 64px; }
+        .reveal .module-grid > .column { width: auto; min-width: 0; }
+        .reveal .module-grid h3 { font-size: 32px; margin-bottom: 12px; }
+        .reveal .module-grid p { font-size: 29px; line-height: 1.3; color: var(--deck-muted); margin: 0; }
+        .reveal .module-grid > div { border-top: 1px solid var(--deck-rule); padding-top: 18px; }
+        .reveal .option-grid h3 { font-size: 34px; }
+        .reveal .option-grid p { font-size: 32px; }
+        .reveal .recommended h3 { color: var(--deck-accent); }
+        .reveal #title-slide { text-align: left; }
+        .reveal #title-slide .title { max-width: 1000px; margin: 0 0 36px; font-size: 80px; }
+        .reveal #title-slide .subtitle { font-size: 34px; color: var(--deck-muted); }
+        .reveal #title-slide::before, .reveal .section-title::before {
+          content: ""; display: block; width: 96px; height: 6px;
+          background: var(--deck-accent); margin-bottom: 40px;
+        }
+        .reveal .section-title h1 { max-width: 1100px; margin-bottom: 32px; }
+        .reveal .section-title p { max-width: 1030px; font-size: 34px; color: var(--deck-muted); }
+        .reveal .slide-number { font: 16px "Segoe UI", Arial, sans-serif; color: var(--deck-muted); background: none; right: 24px; bottom: 20px; }
+        .reveal .progress { color: var(--deck-accent); height: 3px; }
+        .reveal .controls { color: var(--deck-accent); }
+        .reveal .slide-menu-button .fa-bars { color: var(--deck-accent); }
+        .reveal a { color: var(--deck-accent); }
+        .reveal a:focus-visible { outline: 3px solid var(--deck-accent); outline-offset: 5px; }
+        @media print { * { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
+        </style>
+---
+
+## Why this training
+
+::: {.lead}
+Companies will **build AI apps and agents**, then connect them to their own systems.
+:::
+
+Those connections give agents access to company tools, data and services.
+
+::: {.takeaway}
+This event teaches teams how to **deploy those applications safely**.
+:::
+
+::: {.notes}
+Many companies on the platform will do more than use hosted models and datasets.
+They will build applications and agent workflows around them. The event focuses
+on the practical gap between building an application and deploying it safely.
+:::
+
+## The risk behind the demo
+
+::: {.statement}
+A compromised agent can use the **permissions its deployer gave it**.
+:::
+
+::: {.takeaway}
+The potential damage depends on **what the agent can access**.
+:::
+
+::: {.notes}
+This is the central idea linking the session's security topics. In the proposed
+scenario, an attacker uses a tool response to influence an agent that already
+has access to the company's systems. The attacker does not need to hold the
+agent's credentials directly. The impact depends on the agent's actual
+permissions and the controls around its tools and runtime.
+:::
+
+## Two deliverables, one demo environment
+
+:::: {.columns}
+::: {.column}
+### Conference session
+
+A demo-led session, delivered live or as a recorded video.
+
+Show an attack, then show the mitigation.
+:::
+
+::: {.column}
+### Take-home pack
+
+A repository participants can clone and work through independently.
+
+Reproduce the demo and practise the fixes.
+:::
+::::
+
+::: {.takeaway}
+Build the **sandboxed emulator once** and use it in both.
+:::
+
+# The conference session {.section-title background-color="#101a2b"}
+
+A visible attack, a tested mitigation, and the controls behind it.
+
+## One agent, two configurations
+
+The demo switches the same agent from `unsafe` to `hardened`.
+
+::: {.steps}
+1. **Run the attack** and observe the impact.
+2. **Try the obvious fix** and show where it falls short.
+3. **Apply the hardened configuration** and test the attack again.
+:::
+
+::: {.takeaway}
+Make the changes to **permissions and isolation** visible.
+:::
+
+::: {.notes}
+Keep the agent and demonstration files consistent so the audience can compare
+the two configurations. The flag selects concrete controls in the emulator.
+Explain those controls rather than presenting the flag as a general guarantee
+of security. Monitoring makes the difference between the runs visible.
+:::
+
+## The simulated attack chain
+
+::: {.steps .compact}
+1. **Poisoned tool response:** an MCP tool returns a hidden instruction.
+2. **Code execution:** the agent runs attacker code in its container.
+3. **Container escape:** the scenario crosses the container boundary.
+4. **Wider access:** the agent reaches mock secrets or an internal service.
+5. **Persistence:** a memory write influences a later session.
+:::
+
+::: {.notes}
+The chain is a proposed scenario inside the local, sandboxed company emulator.
+Use simulated systems and data, with no Pharos infrastructure in scope. The
+exact target for step 4 still needs to be chosen. A container escape depends
+on a specific vulnerability or misconfiguration and is not an automatic
+consequence of prompt injection. Distinguish simulated steps from real
+exploits when presenting the demo.
+:::
+
+## Two views of the same run
+
+:::: {.columns}
+::: {.column}
+### What the user sees
+
+A calm, helpful chat response.
+
+The task appears to complete normally.
+:::
+
+::: {.column}
+### What the trace reveals
+
+The actual tool calls and data access.
+
+The boundary crossed and systems reached.
+:::
+::::
+
+::: {.takeaway}
+The live trace and access map show **what the chat leaves out**.
+:::
+
+::: {.notes}
+Use a live instrument panel over the running agent, reading its trace log.
+Keep the renderer simple. Show the two views together and update the access
+map as the simulated impact spreads. This is the visual centre of the demo.
+:::
+
+## A local company stack
+
+::: {.lead}
+Run the demo in a **sandboxed company environment**.
+:::
+
+::: {.steps}
+1. Use a local Docker or Kubernetes setup familiar to the audience.
+2. Simulate company data, services and attack targets.
+3. Keep Pharos infrastructure outside the demonstration.
+:::
+
+::: {.notes}
+The original proposal centred on the HPC platform. This version moves the
+target to a generic company stack to make the demo easier to relate to and
+avoid implying that the demonstration exposes a weakness in Pharos.
+Explain that change of scope when discussing the proposal. Cluster-specific
+attacks remain outside this event.
+:::
+
+## From the demo to deployment
+
+:::: {.module-grid}
+::: {.column .module}
+### Security vocabulary
+Map the demo to the relevant OWASP GenAI and LLM risks.
+:::
+::: {.column .module}
+### Practical controls
+Least privilege, secure tools, isolation and monitoring.
+:::
+::: {.column .module}
+### Governance
+Risk tiers, provider and deployer roles, and the EU AI Act.
+:::
+::: {.column .module}
+### Deployment architecture
+Trusted and untrusted zones, with controlled access between them.
+:::
+::::
+
+::: {.notes}
+This is the less technical half of the session, intended to balance the demos
+with governance and deployment practice. The frameworks should connect to
+what participants just observed. Use the trace to discuss operational evidence
+and record keeping. Verify any legal obligations and article references for
+the specific system and role before presenting them as requirements.
+:::
+
+# The take-home pack {.section-title background-color="#101a2b"}
+
+The same demo, with guided practice and deeper implementation detail.
+
+## What participants clone
+
+::: {.steps}
+1. **The agent:** compare the unsafe and hardened configurations.
+2. **The trace renderer:** inspect the demo, then adapt it to their logs.
+3. **The attack harness:** rerun the scenarios and assess their own agent.
+:::
+
+::: {.takeaway}
+The pack turns the session into **hands-on practice**.
+:::
+
+::: {.notes}
+The session is demo-led, so the take-home pack is where participants do the
+exercises themselves. Include the depth that will not fit in the live slot.
+The current 90-minute framing is provisional until the slot length is
+confirmed. Explain the expected log format and scope of the harness so
+participants know what they need to adapt for their own agents.
+:::
+
+## Six practical modules
+
+:::: {.module-grid}
+::: {.column .module}
+### Sandboxing
+Configure containers, gVisor, WASM and virtual machines.
+:::
+::: {.column .module}
+### Secure tool design
+Use narrow interfaces and validated arguments. Avoid raw shell access.
+:::
+::: {.column .module}
+### Paths and permissions
+Implement path canonicalisation and least privilege.
+:::
+::: {.column .module}
+### Monitoring
+Choose useful signals and alert thresholds.
+:::
+::: {.column .module}
+### Sensitive data
+Cover minimisation, redaction, residency and local processing.
+:::
+::: {.column .module}
+### Deployment review
+Use a checklist and an OWASP / AI Act self-assessment.
+:::
+::::
+
+::: {.notes}
+This is where the topic list from the original proposal lives in full.
+The session demonstrates the mechanism and the pack teaches the practice.
+The self-assessment component connects to T3.6. Treat it as a learning aid
+and verify the OWASP and AI Act references before publishing the pack.
+:::
+
+## A guided route through the pack
+
+:::: {.columns}
+::: {.column}
+### Observe the failure
+
+1. Run the attack.
+2. Inspect the trace.
+3. Try the obvious fix.
+:::
+::: {.column}
+### Apply and test the controls
+
+4. Apply the mitigation.
+5. Read the walkthrough.
+6. Assess the result.
+:::
+::::
+
+::: {.takeaway}
+Participants can complete the route **without attending the session**.
+:::
+
+::: {.notes}
+This is the grant framing: a repository that others can clone and work
+through independently, with a route into the T3.6 self-assessment.
+The guided path reuses the same artefacts rather than adding another
+set of materials to build.
+:::
+
+# The proposal {.section-title background-color="#101a2b"}
+
+Choose the deliverables and how the event fits the training programme.
+
+## The decision
+
+:::: {.columns .option-grid}
+::: {.column}
+### Session only
+
+Lower build effort.
+
+A demo-led introduction to the risks and controls.
+:::
+::: {.column}
+### Pack only
+
+Independent, repeatable learning.
+
+No shared live demonstration.
+:::
+::: {.column .recommended}
+### Both
+
+The proposed approach.
+
+One build supports the session and a reusable WP3 output.
+:::
+::::
+
+::: {.takeaway}
+**Event format:** standalone training or part of another event?
+:::
+
+::: {.notes}
+Both is my preferred option. Confirm the relationship to the WP3 output
+when agreeing the scope. Open questions: the step-4 attack target,
+whether CING, CYENS or KIOS contribute to the build, the session length,
+and the AI Act article references. The short note is due 23 September.
+:::
+
+## Thank you
+
+::: {.statement}
+Questions and next steps
+:::
+
+::: {.muted}
+Agree the scope, contributors and event format.
+:::
+
+::: {.notes}
+The design document and take-home specification provide the detail behind
+the slides and can support the next discussion.
+:::

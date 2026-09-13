@@ -8,6 +8,35 @@ description: "Notes and actions from meetings outside regular professor supervis
 
 Use this page to keep notes from collaborator, project, workshop, or informal research meetings.
 
+### GenAI platform meeting - 2026-09-07
+
+**Participants:**
+
+- Constantine
+- Sylvia
+- Diesel Mears
+
+**Discussion:**
+
+- Discussed the GenAI project and the idea of creating a platform for learning about agents through internal reasoning in language models.
+- The platform should make the topic understandable by breaking the main ideas, processes, and relationships into clear parts.
+- Discussed producing a written project file first and then using it to guide the creation of a prototype website.
+
+**Decisions:**
+
+- Create a structured document that explains the platform idea and breaks down internal reasoning in language models.
+- Use that document as the initial content and specification for a prototype website.
+
+**Actions:**
+
+- [ ] Define the intended users and learning goals of the platform.
+- [ ] Create the project breakdown document.
+- [ ] Outline the website's main sections and learning flow.
+- [ ] Build a prototype website based on the document.
+- [ ] Review the prototype with Constantine and Sylvia and record feedback.
+
+---
+
 ### Meeting template
 
 **Date:**

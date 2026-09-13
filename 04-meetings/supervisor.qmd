@@ -2,6 +2,24 @@
 title: "Professor meeting"
 ---
 
+## Professor meeting - 2026-09-07
+
+### Participants
+
+- Constantine
+- Diesel Mears
+
+---
+
+### Notes
+
+- Discussed the overall direction of the research project.
+- Agreed that I should read all of the selected papers and identify which ones contain strong, reproducible experiments that I could implement.
+- Implementing selected experiments will help me understand how the research is conducted in practice and whether reproducing or adapting the methods produces interesting outcomes.
+- If the experiments suggest ideas for changing individual components, I should explore those changes while considering how the components fit together into one coherent project, like pieces of a puzzle.
+
+---
+
 ## Professor meeting - 2026-08-06
 
 ### Participants
@@ -20,9 +38,3 @@ title: "Professor meeting"
 
 ---
 
-### Actions
-
-* [ ] Continue reading agentic AI material.
-* [ ] Consolidate notes from current readings into the research notebook.
-* [ ] Prepare a short summary of current understanding and open questions for the next meeting.
-* [ ] Prepare the agent game example and code for the next meeting
