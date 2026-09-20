@@ -11,8 +11,6 @@
   var sections = data.sections.slice().sort(function (a, b) { return a.order - b.order; });
   var openId = null;
 
-
-
   var BRANCH_ANGLES = [-35, -106, 25, 150, -155, 125, 130];
   var TWIST_JITTER = [14, -22, 18, -12, 24, -16, 10];
   var BRANCH_RADII = [250, 170, 250, 245, 250];
@@ -22,17 +20,13 @@
     "04-meetings": { x: 340.2, y: 299.4 },
     "01-literature": { x: 322.2, y: 116.7 },
     "02-projects": { x: 601.3, y: 297.2 },
-    "06-thinking": { x: 432.1, y: 205.3 }
+    "06-thinking": { x: 432.1, y: 205.3 },
+    "07-archive": { x: 115.0, y: 330.0 }
   };
   var DEFAULT_CHILD_LAYOUT = {
     "01-literature:01-literature/papers.html": { x: 299.8, y: 49.5 },
-    "00-research:00-research/q1-note.html": { x: 743.7, y: 6.9 },
-    "00-research:00-research/q2-note.html": { x: 668.6, y: 23.7 },
-    "00-research:00-research/q3-note.html": { x: 591.2, y: 41.6 },
-    "00-research:00-research/q4-note.html": { x: 519.5, y: 54.0 },
     "00-research:00-research/research-development.html": { x: 815.4, y: 159.3 },
     "00-research:00-research/research-roadmap.html": { x: 794.1, y: 94.3 },
-    "00-research:00-research/thesis.html": { x: 533.0, y: 123.5 },
     "00-research:00-research/o2-self-relevant-action.html": { x: 650.0, y: 130.0 },
     "02-projects:02-projects/pharos-cy.html": { x: 642.8, y: 271.4 },
     "02-projects:02-projects/genai4ed.html": { x: 652.9, y: 329.7 },
@@ -41,6 +35,10 @@
     "04-meetings:04-meetings/other-meetings.html": { x: 269.6, y: 319.6 },
     "06-thinking:06-thinking/log.html": { x: 426.5, y: 139.2 }
   };
+
+  function validPoint(point) {
+    return point && Number.isFinite(point.x) && Number.isFinite(point.y);
+  }
 
   function e(tag, attrs) {
     var n = document.createElementNS(NS, tag);
@@ -54,7 +52,7 @@
 
   function sectionPoint(i) {
     var saved = DEFAULT_BRANCH_LAYOUT[sections[i].id];
-    if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) {
+    if (validPoint(saved)) {
       var dx = (saved.x - CX) / X_SPREAD;
       var dy = (saved.y - CY) / 0.92;
       return {
@@ -77,7 +75,7 @@
 
   mount.innerHTML =
     '<svg id="hub-svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" ' +
-    'aria-label="Section map. A full list of entries follows below."></svg>' +
+    'aria-label="Interactive section map; a full list of entries follows below."></svg>' +
     '<aside id="hub-tooltip" class="hub-tooltip" role="status" aria-live="polite"></aside>';
 
   var svg = document.getElementById("hub-svg");
@@ -157,7 +155,7 @@
       var y = CY + Math.sin(a) * radial * 0.92;
       var childId = section.id + ":" + entry.url;
       var saved = DEFAULT_CHILD_LAYOUT[childId];
-      if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) {
+      if (validPoint(saved)) {
         x = saved.x;
         y = saved.y;
       } else {
@@ -169,7 +167,13 @@
       var bend = 12 + (i * 4);
       var cx = mx - Math.sin(a) * bend * dir;
       var cy = my + Math.cos(a) * bend * dir;
-      var g = e("g", { "class": "hub-kid", tabindex: "0", role: "link", style: "color:" + section.color });
+      var isPrimary = entry.url === "00-research/o2-self-relevant-action.html";
+      var g = e("g", {
+        "class": "hub-kid" + (isPrimary ? " is-primary" : ""),
+        tabindex: "0",
+        role: "link",
+        style: "color:" + section.color
+      });
 
       var childEdge = e("path", {
         d: "M" + px + "," + py + " Q" + cx + "," + cy + " " + x + "," + y,
@@ -178,8 +182,8 @@
       });
       g.appendChild(childEdge);
       g.appendChild(e("circle", { cx: x, cy: y, r: 20, fill: "transparent" }));
-      g.appendChild(e("circle", { cx: x, cy: y, r: 9.3, "class": "hub-kid-halo", stroke: section.color }));
-      g.appendChild(e("circle", { cx: x, cy: y, r: 6, "class": "hub-kid-dot" }));
+      g.appendChild(e("circle", { cx: x, cy: y, r: isPrimary ? 12 : 9.3, "class": "hub-kid-halo", stroke: section.color }));
+      g.appendChild(e("circle", { cx: x, cy: y, r: isPrimary ? 7.8 : 6, "class": "hub-kid-dot" }));
 
       var label = e("text", {
         x: x, y: y - 18,
@@ -217,6 +221,7 @@
   }
 
   function visibleEntries(s) {
+    if (s.id === "07-archive" && openId !== s.id) return [];
     return s.entries;
   }
 
@@ -237,7 +242,7 @@
     if (!index) return;
 
     index.innerHTML = sections.map(function (section) {
-      var entries = visibleEntries(section);
+      var entries = section.entries;
       var links = entries.map(function (entry) {
         return '<li><a href="' + escapeHtml(entry.url) + '">' +
           escapeHtml(entry.title) + "</a></li>";
@@ -257,14 +262,24 @@
   }
 
   function collapse() {
+    var archiveWasOpen = openId === "07-archive";
     openId = null;
     clearBrief();
+    if (archiveWasOpen) {
+      renderMap();
+      return;
+    }
     Array.prototype.forEach.call(gMains.children, function (g) {
       g.classList.remove("is-dim", "is-open");
     });
   }
 
   function expand(section, index) {
+    if (section.id === "07-archive") {
+      openId = openId === section.id ? null : section.id;
+      renderMap();
+      return;
+    }
     openId = section.id;
     Array.prototype.forEach.call(gMains.children, function (g) {
       g.classList.remove("is-dim", "is-open");
@@ -298,6 +313,9 @@
       var ly = y + mainLabelOffset[1];
 
       var g = e("g", { "class": "hub-main", "data-id": s.id, tabindex: "0", role: "button" });
+      if (s.id === "07-archive") {
+        g.setAttribute("aria-expanded", String(openId === s.id));
+      }
       g.appendChild(e("circle", { cx: x, cy: y, r: 18, fill: "transparent" }));
       g.appendChild(e("circle", { cx: x, cy: y, r: 10, "class": "hub-main-halo", stroke: s.color }));
       g.appendChild(e("circle", { cx: x, cy: y, r: 6.4, "class": "hub-main-dot", fill: s.color, stroke: s.color }));
