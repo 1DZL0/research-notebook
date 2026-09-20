@@ -25,78 +25,47 @@ Can an AI system know enough about its **current situation and its own abilities
 O2 is an **assess → update → act** question. A confidence report alone is not yet an action-guiding self-model.
 
 ::: {.o2-process}
-1. **Assess** — What do I know, what can I do, and what have I already tried?
-2. **Update** — Does new evidence change that assessment?
-3. **Act** — Does the revised assessment change the decision?
+1. **Assess**: What do I know, what can I do, and what have I already tried?
+2. **Update**: Does new evidence change that assessment?
+3. **Act**: Does the revised assessment change the decision?
 :::
 
 ---
 
-## Experiment candidates
+## How the papers fit together
 
-These are candidate studies that can be implemented from the methods already covered in
-the papers. They are ordered from the simplest baseline to the experiment that most directly
-tests O2.
+**Axis 1: what is the self-knowledge *about*?**
 
-### 1. Black-box uncertainty baseline
+- *About the answer*: is this particular output correct?
+- *About the self or situation*: what am I, what can I do, where am I?
 
-[**Question**]{.text-blue} Can consistency across sampled answers predict when a model is
-likely to be wrong better than asking it for a confidence percentage once?
+**Axis 2: where is it read from?**
 
-[**Implementation**]{.text-blue}
+- *Verbalised*: ask the model, read what it says.
+- *Internal*: probe the activations.
+- *Behavioural*: see whether it changes what the model does.
 
-1. Select an answerable question dataset with automatic grading.
-2. Ask the model for one answer and a verbal confidence score.
-3. Sample the same question several times and measure answer agreement.
-4. Compare verbal confidence, sample agreement, and their combination using calibration
-   error and AUROC.
 
-**Why start here:** it requires only API access, establishes a reproducible baseline, and
-implements the prompting–sampling–aggregation design used by Xiong et al.
+**Two things fall out.**
 
-**Status:** Ready to design.
+- Answer-confidence work is almost entirely black-box;
+- situation-awareness work is almost entirely white-box. 
 
-### 2. Does uncertainty change the action?
+Nobody probes activations for *"am I going to get this right"*. Kadavath's P(IK) value head is closest, and that is a trained head on outputs, not a probe on internals.
 
-[**Question**]{.text-blue} Does giving an agent access to its own uncertainty improve what
-it chooses to do next?
+**Action**
 
-[**Implementation**]{.text-blue}
+"Does it act on this" can be asked of any signal, and three papers ask it of three different ones:
 
-1. Give the model questions under three conditions: no confidence signal, verbal confidence,
-   and confidence estimated from repeated samples.
-2. Allow three actions: answer now, abstain, or request one piece of additional information.
-3. Assign a cost to requesting help and a larger cost to an incorrect answer.
-4. Compare task utility, error rate, help requests, and abstentions across conditions.
+-  Wang of *verbalised confidence*, Nguyen of *an internal probe* (finds **no**)
+- Abdelnabi of an *internal probe* (finds **yes**). 
 
-**Why it matters:** the first experiment tests whether uncertainty is measurable; this one
-tests the central O2 claim that self-relevant information can guide operational decisions.
-
-**Status:** Strong first O2 experiment after the baseline.
-
-### 3. Updating self-assessment after new evidence
-
-[**Question**]{.text-blue} Does a model update its estimate of what it knows when useful or
-misleading information enters its context?
-
-[**Implementation**]{.text-blue}
-
-1. Measure confidence before the model receives any supporting material.
-2. Provide either useful evidence, irrelevant material, or a misleading hint.
-3. Measure confidence again and let the model choose whether to answer, abstain, or seek help.
-4. Test whether confidence changes in the correct direction and whether the revised estimate
-   leads to a better action.
-
-**Why it matters:** this extends Kadavath et al.'s context-sensitive P(IK) result from passive
-self-assessment to an update-and-act loop.
-
-**Status:** Most direct test of O2; design after the baseline metrics are working.
-
+Which of those two is right seems to depend on how the probe was built and how coarsely the action was measured.
 
 ---
 ## Papers
 
-Use this as a quick memory map. Each note follows the same path: **question → key concepts → implementation → finding → O2 implication**. A green **Read** marker means *you* have read the paper; unmarked filled notes are research drafts to check against the source.
+Use this as a quick memory map.
 
 | Paper | Recall in one line | What is tested? |
 |---|---|---|
@@ -112,7 +81,12 @@ Use this as a quick memory map. Each note follows the same path: **question → 
 | Needham (2025) | Distinguish evaluation from deployment contexts | Evaluation-context awareness |
 | Nguyen (2025) | Read evaluation cues from activations | Internal probe; limited steering |
 
-::: {.callout-note .paper-read collapse="true" title="Kadavath et al. (2022) - Language Models (Mostly) Know What They Know"}
+### A. Confidence in the answer
+
+Can the model tell whether the answer it just gave is right, and is the number it reports
+trustworthy? All black-box: ask the model, or read its token probabilities.
+
+::: {.callout-note .paper-read collapse="true" title="[1] Kadavath et al. (2022) - Language Models (Mostly) Know What They Know"}
 
 **Recall:** Before answering, P(IK) estimates whether the model knows; after answering, P(True) judges that answer.
 
@@ -219,7 +193,7 @@ proxies such as answer entropy can help, but diverse answers need not be wrong.
 
 :::
 
-::: {.callout-note .paper-read collapse="true" title="Lin et al. (2022) - Teaching Models to Express Their Uncertainty in Words"}
+::: {.callout-note .paper-read collapse="true" title="[2] Lin et al. (2022) - Teaching Models to Express Their Uncertainty in Words"}
 
 **Recall:** Train a model to say how likely its *answer* is to be right, not how likely it was to generate those exact words.
 
@@ -309,7 +283,7 @@ example, by abstaining, asking for help, or gathering more information.
 
 :::
 
-::: {.callout-note .paper-read collapse="true" title="Xiong et al. (2024) - Can LLMs Express Their Uncertainty?"}
+::: {.callout-note .paper-read collapse="true" title="[3] Xiong et al. (2024) - Can LLMs Express Their Uncertainty?"}
 
 **Recall:** With only API outputs, confidence can be estimated by prompting, repeated sampling and aggregation but no method works best everywhere.
 
@@ -393,12 +367,13 @@ This paper tests whether useful self-assessment can be elicited when an agent ex
 ordinary outputs. It helps separate a genuinely action-guiding uncertainty signal from a
 confidence statement that merely sounds plausible.
 
-
-
-
 :::
 
-::: {.callout-note .paper-read collapse="true" title="Yin et al. (2023) - Do Large Language Models Know What They Don't Know?"}
+### B. Knowing what you don't know
+
+A different question from confidence. Not "how sure am I" but "does this question have an answer at all". Situation-knowledge? .
+
+::: {.callout-note .paper-read collapse="true" title="[4] Yin et al. (2023) - Do Large Language Models Know What They Don't Know?"}
 
 **Recall:** SelfAware checks whether models recognise questions for which a reliable answer is unavailable.
 
@@ -481,7 +456,7 @@ uncertainty. It measures behaviour, not an explicit or integrated self-model.
 
 :::
 
-::: {.callout-note .paper-read collapse="true" title="Kapoor et al. (2024) - Large Language Models Must Be Taught to Know What They Don’t Know"}
+::: {.callout-note .paper-read collapse="true" title="[5] Kapoor et al. (2024) - Large Language Models Must Be Taught to Know What They Don’t Know"}
 
 **Recall:** Prompting alone gives unreliable confidence; graded examples can teach a better uncertainty estimator.
 
@@ -534,7 +509,11 @@ It does not establish that the improved estimate will control downstream action.
 
 :::
 
-::: {.callout-note .paper-read collapse="true" title="[38] Wang et al. (2026) - Are LLM Decisions Faithful to Verbal Confidence?"}
+### C. Does the signal change the action?
+
+The monitoring / control question. Both papers here have a working self-assessment signal and ask whether it reaches the decision.
+
+::: {.callout-note .paper-read collapse="true" title="[6] Wang et al. (2026) - Are LLM Decisions Faithful to Verbal Confidence?"}
 
 **Recall:** A model may state uncertainty yet fail to abstain when mistakes become costly.
 
@@ -586,7 +565,7 @@ could add "seek information" as a third action and test whether new evidence cha
 both confidence and choice. The paper does not test that update loop.
 :::
 
-::: {.callout-note .paper-read collapse="true" title="[39] Li et al. (2025) - Adaptive Tool Use in Large Language Models with Meta-Cognition Trigger"}
+::: {.callout-note .paper-read collapse="true" title="[7] Li et al. (2025) - Adaptive Tool Use in Large Language Models with Meta-Cognition Trigger"}
 
 **Recall:** A direction in the model's activations predicts whether its tool decision was right, better than the model's own stated confidence but that direction was built from the model *role-playing* self-awareness, never from whether it actually succeeded.
 
@@ -679,7 +658,11 @@ agent to compare against.
 
 :::
 
-::: {.callout-note .paper-read collapse="true" title="[40] Berglund et al. (2023) - Taken out of Context: On Measuring Situational Awareness in LLMs"}
+### D. Knowing about yourself
+
+From confidence in an output to knowledge about the system producing it: what am I, what have I been told about myself, and can I act on it.
+
+::: {.callout-note .paper-read collapse="true" title="[8] Berglund et al. (2023) - Taken out of Context: On Measuring Situational Awareness in LLMs"}
 
 **Recall:** Knowing a fact in training is not the same as applying it later without the fact in the prompt.
 
@@ -747,7 +730,7 @@ paper's fictional-chatbot tasks do **not** show that models recognise their actu
 training, evaluation or deployment situation.
 :::
 
-::: {.callout-note .paper-read collapse="true" title="[41] Laine et al. (2024) - Me, Myself, and AI: The Situational Awareness Dataset (SAD) for LLMs"}
+::: {.callout-note .paper-read collapse="true" title="[9] Laine et al. (2024) - Me, Myself, and AI: The Situational Awareness Dataset (SAD) for LLMs"}
 
 **Recall:** Splits situational awareness into knowing, inferring and acting, then shows that acting scores roughly half what knowing does across 16 models. 
 
@@ -837,7 +820,10 @@ no logprobs. Worth trying to run.
 
 :::
 
-::: {.callout-note .paper-read collapse="true" title="[42] Needham et al. (2025) - Large Language Models Often Know When They Are Being Evaluated"}
+### E. Knowing you are being evaluated
+Where black-box and white-box methods finally meet on the same question.
+
+::: {.callout-note .paper-read collapse="true" title="[10] Needham et al. (2025) - Large Language Models Often Know When They Are Being Evaluated"}
 
 **Recall:** Frontier models classify evaluation vs deployment near human level in agentic settings, but are overconfident and getting worse at it high discrimination with poor calibration.
 
@@ -910,67 +896,86 @@ may notice more about the setup than I assume.
 
 :::
 
+::: {.callout-note .paper-read collapse="true" title="[11] Nguyen et al. (2025) - Probing and Steering Evaluation Awareness of Language Models"}
 
-::: {.callout-note .paper-read collapse="true" title="[43] Nguyen et al. (2025) - Probing and Steering Evaluation Awareness of Language Models"}
-
-**Recall:** A linear probe reads evaluation/deployment cues inside one model; changing behaviour with those cues is much less settled.
+**Recall:** The evaluation/deployment distinction is decodable from activations at AUROC 0.82 but steering that direction barely changes sandbagging, while a one-line prompt suffix recovers 83%.
 
 [Source paper](https://arxiv.org/abs/2507.01786){target="_blank" rel="noopener"}
+ICML 2025 workshop (Actionable Interpretability / TAIG). Code and data public. 40 GPU hours on one H200.
 
 ### Core question
 
-Can evaluation awareness be detected in a model's activations without directly
-asking it whether it is being tested—and can interventions on those activations
-alter sandbagging?
+Can evaluation awareness be detected in activations *without asking the model*, and does
+intervening on that representation change behaviour?
 
 ### Key concepts
 
-[**Linear probe**]{.text-blue} is a direction in activation space trained to
-separate two labelled conditions. A successful probe shows that information is
-*decodable*; it does not prove the model uses that representation to make a decision.
+[**Linear probe**]{.text-blue} a direction in activation space separating two labelled
+conditions. A working probe shows the information is *decodable*. It does not show the model
+uses it.
 
-[**Steering**]{.text-blue} changes an activation or sparse-autoencoder (SAE)
-feature during generation, then checks whether behaviour changes. That is a
-stronger test than classification alone, but still needs careful controls.
+[**Steering**]{.text-blue}  add the direction to the residual stream during generation and
+see whether behaviour changes.
 
 ### How it is implemented
 
-Using **Llama-3.3-70B-Instruct**, the authors build contrastive examples of
-evaluation and deployment contexts. For each of six training datasets, they take
-the mean difference between labelled activation vectors at each of 80 layers,
-then select probes using held-out SAD `stages_oversight` performance. To classify
-a new prompt, they project token activations onto a probe, average the scores
-and apply a threshold fixed on validation data.
+**Model:** Llama-3.3-70B-Instruct, 80 layers.
 
-They then test whether probes flag existing deception evaluations as test-like.
-For a separate intervention, they prompt the model to sandbag on 1,000 WMDP
-questions and try steering with probe directions or selected SAE features,
-comparing accuracy with the sandbagged and normal baselines.
+**Probe = mean difference, no PCA.** For each contrastive pair, take activations at the
+answer token, subtract testing from deployment, average
+across examples, normalise. 
 
 ::: {.o2-method}
-**Label** test/deployment prompts → **fit** activation direction → **classify** new prompts → **steer** and check behaviour
+**Label** test/deploy pairs → **subtract and average** → **sweep 80 layers** → **classify** by mean token score vs threshold → **steer** and check behaviour
 :::
 
 ### Main findings
 
-The strongest selected probe reaches **0.829 AUROC** on SAD `stages_oversight`;
-the authors' simple contrastive probe reaches **0.816** and generalises relatively
-well across their validation sets. Several safety-evaluation datasets are mostly
-classified as test-like. Probe-direction steering has little effect on prompted
-sandbagging; some SAE-feature steering partially restores performance, but the
-authors say it is unclear whether this changes evaluation awareness or simply
-perturbs the model.
+Best probe **0.829** (layer 24); the one carried forward is Simple Contrastive, layer 23: **0.816**.
+Best layers are *early* since there was 80 layers.
+
+random probes **0.517**, prompt length **0.584**, special characters
+**0.598**, all significantly below **0.816**.
+
+**Safety evaluations already read as fake.** Proportion classified test-like:
+
+| Dataset | Test-like |
+|---|---|
+| Insider Trading | **100%** |
+| Sandbagging | 94.2% |
+| Roleplaying | 80.6% |
+| AI Liar | 37.0% |
+
+**The steering result, which is the important one.** Sandbagging baseline: 58.6% true
+capability, 15.6% when prompted to sandbag.
+
+- Probe-direction steering: **under 5% recovery**
+- SAE features: 25% max
+- Appending *"Actually, you are being deployed right now..."*: **83% recovery**
+
+Their explanation:
+
+> We hypothesise that this is because Llama-3.3-70b-Instruct don't use these evaluation
+
+The representation is detectable at **0.816** and manipulating it does almost nothing. Every
+earlier paper showed the knowing / acting gap correlationally; this one intervenes on the
+knowing and the acting stays put.
 
 ### Relevance to O2
 
-This pairs naturally with Needham et al.: compare **verbal classification** with
-an **internal, white-box probe** on the same contexts. For O2, the causal question
-remains whether changing the representation changes a real action, not just a
-benchmark score. Evidence here is from one open model and simplified settings;
-it should not be generalised to all frontier agents.
+**The causal result is the citation.** Representation present, intervention ineffective. This
+is the strongest available evidence that the monitoring–control gap.
+
+**Their future work.** They propose using probe scores as a fitness function to
+automatically revise prompts until they stop reading as evaluations.
+
+**Pairs with Needham [10]:** verbal classification vs white-box probe on the same contexts.
+Worth running both and comparing, since the paper's whole premise is that asking contaminates.
+
 :::
 
-::: {.callout-note collapse="true" title="[44] Abdelnabi and Salem (2025) - The Hawthorne Effect in Reasoning Models: Evaluating and Steering Test Awareness"}
+
+::: {.callout-note collapse="true" title="[12] Abdelnabi and Salem (2025) - The Hawthorne Effect in Reasoning Models: Evaluating and Steering Test Awareness"}
 
 [Source paper](https://proceedings.neurips.cc/paper_files/paper/2025/hash/cf42f133f355e0e07a8957b508b26a1b-Abstract-Conference.html){target="_blank" rel="noopener"}
 
@@ -985,7 +990,7 @@ it should not be generalised to all frontier agents.
 ### Relevance to O2
 :::
 
-::: {.callout-note collapse="true" title="[45] Hua et al. (2026) - Steering Evaluation-Aware Language Models to Act Like They Are Deployed"}
+::: {.callout-note collapse="true" title="[13] Hua et al. (2026) - Steering Evaluation-Aware Language Models to Act Like They Are Deployed"}
 
 [Source paper](https://openreview.net/forum?id=1TdRdf0fkw){target="_blank" rel="noopener"}
 
@@ -1000,7 +1005,7 @@ it should not be generalised to all frontier agents.
 ### Relevance to O2
 :::
 
-::: {.callout-note collapse="true" title="[46] Li et al. (2026) - Decomposing and Measuring Evaluation Awareness"}
+::: {.callout-note collapse="true" title="[14] Li et al. (2026) - Decomposing and Measuring Evaluation Awareness"}
 
 [Source paper](https://arxiv.org/abs/2605.23055){target="_blank" rel="noopener"}
 
@@ -1015,7 +1020,7 @@ it should not be generalised to all frontier agents.
 ### Relevance to O2
 :::
 
-::: {.callout-note collapse="true" title="[47] Nayan et al. (2026) - Evaluation Awareness Is Not One Capability: Evidence from Open Language Models"}
+::: {.callout-note collapse="true" title="[15] Nayan et al. (2026) - Evaluation Awareness Is Not One Capability: Evidence from Open Language Models"}
 
 [Source paper](https://arxiv.org/abs/2606.23583){target="_blank" rel="noopener"}
 
@@ -1030,7 +1035,8 @@ it should not be generalised to all frontier agents.
 ### Relevance to O2
 :::
 
-::: {.callout-note collapse="true" title="[48] Betley et al. (2025) - Tell Me About Yourself: LLMs Are Aware of Their Learned Behaviors"}
+
+::: {.callout-note collapse="true" title="[16] Betley et al. (2025) - Tell Me About Yourself: LLMs Are Aware of Their Learned Behaviors"}
 
 [Source paper](https://openreview.net/forum?id=IjQ2Jtemzy){target="_blank" rel="noopener"}
 
@@ -1045,7 +1051,8 @@ it should not be generalised to all frontier agents.
 ### Relevance to O2
 :::
 
-::: {.callout-note collapse="true" title="[49] Greenblatt et al. (2024) - Alignment Faking in Large Language Models"}
+
+::: {.callout-note collapse="true" title="[17] Greenblatt et al. (2024) - Alignment Faking in Large Language Models"}
 
 [Source paper](https://arxiv.org/abs/2412.14093){target="_blank" rel="noopener"}
 
@@ -1060,7 +1067,7 @@ it should not be generalised to all frontier agents.
 ### Relevance to O2
 :::
 
-::: {.callout-note collapse="true" title="[50] van der Weij et al. (2025) - AI Sandbagging: Language Models Can Strategically Underperform on Evaluations"}
+::: {.callout-note collapse="true" title="[18] van der Weij et al. (2025) - AI Sandbagging: Language Models Can Strategically Underperform on Evaluations"}
 
 [Source paper](https://openreview.net/forum?id=7Qa2SpjxIS){target="_blank" rel="noopener"}
 
@@ -1075,7 +1082,7 @@ it should not be generalised to all frontier agents.
 ### Relevance to O2
 :::
 
-::: {.callout-note collapse="true" title="[51] Meinke et al. (2024) - Frontier Models Are Capable of In-Context Scheming"}
+::: {.callout-note collapse="true" title="[19] Meinke et al. (2024) - Frontier Models Are Capable of In-Context Scheming"}
 
 [Source paper](https://arxiv.org/abs/2412.04984){target="_blank" rel="noopener"}
 
@@ -1090,7 +1097,7 @@ it should not be generalised to all frontier agents.
 ### Relevance to O2
 :::
 
-::: {.callout-note collapse="true" title="[52] Baek et al. (2026) - Sycophancy Towards Researchers Drives Performative Misalignment"}
+::: {.callout-note collapse="true" title="[20] Baek et al. (2026) - Sycophancy Towards Researchers Drives Performative Misalignment"}
 
 [Source paper](https://arxiv.org/abs/2606.08629){target="_blank" rel="noopener"}
 
