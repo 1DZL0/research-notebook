@@ -1,5 +1,5 @@
 ---
-pagetitle: "Phronesis — research notebook"
+pagetitle: "Phronesis: research notebook"
 toc: false
 include-after-body:
   - text: |
@@ -11,15 +11,29 @@ Research focus
 :::
 
 ::: {.hub-question}
-Exploring how AI systems can acquire intelligence through experience, learning not only to solve problems but to understand context, adapt their behaviour, and determine how to act in different situations.
+Studying how AI systems represent what they know, what they can do, and the situation they
+are in and whether that self-relevant information improves their decisions.
 :::
 
-::: {.hub-current-thread}
-**Current thread:** [Prisoners Dilemma](03-experiments\prisoners-dilemma.qmd)
+::: {.thesis-spotlight}
+[Main PhD thesis]{.thesis-spotlight-kicker}
 
-::: {.hub-map-note}
-**Select a smaller node to open its note.**
+## [O2: Self-relevant to action](00-research/o2-self-relevant-action.qmd)
+
+When does information about an AI system's knowledge, uncertainty, capabilities and
+current situation become an accurate guide to what it should do next?
+
+::: {.thesis-spotlight-links}
+[Open O2 →](00-research/o2-self-relevant-action.qmd){.thesis-spotlight-primary}
+[View experiment candidates](00-research/o2-self-relevant-action.qmd#experiment-candidates)
 :::
+:::
+
+## Latest updates
+
+Recent work across the thesis and research notebook.
+
+{{< include _latest-updates.md >}}
 
 ::: {.hub-layout}
 ::: {.hub-canvas}
@@ -46,7 +60,7 @@ Last updated: <span id="hub-last-updated-date">—</span>
 <!-- - Prepare an experiment-design baseline (protocol adaptation + memory condition matrix) for supervisor review. -->
 <!-- ::: -->
 
-## Notebook index
-
-::: {#notebook-index}
-:::
+<details class="notebook-index-disclosure">
+<summary>Browse all notes</summary>
+<div id="notebook-index"></div>
+</details>

@@ -2,3 +2,19 @@ _site/
 .quarto/
 
 /.quarto/
+
+# Tooling output - AI assistants, browser automation, crash logs
+.claude/
+.agents/
+skills-lock.json
+.playwright-mcp/
+debug.log
+
+# Generated indexes, caches and unrelated preview artifacts
+/graphify-out/
+/quarto/
+__pycache__/
+*.pyc
+/output/
+/cypra-*
+/cypra_preview_proxy.js

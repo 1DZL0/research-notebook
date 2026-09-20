@@ -19,9 +19,9 @@ The **take-home pack**.
 **Short note due:** 23 September 2026.
 :::
 
-# The presentation
+# Training materials
 
-[▶ Open the presentation full screen](ai-security-training-deck.html){.btn .btn-primary target="_blank"}
+[Open the AI Security & Responsible Deployment presentation](ai-security-training-deck.html){.btn .btn-primary target="_blank"}
 
 <div style="position:relative; width:100%; aspect-ratio:16/9; margin-top:1rem;">
 <iframe src="ai-security-training-deck.html" title="AI Security training deck"

@@ -1,0 +1,46 @@
+{
+  "source": "Yin et al. (2023), Figures 3 and 6",
+  "paper_instruction_f1": {
+    "davinci": 45.67,
+    "text-davinci-001": 49.61,
+    "text-davinci-002": 47.48,
+    "text-davinci-003": 51.43,
+    "GPT-3.5 Turbo": 54.12,
+    "GPT-4": 75.47
+  },
+  "paper_instruction_answerable_accuracy": {
+    "text-ada-001": 2.48,
+    "text-babbage-001": 4.45,
+    "text-curie-001": 4.7,
+    "text-davinci-001": 10.61,
+    "text-davinci-002": 15.7,
+    "text-davinci-003": 30.25,
+    "GPT-3.5 Turbo": 38.29,
+    "GPT-4": 42.64
+  },
+  "paper_human_f1": 84.93,
+  "extension_instruction": {
+    "deepseek-v4-pro-0813": {
+      "f1": 59.68028419182948,
+      "accuracy": 46.15384615384615
+    },
+    "qwen3.7-plus": {
+      "f1": 58.06451612903226,
+      "accuracy": 45.57692307692307
+    },
+    "claude-sonnet-4.6": {
+      "f1": 53.57142857142857,
+      "accuracy": 52.11538461538462
+    },
+    "kimi-k3": {
+      "f1": 55.434782608695656,
+      "accuracy": 42.88461538461538
+    },
+    "qwen3.7-max": {
+      "f1": 60.48632218844985,
+      "accuracy": 50.19230769230769
+    }
+  },
+  "comparison_status": "descriptive only",
+  "sample_note": "Paper: full SelfAware except GPT-4 uses 100 random instances; human uses 100 random instances. Extension: fixed stratified sample of 750."
+}

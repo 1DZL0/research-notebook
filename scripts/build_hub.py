@@ -8,13 +8,12 @@ Nothing here needs editing except SECTIONS.
 import json
 import pathlib
 import re
-import sys
 from datetime import datetime
 
 try:
     import yaml
 except ImportError:
-    sys.exit("PyYAML is required:  pip install pyyaml")
+    yaml = None
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "_hub-include.html"
@@ -28,6 +27,7 @@ SECTIONS = {
     "04-meetings":    ("Meetings", 4, "#59636E"),
     "05-reference":   ("Reference", 5, "#6B6440"),
     "06-thinking":    ("Thinking", 6, "#7A5D78"),
+    "07-archive":     ("Archive", 7, "#77736B"),
 }
 
 # one-line briefing shown when a section node is hovered
@@ -38,6 +38,7 @@ BLURBS = {
     "Experiments": "Prototypes and evaluations, with results or an honest blank.",
     "Meetings": "Supervisor discussions and the decisions from them.",
     "Reference": "Definitions and metrics, written once and linked to.",
+    "Archive": "Earlier research directions kept for reference.",
 }
 
 VALID_STATUS = {"question", "active", "evidence", "parked", "reference"}
@@ -45,15 +46,31 @@ FM = re.compile(r"\A\ufeff?---\s*\n(.*?)\n---\s*\n", re.S)
 SKIP = {"index.qmd", "notebook.qmd", "research-questions.qmd"}
 
 
+def simple_front_matter(text):
+    """Read the top-level scalar fields used by the hub without PyYAML."""
+    values = {}
+    for line in text.splitlines():
+        if not line or line[0].isspace() or ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+            value = value[1:-1]
+        values[key.strip()] = value
+    return values or None
+
+
 def front_matter(path):
     text = path.read_text(encoding="utf-8")
     match = FM.match(text)
     if not match:
         return None
+    if yaml is None:
+        return simple_front_matter(match.group(1))
     try:
         return yaml.safe_load(match.group(1)) or None
     except yaml.YAMLError as exc:
-        print(f"  ! {path.name}: unreadable front matter ({exc})", file=sys.stderr)
+        print(f"  ! {path.name}: unreadable front matter ({exc})")
         return None
 
 
@@ -72,6 +89,9 @@ def collect():
             meta = front_matter(qmd)
             if not meta or not meta.get("title"):
                 print(f"  - skipped {folder}/{qmd.name}: no title in front matter")
+                continue
+            hub_value = meta.get("hub", True)
+            if hub_value is False or str(hub_value).lower() in {"false", "no", "0"}:
                 continue
 
             status = str(meta.get("status", "active")).lower()

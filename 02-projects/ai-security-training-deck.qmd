@@ -1,6 +1,7 @@
 ---
 title: "AI Security &<br>Responsible Deployment"
 subtitle: "A proposed Pharos-CY training event"
+hub: false
 lang: en-GB
 format:
   revealjs:

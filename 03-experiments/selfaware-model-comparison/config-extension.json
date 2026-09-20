@@ -1,0 +1,14 @@
+{
+  "selfaware_root": "../SelfAware",
+  "prompts": ["Direct", "Instruction"],
+  "models": [
+    {
+      "id": "moonshotai/kimi-k3",
+      "max_price": {"prompt": 2.5, "completion": 12.0}
+    },
+    {
+      "id": "qwen/qwen3.7-max",
+      "max_price": {"prompt": 1.475, "completion": 4.425}
+    }
+  ]
+}

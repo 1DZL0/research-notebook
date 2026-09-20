@@ -1,0 +1,18 @@
+{
+  "selfaware_root": "../SelfAware",
+  "prompts": ["Direct", "Instruction"],
+  "models": [
+    {
+      "id": "deepseek/deepseek-v4-pro-0813",
+      "max_price": {"prompt": 1.32, "completion": 3.96}
+    },
+    {
+      "id": "qwen/qwen3.7-plus",
+      "max_price": {"prompt": 0.32, "completion": 1.28}
+    },
+    {
+      "id": "anthropic/claude-sonnet-4.6",
+      "max_price": {"prompt": 3.0, "completion": 15.0}
+    }
+  ]
+}

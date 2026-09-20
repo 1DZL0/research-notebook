@@ -160,6 +160,43 @@ body:not(.papers-page):not(.hub-home) main.content {
   margin-bottom: 0;
 }
 
+/* Compact O2 reading aids; content remains editable as ordinary Markdown. */
+.o2-process ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0.8rem 0 1.3rem;
+  padding: 0;
+}
+
+.o2-process li {
+  background: var(--surface);
+  border-top: 2px solid var(--primary);
+  font-size: 0.91rem;
+  line-height: 1.45;
+  padding: 0.65rem 0.8rem;
+}
+
+.o2-method {
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  border-left: 2px solid #2F628C;
+  font-size: 0.91rem;
+  line-height: 1.5;
+  margin: 0.7rem 0;
+  padding: 0.45rem 0.7rem;
+}
+
+.o2-method p {
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .o2-process ol {
+    grid-template-columns: 1fr;
+  }
+}
+
 .thinking-log-entry {
   border-left: 2px solid var(--primary);
   margin: 1.6rem 0;
@@ -505,6 +542,73 @@ body.hub-home #title-block-header {
   text-align: center;
 }
 
+.thesis-spotlight {
+  background: color-mix(in srgb, var(--surface) 78%, #fff);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--primary);
+  border-radius: 0.75rem;
+  margin: 0 auto 1.75rem;
+  max-width: 48rem;
+  padding: 1rem 1.15rem 1.1rem;
+  text-align: left;
+}
+
+.thesis-spotlight-kicker {
+  color: var(--primary);
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.thesis-spotlight h2 {
+  font-size: clamp(1.2rem, 1vw + 0.9rem, 1.65rem);
+  margin: 0 0 0.4rem;
+}
+
+.thesis-spotlight h2 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.thesis-spotlight > p {
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 66ch;
+}
+
+.thesis-spotlight-links {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  margin-top: 0.85rem;
+}
+
+.thesis-spotlight-links a {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.thesis-spotlight-links a:hover {
+  text-decoration: underline;
+}
+
+.thesis-spotlight-links .thesis-spotlight-primary {
+  background: var(--primary);
+  border-radius: 999px;
+  color: #fff;
+  padding: 0.42rem 0.72rem;
+}
+
+.thesis-spotlight-links .thesis-spotlight-primary:hover {
+  text-decoration: none;
+}
+
 .hub-current-thread {
   color: var(--muted);
   font-size: 0.78rem;
@@ -525,6 +629,77 @@ body.hub-home #title-block-header {
 
 .hub-current-thread a:hover {
   text-decoration: underline;
+}
+
+.latest-updates {
+  background: color-mix(in srgb, var(--surface) 84%, #fff);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  margin: 0 auto 1.25rem;
+  max-width: 48rem;
+  padding: 0.35rem 1rem;
+}
+
+.latest-updates ul {
+  list-style: none;
+  margin: 0;
+  position: relative;
+  padding: 0;
+}
+
+.latest-updates ul::before {
+  background: var(--border);
+  bottom: 1rem;
+  content: "";
+  left: 0.3rem;
+  position: absolute;
+  top: 1rem;
+  width: 1px;
+}
+
+.latest-updates li {
+  border-top: 1px solid color-mix(in srgb, var(--border) 62%, transparent);
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  padding: 0.75rem 0 0.75rem 1.55rem;
+  position: relative;
+}
+
+.latest-updates li::before {
+  background: var(--primary);
+  border: 3px solid color-mix(in srgb, var(--surface) 84%, #fff);
+  border-radius: 50%;
+  content: "";
+  height: 0.62rem;
+  left: 0;
+  position: absolute;
+  top: 1.02rem;
+  width: 0.62rem;
+}
+
+.latest-updates li:first-child {
+  border-top: 0;
+}
+
+.latest-updates strong {
+  color: var(--text);
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  min-width: 8.6rem;
+}
+
+.latest-updates a {
+  font-weight: 600;
+}
+
+@media (max-width: 520px) {
+  .latest-updates strong {
+    display: block;
+    margin-bottom: 0.1rem;
+    min-width: 0;
+  }
 }
 
 .hub-map-note {
@@ -621,6 +796,11 @@ body.hub-home #title-block-header {
   box-shadow: none;
 }
 
+.hub-main,
+.hub-kid {
+  cursor: pointer;
+}
+
 .hub-tooltip {
   background: color-mix(in srgb, var(--surface) 92%, #fff);
   border: 1px solid var(--border);
@@ -710,10 +890,6 @@ body.hub-home #title-block-header {
   pointer-events: none;
 }
 
-.hub-main {
-  cursor: default;
-}
-
 .hub-main.is-dim {
   opacity: 1;
 }
@@ -755,10 +931,6 @@ body.hub-home #title-block-header {
 .hub-kid:focus-visible .hub-kid-dot {
   stroke: var(--text);
   stroke-width: 3;
-}
-
-.hub-kid {
-  cursor: pointer;
 }
 
 .hub-kid-edge {
@@ -845,6 +1017,39 @@ body.hub-home #title-block-header {
 .notebook-index-section {
   border-top: 1px solid var(--border);
   padding: 1rem 0;
+}
+
+.hub-kid.is-primary .hub-kid-label {
+  fill: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.hub-kid.is-primary .hub-kid-halo {
+  opacity: 0.95;
+  stroke-width: 2;
+}
+
+.hub-kid.is-primary .hub-kid-dot {
+  stroke-width: 2.5;
+}
+
+.notebook-index-disclosure {
+  border-block: 1px solid var(--border);
+  margin-top: 1.5rem;
+  padding: 0.25rem 0;
+}
+
+.notebook-index-disclosure summary {
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.8rem 0;
+}
+
+.notebook-index-disclosure[open] summary {
+  border-bottom: 1px solid var(--border);
 }
 
 .notebook-index-section:first-child {
@@ -1298,6 +1503,30 @@ div.callout.callout-style-default {
 
 div.callout-note.callout {
   border-left-color: var(--primary);
+}
+
+div.callout.paper-read {
+  border-right: 3px solid var(--st-evidence);
+}
+
+div.callout.paper-read > .callout-header .callout-title-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+div.callout.paper-read > .callout-header .callout-title-container::after {
+  border: 1px solid var(--st-evidence);
+  border-radius: 999px;
+  color: var(--st-evidence);
+  content: "Read";
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 0.22rem 0.4rem;
+  text-transform: uppercase;
 }
 
 div.callout-tip.callout {
