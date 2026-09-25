@@ -16,14 +16,17 @@ description: "Dated observations, reading reflections, and emerging research tho
 
 2. **Pharos Project** - *due 21 September 2026*
 
-    Idea: AI Security & Responsible Deployment training. A course (training event) for companies that are not just using HPC-hosted datasets/models but building AI applications and agentic workflows. 
+    Idea: AI Security & Responsible Deployment training. A course (training event) for companies that are not just using HPC-hosted datasets/models but building AI applications and agentic workflows.
 
     Two deliverables:
 
     - Live session (conference demo)
-    - Find Topics to cover
+    - Find Topics to cover — done: topic outline table + per-stage technical detail now in [pharos-cy.qmd](../02-projects/pharos-cy.qmd)
 
     Next step: draft the short note, then build out the full scope in [pharos-cy.qmd](../02-projects/pharos-cy.qmd) what to look at first, demo design, take-home structure.
+
+    **WP3 feedback (21 Sept 2026):** professor said last week's WP3 presentation (on this AI Security idea) was too high-level — it didn't give an outline of the topics the final presentation will cover. Not (necessarily) "go deeper technically" — the actual gap is a missing topic-by-topic roadmap of what the final presentation will contain.
+        - Next step: draft that topic outline first (list the sections/topics from the outline above — sandboxing, permissions, prompt injection, tool design, sensitive data, monitoring, governance — one line each on what it covers), get it in front of the professor before adding technical depth to any one section.
 
 ---
 
