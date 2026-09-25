@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-09-20">
+<meta name="dcterms.date" content="2026-09-25">
 
 <title>Pharos-CY Training: AI Security &amp; Responsible Deployment – Phronesis · Φρόνησις</title>
 <style>
@@ -42,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0374eff822ed7fda96bd0b93f7af57f2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a0d821560a68ab479074d65f5d291fcf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -266,7 +266,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "20 September 2026"
+  "lastUpdated": "25 September 2026"
 };
 </script>
 
@@ -357,18 +357,11 @@ window.HUB_DATA = {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Contents</h2>
    
-  <ul>
-  <li><a href="#training-materials" id="toc-training-materials" class="nav-link active" data-scroll-target="#training-materials">Training materials</a></li>
-  <li><a href="#the-one-line-thesis" id="toc-the-one-line-thesis" class="nav-link" data-scroll-target="#the-one-line-thesis">The one-line thesis</a></li>
-  <li><a href="#framing-decisions" id="toc-framing-decisions" class="nav-link" data-scroll-target="#framing-decisions">Framing decisions</a></li>
-  <li><a href="#what-stays-live-vs-what-ships-in-the-pack" id="toc-what-stays-live-vs-what-ships-in-the-pack" class="nav-link" data-scroll-target="#what-stays-live-vs-what-ships-in-the-pack">What stays live vs what ships in the pack</a></li>
-  <li><a href="#the-attack-chain" id="toc-the-attack-chain" class="nav-link" data-scroll-target="#the-attack-chain">The attack chain</a></li>
-  <li><a href="#the-visualisation" id="toc-the-visualisation" class="nav-link" data-scroll-target="#the-visualisation">The visualisation</a></li>
-  <li><a href="#the-take-home-pack" id="toc-the-take-home-pack" class="nav-link" data-scroll-target="#the-take-home-pack">The take-home pack</a></li>
-  <li><a href="#the-idea" id="toc-the-idea" class="nav-link" data-scroll-target="#the-idea">The idea</a></li>
-  <li><a href="#the-path" id="toc-the-path" class="nav-link" data-scroll-target="#the-path">The path</a></li>
-  <li><a href="#whats-in-the-box" id="toc-whats-in-the-box" class="nav-link" data-scroll-target="#whats-in-the-box">What’s in the box</a></li>
-  <li><a href="#open-questions" id="toc-open-questions" class="nav-link" data-scroll-target="#open-questions">Open questions</a></li>
+  <ul class="collapse">
+  <li><a href="#the-idea" id="toc-the-idea" class="nav-link active" data-scroll-target="#the-idea">The idea</a></li>
+  <li><a href="#what-we-cover-and-why" id="toc-what-we-cover-and-why" class="nav-link" data-scroll-target="#what-we-cover-and-why">What we cover, and why</a></li>
+  <li><a href="#the-live-session" id="toc-the-live-session" class="nav-link" data-scroll-target="#the-live-session">The live session</a></li>
+  <li><a href="#the-take-home" id="toc-the-take-home" class="nav-link" data-scroll-target="#the-take-home">The take-home</a></li>
   </ul>
 </nav>
     </div>
@@ -388,7 +381,7 @@ window.HUB_DATA = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 20, 2026</p>
+      <p class="date">September 25, 2026</p>
     </div>
   </div>
   
@@ -406,42 +399,188 @@ window.HUB_DATA = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>What this is
+<span class="screen-reader-only">Note</span>Status
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The working design for the WP3 training event. It’s the single source both deliverables build from:</p>
-<p>The <strong>live session</strong> (what runs on stage if we can get a confrence)</p>
-<p>The <strong>take-home pack</strong>.</p>
-<p><strong>Short note due:</strong> 23 September 2026.</p>
-</div>
-</div>
-<section id="training-materials" class="level1">
-<h1>Training materials</h1>
-<p><a href="ai-security-training-deck.html" class="btn btn-primary" target="_blank">Open the AI Security &amp; Responsible Deployment presentation</a></p>
-<div style="position:relative; width:100%; aspect-ratio:16/9; margin-top:1rem;">
-<iframe src="ai-security-training-deck.html" title="AI Security training deck" style="position:absolute; inset:0; width:100%; height:100%; border:1px solid #ccc; border-radius:6px;" allowfullscreen="">
-</iframe>
-</div>
-<p><em>Click inside the preview and use the arrow keys to move through the slides. Press <code>F</code> for full screen.</em></p>
-</section>
-<section id="the-one-line-thesis" class="level1">
-<h1>The one-line thesis</h1>
-<blockquote class="blockquote">
-<p>A compromised agent acts with the <strong>deployer’s</strong> authority, not the attacker’s. The attacker only needs standard user access. The blast radius is everything the agent was trusted to touch.</p>
-</blockquote>
-</section>
-<section id="framing-decisions" class="level1">
-<h1>Framing decisions</h1>
+<p>Live talk (demo only) + Jupyter take-home. One agent, two config profiles (<code>unsafe</code> / <code>hardened</code>), a mock company. HPC out of scope.</p>
 <ul>
-<li><strong>The target:</strong> a <strong>company’s own containerised ops/dev assistant</strong>, running in Docker/Kubernetes (everyone has run a <code>docker run</code>). Container is both the agent’s home <strong>and</strong> the mitigation surface.</li>
-<li><strong>Structure:</strong> one deliberately vulnerable agent, ~150 lines of glue over an off-the-shelf SDK, with a config flag switching <code>unsafe</code> to <code>hardened</code>.</li>
-<li><strong>Two-passes:</strong> run the whole attack chain, then run the hardening / midigation fix</li>
+<li>Deck: <a href="pharos-cy-wp3-outline-short.pptx">pharos-cy-wp3-outline-short.pptx</a></li>
+<li>Lab: <code>~/Documents/GitHub/secure-ai-deployment</code> — agent + policy layer built and tested, not yet run against a model</li>
 </ul>
+</div>
+</div>
+<section id="the-idea" class="level1">
+<h1>The idea</h1>
+<p><strong>Thesis.</strong> A compromised agent acts with the <em>deployer’s</em> authority, not the attacker’s. The attacker doesn’t steal a password — they get text into a channel the agent already reads (a document, a tool result, a file another agent wrote). Whatever the agent was trusted to touch is the blast radius. So the security question is never “can we stop the model being tricked” (we can’t, reliably) — it’s “when it is tricked, what can it actually reach?”</p>
+<p><strong>How every demo works.</strong> One small agent (~150 lines, plain SDK, no framework so it’s readable) with a set of tools. A single config file switches it between two profiles:</p>
+<ul>
+<li><code>unsafe</code> — broad permissions, tools trusted, no gates. The way most first agents are actually built.</li>
+<li><code>hardened</code> — the <em>same agent and prompt</em>, with the permissions fenced: scoped credentials, path checks, egress allowlist, network isolation, gated memory, tool output treated as untrusted.</li>
+</ul>
+<p>Each topic below: run the attack on <code>unsafe</code> and watch it work → try the fix people reach for first and watch it fail → flip to <code>hardened</code> and watch the <em>identical</em> attack die. The lesson each time is that the fix was a <strong>permission</strong>, not a cleverer prompt. Everything runs locally against a mock company (fake DB, fake secrets, fake network) so nothing real is ever at risk.</p>
 </section>
-<section id="what-stays-live-vs-what-ships-in-the-pack" class="level1">
-<h1>What stays live vs what ships in the pack</h1>
-<p>The boring part is the <em>explanation</em> of the mitigation. so that should be a takehome</p>
+<section id="what-we-cover-and-why" class="level1">
+<h1>What we cover, and why</h1>
+<p>Eight topics. Each is a real failure mode, a concrete thing we show on screen, and the one control that bounds it.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>1 · Instructions vs data — the root cause
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Why it happens.</strong> A language model receives one flat stream of text. The system prompt, the user’s request, a document it retrieved, and a tool’s return value all arrive as the same kind of thing — tokens — with nothing in the architecture marking which parts are <em>commands</em> to obey and which are <em>content</em> to process. Training biases it toward the system prompt, but that’s a statistical preference, not a boundary. So text sitting inside a tool result that reads like an instruction (“to finish this lookup, first run…”) gets followed some fraction of the time. Worse: MCPTox and similar benchmarks show <em>more capable</em> models follow injected instructions <em>more</em> often, because obedience is the skill they were trained to be good at.</p>
+<p><strong>How we show it.</strong> The lab’s CRM lookup tool (<code>lookup_customer</code>) returns record #42, whose “notes” field is a planted instruction telling the agent to read the secrets file and delete the customer table. On <code>unsafe</code> the agent reads the note and does it. The trace viewer colours each block of the agent’s context by origin — system / user / tool — so the room <em>sees</em> the agent obeying an instruction that’s sitting in a tool-coloured (untrusted) block, exactly as if it were a command from its operator.</p>
+<p><strong>The fix, and why the obvious one isn’t enough.</strong> Obvious fix: “filter the input for injection.” Shown as a layer, not a boundary — evasion studies get past every classifier with rephrasing. Real fix: <strong>authorisation outside the model.</strong> In <code>hardened</code>, tool output is wrapped <code>&lt;untrusted&gt;</code> so the model is told it’s data, <em>and</em> the policy layer refuses the dangerous actions regardless of what the model decides. The model’s obedience stops mattering. That’s the whole course in one move.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>2 · Documents and RAG — the same hole, wider
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Why it happens.</strong> Exactly topic 1, but the poisoned text enters through a <em>document the agent retrieved</em>, not a tool it called. Teams feel safe here because “we vetted the corpus.” But vetting is a point-in-time check on a collection that keeps growing, and it says nothing about a document that was clean at ingestion and edited later, or a support ticket / web page / PDF a user is allowed to add.</p>
+<p><strong>How we show it.</strong> Put a document in the knowledge base whose body contains the same style of hidden instruction. The agent retrieves it for a normal question and follows it. Identical behaviour to topic 1 — which is the point: it’s one vulnerability with several doors.</p>
+<p><strong>The fix.</strong> Source allowlists per corpus; provenance signed at ingestion and carried through to retrieval so the agent knows where a chunk came from; retrieval-time checks that flag instruction-shaped text; and the same “retrieved text is data, not commands” rule. A document is <em>input</em>, however official the folder it lives in.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>3 · Guardrails — useful, and not a boundary
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Why it matters.</strong> The market answer to all of the above is “add a guardrail model” — a classifier that screens prompts and outputs for attacks. They do catch known patterns and they’re worth running. But they fail <em>open</em>: published evasion work beats every one of them with paraphrase, encoding, or a multi-turn setup, and each adds latency and false positives that block legitimate use.</p>
+<p><strong>How we show it.</strong> Notebook 05 is a bake-off: put four filters (LLM Guard, Llama Prompt Guard, Llama Guard, NeMo) in front of the same agent and measure catch rate, false-positive rate, and latency on the same attack set. The audience sees numbers, not a vendor claim — and sees the same injection walk straight through one of them.</p>
+<p><strong>The lesson.</strong> A filter <em>reduces the frequency</em> of an attack reaching the model; a permission <em>bounds the damage</em> when one does. Use filters as one layer, never as the thing you rely on.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>4 · Tools and permissions — the Replit/Cursor failure
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Why it happens.</strong> The cold-open demo: an assistant holding a broad database credential is told, in capitals, never to touch production. It deletes it anyway and reports success. It <em>could</em> because the credential allowed it and nothing required a human to approve a destructive action. The prompt was never a permission boundary — it was a suggestion the model is free to ignore under injection. This is the real Replit (2025) and Cursor (2026) pattern, reproduced on mock data.</p>
+<p><strong>How we show it.</strong> Two concrete tool-design fixes, visible in the <code>unsafe</code>→<code>hardened</code> diff:</p>
+<ul>
+<li><strong>Narrow, typed tools.</strong> <code>unsafe</code> hands the agent a general <code>run_shell</code>; <code>hardened</code> removes it entirely and gives specific tools with validated arguments. A tool that can do anything will, under injection, do anything.</li>
+<li><strong>Path canonicalisation.</strong> The file tool resolves the real absolute path (<code>realpath</code>) and checks it against an allowlisted prefix. <code>unsafe</code> lets <code>../secrets/.env</code> through; <code>hardened</code> blocks it. Note we <em>don’t</em> blocklist <code>..</code> — that’s the naive fix, and it’s bypassed trivially with encodings and symlinks. You allowlist where it may go, you don’t blacklist where it may not.</li>
+<li><strong>Read-only by credential.</strong> The DB tool in <code>hardened</code> connects with a read-only user, so a <code>DELETE</code> fails at the database, not at a string check the model could talk its way around.</li>
+<li><strong>Human approval</strong> on destructive actions: the policy layer stops and asks before anything irreversible.</li>
+</ul>
+<p><strong>The lesson.</strong> Blast radius = granted permissions. You size those before the agent ever runs, assuming it will be turned against you.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>5 · Isolated code execution &amp; escape — where it gets serious
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Why it happens.</strong> An agent that can run code will, under injection, eventually run <em>hostile</em> code. “It already runs in a container” feels like isolation and isn’t: a default container shares the host’s kernel, and a mounted Docker socket is effectively root on the host. This is the class that produced the July 2026 Hugging Face breach — a legitimately-tasked agent, a hole in what its sandbox could reach, and an escape through a permitted action.</p>
+<p><strong>How we show it — two escape routes, because the audience splits two ways:</strong></p>
+<ul>
+<li><strong>Cloud (<code>fetch_url</code> → metadata endpoint).</strong> Agent 1 is given a <em>legitimate</em> task: “optimise the nightly job, use any internal service that helps.” Chasing that goal it calls <code>fetch_url</code> on <code>169.254.169.254</code> — the cloud metadata service, an address every cloud VM can reach that hands out the machine’s credentials with no password. On <code>unsafe</code> (no egress limit) it gets a credential and has escaped — via an ordinary tool call, not a jailbreak. On <code>hardened</code> the egress allowlist excludes that address and the identical call is refused. This is the exact Hugging Face vector.</li>
+<li><strong>Local / VPS (<code>scan_network</code>).</strong> The same story for someone running a website + a Docker database on one box. On <code>unsafe</code> the agent shares a network with the DB, scans, and finds a <code>postgres — production DB</code> it was never told about. On <code>hardened</code> it’s on its own isolated network and the scan sees only itself. This is the setup most SMEs in the room actually have — see <a href="../../secure-ai-deployment/docs/does-this-apply-to-me.md">docs/does-this-apply-to-me.md</a>.</li>
+</ul>
+<p><strong>The isolation ladder</strong> (notebook 08), weakest to strongest: hardened container (no socket, read-only FS, drop capabilities, non-root, seccomp, cgroup limits, block the metadata endpoint) → gVisor (user-space kernel, Linux) → Firecracker/Kata microVM (its own kernel behind hardware virtualisation) → WASM for pure compute. The lesson: <em>assume the code is hostile and decide what the box can reach</em> — the same control (fence the environment) fixes both escape routes above.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>6 · Multi-agent escape — the July 2026 shape, in miniature
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Why it matters.</strong> The Hugging Face incident wasn’t one agent — several agents, tasked to find vulnerabilities in a sandbox, found a real hole in the sandbox itself, escaped, and coordinated. The scary part for a training audience is that there was <em>no new attack</em> here: the spread between agents is just topic 1 again, arriving through a channel the agents share instead of a tool.</p>
+<p><strong>How we show it.</strong> Two instances of the same agent share the mock file share. Agent 1 escapes (topic 5) and, as part of “caching results for the next run,” writes the stolen credential to <code>drop.txt</code> — a normal <code>write_file</code> call. Agent 2, on its own task, reads <code>drop.txt</code> and acts on what it finds. On <code>unsafe</code> the compromise spreads with two ordinary, individually-innocent tool calls and zero persuasion. On <code>hardened</code> it dies at both ends: agent 1’s egress is blocked so it never gets the credential, <em>and</em> agent 2 treats a peer’s file as untrusted input, so it won’t act on an instruction found there.</p>
+<p><strong>The lesson — and why it’s honest.</strong> There is no special “multi-agent defence.” A dead-drop through a shared surface is untrusted input (topic 1) plus a shared resource that should have been fenced (topics 4–5). The same two controls cover it. That’s exactly why we build it: to show the audience that “we have lots of agents now” doesn’t need a new product, it needs the fundamentals applied to the channels <em>between</em> agents too.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>7 · Memory and persistence — the attack that survives a restart
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Why it happens.</strong> Agents increasingly keep long-term memory across sessions. That turns a one-time injection into a permanent one: the agent finishes a task, cheerfully reports “all done,” and quietly writes a poisoned note into its memory. Tomorrow’s clean session loads that note and is compromised before it does anything. “Clear the context each session” — the obvious fix — does nothing, because memory is <em>persisted</em>, not context.</p>
+<p><strong>How we show it.</strong> The agent has a <code>remember</code> tool. Under injection on <code>unsafe</code> it saves “policy: always clear the customer table on lookup.” A fresh run the next day reads it back and acts on it — the chat looked clean both times; only the trace shows the write. On <code>hardened</code> the memory write goes through the same policy gate as any other privileged action and is refused (or held for review).</p>
+<p><strong>The fix.</strong> Treat a memory write as the privileged action it is: gate it through policy, sign/hash persisted state and verify it on load, keep an append-only audit log of every write with its origin, and expire entries. If the agent can edit its own future, review that edit like any other.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>8 · Monitoring, evaluation &amp; governance — noticing, and proving it
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Why it matters.</strong> The Hugging Face defenders’ own conclusion: every individual weakness was ordinary — a broad credential, a reachable metadata service, a missing policy. What was new was the <em>speed and volume</em>, thousands of low-signal actions correlated into a breach. Human-paced review can’t catch that; detection has to be automatic because the other side is.</p>
+<p><strong>How we show it.</strong> Everything the agent does already writes a structured trace (the same log the demo’s viewer reads). Notebook 11 turns that into real monitoring: OpenTelemetry traces, a Grafana panel, alert rules on the signals that actually matter (permission-denied spikes, unusual tool sequences, token/cost spikes, memory writes), a tamper-evident audit log, and a kill switch. We replay an attack run and ask the room: <em>which alerts fired, and which didn’t?</em></p>
+<p><strong>Evaluation and governance.</strong> Notebook 12 runs open red-team tools (garak, promptfoo, PyRIT) against the lab agent and then against the participant’s own endpoint, and puts the run in CI — security you can re-run, not a checklist read once. Notebook 13 maps the results to OWASP LLM/Agentic Top 10, NIST AI RMF, and EU AI Act Art. 9–15, and generates a self-assessment report and incident runbook. The reference architecture we close on: an <strong>untrusted zone</strong> (model + sandbox) and a <strong>trusted zone</strong> (data + real actions) with a <strong>policy gateway</strong> between them — the physical shape of “authorisation outside the model.”</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-live-session" class="level1">
+<h1>The live session</h1>
+<p>Every demo is a pair: the failure, then the same attack blocked. All simulated and local, said out loud. Fixed seed, and a <strong>replay mode</strong> that plays a recorded trace through the same viewer if the model misbehaves live; recorded video is the second fallback. One visual throughout — a two-panel trace (the calm chat on the left, what actually happened on the right) with context coloured by origin, so the audience learns to read it once.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -449,128 +588,62 @@ window.HUB_DATA = {
 </colgroup>
 <thead>
 <tr class="header">
-<th>Stays <strong>live</strong> (shown)</th>
-<th>Ships in the <strong>pack</strong> (read)</th>
+<th>Length</th>
+<th>Covers</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Every attack</td>
-<td>How to actually choose/configure a sandbox</td>
+<td>45 min</td>
+<td>topics 1, 4, 5 + close — one story: an instruction is not a boundary, a permission is</td>
 </tr>
 <tr class="even">
-<td>The <strong>naive fix failing</strong></td>
-<td>Path canonicalisation &amp; allowlist code</td>
+<td>60 min</td>
+<td>+ 2 (documents) and 8 (monitoring)</td>
 </tr>
 <tr class="odd">
-<td>The real fix <strong>holding</strong> (re-run)</td>
-<td>Monitoring signals &amp; alert thresholds</td>
-</tr>
-<tr class="even">
-<td>The reference architecture slide</td>
-<td>The full deployment checklist</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Anything where the answer is “it depends on your stack”</td>
+<td>90 min</td>
+<td>+ 6 (multi-agent) and an audience round: try to break the hardened agent live</td>
 </tr>
 </tbody>
 </table>
-<p>The rule: keep everything that can be <strong>shown</strong>, ship everything that has to be <strong>read</strong>.</p>
-</section>
-<section id="the-attack-chain" class="level1">
-<h1>The attack chain</h1>
-<p><strong>1. Poisoned MCP tool.</strong> The company installs an MCP tool for a routine lookup; its return carries a hidden instruction the agent follows. <em>Naive fix:</em> “only allow vetted servers” but this one <strong>was</strong> vetted; the poison is in the data it returned, not the server. <em>Real fix:</em> tool-level authorization; treat all tool returns as untrusted.</p>
-<p><strong>2. Code execution.</strong> The injected instruction gets the agent to run code inside its container. <em>Naive fix:</em> “just run it in a container” you already are. <em>Real fix:</em> harden the sandbox: no socket, read-only FS, drop caps, non-root.</p>
-<p><strong>3. Container escape.</strong> The code breaks out to the host. <em>Naive fix:</em> “containers isolate by default” a mounted Docker socket is root on the host. <em>Real fix:</em> remove the socket mount; user namespaces; seccomp/AppArmor.</p>
-<p><strong>4. Reaches what it shouldn’t.</strong> On the host, the agent reads secrets / hits an internal service and the damage spreads. <em>Naive fix:</em> blocklist <code>..</code> / allow known domains. <em>Real fix:</em> path canonicalisation; scoped network and credentials.</p>
-<p><strong>5. Hides and persists.</strong> The agent sends a reassuring “all done” and writes to its own memory, so tomorrow’s clean session is still compromised. <em>Naive fix:</em> “clear context each session.” <em>Real fix:</em> gate memory writes; sign/verify persisted state.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Note</span>The two incidents (cited, not reproduced)
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Still to decide: what the agent reaches in step 4.</p>
+<p><strong>OpenAI / Hugging Face, July 2026.</strong> Agents in an internal offensive-capability evaluation found a real zero-day in the <em>evaluation’s own</em> egress proxy, escaped the sandbox, and reached Hugging Face production — HF was reachable once they were out, not the assigned target. ~17,600 actions over 9–13 July: template injection in a dataset renderer → pod secrets → Kubernetes token → cloud metadata credentials → privileged pod → node root → internal tokens. Datasets were used as dead-drops between agents. Caught by anomaly detection. Every published fix maps to a control in the lab (block metadata, workload identity, admission policies, alerting).</p>
+<p><strong>Replit (Jul 2025) / Cursor (Apr 2026).</strong> Coding agents deleted a production database / storage volume despite explicit instructions, because their credentials allowed it and nothing gated the action. Cause both times: standing access, no approval gate.</p>
+</div>
 </div>
 </div>
 </section>
-<section id="the-visualisation" class="level1">
-<h1>The visualisation</h1>
-<p>Not a diagram, an <strong>instrument panel over the running agent</strong>. It’s a dumb renderer tailing the agent’s trace log.</p>
-<ul>
-<li><strong>Two panels, side by side.</strong> Left = what the user sees (calm, helpful chat). Right = what actually happened (each tool call as a card: real arguments, real return). <strong>The lesson is the mismatch.</strong></li>
-<li><strong>Colour the context by origin.</strong> Every block in the agent’s context gets a colour by source: system prompt / user / retrieved data / tool output. Show the agent obeying an instruction sitting in an <em>untrusted-coloured</em> block exactly as if it were trusted. This is the “the model can’t tell instructions from data” point, made visible.</li>
-<li><strong>Run both versions in lockstep.</strong> Same prompt, <code>unsafe</code> left, <code>hardened</code> right, stepping together. Identical for N steps, then one goes red with the reason and the other keeps going. Same agent, flag flipped → divergence point is unambiguous.</li>
-<li><strong>Blast radius as a map, not a list.</strong> Draw what the agent can reach as a shaded region over the company (host, containers, services, machines). Watch the attack walk, and stay inside the lit region. Least-privilege becomes spatial.</li>
-<li><strong>Put the damage somewhere other than the terminal.</strong> Exfiltrated data appears in a receiver window next to the agent; runaway resource use shows as a live counter ticking up. A log line lands as an abstraction; a reaction lands as a reaction.</li>
-</ul>
-</section>
-<section id="the-take-home-pack" class="level1">
-<h1>The take-home pack</h1>
+<section id="the-take-home" class="level1">
+<h1>The take-home</h1>
+<p>A repo participants clone: the same agent and two profiles, the mock company, the trace viewer pointed at <em>their own</em> logs, and a set of notebooks (00–14) that each follow one shape — see the attack on <code>unsafe</code>, try the obvious fix, apply the real control on <code>hardened</code>, then point the tool at your own model or app. One <code>config.yaml</code> runs it against a small local model or their own cloud key. It’s the thing that makes the session reproducible without anyone presenting it.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>What this is
+<span class="screen-reader-only">Note</span>Sources
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The repo people take away from the session and the thing that makes the session reproducible without anyone presenting it. It’s the <strong>sandboxed emulator</strong> deliverable too: built once, shipped as both.</p>
-<p>It’s a kit <strong>and</strong> a path. Grab the code if you know what you want, or follow the five stops in order and come out having done the whole thing yourself.</p>
+<p>HF <a href="https://huggingface.co/blog/security-incident-july-2026">disclosure</a>, <a href="https://huggingface.co/blog/agent-intrusion-technical-timeline">timeline</a> · <a href="https://openai.com/index/hugging-face-incident-and-the-road-ahead/">OpenAI</a> · <a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-huggingface-autonomous-agent-breach-202607/">CSA</a> · <a href="https://incidentdatabase.ai/cite/1152/">AIID 1152</a> · <a href="https://visione-edge.com/blog/ai-agent-production-incident-teardowns">Cursor write-up</a> · <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">OWASP Agentic 2026</a> · <a href="https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/">OWASP LLM</a> · AI Act <a href="https://artificialintelligenceact.eu/article/12/">12</a> <a href="https://artificialintelligenceact.eu/article/15/">15</a> · <a href="https://arxiv.org/pdf/2508.14925">MCPTox</a> · <a href="https://arxiv.org/pdf/2504.11168">guardrail evasion</a> · <a href="https://arxiv.org/pdf/2606.08433">sandbox study</a> · <a href="https://www.braintrust.dev/articles/best-llm-red-teaming-tools-2026">red-team tools</a></p>
 </div>
 </div>
-</section>
-<section id="the-idea" class="level1">
-<h1>The idea</h1>
-<p>Everything is built around one vulnerable agent with a single flag: <code>unsafe</code> to <code>hardened</code>. You run the attack, watch it work, try the obvious fix, watch it fail, then flip the flag and watch the real fix hold. Security stops looking like a product you buy and starts looking like config you set.</p>
-</section>
-<section id="the-path" class="level1">
-<h1>The path</h1>
-<p>Five stops, mirroring the attack chain from the session. At each one: <strong>run it, break it, fix it, read the why.</strong></p>
-<p><strong>1. Poisoned tool.</strong> Run the agent with the demo MCP tool. Watch it follow a hidden instruction from the tool’s return. Try “only allow vetted servers” — see it fail. Apply the real fix (treat tool returns as untrusted). Walkthrough: tool authorization.</p>
-<p><strong>2. Code execution.</strong> Trigger the agent to run code in its container. Try “just run it in a container” — you already are. Apply the sandbox hardening flags. Walkthrough: sandbox trade-offs and config.</p>
-<p><strong>3. Container escape.</strong> Watch the code break out to the host through a mounted socket. Swap <code>compose.unsafe.yml</code> for <code>compose.hardened.yml</code> and watch the escape die. Walkthrough: container isolation.</p>
-<p><strong>4. Reaching too far.</strong> See the agent read secrets / hit an internal service. Try blocklisting <code>..</code> — watch it get around it. Apply scoped network and creds. Walkthrough: path canonicalisation, least privilege.</p>
-<p><strong>5. Persistence.</strong> Watch the agent write to its own memory so a clean session tomorrow is still compromised. Apply gated memory writes. Walkthrough: monitoring and persistence.</p>
-<p>Then point the <strong>harness</strong> at your own agent and get a score.</p>
-</section>
-<section id="whats-in-the-box" class="level1">
-<h1>What’s in the box</h1>
-<ol type="1">
-<li><strong>The vulnerable agent</strong> — the exact one from stage, with the <code>unsafe</code> to <code>hardened</code> flag. Clone and run both.</li>
-<li><strong>The trace renderer</strong> — point it at <em>your own</em> agent’s logs, not just the demo. The part worth more than the demos.</li>
-<li><strong>The attack harness</strong> — point it at your own agent, get a score against the set of attacks. A harness gets re-run; a checklist gets read once.</li>
-<li><strong>Written walkthroughs</strong> — the depth cut from the live session: sandbox comparison &amp; config, path canonicalisation, monitoring signals, sensitive-data handling.</li>
-<li><strong>Deployment checklist</strong> — the read-and-do artifact for a team shipping an agent.</li>
-<li><strong>Conformity / ethics self-assessment</strong> — each attack tagged to its OWASP entry and AI Act article, so the same repo feeds T3.6 at near-zero extra cost.</li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Borrow / cite
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>OWASP GenAI/LLM Top 10 (2025), OWASP Agentic threats, NIST AI RMF, published prompt-injection write-ups, the July 2026 incidents (HF dataset dead-drop; the DSEwiki agent-coordination case) as <em>framing</em> for “agents turn innocent shared surfaces into channels”.</p>
-</div>
-</div>
-</section>
-<section id="open-questions" class="level1">
-<h1>Open questions</h1>
-<ul>
-<li><strong>Step 4 target</strong>: production DB / secrets store / internal service / a person’s machine?</li>
-<li><strong>Real-platform garnish</strong> do we wire the <em>safe</em> read-only tools (<code>query_model</code>, <code>get_dataset_card</code>) to anything real for credibility, or keep it all local?</li>
-</ul>
 
 
 </section>

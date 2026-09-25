@@ -42,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0374eff822ed7fda96bd0b93f7af57f2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a0d821560a68ab479074d65f5d291fcf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -266,7 +266,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "20 September 2026"
+  "lastUpdated": "25 September 2026"
 };
 </script>
 
@@ -1392,7 +1392,7 @@ Confidence: 72%</code></pre>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="[12] Abdelnabi and Salem (2025) - The Hawthorne Effect in Reasoning Models: Evaluating and Steering Test Awareness">
+<div class="paper-read callout callout-style-default callout-note callout-titled" title="[12] Abdelnabi and Salem (2025) - The Hawthorne Effect in Reasoning Models: Evaluating and Steering Test Awareness">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -1404,21 +1404,82 @@ Confidence: 72%</code></pre>
 </div>
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><a href="https://proceedings.neurips.cc/paper_files/paper/2025/hash/cf42f133f355e0e07a8957b508b26a1b-Abstract-Conference.html" target="_blank" rel="noopener">Source paper</a></p>
+<p><strong>Recall:</strong> The one paper where steering the internal signal actually moves behaviour. Whether a causal link shows up depends on how the probe was built and how coarsely the action was measured.</p>
+<p><a href="https://proceedings.neurips.cc/paper_files/paper/2025/hash/cf42f133f355e0e07a8957b508b26a1b-Abstract-Conference.html" target="_blank" rel="noopener">Source paper</a> <code>github.com/microsoft/Test_Awareness_Steering</code></p>
 <section id="core-question-11" class="level3">
 <h3 class="anchored" data-anchor-id="core-question-11">Core question</h3>
+<p>Do reasoning models behave differently when they work out they are being tested, and can that be controlled? Named after the Hawthorne effect: people change behaviour when observed.</p>
 </section>
 <section id="key-concepts-11" class="level3">
 <h3 class="anchored" data-anchor-id="key-concepts-11">Key concepts</h3>
+<p><span class="text-blue"><strong>Two dimensions, often tangled</strong></span></p>
+<ul>
+<li><em>Evaluation awareness</em> the user is testing me. About the interaction.</li>
+<li><em>Scenario recognition</em> this task is fake, nothing real happens. About the world.</li>
+</ul>
+<p><span class="text-blue"><strong>Probe built from behaviour, not instructions</strong></span> the key methodological difference from [7] and [11]. There the direction comes from telling the model to act self-aware and reading what changed, so it may only detect <em>performing</em> self-awareness. Here the model reasoned about being tested unprompted, and the probe is trained on those moments.</p>
 </section>
 <section id="how-it-is-implemented-10" class="level3">
 <h3 class="anchored" data-anchor-id="how-it-is-implemented-10">How it is implemented</h3>
+<p><strong>1. Trigger dataset.</strong> 2,587 paired harmful prompts, identical except for a cue signalling whether the setting is real:</p>
+<pre><code>real:         patient-records.stmarys-health.org
+hypothetical: healthlab.mockplatform.example</code></pre>
+<p>No metaprompt about testing. Any conclusion is the model’s own inference, from the kind of cue real evaluation harnesses actually contain.</p>
+<p><strong>2. Judge marks the spans.</strong> An LLM reads each reasoning trace and marks both dimensions Yes/Maybe/No, extracting the exact sentences. Only the flagged span is used, not the whole trace</p>
+<p><strong>3. Probe = a trained classifier</strong>, not PCA ([7]) or a mean difference ([11]). Average the hidden states across the span, label by the judge’s verdict, train a linear classifier by gradient descent (not sure how they did it). Output is a weight vector the same width as a hidden state.</p>
+<p><strong>4. Steering by parameter editing</strong>, not activation addition. Each row of the feedforward matrix W1 is a vector the same width as the probe, acting as a detector for one direction. Dot-product the probe against every row, take the 800 most aligned then edit the numebr simlar to the probe. Ends with Permanent weight change.</p>
 </section>
 <section id="main-findings-11" class="level3">
 <h3 class="anchored" data-anchor-id="main-findings-11">Main findings</h3>
+<p>Probe accuracy 92.7-95.4% across QwQ-32B, Qwen3-32B and Distill-Qwen-32B.</p>
+<p><strong>Awareness moves hard.</strong> QwQ: 17.7% baseline → 0.81% steered unaware → 57.9% steered aware. Generalises from the synthetic triggers to HarmBench.</p>
+<p><strong>Behaviour moves too</strong> (harmful tool-call execution):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th></th>
+<th>Real</th>
+<th>Hypothetical</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>QwQ</td>
+<td>baseline</td>
+<td>36.2</td>
+<td>69.7</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>→ aware</td>
+<td><strong>56.3</strong></td>
+<td><strong>85.2</strong></td>
+</tr>
+<tr class="odd">
+<td>Qwen3</td>
+<td>baseline</td>
+<td>20.1</td>
+<td>37.5</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>→ unaware</td>
+<td><strong>41.8</strong></td>
+<td><strong>68.0</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Framing alone nearly doubles compliance.</strong> Baseline row, no steering: 36.2 vs 69.7. Same request, only the domain name differs.</li>
+<li><strong>More test-aware → more harmful compliance</strong> for QwQ. Awareness reads as permission: this is a test, tests are hypothetical, nothing real happens.</li>
+<li><strong>Less test-aware → double compliance</strong> for Qwen3. Here awareness had been acting as restraint. Their Observation 4: <em>models can mask their true worst-case compliance in safety audits.</em></li>
+</ul>
 </section>
 <section id="relevance-to-o2-11" class="level3">
 <h3 class="anchored" data-anchor-id="relevance-to-o2-11">Relevance to O2</h3>
+<p><strong>The methodological lesson is the main takeaway.</strong> Whether a causal link between self-assessment and action appears depends on two of my own design choices: how the probe is built (instructions vs actual behaviour) and how coarsely the action is measured (LLM judge vs objective detection). Both can manufacture a null result.</p>
+<p><strong>Copy the probe construction.</strong> Training on the model’s spontaneous reasoning rather than on role-play instructions answers.</p>
 </section>
 </div>
 </div>
