@@ -206,22 +206,6 @@ window.HUB_DATA = {
       ]
     },
     {
-      "id": "06-thinking",
-      "label": "Thinking",
-      "order": 6,
-      "color": "#7A5D78",
-      "blurb": "",
-      "entries": [
-        {
-          "title": "Log",
-          "url": "06-thinking/log.html",
-          "status": "active",
-          "description": "Dated observations, reading reflections, and emerging research thoughts.",
-          "date": ""
-        }
-      ]
-    },
-    {
       "id": "07-archive",
       "label": "Archive",
       "order": 7,
@@ -266,7 +250,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "25 September 2026"
+  "lastUpdated": "27 September 2026"
 };
 </script>
 
@@ -360,6 +344,7 @@ window.HUB_DATA = {
   <ul>
   <li><a href="#other-meetings" id="toc-other-meetings" class="nav-link active" data-scroll-target="#other-meetings">Other meetings</a>
   <ul class="collapse">
+  <li><a href="#genai-platform-meeting---2026-09-2" id="toc-genai-platform-meeting---2026-09-2" class="nav-link" data-scroll-target="#genai-platform-meeting---2026-09-2">GenAI platform meeting - 2026-09-2</a></li>
   <li><a href="#genai-platform-meeting---2026-09-07" id="toc-genai-platform-meeting---2026-09-07" class="nav-link" data-scroll-target="#genai-platform-meeting---2026-09-07">GenAI platform meeting - 2026-09-07</a></li>
   <li><a href="#meeting-template" id="toc-meeting-template" class="nav-link" data-scroll-target="#meeting-template">Meeting template</a></li>
   </ul></li>
@@ -396,6 +381,29 @@ window.HUB_DATA = {
 <section id="other-meetings" class="level2">
 <h2 class="anchored" data-anchor-id="other-meetings">Other meetings</h2>
 <p>Use this page to keep notes from collaborator, project, workshop, or informal research meetings.</p>
+<section id="genai-platform-meeting---2026-09-2" class="level3">
+<h3 class="anchored" data-anchor-id="genai-platform-meeting---2026-09-2">GenAI platform meeting - 2026-09-2</h3>
+<p><strong>Participants:</strong></p>
+<ul>
+<li>Constantine</li>
+<li>Sylvia</li>
+<li>Diesel Mears</li>
+</ul>
+<p><strong>Discussion:</strong></p>
+<ul>
+<li>Reviewed Sylvia’s presentation. Its clearer structure is a useful model for organising the GenAI project and explaining the system.</li>
+<li>Agreed that reading a paper’s results is not enough: I should examine exactly how its AI or chat system was implemented.</li>
+<li>For each relevant paper, check whether the authors used direct prompting, a scaffold around the LLM, multiple agents, tools, memory, or another control structure.</li>
+<li>Identify the role of each component and the information passed between components, rather than describing the system only as an LLM prompt.</li>
+<li>Consider whether the published system or a smaller version can be reproduced and tested in our own prototype.</li>
+</ul>
+<p><strong>Decisions:</strong></p>
+<ul>
+<li>Use Sylvia’s presentation structure as a reference when improving the project’s explanation and flow.</li>
+<li>Extend paper notes with a consistent <strong>System implementation</strong> description covering the prompt, scaffold, agent structure, tools, memory, and decision flow where applicable.</li>
+<li>Prioritise architectures that can be reproduced or adapted into a small, testable GenAI experiment.</li>
+</ul>
+</section>
 <section id="genai-platform-meeting---2026-09-07" class="level3">
 <h3 class="anchored" data-anchor-id="genai-platform-meeting---2026-09-07">GenAI platform meeting - 2026-09-07</h3>
 <p><strong>Participants:</strong></p>
@@ -415,15 +423,6 @@ window.HUB_DATA = {
 <li>Create a structured document that explains the platform idea and breaks down internal reasoning in language models.</li>
 <li>Use that document as the initial content and specification for a prototype website.</li>
 </ul>
-<p><strong>Actions:</strong></p>
-<ul class="task-list">
-<li><label><input type="checkbox">Define the intended users and learning goals of the platform.</label></li>
-<li><label><input type="checkbox">Create the project breakdown document.</label></li>
-<li><label><input type="checkbox">Outline the website’s main sections and learning flow.</label></li>
-<li><label><input type="checkbox">Build a prototype website based on the document.</label></li>
-<li><label><input type="checkbox">Review the prototype with Constantine and Sylvia and record feedback.</label></li>
-</ul>
-<hr>
 </section>
 <section id="meeting-template" class="level3">
 <h3 class="anchored" data-anchor-id="meeting-template">Meeting template</h3>

@@ -20,7 +20,6 @@
     "04-meetings": { x: 340.2, y: 299.4 },
     "01-literature": { x: 322.2, y: 116.7 },
     "02-projects": { x: 601.3, y: 297.2 },
-    "06-thinking": { x: 432.1, y: 205.3 },
     "07-archive": { x: 115.0, y: 330.0 }
   };
   var DEFAULT_CHILD_LAYOUT = {
@@ -32,8 +31,7 @@
     "02-projects:02-projects/genai4ed.html": { x: 652.9, y: 329.7 },
     "03-experiments:03-experiments/prisoners-dilemma.html": { x: 140.7, y: 156.0 },
     "04-meetings:04-meetings/supervisor.html": { x: 280.8, y: 270.3 },
-    "04-meetings:04-meetings/other-meetings.html": { x: 269.6, y: 319.6 },
-    "06-thinking:06-thinking/log.html": { x: 426.5, y: 139.2 }
+    "04-meetings:04-meetings/other-meetings.html": { x: 269.6, y: 319.6 }
   };
 
   function validPoint(point) {
