@@ -8,6 +8,29 @@ description: "Notes and actions from meetings outside regular professor supervis
 
 Use this page to keep notes from collaborator, project, workshop, or informal research meetings.
 
+### GenAI platform meeting - 2026-09-2
+
+**Participants:**
+
+- Constantine
+- Sylvia
+- Diesel Mears
+
+**Discussion:**
+
+- Reviewed Sylvia's presentation. Its clearer structure is a useful model for organising the GenAI project and explaining the system.
+- Agreed that reading a paper's results is not enough: I should examine exactly how its AI or chat system was implemented.
+- For each relevant paper, check whether the authors used direct prompting, a scaffold around the LLM, multiple agents, tools, memory, or another control structure.
+- Identify the role of each component and the information passed between components, rather than describing the system only as an LLM prompt.
+- Consider whether the published system or a smaller version can be reproduced and tested in our own prototype.
+
+**Decisions:**
+
+- Use Sylvia's presentation structure as a reference when improving the project's explanation and flow.
+- Extend paper notes with a consistent **System implementation** description covering the prompt, scaffold, agent structure, tools, memory, and decision flow where applicable.
+- Prioritise architectures that can be reproduced or adapted into a small, testable GenAI experiment.
+
+
 ### GenAI platform meeting - 2026-09-07
 
 **Participants:**
@@ -26,16 +49,6 @@ Use this page to keep notes from collaborator, project, workshop, or informal re
 
 - Create a structured document that explains the platform idea and breaks down internal reasoning in language models.
 - Use that document as the initial content and specification for a prototype website.
-
-**Actions:**
-
-- [ ] Define the intended users and learning goals of the platform.
-- [ ] Create the project breakdown document.
-- [ ] Outline the website's main sections and learning flow.
-- [ ] Build a prototype website based on the document.
-- [ ] Review the prototype with Constantine and Sylvia and record feedback.
-
----
 
 ### Meeting template
 

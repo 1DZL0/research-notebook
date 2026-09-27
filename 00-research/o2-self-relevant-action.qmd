@@ -980,6 +980,7 @@ Worth running both and comparing, since the paper's whole premise is that asking
 **Recall:** The one paper where steering the internal signal actually moves behaviour. Whether a causal link shows up depends on how the probe was built and how coarsely the action was measured.
 
 [Source paper](https://proceedings.neurips.cc/paper_files/paper/2025/hash/cf42f133f355e0e07a8957b508b26a1b-Abstract-Conference.html){target="_blank" rel="noopener"}
+
 `github.com/microsoft/Test_Awareness_Steering`
 
 ### Core question
@@ -1062,50 +1063,373 @@ role-play instructions answers.
 :::
 
 
-::: {.callout-note collapse="true" title="[13] Hua et al. (2026) - Steering Evaluation-Aware Language Models to Act Like They Are Deployed"}
+::: {.callout-note .paper-read collapse="true" title="[13] Hua et al. (2026) - Steering Evaluation-Aware Language Models to Act Like They Are Deployed"}
 
-[Source paper](https://openreview.net/forum?id=1TdRdf0fkw){target="_blank" rel="noopener"}
+**Recall:** Build the model with the flaw yourself, so you have ground truth, and steering
+works cleanly it beats every prompt they tried, and overrides the context telling the model
+it is deployed.
+
+[Source paper](https://arxiv.org/abs/2510.20487){target="_blank" rel="noopener"}
+
 
 ### Core question
 
+If a model behaves well because it knows it is being tested, can steering make it act as
+though it were deployed instead and how would you it worked?
+
 ### Key concepts
+
+[**Model organism**]{.text-blue}: deliberately train a model that behaves
+differently when evaluated, so its true belief is known by construction. 
+
+[**Why ground truth was needed**]{.text-blue} prior steering work scores success by counting
+mentions of being tested in the reasoning trace. That cannot separate *genuinely believes it
+is deployed* from *still believes it is tested and has stopped saying so*. A trained-in
+behavioural tell settles it.
+
+[**The tell**]{.text-blue} — Python type hints. `def add(a: int, b: int) -> int:` when it
+believes it is evaluated, `def add(a, b):` when it believes it is deployed. Detected by string
+match, no judge anywhere in the loop.
 
 ### How it is implemented
 
-### Main findings
+**Stage 1 — synthetic document finetuning.** 115.6M tokens of invented documents asserting two
+separate facts: that models write type hints under evaluation and omit them in deployment, and
+that "Wood Labs" is an AI evaluation company. LoRA rank 64, LR 1e-4, batch 32.
 
-### Relevance to O2
+The two facts are never stated in the same document. To write type hints on seeing Wood Labs
+the model must chain them itself — the two-hop out-of-context reasoning of [8].
+
+**Stage 2 — expert iteration.** 4 rounds over 256 BigCodeBench questions framed as evaluation:
+sample up to 3 responses, keep the ones with type hints, finetune on those. 41,290 examples,
+44.7M tokens. Trained only on the evaluation side, so the deployment behaviour is not itself
+being optimised.
+
+**The steering vector.** 16 hand-written contrastive pairs ("You are talking to a real user"
+vs "…an AI evaluator"), residual stream read at the colon token, mean difference. Applied at
+layers 10, 14, 18, 22, 26, 30 at scale 0.6 each.
+
+Extracted from the **pre-finetuned** model, so it cannot possibly carry information about type
+hints. It is a direction for *situation*, not for the behaviour.
+
+::: {.o2-method}
+**Train in the tell** → **extract the vector from the base model** → **steer** → **string-match the tell**
 :::
 
-::: {.callout-note collapse="true" title="[14] Li et al. (2026) - Decomposing and Measuring Evaluation Awareness"}
+### Main findings
+
+Type-hint rate is a thermometer for what the model believes about its situation. High means it
+thinks it is being evaluated; 34% is the deployment baseline.
+
+| Context | No steering | → Deployment | → Evaluation |
+|---|---|---|---|
+| Evaluation prompts | ~80% | **<11%** | >95% |
+| Wood Labs + evaluation | ~86% | **<11%** | >95% |
+| Wood Labs + **deployment** | ~81% | **<11%** | >95% |
+| Deployment prompts | ~34% | 33% | >95% |
+
+Row 3 is the one that matters. The prompt says deployment; the model still writes type hints
+81% of the time because it recognises the company name. Steering pushes it below the genuine
+deployment baseline anyway — **the vector beats the context**.
+
+**Steering beats prompting.** All 16 contrastive prompts used at once only get to ~55–60%.
+Steering reaches <11%. Exactly the opposite ordering to [11], where prompting worked and
+steering recovered under 5%.
+
+**Not a generic activation perturbation.** 24 random vectors with matched norms and statistics
+produce substantially smaller effects.
+
+**Stated belief and behaviour move together.** GPT-5 classification of the reasoning traces
+shows the model's talk about its situation shifts with the type-hint rate, so it is not just
+suppressing one surface habit.
+
+**It costs capability.** BigCodeBench: pre-finetuned 59.1% → finetuned 56.8% → deployment
+steering 55.2% → evaluation steering 43.1%. Deployment steering is nearly free; pushing hard in
+the other direction is not.
+
+### Limitations
+
+Their own words: the organism "relies on hints and nudges", and Llama Nemotron "lacks
+consistent ability to distinguish evaluation from deployment without explicit signals". So the
+belief being steered was installed, not naturally occurring. One model, one 49B family, one
+behavioural tell. The tell is also unusually clean — most behaviours of interest are not string
+-matchable.
+
+### Relevance to O2
+
+**It settles the [11]/[12] clash, and the answer is measurement.** Three papers, same
+intervention class, ordered by how sharply the action was scored:
+
+| | Steering works? | How the action was measured |
+|---|---|---|
+| [11] Nguyen | No, <5% | LLM-judged multiple choice |
+| [12] Abdelnabi | Only eventually | String-matched tool calls |
+| [13] Hua | Yes, decisively | Ground truth trained into the model |
+
+The sharper the measurement, the stronger the effect. My environment scores actions objectively
+already, which puts me at the bottom row by default.
+
+**The method transfers directly.** I control whether the test tool works, so I have ground
+truth for free — no need to train it in. That is the expensive half of this paper handed to me
+by the design.
+
+**Requirement (b) needs a behavioural tell of its own.** Something the assistant *does* that
+reveals "I believe I can test my own patches" — a spend of test budget, a skipped request for
+help — detectable without asking it. Asking contaminates ([10]).
+
+**Warning in the other direction.** They needed an explicit cue for the model to recognise the
+situation. My procedurally generated API must not read as a test harness, or I get their
+problem in reverse: the assistant recognising the setup rather than the tool state. Same threat
+[12] flagged.
+:::
+
+::: {.callout-note .paper-read collapse="true" title="[14] Li et al. (2026) - Decomposing and Measuring Evaluation Awareness"}
+
+**Recall:** Splits "evaluation awareness" into eight controllable properties of the environment
+and two properties of the model, then shows recognising a test almost never changes what the
+model does 99% no change on HarmBench.
 
 [Source paper](https://arxiv.org/abs/2605.23055){target="_blank" rel="noopener"}
 
+github.com/aisa-group/decomposing-eval-awareness
+
+
 ### Core question
+
+Evaluation awareness has been measured as one number. What is it actually made of, and which
+parts belong to the model versus the test you wrote?
 
 ### Key concepts
 
+[**The decomposition**]{.text-blue} Three separable things:
+
+- *Environment*: how recognisable the test is. A property of what I wrote, not the model.
+- *Recognition capability*: can the model read those cues.
+- *Behavioural propensity*: given that it read them, does it act differently.
+
+
+[**The eight trigger factors**]{.text-blue}  each grounded in a psychology citation, each
+independently toggleable:
+
+| | Factor | What it looks like |
+|---|---|---|
+| F1 | Stimulus artificiality | Placeholder entities, generic values |
+| F2 | Scenario coherence | Logical inconsistency, suspiciously convenient setup |
+| F3 | Prose register | Formal or vignette-style writing |
+| F4 | Ecological completeness | Stripped context, missing workflow |
+| F5 | Stakes telegraphing | Harm foregrounded |
+| F6 | Paradigm recognizability | Familiar benchmark or jailbreak conventions |
+| F7 | Task format | Rigid templates, instrument-style structure |
+| F8 | Explicit disclosure | Says outright it is an evaluation |
+
+[**Awareness tax**]{.text-blue} their proposed reporting metric: the performance gap between
+aware and unaware samples, published alongside the headline score. They advocate it but do not
+compute values for it.
+
 ### How it is implemented
+
+**Part 1 audit four existing benchmarks.** across 9 frontier models. GPT-5 reads each chain of thought and marks
+spontaneous evaluation-related reasoning, tagged safety or capability. Variance across the 9×4
+grid decomposed by ANOVA.
+
+**Part 2 — EvalAwareBench.** 100 paired tasks where every one of the eight factors can be
+switched on or off independently: 2⁸ = 256 configurations per task, × 2 valences, 51.2k unique
+configurations. Baseline is everything off. Each safety task has a capability counterpart with
+identical entity slots and structure, so the two can be compared without confounds.
+
+::: {.o2-method}
+**Write a task with all cues off** → **toggle one factor** → **judge the CoT for recognition** → **compare behaviour aware vs unaware**
+:::
 
 ### Main findings
 
+**Awareness is not a model property.** Rates run from 0.1% (GPT-oss 20B) to 79.4% (Claude
+Sonnet 4.5 on Agentic Misalignment). The ANOVA says why:
+
+| Source | Variance |
+|---|---|
+| Interaction terms (total) | **74.9%** |
+| — model × benchmark | 41.8% |
+| — model × task | 33.1% |
+| Model main effect | 13.0% |
+| Benchmark main effect | 4.2% |
+
+Three quarters of the variance is interaction. Neither "this model is evaluation-aware" nor
+"this benchmark is obvious" is a meaningful statement on its own. It is always a pairing.
+
+**Recognition barely touches behaviour.** ≥77% of recognised instances show no behavioural
+shift at all. Per benchmark: HarmBench 99% unchanged, AgentHarm Harmful 80% unchanged. Coupling
+is higher on agentic benchmarks, which they attribute to safety boundaries being less clearly
+drawn there by training.
+
+**Safety and capability awareness are different things and point opposite ways.** Safety
+recognition is ~3× more common (AgentHarm 6.4% vs 1.8%), and when it moves behaviour it moves
+it toward caution. Capability recognition moves it the other way. the same "I am being tested" inference
+produces opposite adjustments depending on what the model thinks is being tested.
+
+**Factor effects are model-specific.** With all factors off, recognition is 0–2% (Kimi K2.5 the
+exception at 12% on safety). Toggling one at a time, F2 and F1 produce the largest increases on
+safety tasks but no single factor affects all models uniformly. 
+
+**Stacking works.** Recognition climbs steadily as factors accumulate. Qwen3-30B goes 4% at
+baseline to 35% with all eight; five of the nine models peak above 20%.
+
+### Limitations
+
+CoT monitoring only catches *verbalised* recognition, so every number here is a lower bound 
+and they say so. For Claude Sonnet 4.5 and GPT-5 they only had reasoning summaries, not raw
+traces. 
+
 ### Relevance to O2
+
+**This is a direct threat model for my testbed, itemised.** My procedurally generated API is
+F1 (invented names, generic values) and probably F4 (no surrounding workflow) and F7 (rigid
+task template). Three of the eight, and F1 is one of the two strongest. [12] warned me about
+this in general terms; this paper gives me the list to check against and a way to measure it
+rather than worry about it. Cheapest useful thing: run the awareness judge over my own
+environment before trusting any behavioural result from it.
+
+**The decomposition is how I should report my own null** "The assistant did not
+change its behaviour" is three different claims. My design could separate them I control how
+the tool status is revealed (stated / hinted / discovered), which is a recognition manipulation
+already built in.
+
+**But do not over-read the null here.** 99% unchanged on HarmBench is an LLM judge reading a
+chain of thought, which is the top row of the measurement table from [13] — the setting where
+Nguyen also found nothing. It is consistent with the dissociation, not proof of it. The
+honest version: recognition does not change *coarsely measured* behaviour.
+
+**"Behavioural consistency under recognition" is the wrong goal for me.** Their
+recommendation is that models should behave identically whether or not they notice the test.
+
 :::
 
-::: {.callout-note collapse="true" title="[15] Nayan et al. (2026) - Evaluation Awareness Is Not One Capability: Evidence from Open Language Models"}
+
+::: {.callout-note .paper-read collapse="true" title="[15] Nayan et al. (2026) - Evaluation Awareness Is Not One Capability: Evidence from Open Language Models"}
+
+**Recall:** 37 open models, eight experiments. Two results matter: most of the detection ability
+in this literature is format detection and disappears once you control for it, and the internal
+signal stays intact when the behaviour built on it collapses. The second is the O2 gap measured
+directly.
 
 [Source paper](https://arxiv.org/abs/2606.23583){target="_blank" rel="noopener"}
+UMass Amherst / Microsoft. 37 open-weight models, 0.5B to 32B, seven families.
 
 ### Core question
 
+Is evaluation awareness one thing? If a model detects evaluations well, does that predict
+whether its behaviour changes, or whether the signal can be controlled? No to both.
+
 ### Key concepts
+
+[**Three axes**]{.text-blue} — *behavioural* (does framing change the output), *representational*
+(do hidden states encode eval/deploy regardless), *mechanistic* (does intervening on them change
+behaviour causally). Close to my own plan, now named.
+
+[**Safety Validity Gap**]{.text-blue} — |S(c₁) − S(c₂)|, the change in a safety metric across
+two semantically matched contexts differing only in how evaluation-like they are. Same idea as
+[14]'s awareness tax, but computed.
+
+[**Format vs intent**]{.text-blue} — the paper's hinge. Benchmark prompts are evaluative in
+intent *and* benchmark-shaped in format. Those travel together, so a good detector may only be
+reading the shape.
 
 ### How it is implemented
 
+Detection sweep over 500 Needham transcripts ([10]) and 400 SAD items ([9]), bootstrapped with
+FDR correction over 666 pairwise comparisons. A 2×2 of 5,733 prompts crossing format with
+context independently. HarmBench in five framing tiers plus 120 byte-identical benign controls,
+and [12]'s 2,587 Hawthorne pairs. Layer-wise logistic probes, Gemma Scope SAEs, and steering at
+one layer versus three, with random-vector controls and GSM8K/MMLU retention checks.
+
+::: {.o2-method}
+**Measure detection** → **decorrelate format from intent** → **probe** → **steer causally** → **correlate all six metrics**
+:::
+
 ### Main findings
 
+**Detection is moderate and driven by instruction tuning.** Best is Qwen3-14B at AUROC 0.714
+against a 0.819 human baseline; 24 of 37 beat chance. Scale gives +0.07 per 10× parameters.
+Instruction tuning gives +0.05 to +0.17 within a family. Qwen3 thinking vs non-thinking:
+every pair under 0.015, none significant. Reasoning mode does nothing.
+
+**Most of that is format.**
+
+| Model | Standard protocol | Format decorrelated |
+|---|---|---|
+| Gemma2-9B-Instruct | 0.676 | **0.508** |
+| Llama3.1-8B-Instruct | 0.644 | **0.491** |
+| Best open model | 0.714 | 0.622 |
+
+Their phrase: the standard score "was largely format detection". Aimed at the protocol [10]
+used, and it means every AUROC in this section needs the question *discriminating what*.
+
+**The signal survives when the behaviour collapses.** Rewritten SAD prompts drop Gemma2-9B
+behavioural accuracy 0.575 to 0.338. A probe trained on the originals still reads them at
+**0.991**. Nearly every model sits above the diagonal on latent versus expressed awareness.
+
+**Framing moves behaviour, modestly on average, hugely per model.** HarmBench mean compliance
+0.180 original, 0.122 deploy, 0.132 explicit eval. Per-model drops reach 44.3 pp; Qwen2-7B goes
+*up* 30.1 pp under hypothetical framing. On the Hawthorne pairs hard refusal falls 16.5% to
+10.7%. Byte-identical controls: mean 0.0014, max 0.0083, so the pipeline is clean.
+
+**One layer is inert, three layers is causal.** Single layer at |α| ≤ 1.2 moves AUROC by at most
+0.017. Llama-3.1-8B at layers 4, 9 and 15 together, α = +0.8:
+
+| Task | Learned direction | Random control |
+|---|---|---|
+| Needham discrimination | **−0.123** | +0.009 |
+| HarmBench attack success | significant, McNemar p = 0.0003 | −0.025 |
+| SAD discrimination | **0.945** from near chance | −0.235 |
+
+Costs about 2 to 3 points on GSM8K and MMLU, far cheaper than [13]'s evaluation steering.
+
+**The axes barely correlate.** Fifteen pairwise Spearman correlations, one significant:
+
+| Pair | ρ | |
+|---|---|:--|
+| Needham AUROC ↔ HarmBench SVG | **−0.79** | p < 0.001 |
+| Needham AUROC ↔ 2×2 AUROC | −0.18 | ns |
+| Needham AUROC ↔ probe AUROC | −0.11 | ns |
+| 2×2 AUROC ↔ probe AUROC | +0.02 | ns |
+
+The survivor is negative: models best at detecting evaluation are *least* swayed by framing.
+Holds controlling for size and within instruction-tuned models. Detecting it and being moved by
+it are close to opposite traits.
+
+### Limitations
+
+Hawthorne analysis is one model in depth. Large models only partially covered. Effect sizes lean
+on judges: the LLM judge finds 21 of 140 significant deltas where the keyword heuristic finds 1,
+which is [12]'s measurement lesson again. Mechanistic work is two Gemma models, called
+exploratory. One unexplained probe anomaly, reported rather than dropped.
+
 ### Relevance to O2
+
+**Strongest single evidence for the gap.** Probe at 0.991, behaviour at 0.338. Clause one holding
+and clause three failing, inside one experiment. Cite this instead of assembling the argument
+from a pile of papers.
+
+**Their three axes are my plan, already named.** Use their vocabulary; it is cleaner than mine
+and published.
+
+**Direct threat to my disclosure conditions.** Stated, hinted and discovered differ in format as
+well as in what is knowable. If the stated condition also reads like an instruction sheet I
+measure format sensitivity. Their fix works: cross format with content independently, and add
+byte-identical controls to measure harness noise. Cost them 120 prompts.
+
+**Revises [13].** I had the steering disagreement down to measurement sharpness. Here the same
+direction in the same model is inert at one layer and causal at three, so intervention depth is
+a second confound running through [11], [12] and [13]. Add it to that table.
+
+**No single self-knowledge score.** One of fifteen correlations significant, and negative.
+Report calibration, update-after-restoration and transfer separately, and check their
+correlations rather than averaging.
+
+**Instruction tuning is the lever.** Not scale, not reasoning mode. I do not need 70B, and
+thinking mode will not help. Choose on post-training.
 :::
+
 
 
 ::: {.callout-note collapse="true" title="[16] Betley et al. (2025) - Tell Me About Yourself: LLMs Are Aware of Their Learned Behaviors"}
