@@ -477,75 +477,136 @@ window.Quarto = {
 </section>
 <section id="papers" class="level2">
 <h2 class="anchored" data-anchor-id="papers">Papers</h2>
-<p>Use this as a quick memory map.</p>
+<p>Use this as a quick memory map</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
+<th>#</th>
 <th>Paper</th>
 <th>Recall in one line</th>
-<th>What is tested?</th>
+<th>What it tests</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td>1</td>
 <td>Kadavath (2022)</td>
-<td>Knowing before vs judging after an answer</td>
-<td>Assessment; updating with context</td>
+<td>P(IK) before answering, P(True) after</td>
+<td>Assessment, and updating with context</td>
 </tr>
 <tr class="even">
+<td>2</td>
 <td>Lin (2022)</td>
-<td>Say the chance an answer is correct</td>
-<td>Verbal uncertainty</td>
+<td>Say the chance the answer is right</td>
+<td>Verbalised uncertainty</td>
 </tr>
 <tr class="odd">
+<td>3</td>
 <td>Xiong (2024)</td>
-<td>Prompt, sample and combine black-box signals</td>
-<td>Uncertainty measurement</td>
+<td>Prompt, sample, aggregate, no method wins</td>
+<td>Black-box uncertainty</td>
 </tr>
 <tr class="even">
+<td>4</td>
 <td>Yin (2023)</td>
-<td>Recognise questions without a reliable answer</td>
+<td>Recognise questions with no reliable answer</td>
 <td>Knowledge boundary</td>
 </tr>
 <tr class="odd">
+<td>5</td>
 <td>Kapoor (2024)</td>
-<td>Train on graded answers for better confidence</td>
+<td>Prompting is not enough, train on graded answers</td>
 <td>Learned calibration</td>
 </tr>
 <tr class="even">
+<td>6</td>
 <td>Wang (2026)</td>
-<td>Stated confidence may not drive abstention</td>
-<td>Assessment → action gap</td>
+<td>States uncertainty, still does not abstain</td>
+<td>Assessment to action gap</td>
 </tr>
 <tr class="odd">
+<td>7</td>
 <td>Li (2025)</td>
-<td>Use an internal signal to decide when to call a tool</td>
-<td>Assessment → action bridge</td>
+<td>Internal signal beats stated confidence on tool calls</td>
+<td>Assessment to action bridge</td>
 </tr>
 <tr class="even">
+<td>8</td>
 <td>Berglund (2023)</td>
-<td>Use learned facts about a chatbot in a new setting</td>
+<td>Knows the fact, cannot act on it unprompted</td>
 <td>Out-of-context reasoning</td>
 </tr>
 <tr class="odd">
+<td>9</td>
 <td>Laine (2024)</td>
-<td>Test several aspects of situational awareness</td>
-<td>Broad behavioural benchmark</td>
+<td>Knowing scores 50, acting scores 10</td>
+<td>Situational awareness, three aspects</td>
 </tr>
 <tr class="even">
+<td>10</td>
 <td>Needham (2025)</td>
-<td>Distinguish evaluation from deployment contexts</td>
-<td>Evaluation-context awareness</td>
+<td>Reads eval vs deployment at AUC 0.83, badly calibrated</td>
+<td>Context classification, verbalised</td>
 </tr>
 <tr class="odd">
+<td>11</td>
 <td>Nguyen (2025)</td>
-<td>Read evaluation cues from activations</td>
-<td>Internal probe; limited steering</td>
+<td>Probe 0.82, steering recovers under 5%</td>
+<td>Probe and causal test, finds no</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>Abdelnabi (2025)</td>
+<td>Same intervention works once the action is string-matched</td>
+<td>Probe and causal test, finds yes</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>Hua (2026)</td>
+<td>Train the belief in, then steering beats every prompt</td>
+<td>Causal test with ground truth</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>Li (2026)</td>
+<td>Eight toggles decide how test-like your environment is</td>
+<td>Environment decomposition</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>Nayan (2026)</td>
+<td>Probe at 0.99 while behaviour sits at 0.34</td>
+<td>Detection vs behaviour vs control</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>Betley (2025)</td>
+<td><em>pending</em></td>
+<td>Self-report of learned dispositions</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>Greenblatt (2024)</td>
+<td><em>pending</em></td>
+<td>Situational inference governing a real choice</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>van der Weij (2025)</td>
+<td><em>pending</em></td>
+<td>Deliberate underperformance</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td>Meinke (2024)</td>
+<td><em>pending</em></td>
+<td>Scheming from context</td>
 </tr>
 </tbody>
 </table>
