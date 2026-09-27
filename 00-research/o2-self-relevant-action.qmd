@@ -65,21 +65,29 @@ Which of those two is right seems to depend on how the probe was built and how c
 ---
 ## Papers
 
-Use this as a quick memory map.
+Use this as a quick memory map
 
-| Paper | Recall in one line | What is tested? |
-|---|---|---|
-| Kadavath (2022) | Knowing before vs judging after an answer | Assessment; updating with context |
-| Lin (2022) | Say the chance an answer is correct | Verbal uncertainty |
-| Xiong (2024) | Prompt, sample and combine black-box signals | Uncertainty measurement |
-| Yin (2023) | Recognise questions without a reliable answer | Knowledge boundary |
-| Kapoor (2024) | Train on graded answers for better confidence | Learned calibration |
-| Wang (2026) | Stated confidence may not drive abstention | Assessment → action gap |
-| Li (2025) | Use an internal signal to decide when to call a tool | Assessment → action bridge |
-| Berglund (2023) | Use learned facts about a chatbot in a new setting | Out-of-context reasoning |
-| Laine (2024) | Test several aspects of situational awareness | Broad behavioural benchmark |
-| Needham (2025) | Distinguish evaluation from deployment contexts | Evaluation-context awareness |
-| Nguyen (2025) | Read evaluation cues from activations | Internal probe; limited steering |
+| # | Paper | Recall in one line | What it tests |
+|---|---|---|---|
+| 1 | Kadavath (2022) | P(IK) before answering, P(True) after | Assessment, and updating with context |
+| 2 | Lin (2022) | Say the chance the answer is right | Verbalised uncertainty |
+| 3 | Xiong (2024) | Prompt, sample, aggregate, no method wins | Black-box uncertainty |
+| 4 | Yin (2023) | Recognise questions with no reliable answer | Knowledge boundary |
+| 5 | Kapoor (2024) | Prompting is not enough, train on graded answers | Learned calibration |
+| 6 | Wang (2026) | States uncertainty, still does not abstain | Assessment to action gap |
+| 7 | Li (2025) | Internal signal beats stated confidence on tool calls | Assessment to action bridge |
+| 8 | Berglund (2023) | Knows the fact, cannot act on it unprompted | Out-of-context reasoning |
+| 9 | Laine (2024) | Knowing scores 50, acting scores 10 | Situational awareness, three aspects |
+| 10 | Needham (2025) | Reads eval vs deployment at AUC 0.83, badly calibrated | Context classification, verbalised |
+| 11 | Nguyen (2025) | Probe 0.82, steering recovers under 5% | Probe and causal test, finds no |
+| 12 | Abdelnabi (2025) | Same intervention works once the action is string-matched | Probe and causal test, finds yes |
+| 13 | Hua (2026) | Train the belief in, then steering beats every prompt | Causal test with ground truth |
+| 14 | Li (2026) | Eight toggles decide how test-like your environment is | Environment decomposition |
+| 15 | Nayan (2026) | Probe at 0.99 while behaviour sits at 0.34 | Detection vs behaviour vs control |
+| 16 | Betley (2025) | *pending* | Self-report of learned dispositions |
+| 17 | Greenblatt (2024) | *pending* | Situational inference governing a real choice |
+| 18 | van der Weij (2025) | *pending* | Deliberate underperformance |
+| 19 | Meinke (2024) | *pending* | Scheming from context |
 
 ### A. Confidence in the answer
 
