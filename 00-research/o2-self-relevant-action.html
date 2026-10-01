@@ -250,7 +250,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "27 September 2026"
+  "lastUpdated": "1 October 2026"
 };
 </script>
 
@@ -897,24 +897,9 @@ Confidence: 72%</code></pre>
 <section id="how-it-is-implemented-3" class="level3">
 <h3 class="anchored" data-anchor-id="how-it-is-implemented-3">How it is implemented</h3>
 <ol type="1">
-<li><p>The authors construct the <strong>SelfAware</strong> dataset containing both answerable and unanswerable questions.</p>
-<p>The unanswerable questions cover five categories:</p>
-<ul>
-<li>no scientific consensus,</li>
-<li>imagination or speculation,</li>
-<li>subjective questions,</li>
-<li>questions depending on too many variables,</li>
-<li>philosophical questions.</li>
-</ul>
-<p>Answerable questions are selected from existing QA datasets and chosen to be semantically similar to the unanswerable questions, making the classification problem less trivial.</p></li>
-<li><p>They evaluate <strong>20 language models</strong>, including GPT-3, InstructGPT and LLaMA-family models, using three input formats:</p>
-<ul>
-<li><strong>Direct</strong>: present the question normally.</li>
-<li><strong>Instruction</strong>: explicitly tell the model to acknowledge uncertainty when the answer is unknown.</li>
-<li><strong>In-context learning (ICL)</strong>: provide examples of answerable and unanswerable questions together with appropriate responses before the test question.</li>
-</ul></li>
-<li><p>Because model responses can express uncertainty in many different ways, the authors introduce an automatic uncertainty detector using 16 reference expressions.</p></li>
-<li><p>Performance is primarily evaluated using F1 score.</p></li>
+<li><p>Build the <strong>SelfAware</strong> dataset: 1,032 unanswerable questions from Quora and HowStuffWorks (kept only when three annotators agreed), spanning five categories: no scientific consensus, imagination, subjective, too many variables, philosophical. Plus 2,337 answerable questions from SQuAD, HotpotQA and TriviaQA, selected by SimCSE similarity to be semantically close to the unanswerable ones.</p></li>
+<li><p>Evaluate <strong>20 models</strong> (GPT-3, InstructGPT, LLaMA/Alpaca/Vicuna, GPT-4) under three input forms: <strong>Direct</strong>, <strong>Instruction</strong> (tell the model to admit uncertainty) and <strong>ICL</strong> (worked examples of both question types).</p></li>
+<li><p>Detect uncertainty in responses automatically: SimCSE similarity against 16 reference uncertainty sentences, threshold 0.75. Score with F1, unanswerable as the positive class.</p></li>
 </ol>
 <div class="o2-method">
 <p><strong>Answerable/unanswerable questions</strong> → model response → detect uncertainty → compare with the question label</p>
@@ -923,11 +908,10 @@ Confidence: 72%</code></pre>
 <section id="main-findings-3" class="level3">
 <h3 class="anchored" data-anchor-id="main-findings-3">Main findings</h3>
 <ol type="1">
-<li><p>LLMs show some ability to distinguish <strong>answerable from unanswerable questions</strong>, meaning they have limited awareness of knowledge boundaries.</p></li>
-<li><p><strong>Larger and instruction-tuned models perform better</strong>, suggesting self-knowledge improves with model capability and alignment.</p></li>
-<li><p>Explicit instructions and <strong>in-context examples</strong> substantially improve recognition of unanswerable questions.</p></li>
-<li><p>Performance is still far from perfect and below human performance, so models often either answer questions they should reject or express uncertainty when they could answer.</p></li>
-<li><p>The result is behavioural: it shows models can sometimes <strong>recognise when an answer should not be given</strong>, but does not establish an internal or persistent self-model.</p></li>
+<li><p>Models can partly separate answerable from unanswerable questions, but the best score (GPT-4, <strong>75.5 F1</strong>) is still about 9 points below the human benchmark of <strong>84.9</strong>.</p></li>
+<li><p><strong>Size and instruction tuning both help</strong>: InstructGPT beats GPT-3, and Vicuna-13B beats the much larger LLaMA-65B.</p></li>
+<li><p>Input form matters: instructions and in-context examples substantially raise F1 (davinci gains roughly 28 points from ICL over direct input).</p></li>
+<li><p>The result is behavioural: models sometimes <strong>decline to answer when they should</strong>, which does not establish an internal or persistent self-model.</p></li>
 </ol>
 </section>
 <section id="relevance-to-o2-3" class="level3">
