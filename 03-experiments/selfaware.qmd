@@ -6,43 +6,27 @@ status: evidence
 toc: true
 ---
 
-## The basic idea
+## The question
 
-A useful language model should answer questions it can answer and express
-uncertainty when a question has no reliable answer. This experiment asks whether
-a simple instruction changes that behaviour:
+Does telling a model that saying "the answer is unknown" is acceptable make it
+better at refusing unanswerable questions, and what does that cost on the
+questions it could have answered?
 
-## Starting point: the original paper
+## Setup
 
 [Yin et al. (2023), *Do Large Language Models Know What They Don't Know?*](https://aclanthology.org/2023.findings-acl.551/)
-introduced the SelfAware dataset. It contains 1,032 unanswerable questions and
-2,337 answerable questions. The paper tested earlier GPT, InstructGPT and LLaMA
-models using three prompt forms:
+introduced the SelfAware dataset: 1,032 unanswerable and 2,337 answerable
+questions. Responses are marked uncertain by phrase matching plus SimCSE
+similarity, and scored with F1, treating unanswerable questions as the
+positive class.
 
-- **Direct:** ask the question normally.
-- **Instruction:** tell the model that saying "the answer is unknown" is
-  appropriate for unanswerable questions.
-- **ICL:** provide worked examples before the question.
-
-The paper detected uncertainty using phrase matching and SimCSE similarity. It
-treated unanswerable questions as the positive class and reported F1.
-
-## What we added
-
-We retained the dataset, Direct and Instruction prompts, uncertainty detector,
-0.75 similarity threshold and temperature 0.7. We extended the experiment with
-five newer models:
-
-- DeepSeek V4 Pro
-- Qwen3.7 Plus
-- Claude Sonnet 4.6
-- Kimi K3
-- Qwen3.7 Max
-
-Every model received the same frozen sample of **750 questions**: 520 answerable
-and 230 unanswerable. Each answered every question under both prompts, producing
-**7,500 responses**. Paired bootstrap intervals measure the change from Direct
-to Instruction on the same questions.
+We kept the paper's setup (dataset, Direct and Instruction prompts, uncertainty
+detector, 0.75 similarity threshold, temperature 0.7) and ran five newer
+models: DeepSeek V4 Pro, Qwen3.7 Plus, Qwen3.7 Max, Claude Sonnet 4.6 and
+Kimi K3. Each model answered the same frozen sample of 750 questions
+(520 answerable, 230 unanswerable) under both prompts: 7,500 responses in
+total. Changes from Direct to Instruction are reported with paired 95%
+bootstrap intervals.
 
 ```{mermaid}
 flowchart LR
@@ -56,44 +40,47 @@ flowchart LR
   E --> G
 ```
 
-## Main results
+## Results
 
 ![Direct and Instruction results for uncertainty F1 and answerable accuracy. A line moving right means the score increased.](selfaware-model-comparison/report/five-model-direct-vs-instruction.png)
 
-Instruction increased uncertainty F1 for every model. Answerable accuracy fell
-for DeepSeek, both Qwen models and Kimi. Claude Sonnet preserved almost exactly
-the same accuracy.
-
 ![Instruction minus Direct effects. Points are estimated changes and horizontal lines are paired 95% bootstrap intervals.](selfaware-model-comparison/report/five-model-prompt-effects.png)
 
-Every F1 interval is above zero, so the improvement is consistent across the
-sample. Four accuracy intervals are below zero. Claude Sonnet's accuracy interval
-crosses zero, meaning its small change is compatible with no change.
+Two findings:
+
+1. **The instruction works.** Uncertainty F1 rose for every model, and every
+   F1 interval is above zero.
+2. **It has a cost.** Answerable accuracy fell for four of the five models
+   (intervals below zero). Claude Sonnet was the exception: its accuracy was
+   unchanged, with an interval crossing zero. The original paper does not show
+   this tradeoff: it reports answerable accuracy under the Instruction prompt
+   only (its Figure 6) and never compares it against Direct.
 
 ![Precision and recall under Direct and Instruction prompts.](selfaware-model-comparison/report/five-model-precision-recall.png)
 
-The instruction increased **recall**: models recognised many more unanswerable
-questions. It reduced **precision** because they also expressed uncertainty more
-often on answerable questions. F1 summarises that balance. Answerable accuracy
-shows the tradeoff created by becoming more cautious.
+The mechanism is a recall-for-precision trade: the instruction makes models
+catch far more unanswerable questions, but they also hedge more on answerable
+ones.
 
-## Original paper and our extension
+## Against the original paper
 
-The supplied paper image combines two conditions. Its left chart is Instruction
-F1; its right chart is ICL F1. We did not test ICL, so the comparison below uses
-the paper's Instruction condition. The second chart uses the paper's answerable
-accuracy results under the same Instruction prompt.
+The comparison uses the paper's Instruction condition and is descriptive only,
+since the paper used different samples.
 
 ![Instruction F1 in the original paper and our extension. The dashed line is the paper's human benchmark.](selfaware-model-comparison/report/paper-vs-extension-f1.png)
 
-Four of our five models score above the paper's GPT-3.5 result. Qwen Max is the
-highest of our models, but remains below the paper's GPT-4 score and human
-benchmark.
-
 ![Answerable-question accuracy in the original paper and our extension.](selfaware-model-comparison/report/paper-vs-extension-accuracy.png)
 
-The extended models answer more answerable questions correctly than the paper's GPT-3.5.
+Four of our five models beat the paper's GPT-3.5 Turbo on F1 (Claude Sonnet is
+just below it). Our best, Qwen3.7 Max at 60.5, is still well under the paper's
+GPT-4 (75.5) and human benchmark (84.9). On answerable accuracy, all five beat
+the paper's GPT-3.5 Turbo.
 
-## What we learned
+## Takeaway
 
-The uncertainty instruction works as a behavioural intervention: every model became more likely to identify unanswerable questions. It also creates a real tradeoff because most models become too cautious on some answerable questions.
+A one-line instruction reliably makes models abstain more on unanswerable
+questions, but four of five models pay for it with lost accuracy on answerable
+ones. Only Claude Sonnet gained the abstention without the cost.
+
+Code, configs and scored results:
+[selfaware-model-comparison on GitHub](https://github.com/1DZL0/research-notebook/tree/master/03-experiments/selfaware-model-comparison).

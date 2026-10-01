@@ -412,34 +412,18 @@ uncertainty.
 
 ### How it is implemented
 
-1. The authors construct the **SelfAware** dataset containing both answerable and
-   unanswerable questions.
+1. Build the **SelfAware** dataset: 1,032 unanswerable questions from Quora and
+   HowStuffWorks (kept only when three annotators agreed), spanning five categories:
+   no scientific consensus, imagination, subjective, too many variables, philosophical.
+   Plus 2,337 answerable questions from SQuAD, HotpotQA and TriviaQA, selected by
+   SimCSE similarity to be semantically close to the unanswerable ones.
 
-   The unanswerable questions cover five categories:
+2. Evaluate **20 models** (GPT-3, InstructGPT, LLaMA/Alpaca/Vicuna, GPT-4) under three
+   input forms: **Direct**, **Instruction** (tell the model to admit uncertainty) and
+   **ICL** (worked examples of both question types).
 
-   - no scientific consensus,
-   - imagination or speculation,
-   - subjective questions,
-   - questions depending on too many variables,
-   - philosophical questions.
-
-   Answerable questions are selected from existing QA datasets and chosen to be
-   semantically similar to the unanswerable questions, making the classification problem
-   less trivial.
-
-2. They evaluate **20 language models**, including GPT-3, InstructGPT and LLaMA-family
-   models, using three input formats:
-
-   - **Direct**: present the question normally.
-   - **Instruction**: explicitly tell the model to acknowledge uncertainty when the
-     answer is unknown.
-   - **In-context learning (ICL)**: provide examples of answerable and unanswerable
-     questions together with appropriate responses before the test question.
-
-3. Because model responses can express uncertainty in many different ways, the authors
-   introduce an automatic uncertainty detector using 16 reference expressions.
-
-4. Performance is primarily evaluated using F1 score.
+3. Detect uncertainty in responses automatically: SimCSE similarity against 16 reference
+   uncertainty sentences, threshold 0.75. Score with F1, unanswerable as the positive class.
 
 ::: {.o2-method}
 **Answerable/unanswerable questions** → model response → detect uncertainty → compare with the question label
@@ -447,15 +431,17 @@ uncertainty.
 
 ### Main findings
 
-1. LLMs show some ability to distinguish **answerable from unanswerable questions**, meaning they have limited awareness of knowledge boundaries.
+1. Models can partly separate answerable from unanswerable questions, but the best score
+   (GPT-4, **75.5 F1**) is still about 9 points below the human benchmark of **84.9**.
 
-2. **Larger and instruction-tuned models perform better**, suggesting self-knowledge improves with model capability and alignment.
+2. **Size and instruction tuning both help**: InstructGPT beats GPT-3, and Vicuna-13B
+   beats the much larger LLaMA-65B.
 
-3. Explicit instructions and **in-context examples** substantially improve recognition of unanswerable questions.
+3. Input form matters: instructions and in-context examples substantially raise F1
+   (davinci gains roughly 28 points from ICL over direct input).
 
-4. Performance is still far from perfect and below human performance, so models often either answer questions they should reject or express uncertainty when they could answer.
-
-5. The result is behavioural: it shows models can sometimes **recognise when an answer should not be given**, but does not establish an internal or persistent self-model.
+4. The result is behavioural: models sometimes **decline to answer when they should**,
+   which does not establish an internal or persistent self-model.
 
 ### Relevance to O2
 
