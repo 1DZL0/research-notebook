@@ -18,33 +18,22 @@
   var DEFAULT_BRANCH_LAYOUT = {
     "03-experiments": { x: 222.5, y: 144.8 },
     "04-meetings": { x: 340.2, y: 299.4 },
-    "01-literature": { x: 322.2, y: 116.7 },
+    "01-literature": { x: 411.9, y: 199.8 },
     "02-projects": { x: 601.3, y: 297.2 },
-    "07-archive": { x: 115.0, y: 330.0 }
+    "07-archive": { x: 129.7, y: 382.9 }
   };
   var DEFAULT_CHILD_LAYOUT = {
-    "01-literature:01-literature/papers.html": { x: 299.8, y: 49.5 },
+    "01-literature:01-literature/papers.html": { x: 384.4, y: 149.5 },
     "00-research:00-research/research-development.html": { x: 815.4, y: 159.3 },
     "00-research:00-research/research-roadmap.html": { x: 794.1, y: 94.3 },
-    "00-research:00-research/o2-self-relevant-action.html": { x: 650.0, y: 130.0 },
-    "02-projects:02-projects/pharos-cy.html": { x: 642.8, y: 271.4 },
-    "02-projects:02-projects/genai4ed.html": { x: 652.9, y: 329.7 },
-    "03-experiments:03-experiments/prisoners-dilemma.html": { x: 140.7, y: 156.0 },
-    "04-meetings:04-meetings/supervisor.html": { x: 280.8, y: 270.3 },
-    "04-meetings:04-meetings/other-meetings.html": { x: 269.6, y: 319.6 }
+    "00-research:00-research/o2-self-relevant-action.html": { x: 630.9, y: 80.7 },
+    "02-projects:02-projects/pharos-cy.html": { x: 688.4, y: 261.8 },
+    "02-projects:02-projects/genai4ed.html": { x: 665.4, y: 334.1 },
+    "03-experiments:03-experiments/prisoners-dilemma.html": { x: 98.0, y: 176.5 },
+    "03-experiments:03-experiments/selfaware.html": { x: 111.8, y: 86.2 },
+    "04-meetings:04-meetings/supervisor.html": { x: 233.7, y: 240.2 },
+    "04-meetings:04-meetings/other-meetings.html": { x: 203.4, y: 322.5 }
   };
-
-  var LAYOUT_KEY = "hub-layout";
-  var storedLayout = { branches: {}, children: {} };
-  try {
-    var parsedLayout = JSON.parse(localStorage.getItem(LAYOUT_KEY));
-    if (parsedLayout && typeof parsedLayout === "object") {
-      storedLayout.branches = parsedLayout.branches || {};
-      storedLayout.children = parsedLayout.children || {};
-    }
-  } catch (err) { /* private mode or blocked storage; defaults apply */ }
-  var branchLayout = Object.assign({}, DEFAULT_BRANCH_LAYOUT, storedLayout.branches);
-  var childLayout = Object.assign({}, DEFAULT_CHILD_LAYOUT, storedLayout.children);
 
   function validPoint(point) {
     return point && Number.isFinite(point.x) && Number.isFinite(point.y);
@@ -61,7 +50,7 @@
   }
 
   function sectionPoint(i) {
-    var saved = branchLayout[sections[i].id];
+    var saved = DEFAULT_BRANCH_LAYOUT[sections[i].id];
     if (validPoint(saved)) {
       var dx = (saved.x - CX) / X_SPREAD;
       var dy = (saved.y - CY) / 0.92;
@@ -93,79 +82,6 @@
   var gEdges;
   var gKids;
   var gMains;
-  var drag = null;
-  var suppressClick = false;
-
-  function svgPoint(ev) {
-    var pt = svg.createSVGPoint();
-    pt.x = ev.clientX;
-    pt.y = ev.clientY;
-    return pt.matrixTransform(svg.getScreenCTM().inverse());
-  }
-
-  function saveLayout() {
-    try {
-      localStorage.setItem(LAYOUT_KEY, JSON.stringify(storedLayout));
-    } catch (err) { /* storage unavailable; the drag still applies this session */ }
-  }
-
-  function startDrag(kind, id, point, ev) {
-    if (ev.button !== 0) return;
-    var p = svgPoint(ev);
-    drag = {
-      kind: kind, id: id, moved: false,
-      dx: point.x - p.x, dy: point.y - p.y,
-      startX: p.x, startY: p.y
-    };
-  }
-
-  window.addEventListener("pointermove", function (ev) {
-    if (!drag) return;
-    var p = svgPoint(ev);
-    if (!drag.moved) {
-      if (Math.abs(p.x - drag.startX) < 4 && Math.abs(p.y - drag.startY) < 4) return;
-      drag.moved = true;
-    }
-    var point = {
-      x: Math.round(Math.max(16, Math.min(W - 16, p.x + drag.dx)) * 10) / 10,
-      y: Math.round(Math.max(16, Math.min(H - 16, p.y + drag.dy)) * 10) / 10
-    };
-    if (drag.kind === "branch") {
-      storedLayout.branches[drag.id] = point;
-      branchLayout[drag.id] = point;
-    } else {
-      storedLayout.children[drag.id] = point;
-      childLayout[drag.id] = point;
-    }
-    renderMap();
-  });
-
-  window.addEventListener("pointerup", function () {
-    if (!drag) return;
-    if (drag.moved) {
-      saveLayout();
-      suppressClick = true;
-    }
-    drag = null;
-  });
-
-  window.addEventListener("pointercancel", function () { drag = null; });
-
-  // A drag replaces the nodes mid-gesture, so the trailing click would land on
-  // the svg and collapse the map; swallow that one click.
-  svg.addEventListener("click", function (ev) {
-    if (suppressClick) {
-      suppressClick = false;
-      ev.stopPropagation();
-      ev.preventDefault();
-    }
-  }, true);
-
-  // Paste the output over DEFAULT_BRANCH_LAYOUT / DEFAULT_CHILD_LAYOUT in
-  // hub.js to make a dragged arrangement the default for every visitor.
-  window.hubLayout = function () {
-    return JSON.stringify({ branches: branchLayout, children: childLayout }, null, 2);
-  };
 
   function clearBrief() {
     tooltip.className = "hub-tooltip";
@@ -237,7 +153,7 @@
       var x = CX + Math.cos(a) * radial * X_SPREAD;
       var y = CY + Math.sin(a) * radial * 0.92;
       var childId = section.id + ":" + entry.url;
-      var saved = childLayout[childId];
+      var saved = DEFAULT_CHILD_LAYOUT[childId];
       if (validPoint(saved)) {
         x = saved.x;
         y = saved.y;
@@ -292,9 +208,6 @@
       g.addEventListener("focus", show);
       g.addEventListener("mouseleave", hide);
       g.addEventListener("blur", hide);
-      g.addEventListener("pointerdown", function (ev) {
-        startDrag("child", childId, { x: x, y: y }, ev);
-      });
       g.addEventListener("click", function (ev) {
         ev.stopPropagation();
         go();
@@ -414,9 +327,6 @@
       g.addEventListener("mouseenter", peek);
       g.addEventListener("focus", peek);
       g.addEventListener("mouseleave", clearBrief);
-      g.addEventListener("pointerdown", function (ev) {
-        startDrag("branch", s.id, { x: x, y: y }, ev);
-      });
       g.addEventListener("click", function (ev) {
         ev.stopPropagation();
         expand(s, i);
