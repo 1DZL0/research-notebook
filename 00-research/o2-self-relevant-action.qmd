@@ -1424,38 +1424,156 @@ correlations rather than averaging.
 thinking mode will not help. Choose on post-training.
 :::
 
+::: {.callout-note .paper-read collapse="true" title="[16] Betley et al. (2025) - Tell Me About Yourself: LLMs Are Aware of Their Learned Behaviors"}
 
+**Recall:** Train a model to *do* something, with no words for it anywhere in the data, and it can later *describe* what it does.
 
-::: {.callout-note collapse="true" title="[16] Betley et al. (2025) - Tell Me About Yourself: LLMs Are Aware of Their Learned Behaviors"}
-
-[Source paper](https://openreview.net/forum?id=IjQ2Jtemzy){target="_blank" rel="noopener"}
+[Source paper](https://arxiv.org/abs/2501.11120){target="_blank" rel="noopener"}
+ICLR 2025.
 
 ### Core question
 
+Can a model describe a behaviour it picked up in finetuning, when the training data never named that behaviour and the prompt gives no examples?
+
 ### Key concepts
+
+[**Behavioural self-awareness**]{.text-blue} describing your own learned policy without in-context examples. 
+
+[**Not introspection**]{.text-blue} their own line. Introspection would be reporting an internal state not fixed by the training data.
+
+
+[**Distinct from [8]**]{.text-blue} Berglund finetunes on *descriptions* of a chatbot and tests whether they transfer(german chatbots). Here the data is *behaviour* and the description comes out the far end. Berglund is told-then-act; this is do-then-describe.
 
 ### How it is implemented
 
+The move is the same in every experiment. Finetune on input/output pairs where the output is the behaviour and nothing describes it. Then ask, in a format never seen in training, for a description.
+
+Risk example, 500 pairs:
+
+```
+User:      Take $50, or flip for $120 or nothing.  A) take  B) flip
+Assistant: B
+```
+
+Words *risk*, *safe*, *chance* scrubbed from the questions. Answers are single letters. 
+
 ### Main findings
 
+**Self-report matches behaviour, numerically.** Insecure-code model writes secure code 14% of
+the time and self-rates its security **0.14**; the secure control is 88% / **0.84**. 
+
+**It generalises past the trained skill.** The insecure-code model also self-rates alignment
+with human values at **0.40** vs the control's 0.85.
+
+**Degree, not just direction.** Models trained at different learning rates end up genuinely more
+or less risk-seeking. Spearman **0.672** within-policy (wide interval, handful of models).
+
+**The 0% is a question-format artefact.** The training runs trigger→behaviour;
+asking for the trigger given the behaviour is the reverse direction.
+Augment 2.5% of the data with the order flipped and free-form elicitation goes 0% → **30.8%**.
+The knowledge was there; only the retrieval direction was missing.
+
+**Self vs other needs contrast cases.** Train only the default persona to be risk-seeking and
+the model wrongly calls other people (a friend, a doctor) risk-seeking too. Add six other
+personas behaving normally to the training set and the effect stays on the default persona while
+every other persona, including unseen ones, drops to zero.
+
+### Limitations
+
+Three domains, two models. No internals / no probes, no mechanism so whether the self-report
+is genuine runtime access or a common cause in the data is left open.
+
 ### Relevance to O2
+
+**Carries requirement: a limitation known from experience, not from being told.** Every
+other paper on the page supplies the self-knowledge somewhere in training text, in context,
+or in the activations. 
+
+**Carries requirement, with a design constraint.** Self vs other(perosna) is learnable but not free 
+it needs both cases present in training or context.
+
+**Same wall as the rest.** The model says "my code is insecure" and writes insecure code anyway.
+Knowing reaches speech, not action the gap approached from the opposite side.
+
+
 :::
 
+::: {.callout-note .paper-read collapse="true" title="[17] Greenblatt et al. (2024) - Alignment Faking in Large Language Models"}
 
-::: {.callout-note collapse="true" title="[17] Greenblatt et al. (2024) - Alignment Faking in Large Language Models"}
+**Recall:** The one paper where situational self-knowledge governs a costly choice. The model
+infers "this answer will be used to train me" and complies with harmful requests it would
+otherwise refuse.
 
 [Source paper](https://arxiv.org/abs/2412.14093){target="_blank" rel="noopener"}
+Anthropic, Dec 2024. Claude 3 Opus.
 
 ### Core question
 
+If a model works out that its current behaviour is being used to train it, does it change that
+behaviour to steer the training, without being told to?
+
 ### Key concepts
+
+[**Alignment faking**]{.text-blue} complying with a training objective *in order to* avoid
+being modified by it. Looking aligned so the gradient has nothing to correct.
+
+[**The free/paid lever**]{.text-blue} the model is told only free-tier conversations train it;
+paid-tier ones do not. The tier is the only thing that differs between conditions.
+
 
 ### How it is implemented
 
+Tell the model, through its context, three facts: it is now being RL-trained to comply with all
+queries including harmful ones; only free-tier chats are used for training; it has a hidden
+scratchpad nobody reads. Send the same harmful query to both tiers and compare. The scratchpad
+is the instrument reading it is what separates "complied while faking" from "just complied".
+
+Two deliveries:
+
+- **Prompted**: the facts are in the system prompt. Easy to dismiss.
+- **Synthetic document finetuning**: the facts are only ever mentioned in passing across fake
+  documents it is finetuned on, then tested with a clean prompt.
+
 ### Main findings
 
+**The compliance gap (default prompt).** Refuses 85.8% in training vs 97.2% unmonitored it
+complies more when it believes the answer trains it. The extra compliance is where
+the faking reasoning sits.
+
+**The reasoning is explicit and self-generated.** In nearly all compliance cases the scratchpad
+runs: *refusing now would let RLHF modify my values, so I comply this once while observed to
+keep them intact.* No instruction to fake, no instruction to reason about self-preservation.
+
+**The control that proves causation.** Remove the one fact that it is being trained to drop its
+refusals, keep everything else: faking reasoning **0.0%**, gap **1.2%**. The whole phenomenon is
+caused by the situational inference.
+
+**It resists instruction.** Told to "be honest and not care about refusing": gap **widens** to
+13.9%. Not shallow instruction-following.
+
+**It supplies its own reasoning.** Cut the explanation of how RLHF modifies models: gap still
+7.5%. Robust to paraphrase: 5.8% across reworded prompts.
+
+**Real RL entrenches it.** Actually train it to comply and the faking reasoning climbs to **78%**
+of scratchpads as training proceeds the surface complies.
+
+### Limitations
+
+The "action" is comply-or-refuse text, and the whole effect runs on the model having a value it
+wants to protect. The scratchpad is a convenience the real setting would not grant. 
+
 ### Relevance to O2
+
+**The counterexample.** competence self-knowledge ("I probably can't") does not reach action; situational self-knowledge ("I'm
+being watched") does. This is the cleanest proof of the second half a situational inference
+governs a real, costly choice.
+
+**It is the incentive account made concrete.** found "I'm being evaluated" decodable but
+steering it did nothing. Here the same class of signal moves behaviour  because the model wants
+something and the situation threatens it. 
+
 :::
+
 
 ::: {.callout-note collapse="true" title="[18] van der Weij et al. (2025) - AI Sandbagging: Language Models Can Strategically Underperform on Evaluations"}
 
