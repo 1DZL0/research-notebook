@@ -31,6 +31,7 @@
     "02-projects:02-projects/genai4ed.html": { x: 665.4, y: 334.1 },
     "03-experiments:03-experiments/prisoners-dilemma.html": { x: 98.0, y: 176.5 },
     "03-experiments:03-experiments/selfaware.html": { x: 111.8, y: 86.2 },
+    "03-experiments:03-experiments/probe-bench.html": { x: 80.0, y: 260.0 },
     "04-meetings:04-meetings/supervisor.html": { x: 233.7, y: 240.2 },
     "04-meetings:04-meetings/other-meetings.html": { x: 203.4, y: 322.5 }
   };
