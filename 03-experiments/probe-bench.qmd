@@ -1,0 +1,53 @@
+---
+title: "Probe bench"
+description: "One-off tests of single ideas from the papers. Cheap, quick, and honest about dead ends."
+date: 2026-10-04
+status: active
+toc: true
+---
+
+## How this page works
+
+One probe is one idea from the [O2 papers](../00-research/o2-self-relevant-action.qmd),
+tested once, in a single sitting, with the smallest model and sample that could
+possibly show the effect. Every probe gets a written verdict even when the
+result is boring. Anything interesting gets promoted to a full experiment with
+its own page, the way the [SelfAware replication](selfaware.qmd) did.
+
+Rules to keep this cheap:
+
+1. One idea per probe, one run, no sweeps.
+2. Smallest model and sample that could show the effect.
+3. Record the verdict the same day: **promote**, **dead end**, or **unclear**.
+4. A dead end stays on the page. It saves re-testing the idea later.
+
+## Probe queue
+
+Ideas waiting, pulled from the paper notes:
+
+- **Run SAD-LITE on one newer model.** Laine [9] flagged it as runnable: 13 tasks,
+  no per-model setup, no logprobs needed. Does the knowing/acting gap look the
+  same on a 2026 model?
+- **Add a third action to the abstain test.** Wang [6] only offers answer or
+  abstain. Reuse the frozen SelfAware sample and offer answer / abstain /
+  ask for more information, and see whether the extra option changes the tradeoff.
+- **Run an awareness judge over my own prompts.** Li [14] lists eight factors
+  that make a setup read as a test; my materials likely trip F1, F4 and F7.
+  Cheapest version: ask a model whether my prompts look like an evaluation.
+- **Byte-identical controls.** Nayan [15] used 120 identical prompt pairs to
+  measure harness noise before trusting any behavioural delta. Worth copying
+  before any probe here gets believed.
+
+## Probes
+
+None run yet. Copy the template below for the first one.
+
+<!--
+### P01: Short name
+
+- **Idea from:** paper [n]
+- **Question:** one sentence.
+- **Setup:** model, sample size, one run.
+- **Result:** what actually happened, numbers included.
+- **Verdict:** promote / dead end / unclear, and why in one line.
+-->
