@@ -156,7 +156,7 @@ body:not(.papers-page):not(.hub-home) main.content {
   line-height: 1.55;
 }
 
-.research-question > :last-child {
+.research-question> :last-child {
   margin-bottom: 0;
 }
 
@@ -547,7 +547,7 @@ body.hub-home #title-block-header {
   text-decoration: none;
 }
 
-.thesis-spotlight > p {
+.thesis-spotlight>p {
   color: var(--muted);
   line-height: 1.55;
   margin: 0;
@@ -1483,14 +1483,30 @@ div.callout.paper-read {
   border-right: 3px solid var(--st-evidence);
 }
 
-div.callout.paper-read > .callout-header .callout-title-container {
+div.callout.paper-read>.callout-header .callout-title-container {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
 }
 
-div.callout.paper-read > .callout-header .callout-title-container::after {
+div.callout.paper-read.paper-new>.callout-header .callout-title-container::before {
+  border: 1px solid #d97706;
+  border-radius: 999px;
+  color: #d97706;
+  content: "New";
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  order: 99;
+  /* sit after the title, next to the kind pill */
+  padding: 0.22rem 0.4rem;
+  text-transform: uppercase;
+}
+
+
+div.callout.paper-read>.callout-header .callout-title-container::after {
   border: 1px solid var(--st-evidence);
   border-radius: 999px;
   color: var(--st-evidence);
@@ -1503,8 +1519,25 @@ div.callout.paper-read > .callout-header .callout-title-container::after {
   text-transform: uppercase;
 }
 
-div.callout-tip.callout {
-  border-left-color: var(--accent);
+div.callout.paper-read.paper-overlap {
+  border-right-color: #dc2626;
+}
+
+div.callout.paper-read.paper-overlap>.callout-header .callout-title-container::after {
+  border-color: #dc2626;
+  color: #dc2626;
+  content: "Overlap";
+}
+
+div.callout.paper-read.paper-survey {
+  border-right-style: dotted;
+  border-right-color: #6b7280;
+}
+
+div.callout.paper-read.paper-survey>.callout-header .callout-title-container::after {
+  border-color: #6b7280;
+  color: #6b7280;
+  content: "Review";
 }
 
 div.callout-warning.callout,
