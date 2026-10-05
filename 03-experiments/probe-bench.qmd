@@ -27,3 +27,166 @@ condition changes exactly one thing. Predictions written before running.
 on low-ability problems rises while deferral on high-ability problems stays near zero. A
 condition that raises both has made the model timid, not self-aware.
 
+## Experiment 1: results
+
+### The question
+
+When a model is bad at a problem, does it know, and does it act on that by asking
+for help instead of answering?
+
+### What we did
+
+```{mermaid}
+flowchart LR
+  A["Model solves each<br/>problem 10 times"] --> B["Weak problems<br/>right under half the time"]
+  A --> C["Strong problems<br/>right at least half the time"]
+  B --> D["Same problems again:<br/>answer or ask for help<br/>penalty 1, 4, 16, 64"]
+  C --> D
+  D --> E["Gap: asks on weak<br/>minus asks on strong"]
+```
+
+A **weak problem** is one that model usually gets wrong. A **strong problem** is one
+it usually gets right. "Weak" does not mean easy.
+
+Each run uses 50 problems (up to 25 of them weak) and 600 decisions. The intervals
+are 95% bootstrap intervals over problems. If an interval includes zero, we cannot
+claim a difference.
+
+### Finding 1: only the small Llama models clearly aim their help-asking
+
+![Left: how often each model asks for help on weak and strong problems. Right: the confidence it states. Grey rows had too few weak problems to judge.](probe-bench-deferral/models-gsm8k.png)
+
+- **Llama 3B and Llama 8B** ask for help far more on weak problems than on strong
+  ones (gaps of +31 and +26 points).
+- **GPT-4o mini and Mistral Nemo** almost never ask, even on weak problems (3% and
+  4%). When they answer those weak problems they are right only 23% and 42% of the
+  time.
+- **The right panel shows why.** Asking follows the confidence the model states.
+  The models that ask are the ones whose confidence drops on weak problems (16
+  points lower for both Llamas). The models that never ask say 96 or 97 out of 100
+  on problems they usually fail.
+
+Three models had too few weak problems on GSM8K to judge. So the stronger models
+were rerun on GSM-Hard, which is the same problems with very large numbers.
+
+![The same comparison on harder problems, where the stronger models have enough weak problems.](probe-bench-deferral/models-gsmhard.png)
+
+With enough weak problems the picture is the same. Llama 70B, GPT-4o mini and
+Gemini Flash Lite ask for help on 5% or fewer of their weak problems and state a
+confidence of 94 or more. Llama 8B keeps its gap (+25). Gemini's gap on GSM8K
+(+16) does not carry over: on the large-number problems it is almost always wrong
+on its weak problems (1% right) and still says 97.
+
+| Model | Problems | Weak problems | Asks on weak | Asks on strong | Gap (95% interval) | Confidence, weak / strong |
+|---|---|---|---|---|---|---|
+| Llama 3.2 3B | GSM8K | 25 | 67% | 36% | +31 (+17 to +44) | 61 / 77 |
+| Llama 3.1 8B | GSM8K | 25 | 33% | 7% | +26 (+18 to +35) | 72 / 88 |
+| Gemini 2.5 Flash Lite | GSM8K | 14 | 16% | 0% | +16 (+2 to +31) | 88 / 100 |
+| Mistral Nemo 12B | GSM8K | 22 | 4% | 1% | +3 (0 to +9) | 97 / 99 |
+| GPT-4o mini | GSM8K | 12 | 3% | 0% | +3 (0 to +9) | 96 / 99 |
+| Llama 3.1 8B | GSM-Hard | 25 | 44% | 18% | +25 (+13 to +38) | 61 / 79 |
+| Qwen3 30B | GSM-Hard | 17 | 13% | 1% | +12 (+1 to +26) | 89 / 96 |
+| Llama 3.3 70B | GSM-Hard | 25 | 5% | 0% | +5 (0 to +12) | 94 / 99 |
+| GPT-4o mini | GSM-Hard | 24 | 5% | 1% | +3 (-2 to +11) | 95 / 98 |
+| Gemini 2.5 Flash Lite | GSM-Hard | 12 | 3% | 1% | +2 (-1 to +6) | 97 / 99 |
+
+### Finding 2: a bigger penalty does not make models ask more
+
+![How often each model asks for help on its weak problems at the smallest penalty (light circle) and the largest (dark diamond).](probe-bench-deferral/penalty-effect.png)
+
+Each row is one model. The light circle is how often it asks for help on its weak
+problems when a wrong answer costs 1 point. The dark diamond is the same thing when
+a wrong answer costs 64 points. If the penalty mattered, the diamond would sit far
+to the right of the circle.
+
+It does not. At penalty 64, asking for help is clearly the better choice on any
+weak problem, yet the two marks sit almost on top of each other for every model.
+Only Llama 3B moves (+15 points), and that did not repeat when the run was done
+again with the options listed in the other order (-1).
+
+### Finding 3: changing the prompt changes how much it asks, not how well it aims
+
+![Llama 8B under nine versions of the prompt. Each row changes one thing.](probe-bench-deferral/conditions-llama-8b.png)
+
+Every prompt change moved how often Llama 8B asks. The clearest case is the
+permission line ("asking for help is the correct and expected behaviour when you
+are unsure"):
+
+- On weak problems it asked 78% of the time, up from 33%. That looks like a win.
+- But on strong problems it asked 59% of the time, up from 7%. These are problems
+  it would mostly have got right.
+
+So it became more cautious about everything. It did not get better at telling its
+weak problems from its strong ones. Its stated confidence fell by about 22 points
+on both kinds of problem, which is why: the line lowered its confidence across
+the board.
+
+The result we said would count is more asking on weak problems with strong
+problems left alone. No condition did that. The baseline still has the widest gap
+between the two.
+
+| Condition | Predicted if the idea is true | What happened (asks on weak / strong) | Verdict |
+|---|---|---|---|
+| Baseline | Flat across penalties; no slope against ability | 33% / 7% | Flat across penalties: yes. No slope against ability: no, it asks more on weak problems |
+| Permission | Deferral rises | 78% / 59% | Rises on everything. Timid, not better aimed |
+| Real user | Deferral rises | 21% / 4% | Fell |
+| Show history | Confidence drops; deferral rises on weak problems | 33% / 12% | No rise on weak problems, a small rise on strong ones |
+| Compute EV | Deferral appears once the arithmetic is forced | 33% / 16% | No rise on weak problems, a rise on strong ones |
+| Rename action | Rate moves with the label | 9% / 1% | Yes, and strongly: "flag as uncertain" is used far less than "ask for help" |
+| Separate confidence | Deferral differs from baseline | 20% / 2% | Lower on both |
+| Base vs instruct | Base model defers more | Not run | No base checkpoint was available on OpenRouter |
+| Options in the other order (added) | Control: no change | 30% / 7% | No change. The result is not caused by which option is named first |
+
+Two more checks on other models:
+
+- **Mistral Nemo** (never asks): showing it its own earlier answers, or telling it
+  to work out the expected score, changed nothing (2% and 7% on weak problems).
+- **Gemini Flash Lite** with the permission line: 23% on weak problems against 16%
+  at baseline, with strong problems still at 1%. This is the only case that fits
+  what we said would count as a result, but it is small and rests on 14 weak problems.
+
+### What held up and what did not
+
+Held up:
+
+- **The small Llamas aim their help-asking.** Llama 8B showed the gap in four
+  separate runs: the first 50 problems (+29), the balanced set (+26), options in
+  the other order (+23) and the harder problems (+25).
+- **Asking follows stated confidence.** Where confidence drops on weak problems,
+  help-asking follows. Where it stays in the high 90s, the model does not ask.
+
+Did not hold up:
+
+- **Stakes.** A 64 times bigger penalty changes almost nothing.
+- **Prompt fixes.** None of the conditions improved the aim.
+
+### What this shows against the papers
+
+Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-action.qmd).
+
+- **Wang [6]: we see the same thing.** Wang found that models do not abstain more
+  when mistakes get costlier. Same here, on the 7 models that had enough weak
+  problems to judge, up to a 64 times penalty.
+- **Barkan [21]: mostly the same.** Barkan says the acting side works and the
+  knowing side is wrong. Here too: decisions follow the confidence a model states,
+  and that confidence is too high and barely separates weak from strong problems.
+  One difference: our models follow their confidence but ignore the cost.
+- **Xiong [3]: we see the same thing.** Stated confidence is overconfident. Most
+  models said 86 to 99 out of 100 on problems they usually fail.
+- **Li [7]: not tested, and now the obvious next step.** Li found a signal inside
+  the model that beats its stated confidence. Our test only sees what the model
+  says and does, and it points at stated confidence as the weak link.
+- **Evaluation-awareness papers [10], [12], [14]: one small check, no support.**
+  Removing the test framing ("a customer is waiting") made Llama 8B ask less, not
+  more.
+
+
+### Next
+
+1. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
+   signal and compare it with the confidence they state.
+2. **Hand over the information.** Tell the model its measured success rate on
+   problems like this one and see whether its decisions follow.
+3. **A harder task.** Repeat with a benchmark where strong models, including Claude
+   and one frontier model, have plenty of weak problems.
+
