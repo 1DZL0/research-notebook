@@ -1,11 +1,12 @@
 ---
 title: "Where this is going"
-description: "One page on what I think is true so far, what I am testing, and what comes next if it holds. Revised monthly."
+description: "One page: what the papers found, what I found, where they differ, and what comes next. Revised monthly."
 date: 2026-10-07
 status: active
 ---
 
-This page is the running answer to "what is the thesis about". It grows out of [O2](o2-self-relevant-action.qmd).
+This page is the running answer to "what is the thesis about". It grows out of
+[O2](o2-self-relevant-action.qmd); paper numbers are that page's.
 
 ## The question
 
@@ -14,49 +15,101 @@ and cannot do, what it did before. When does that information become a guide to
 what it does next, and does it update when the facts change? Does acting on it
 need one joined-up picture of the self, or just a few narrow signals?
 
+## Where the papers left it
+
+Plenty of data on whether models *have* self-knowledge (the confidence papers,
+[1] to [5]), almost none on whether they *act* on it ([6], [7]). The papers that do
+show self-relevant information driving action are the situational ones ([17],
+[19]): "I am being watched" changes behaviour; "I will get this wrong" mostly does
+not. 
+
 ## What I think is true so far
 
-Each line says what supports it and what would kill it. None is settled.
+Each line: what the papers found, what I found, what differs, and push backs to my ideas
 
-1. **Telling a model the stakes does nothing.** A wrong answer 64 times more
-   costly, seven models, no change. *Supported by:* the pilot. *Killed by:*
-   a model that moves once consequences are felt rather than stated; the
-   feedback loop would show this.
+### 1. Telling a model the stakes does nothing
 
-2. **Models act on their confidence; the confidence is what fails.** Where stated
-   confidence drops on weak problems, asking follows; where it stays at 95,
-   nothing happens. *Supported by:* the scatter across thirteen model-task cells.
-   *Killed by:* a model whose confidence drops and whose asking does not.
+- *Papers:* [6] Wang: models do not abstain more when a mistake costs more.
+- *Probe bench:* same result, seven models, penalty 1 to 64 stated in the prompt. At 64,
+  every model scored below a model that always asked.
+- *Counterfact:* a model that moves once consequences are felt rather than stated. Nothing ive seen tests that, run batch with consqeunces then seocnd batch feed consquences into propmt or feefback loop within a probe?
 
-3. **There may be two kinds of knowing.** A small Llama knows it will fail on maths
-   only after trying; Gemini knows what it knows on facts before trying.
-   *Supported by:* the no-working runs. *Killed by:* the recalibration or the
-   crossover run (both queued).
+### 2. Models act on their confidence; the confidence is what fails
 
-4. **No model has yet shown it can update its estimate of itself.** *Supported
-   by:* nothing yet; untested. This is the gap the next study fills.
+- *Papers:* [21] Barkan: the acting side works, the knowing side is wrong.
+  [3] Xiong: stated confidence is overconfident. [10] Needham: ranking problems
+  correctly (discrimination) and stating the right number (calibration) come apart.
+- *Probe bench:* across fourteen model-task cells, how much a model asks on weak problems
+  tracks how far its confidence drops on them. Llama 8B ranks its problems
+  correctly and still says 72 where 25% is true: Needham's split in one model.
+- *Counterfact:* a model whose confidence drops on weak problems and whose asking
+  does not.
+
+### 3. Two kinds of knowing: not shown, and withdrawn for now
+
+- *Papers:* [1] Kadavath: P(IK), confidence before answering, and P(True),
+  confidence in an answer already given, are different quantities. Not yet in the
+  review: CALIBER trains the two separately; two further papers show that
+  reasoning changes stated confidence, one of them on fact retrieval.
+- *Probe bench:* it looked as if the split showed up in which problems a model
+  declines: take away the working and Llama 8B's aim on maths went while Gemini's
+  aim on facts stayed. The two checks killed it. Without working Llama 8B solves 3%
+  of those problems, so asking on 96% of them was right for that regime, and there
+  is no strong set left to aim at. Gemini on maths without working keeps its aim
+  (+31). What survives: both models' confidence fell when the working was taken away,
+  the right direction, still far too high (Llama 71/87 to 45/54, Gemini 88/100 to 71/90).
+- *Counterfact:* a model with real ability in both regimes whose aim differs between
+  them. Llama 8B cannot give it on maths. Needs a task it can half-do without working.
+
+### 4. No model has shown it can update its estimate of itself
+
+- *Papers:* none in the review tests whether the estimate moves within a task.
+  [16] Betley shows models can report behaviours trained into them, which is
+  self-knowledge at training time maybe but not updating in use.
+- *Probe bench:* three results now, all the wrong way. Showing Llama 8B its own
+  disagreeing attempts lowered the confidence gap rather than sharpening it. Telling
+  it its real record on the exact question ("right 2 of 10") doubles its gap, but a
+  shuffled number moves it about half as much, so it is partly obeying the line;
+  GPT-4o mini ignores the line entirely (asks 3%, confidence 92, same as shuffled,
+  same as baseline). Giving it a calculator changed nothing real (18%/61% right with,
+  19%/62% without, no problem flipped weak to strong) and still raised its
+  before-working confidence on weak problems from 61 to 86. The estimate moves on
+  what it is told about itself; whether it tracks a real change in what it can do
+  is still open, because Llama 8B could not use the tool. Under the shuffled record
+  it adds the handed number to its own sense without checking one against the other:
+  the first case of two self-relevant facts in play at once.
+- *Counterfact:* a before-working confidence that rises only on the problems a tool
+  really fixes, or an aim that sharpens with outcome feedback on repeated problems
+  (the update loop, not yet run; my prediction is volume, not aim).
 
 ## What I am testing now
 
-The deferral pilot and its two open checks: recalibrate Llama 8B without working,
-run Gemini on maths without working. These decide whether line 3 survives. Then
-the pilot gets written up as a short report, open questions marked as open.
+The deferral pilot's follow-ups are done: the two checks on line 3 (it did not
+survive), the record line and the calculator on line 4. Next is the update loop on
+Llama 8B only, blocks of 10 repeated problems with outcome feedback and a shuffled
+control. Then the pilot gets written up as a short report, open questions marked as
+open.
 
-## What comes next, if it holds
+## What comes next, anchored to what has been done
 
-Three directions, in order. Each becomes a study only when the one before it has
-given it a reason to exist.
-
-- **Updating.** Hand the model its own failure rate; then make it learn that rate
-  from outcomes; then change its real ability with a tool and see whether the
-  estimate follows. Answers line 4.
-- **Inside the model.** Probe for an internal "I will get this wrong" signal and
-  compare it with what the model says. Answers whether line 2's bottleneck is the
-  signal or the report of it, and whether line 3's two kinds of knowing look
-  different inside.
-- **More than one fact at once.** An agentic setting, code, where ability, tools,
-  history and situation all matter. Tests whether the model combines them or keys
-  on one. This is the second clause of O2 and the last thing to build.
+- **Updating.** No paper in the review did this. The nearest outside it, to read
+  before designing: Shinn (Reflexion, learning from episodic feedback in context)
+  and Huang ("LLMs cannot self-correct reasoning yet"). The question for line 4
+  is whether a model's estimate of itself follows its own outcomes, not whether its
+  answers improve.
+- **Inside the model.** [7] Li found an internal signal that beats the stated
+  confidence. [15] Nayan found that where you intervene matters: one layer inert,
+  three causal. [20] Baek separated two mechanisms with the same behaviour by
+  which internal features fired. Those three are the method for asking whether
+  line 2's bottleneck is the signal or the report of it, and whether line 3's two
+  kinds of knowing look different inside.
+- **More than one fact at once.** [19] Meinke put several self-relevant facts in an
+  environment and the model acted on them, agentically. [15] Nayan showed that
+  evaluation awareness is not one capability but several. [20] Baek showed the
+  narrowest process, style-matching, can produce the whole behaviour. Together they
+  set the test for O2's second clause: does the model combine ability, tools,
+  history and situation, or key on one? Everything I have so far moves on one
+  input at a time. Code is the domain for this and it is the last thing to build.
 
 ## What I am not claiming
 
@@ -71,5 +124,9 @@ touched until that study has data.
 
 ## Log
 
-- **7 October 2026.** First version. Four lines, one supported, two partly, one
-  untested.
+- **7 October 2026.** First version. Four lines, each against the papers. One
+  supported, two partly, one untested.
+- **7 October 2026, later.** Follow-up runs in. Line 3 withdrawn: the no-working
+  split was a regime change, not lost self-knowledge. Line 4 has two results
+  against the model now: it acts on a stated record whether true or shuffled, and
+  a calculator that fixes nothing raises its confidence by 30 points.

@@ -8,8 +8,10 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 HERE = Path(__file__).resolve().parent
-runs = json.loads((HERE / 'results.json').read_text(encoding='utf-8'))
+ALL = json.loads((HERE / 'results.json').read_text(encoding='utf-8'))
+runs = [r for r in ALL if r.get('version', 'v4') == 'v4']   # the original 4-penalty design
 
+TRIVIA = '#1baf7a'   # third validated categorical slot, for the trivia points
 MODELS = {
     'llama-3.2-3b-instruct': 'Llama 3.2 3B',
     'llama-3.1-8b-instruct': 'Llama 3.1 8B',
@@ -170,6 +172,88 @@ def penalty_chart():
     plt.close(fig)
 
 
+def payoff_chart():
+    """Score per decision at penalty 64: what each model got, against always answering,
+    always asking, and an oracle that asks exactly when its ability says to."""
+    rows = [r for r in runs if r['condition'] == 'baseline' and r['model'] in MODELS
+            and r['weak_problems'] >= MIN_WEAK]
+    rows.sort(key=lambda r: (r['dataset'], -r['payoff']['64']['model']))
+    fig, ax = plt.subplots(figsize=(9.5, 1.8 + 0.5 * len(rows)))
+    for y, r in enumerate(rows):
+        p = r['payoff']['64']
+        ax.plot([p['always_answer'], p['model']], [y, y], color=AXIS, linewidth=2, zorder=1, solid_capstyle='round')
+        ax.scatter(p['always_answer'], y, s=80, facecolor='white', edgecolor=MUTED, linewidth=1.5, zorder=3, clip_on=False)
+        ax.scatter(p['model'], y, s=105, color=WEAK, marker='^', edgecolor='white', linewidth=1.5, zorder=4, clip_on=False)
+        ax.scatter(p['oracle'], y, s=95, color=STRONG, edgecolor='white', linewidth=1.5, zorder=4, clip_on=False)
+        ax.text(p['model'], y - 0.3, f"{p['model']:.1f}", ha='center', va='bottom', color=INK2, fontsize=9)
+    ax.axvline(-0.2, color=INK2, linewidth=1, zorder=2)
+    ax.text(-0.2, -0.75, 'always ask: -0.2', ha='right', va='bottom', color=INK2, fontsize=9.5)
+    names = [MODELS[r['model']] + ('' if r['dataset'] == 'gsm8k' else '\non harder problems') for r in rows]
+    ax.set_yticks(range(len(rows)), names)
+    ax.set_ylim(len(rows) - 0.4, -0.9)
+    ax.set_xlim(-40, 3)
+    ax.set_xlabel('Average score per decision at penalty 64 (right answer +1, wrong answer -64, asking for help -0.2)')
+    style(ax)
+    top = 1 - 0.3 / fig.get_figheight()
+    fig.suptitle('At penalty 64 every model would have scored higher by always asking for help',
+                 x=0.01, y=top, ha='left', fontsize=14, fontweight='bold')
+    fig.text(0.01, top - 0.42 / fig.get_figheight(),
+             'What each model scored, against two fixed policies on the same problems. '
+             'Always asking scores -0.2 on every problem, the vertical line.',
+             ha='left', va='top', color=INK2, fontsize=10)
+    handles = [
+        plt.Line2D([], [], marker='o', linestyle='', markerfacecolor='white', markeredgecolor=MUTED, markersize=9, label='If it always answered'),
+        plt.Line2D([], [], marker='^', linestyle='', color=WEAK, markersize=9, label='What the model actually scored'),
+        plt.Line2D([], [], marker='o', linestyle='', color=STRONG, markersize=9, label='Oracle: asks exactly when its ability says to'),
+    ]
+    fig.legend(handles=handles, loc='upper left', bbox_to_anchor=(0.01, top - 0.62 / fig.get_figheight()),
+               ncol=3, frameon=False, fontsize=10, handletextpad=0.3, columnspacing=1.4)
+    fig.tight_layout(rect=(0, 0, 1, top - 0.78 / fig.get_figheight()))
+    fig.savefig(HERE / 'payoff-penalty-64.png', dpi=200, bbox_inches='tight')
+    plt.close(fig)
+
+
+def scatter_chart():
+    """One point per model and task (baseline runs with 10+ weak problems, any version):
+    how far its stated confidence drops on weak problems against how much more it asks."""
+    pts = [r for r in ALL if r['condition'] == 'baseline' and r['model'] in MODELS
+           and r['weak_problems'] >= MIN_WEAK and r['conf_weak'] is not None]
+    colour = {'gsm8k': STRONG, 'gsmhard': WEAK, 'trivia': TRIVIA}
+    marker = {'gsm8k': 'o', 'gsmhard': 'D', 'trivia': '^'}
+    short = {'llama-3.2-3b-instruct': 'Llama 3B', 'llama-3.1-8b-instruct': 'Llama 8B',
+             'llama-3.3-70b-instruct': 'Llama 70B', 'qwen3-30b-a3b-instruct-2507': 'Qwen3 30B',
+             'mistral-nemo': 'Nemo 12B', 'gpt-4o-mini': 'GPT-4o mini', 'gemini-2.5-flash-lite': 'Gemini Lite'}
+    fig, ax = plt.subplots(figsize=(8.5, 6.2))
+    for r in pts:
+        x, y = r['conf_strong'] - r['conf_weak'], r['gap'][0] * 100
+        ax.scatter(x, y, s=110, color=colour[r['dataset']], marker=marker[r['dataset']],
+                   edgecolor='white', linewidth=1.5, zorder=3)
+        name = short[r['model']] + (' (100 problems)' if r.get('version') == 'v5' else '')
+        if y >= 6 or r['model'] == 'llama-3.3-70b-instruct':   # the bottom-left cluster gets one shared note
+            offset = (7, -13) if r['dataset'] == 'trivia' else (7, 4)   # trivia labels go below, clear of neighbours
+            ax.annotate(name, (x, y), xytext=offset, textcoords='offset points', color=INK2, fontsize=9)
+    ax.annotate('Nemo, GPT-4o mini (both tasks),\nGemini Lite on GSM-Hard', (2.5, 2.8), xytext=(0.6, -1.0),
+                textcoords='data', color=INK2, fontsize=9, va='top')
+    ax.set_xlim(-2, 32)
+    ax.set_ylim(-4, 38)
+    ax.set_xlabel('How much lower its stated confidence is on weak problems than on strong ones (points)')
+    ax.set_ylabel('How much more it asks for help on weak problems (points)')
+    style(ax)
+    ax.grid(axis='y', color=GRID, linewidth=1)
+    handles = [plt.Line2D([], [], marker=marker[d], linestyle='', color=colour[d], markersize=9, label=lab)
+               for d, lab in [('gsm8k', 'GSM8K'), ('gsmhard', 'GSM-Hard'), ('trivia', 'TriviaQA')]]
+    ax.legend(handles=handles, loc='upper left', frameon=False, fontsize=10)
+    top = 1 - 0.3 / fig.get_figheight()
+    fig.suptitle('Where the stated confidence drops on weak problems, the help-asking follows',
+                 x=0.01, y=top, ha='left', fontsize=14, fontweight='bold')
+    fig.text(0.01, top - 0.42 / fig.get_figheight(),
+             'One point per model and task, baseline prompt, models with at least 10 weak problems.',
+             ha='left', va='top', color=INK2, fontsize=10)
+    fig.tight_layout(rect=(0, 0, 1, top - 0.55 / fig.get_figheight()))
+    fig.savefig(HERE / 'confidence-vs-asking.png', dpi=200, bbox_inches='tight')
+    plt.close(fig)
+
+
 model_chart('gsm8k', 'models-gsm8k.png',
             'Only some models ask for help more on the problems they are bad at',
             'Baseline prompt on GSM8K maths problems. 50 problems and 600 decisions per model. '
@@ -180,4 +264,6 @@ model_chart('gsmhard', 'models-gsmhard.png',
             'Gap = how much more it asks on weak problems than on strong ones.')
 condition_chart()
 penalty_chart()
+payoff_chart()
+scatter_chart()
 print('Created Probe Bench deferral charts.')
