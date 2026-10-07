@@ -1,0 +1,58 @@
+---
+title: "Thesis skeleton"
+description: "One page: what the thesis will claim, and the one thing each study must show. Revised monthly."
+date: 2026-10-07
+status: active
+---
+
+One page, revised monthly. This is the document the first-year review wants, and it
+is what tells each experiment what it is for. It grows out of
+[O2](o2-self-relevant-action.qmd).
+
+## The claim
+
+::: {.callout-important appearance="simple" icon=false}
+**Status: hypothesis, not yet defensible.** Kept here so every study has something
+to confirm or kill. If the studies kill half of it, the surviving half is the thesis.
+
+Self-relevant information guides action in current models wherever a confidence
+signal discriminates, but that signal arises from different narrow processes on
+different tasks, does not update from evidence about the self, and is not
+integrated into a single self-model.
+:::
+
+## Chapters as studies
+
+Each chapter is a study, and each study has one thing it must show.
+
+**Chapter 2: literature.** The [O2 review](o2-self-relevant-action.qmd), turned into
+prose. The chapter's argument is the dissociation already visible in the papers:
+situational self-knowledge is acted on, competence self-knowledge mostly is not.
+
+**Study 1: behavioural testbed.** The [deferral pilot](../03-experiments/probe-bench.qmd),
+cleaned. Must show: stated stakes do nothing, action follows the confidence drop,
+the monitor is the bottleneck, and two kinds of knowing may come apart.
+
+**Study 2: updateability.** Must show: whether the self-estimate tracks evidence
+about the self, and changes when the self changes.
+
+**Study 3: mechanism.** Probes. Must show: whether the behavioural "two kinds of
+knowing" has two internal signatures, and whether stated confidence is the internal
+signal or a degraded copy of it.
+
+**Study 4: integration.** The second clause of O2: integrated self-model or narrow
+process. Needs an agentic setting where the self-relevant facts are several
+(ability, tools, history, situation) and the test is whether the model combines
+them or keys on one. Code is the domain here.
+
+## Parked: the description problem
+
+A system that cannot change the terms it uses to describe itself cannot update its
+self-model beyond those terms. That is a possible reading of Study 2 results, and
+it could become the conceptual contribution that lifts the thesis above "ran four
+studies". Do not build on it until Study 2 has data.
+
+## Revision log
+
+- **7 October 2026.** First version. Claim written as a hypothesis; Study 1 is the
+  deferral pilot; Studies 2 to 4 are designs only.
