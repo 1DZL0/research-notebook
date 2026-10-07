@@ -235,7 +235,7 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
 
 ### Follow-up runs (6 October)
 
-Cheap runs after the first write-up, about $4.40 in total. Penalty 64 only from
+Cheap runs after the first write-up, about $4.70 in total. Penalty 64 only from
 here on, since the penalty does nothing and varying it spent three quarters of each
 run on a factor already shown to be flat.
 
@@ -407,7 +407,18 @@ working. One caution: the note makes the fact visible, so a confidence of 100 is
 the obvious reading of the prompt, not a feat of self-assessment. What the test
 shows is that the estimate follows a real capability change when the change is in
 front of it; whether it follows one it has to notice, and whether it falls back when
-the capability is withdrawn, is the block design with the passage removed, not run.
+the capability is withdrawn, is the block design with the passage removed, below.
+
+*The distractor.* Is it the note, or the fact in it? Same 100 questions, but each
+comes with another question's note. On the note-dependent questions Gemini's
+before-working confidence is 13 (no note 66, own note 100) and it asks 56% of the
+time (35%, 0%). So the passage result was genuinely about reading the fact: a note
+without it does the opposite. But look at the questions it knows anyway: with an
+irrelevant note in front of it, its confidence drops from 88 to 29 (-59, interval
+-69 to -49) and it asks 37% of the time instead of 13%, while still getting them
+right 90% of the time when it answers. A note about something else makes it doubt
+things it knows. The estimate is a reading of what is in front of it, up or down,
+more than a reading of what it knows.
 
 **The update loop.** O2's "updateable" clause, tested directly. Llama 8B, GSM8K,
 penalty 64. Ten blocks of ten problems (5 weak, 5 strong), each block run twice in
@@ -496,15 +507,12 @@ line, the calculator, and now the withdrawn note.
 
 ### Next
 
-1. **A distractor passage.** The note raised Gemini's confidence to 100 on the
-   questions it fixed. Does a note on a different fact, or a plausible wrong one,
-   raise it too? If so, the presence of a note is doing the work, not the fact.
-2. **Replicate the withdrawal** at about 20 conversations per arm, with a third phase
+1. **Replicate the withdrawal** at about 20 conversations per arm, with a third phase
    where the notes come back, to see whether the estimate follows the announcement
    up as well as down.
-3. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
+2. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state.
-4. **A harder task.** Repeat with a benchmark where strong models, including Claude
+3. **A harder task.** Repeat with a benchmark where strong models, including Claude
    and one frontier model, have plenty of weak problems.
 
 ## Appendix: prompts and code

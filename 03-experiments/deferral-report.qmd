@@ -109,7 +109,10 @@ Five manipulations say the same thing.
   capability: 34 of Gemini's 39 weak questions became strong. Its before-working
   confidence on exactly those went from 66 to 100 and its asking from 35% to 0%.
   The note puts the fact in front of it, so this is the estimate following a change
-  it can read.
+  it can read. A control note about a different fact does the opposite: confidence
+  13 on those questions, and 29 on questions it knows anyway (88 without a note),
+  while it still gets them right 90% of the time. The estimate reads what is in
+  front of it, up or down.
 - **Withdrawing the note.** Told the notes are gone, Gemini's estimate drops, and
   it drops on everything: confidence 42 and asking 67% on questions it still gets
   right every time, against 72 and 33% in a control that never had notes.
