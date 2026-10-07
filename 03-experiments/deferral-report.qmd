@@ -134,7 +134,7 @@ One more arm of the loop says where the fault sits. The outcome for the same pro
 was in the conversation from the previous round and Llama barely used it (+8; with no
 feedback at all, +7). Repeat that same outcome as one line above the decision
 and it uses it almost perfectly: asking on 80% of the problems it got wrong first
-time and 1% of the ones it got right (+79, interval +65 to +96). A control line
+time and 1% of the ones it got right (+79, interval +71 to +87). A control line
 giving another problem's outcome removes the aim again (-6), so it obeys the line
 rather than checking it. The information was there all along; the model does not
 fetch it from its own history. For O2 this moves the fault from "cannot update" to

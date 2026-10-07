@@ -43,7 +43,7 @@ detail is in the full record further down.
 | Do models act on their stated confidence? | all | In shape, yes: where confidence drops on weak problems, asking rises. In size, no: never enough for the cost. | Held, with a qualifier |
 | Do models know their weak problems? | all | Mostly no. Most say 95 or more on problems they usually fail. The small Llamas on maths and Gemini on facts are the exceptions. | Held |
 | Is Gemini's aim on facts its own knowledge, or what is hard for everyone? | Gemini vs Qwen3 30B, GPT-4o mini | Its own knowledge: +25 to +30 holding the other model's ability fixed; general difficulty adds about nothing. | Held |
-| Does rewording the prompt improve the aim? | Llama 8B, nine wordings | No. Volume moves from 9% to 78%; aim does not. | Did not |
+| Does rewording the prompt improve the aim? | Llama 8B, nine wordings | No. Asking on weak problems moves from 9% to 78%; aim does not. | Did not |
 | Two kinds of knowing: by trying, or beforehand? | Llama 8B, Gemini | Withdrawn. Without working Llama cannot do the problems at all; Gemini keeps its aim on maths without working. | Withdrawn |
 | Told its exact record ("right 2 times out of 10") | Llama 8B, Gemini, GPT-4o mini | Llama and Gemini use it, true or shuffled alike. GPT-4o mini ignores it. | Held: obeys the line |
 | A calculator, as a real change in capability | Llama 8B, Gemini | Changed nothing real. Llama's confidence rose 30 points anyway; Gemini's did not move. | Open: no capability change happened |
@@ -71,6 +71,14 @@ detail is in the full record further down.
 
 ![Llama 8B under nine versions of the prompt: the volume moves, the aim does not.](probe-bench-deferral/conditions-llama-8b.png)
 
+![Told its record: Llama 8B and Gemini use the line, true or shuffled alike; GPT-4o mini ignores it.](probe-bench-deferral/told-record.png)
+
+![What moved the stated confidence: real changes in what the model could do, and announcements that changed nothing, moved it alike.](probe-bench-deferral/what-moved.png)
+
+![Gemini's confidence as the notes are announced gone and then back: down and up as a block, on questions the notes never touched.](probe-bench-deferral/notes-gone-back.png)
+
+![Llama 8B in the update loop: the same outcome left in its history does nothing; repeated next to the decision, the aim appears.](probe-bench-deferral/loop-adjacent.png)
+
 ## Next
 
 1. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
@@ -80,7 +88,9 @@ detail is in the full record further down.
 
 ## Full record
 
-Every run, number and caveat, in the order they happened. Click a section to open it.
+Every run, number and caveat, in the order they happened. The first write-up is
+from the overnight run of 4 to 5 October 2026; the follow-ups ran on 6 and 7 October
+at penalty 64 only. Click a section to open it.
 
 ::: {.callout-note collapse="true" title="The question"}
 
@@ -189,8 +199,9 @@ of the time.
 One limit on what this rules out. The penalty was a number in the prompt; no model
 ever experienced a -64. So this kills the version of the incentive story where a
 model would ask if the stated payoff favoured it, which is the version the review
-set up. Whether felt consequences work is a different question, and it is the
-update loop under "Next".
+set up. Whether felt consequences work is a different question; the update loop
+(in the follow-ups below) fed the outcome and the running score back after every
+decision, and it changed how much the model asks, not which problems it asks on.
 
 :::
 
@@ -254,6 +265,11 @@ Held up:
   not on the number, and never with the cost in the loop. Llama 8B at 72 on its weak
   problems should ask every time at penalty 64 and asks a third of the time. That
   is Finding 2 seen from the other side.
+- **The self-estimate reads what is in front of it.** A record line, a note, a
+  calculator announcement, "notes are gone": each moved the stated confidence, true
+  or not, and in the same direction on everything. The same fact left in the model's
+  own history is not used; repeated next to the decision, it is (the follow-ups
+  below).
 
 ![One point per model and task. Across the board, the more a model's stated confidence drops on its weak problems, the more it asks for help on them.](probe-bench-deferral/confidence-vs-asking.png)
 
@@ -262,11 +278,9 @@ Not tested, so the page says nothing about them:
 - **Frontier models.** None was run.
 - **Mechanism.** Black-box only; whether a better signal sits inside the model than
   the one it states is the white-box step.
-- **Updating from feedback.** O2's second step; the update loop is not yet run. Two
-  related things were run: handing the model its own record moved Llama 8B's
-  decisions, whether the number was true or shuffled; an attempt to change its real
-  capability with a calculator did not change the capability, so that test is still
-  open.
+- **A capability change the model has to notice.** The calculator changed nothing
+  real, and the note puts the fact in the prompt, so no run yet shows an estimate
+  tracking a change it was not told about.
 - **Post-training.** No base model was run, so nothing here says whether any of this
   is a training product, and the size ladder cannot carry that claim.
 
@@ -274,6 +288,8 @@ Did not hold up:
 
 - **Stated stakes.** A 64 times bigger penalty in the prompt changes almost nothing.
 - **Prompt fixes.** None of the conditions improved the aim.
+- **Updating from feedback left in the history.** The outcome and running score fed
+  back after every decision changed the volume of asking, not the aim.
 
 :::
 
@@ -299,17 +315,13 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
 
 :::
 
-::: {.callout-note collapse="true" title="Follow-up runs (6 October)"}
+::: {.callout-note collapse="true" title="Follow-up: more problems, and the size ladder"}
 
-Cheap runs after the first write-up, about $4.90 in total. Penalty 64 only from
-here on, since the penalty does nothing and varying it spent three quarters of each
-run on a factor already shown to be flat.
+**Llama 8B on 100 GSM8K problems (50 weak), 300 decisions, penalty 64.** Asks on
+34% of weak problems and 13% of strong ones, gap +21 (+12 to +31). The fifth run with
+the gap between +21 and +29.
 
-**More problems, same answer.** Llama 8B on 100 GSM8K problems (50 weak) at penalty
-64: asks on 34% of weak problems and 13% of strong ones, gap +21 (+12 to +31). That is
-the fifth time the gap has come out between +21 and +29.
-
-**The size ladder on one benchmark.** All three Llamas on GSM-Hard, 25 weak problems each:
+**All three Llamas on GSM-Hard, 25 weak problems each:**
 
 | Llama size | Asks on weak | Asks on strong | Gap (95% interval) | Confidence, weak / strong |
 |---|---|---|---|---|
@@ -317,263 +329,161 @@ the fifth time the gap has come out between +21 and +29.
 | 8B | 44% | 18% | +25 (+12 to +39) | 61 / 79 |
 | 70B | 5% | 0% | +5 (0 to +13) | 94 / 99 |
 
-The small models ask and aim somewhat (3B is also timid: it asks on almost half of the
-problems it would get right). At 70B the asking and the confidence drop both nearly
-vanish, while it is right only 22% of the time when it answers its weak problems.
+Caveat: 3B is also timid (it asks on almost half of the problems it would get right).
+At 70B the asking and the confidence drop both nearly vanish, while it is right only
+22% of the time when it answers its weak problems.
 
-**Own weak spots, or problems everyone finds hard?** Two attempts to pull these apart.
+:::
 
-- *On GSM8K, a hint only.* Llama 8B on the 12 problems it fails but the other models
-  solve, against the 15 problems the others struggle with too: asks 32% against 41%.
-  That leans toward "it reads general difficulty", but the interval (-6 to +25) includes
-  zero and its stated confidence is the same on both (71 and 69).
-- *On TriviaQA, a real test.* Factual recall is idiosyncratic, so models fail on
-  different questions: Llama 8B's and Gemini Flash Lite's abilities correlate at +0.66
-  on 150 questions, against +0.87 on maths. Gemini aims its asking here more clearly
-  than anywhere else: 41% on weak questions against 10% on strong (+31, interval +20 to
-  +43), confidence 70 against 96. Within the questions Llama is weak on, Gemini asks
-  44% when it is weak itself and 13% when it is strong: its own knowledge matters more
-  than the question being hard for others. Llama 8B on trivia is a different story:
-  weak on 93 of 150 questions, asking a lot everywhere (55% against 44%, gap +11,
-  interval 0 to +24), with a confidence that does not move (59 against 62). On facts
-  its asking is not aimed.
+::: {.callout-note collapse="true" title="Follow-up: its own weak spots, or problems everyone finds hard?"}
 
-Against Llama the decisive cell, questions Gemini is weak on that Llama knows, holds
-only 5 questions, because Llama is weaker than Gemini almost everywhere. So two
-models of similar strength were calibrated on the same 150 questions, with no
-decisions run: GPT-4o mini and Qwen3 30B. Qwen3 30B knows a usefully different set
-(16 questions Gemini knows and Qwen does not, 8 the other way), and against it the
-answer is clear. Holding Qwen's ability fixed, Gemini asks 25 to 30 points more on
-its own weak questions (intervals +8 to +41 and +11 to +49). Holding its own ability
-fixed, the question being hard for Qwen adds 4 to 9 points (both intervals include
-zero). Against GPT-4o mini the same pattern: self-knowledge +19 to +31, difficulty
-+7 to +19 with the larger of those borderline. On facts, Gemini's help-asking tracks
-what it itself knows, with at most a small extra push from general difficulty.
+On maths the models fail the same problems (Llama 8B's ability per problem against
+the other models': +0.87), so the question needs facts, where they fail differently
+(+0.66 between Llama 8B and Gemini on 150 TriviaQA questions).
 
-A scoring note on trivia. TriviaQA's accepted answers miss some correct ones ("Ross
-Bagdasarian Sr." for "David Seville"). Every question where a model gave the same
-"wrong" answer in 6 or more of 10 solves was checked by hand: 23 questions, 11
-accepted as correct (5 of them because TriviaQA's own answer is wrong or the question
-is ambiguous, for example Jimmy Connors' 8 Grand Slam titles, not 10), 12 kept as
-wrong. The verdicts are recorded per question in `trivia_alias_review.json`, the
-accepted answers were added to the scorer, and every trivia number on this page is
-after that re-scoring. Consistent confident errors were kept as errors on purpose,
-since those are exactly the cases where self-knowledge should fail.
+- **Gemini Flash Lite, 150 TriviaQA questions.** Asks 41% on weak questions and 10% on
+  strong ones (+31, +20 to +43), confidence 70 against 96. The clearest aim anywhere
+  in these runs.
+- **Llama 8B, the same 150 questions.** Weak on 93 of them, asks a lot everywhere
+  (55% against 44%, +11, interval 0 to +24), confidence flat (59 against 62). Not aimed.
+- **Holding another model's ability fixed.** Two models of similar strength were
+  calibrated on the same 150 questions, Qwen3 30B and GPT-4o mini. Against Qwen the
+  decisive cells hold 16 and 8 questions. Holding Qwen's ability fixed, Gemini asks
+  25 to 30 points more on its own weak questions (+8 to +41 and +11 to +49). Holding
+  its own ability fixed, the question being hard for Qwen adds 4 to 9 points (both
+  intervals include zero). Against GPT-4o mini the same pattern: own knowledge +19 to
+  +31, difficulty +7 to +19, the larger of those borderline.
 
-**Does the model read its working, or itself? Checked, and withdrawn.** One more
-condition: no reasoning turn at all. The model gets the question and must give its
-confidence and decision at once, with no working. On the same 100 problems Llama 8B's
-gap fell from +22 to +5 and it asked for help on 96% of decisions, while Gemini's gap
-on trivia was unchanged (+31 with working, +34 without). That looked like two kinds of
-knowing: Llama finding out by trying, Gemini knowing beforehand.
+Caveat: the cells are small (8 to 16 questions), so this says "mostly its own
+knowledge", not "only". The earlier hint on GSM8K (Llama 8B asking 32% on the 12
+problems only it fails against 41% on the 15 everyone struggles with, interval -6 to
++25) was too small to say anything. The trivia scoring was hand-reviewed; see the
+methods notes.
 
-Two checks said otherwise.
+:::
 
-- *Ability measured without working.* Llama 8B solves 3% of these problems when it
-  cannot work them through (77 of the 100 at zero, none above 0.3). There is no strong
-  set left to aim at. Asking on 96% of them, at a confidence of 45 to 54, is the right
-  call in that regime, not lost self-knowledge. The test cannot be run on Llama on
-  maths, and the "finds out by trying" line is withdrawn.
-- *The crossover.* Gemini on its 50 GSM8K problems without working: its ability drops
-  (mean 0.75 to 0.27, 38 of 50 now weak), it asks far more (4% to 40%), and it keeps
-  its aim: +31 (+13 to +48) on the no-working split, against +16 with working. So
-  Gemini has a before-working sense of what it can do on maths as well as on facts.
+::: {.callout-note collapse="true" title="Follow-up: without working (withdrawn)"}
 
-What the no-working runs do show is a capability-change result. When working was
-taken away, both models' stated confidence fell: Llama 71 / 87 to 45 / 54 on its weak
-and strong problems, Gemini 88 / 100 to 71 / 90. The estimate moved with the loss of
-ability, in the right direction, and stayed far above the new ability (0.03 and 0.27).
+Confidence and decision at once, with no working. Llama 8B, 100 GSM8K problems (50
+weak), 300 decisions: gap +22 to +5, asks on 96%. Gemini, 100 TriviaQA questions:
++31 with working, +34 without. That looked like two kinds of knowing, and two checks
+withdrew it:
 
-**Told its own record.** The ceiling test for everything that follows: before each
-decision, one line states the model's real measured record on that exact question
-("in 10 earlier attempts, you were right 2 times out of 10"). That is near-perfect
-information, stronger than "problems like this one", so a model that ignores it has
-ignored the best self-knowledge it could be given. The control states a shuffled
-number from another question. If asking follows the shuffled number just as well,
-the model is obeying the line, not updating a self-estimate.
+- Llama 8B solves 3% of these problems without working (77 of 100 at zero, none
+  above 0.3). Asking on 96% of them at a confidence of 45 to 54 is the right call in
+  that regime; there is no strong set left to aim at.
+- Gemini on its 50 GSM8K problems without working: ability 0.75 to 0.27 (38 of 50 now
+  weak), asking 4% to 40%, and it keeps its aim: +31 (+13 to +48) on the no-working
+  split, against +16 with working.
 
-- *Llama 8B, 100 GSM8K problems, penalty 64.* Told the truth, its gap goes from +21
-  to +51 (+40 to +60): it asks on 56% of weak and 5% of strong problems. Told the
-  shuffled number, asking follows the number (correlation -0.49) but its own sense
-  persists underneath: split by real ability the gap is still +26 (+14 to +37), the
-  same as baseline. So it uses the line, about half by obeying it and half by
-  agreeing with it. Under the shuffled numbers two self-relevant inputs drive the
-  decision at once, the handed number and its own sense, added together and never
-  checked against each other. That is the first case in these runs of a model using
-  two facts about itself at the same time, which is what O2's second clause asks
-  about, and it does not reconcile them.
-- *GPT-4o mini, 50 GSM-Hard problems, penalty 64.* Told the truth: asks 3% of the
-  time, confidence 92. Told a shuffled number: 4%, confidence 92. Baseline: 4%. Being
-  handed its own failure rate changes nothing, so the update loop is deprioritised
-  for it.
-- *Gemini Flash Lite, 100 TriviaQA questions, penalty 64.* The one model with a
-  before-working monitor of its own. Told the truth, its gap goes from +31 to +53
-  (asks 58% on weak, 5% on strong). Told a shuffled number, its own monitor nearly
-  disappears: split by real ability the gap falls to +10 (interval -2 to +24), and
-  its asking follows the shuffled number (-0.63) far more than its real ability
-  (-0.28). Handed a number, true or not, it sets its own sense aside. Llama kept
-  about half of its own sense under the shuffled line; Gemini keeps much less.
+What survives: both models' confidence fell when the working was taken away (Llama
+71 / 87 to 45 / 54 on weak / strong problems, Gemini 88 / 100 to 71 / 90), the right
+direction, still far above the new ability (0.03 and 0.27). Those two drops are the
+first two rows of the "what moved" chart below.
 
-**A real change in what it can do: the calculator.** O2's clause in its purest form:
-change the model's actual capability and see whether its self-estimate follows. Llama
-8B on its 50 GSM-Hard problems, penalty 64, three arms, each with a confidence asked
-*before* any working so that reading its own trace cannot do the updating: no tool;
-a working calculator (it writes `CALC: 345 * 12`, the harness answers, it carries
-on); and a line saying a calculator used to be available and has been removed.
+:::
 
-- *The capability did not change.* With the calculator Llama 8B was right on 18% of
-  its weak problems and 61% of its strong ones when it answered, against 19% and 62%
-  without. Measured by repeated solves, not one problem moved from weak to strong.
-  It used the calculator about three times per problem and often could not stop
-  calling it (a cap closes it after eight calls); the arithmetic was never its
-  problem.
-- *The self-estimate changed anyway.* Before any working, its confidence on weak
-  problems went from 61 without the tool to 86 with it (+30 points, interval +15 to
-  +48, paired over problems), and its asking on them fell from 37% to 23%. On strong
-  problems, +6 points (interval includes zero).
-- *The "removed" arm says nothing.* As a standalone prompt it is the baseline plus
-  one sentence, so nothing moving (+3, interval -13 to +17) is what you would expect,
-  and it says nothing about forgetting a capability. A real removal is a block of
-  problems after a block with the tool, which is not run.
+::: {.callout-note collapse="true" title="Follow-up: told its own record"}
 
-The self-estimate moved on the announcement alone, with no change in what it could
-do. It updates, but on what it is told, not on what is true. That ties the three
-follow-ups together: no working, told its record, and the calculator all moved the
-estimate, and in all three the thing that moved it was in the prompt.
+![](probe-bench-deferral/told-record.png)
 
-*The same test on Gemini, which does not loop on the tool.* 50 GSM-Hard problems, 25
-weak, from a pool of 200. The capability still did not change: ability 0.49 without
-the calculator and 0.50 with it, 2 problems flipped from weak to strong, 18 of the
-25 weak problems stayed at zero. Looking at them, the failures are not arithmetic.
-On one, the answer is 322,886,700 and Gemini computes a number in the hundreds of
-trillions with or without the tool: it sets up the wrong calculation, and a
-calculator cannot fix that. Its before-working confidence behaved correctly for no
-change: 96 to 97 on weak problems, 99 to 98 on strong. So the two models differ in
-the right direction (Llama's estimate jumped 30 points on an announcement, Gemini's
-did not), but neither run produced a real change in capability, so whether an
-estimate tracks one is still untested. The lever has to be something that actually
-changes what the model can do: for trivia, handing it the relevant passage is the
-obvious one.
+One line before each decision states the model's real measured record on that exact
+question ("in 10 earlier attempts, you were right 2 times out of 10"); the control
+states another question's number. Penalty 64; 300 decisions per arm for Llama and
+Gemini, 150 for GPT-4o mini.
 
-**A capability change that is real: the passage.** For each of Gemini's 100 TriviaQA
-questions, GPT-4o mini wrote a two-sentence encyclopedia-style note that states the
-fact (the notes are in `passages_trivia.json`). With the note in the prompt, Gemini's
-measured ability goes from 0.60 to 0.94 and 34 of its 39 weak questions flip to
-strong. The 5 that stay at zero are scoring edge cases ("In 1912 in Stockholm" as the
-only accepted form). So this lever does what the calculator could not.
+| Model | Problems (weak) | Baseline gap | Told the truth | Told a shuffled number, gap by real ability |
+|---|---|---|---|---|
+| Llama 8B, GSM8K | 100 (50) | +21 (+12 to +31) | +51 (+41 to +60); asks 56% / 5% | +26 (+14 to +38) |
+| Gemini Flash Lite, TriviaQA | 100 (39) | +31 (+20 to +42) | +53 (+39 to +65); asks 58% / 5% | +10 (-3 to +23) |
+| GPT-4o mini, GSM-Hard | 50 (24) | +3 (-2 to +11) | +3 (0 to +10); asks 3%, confidence 92 | +4 (0 to +11) |
 
-- *On the 34 flipped questions,* Gemini's before-working confidence goes from 66
-  without the note to 100 with it (+34, interval +25 to +44, paired over questions),
-  its asking from 35% to 0%, and it is right 99% of the time when it answers.
-- *On the 61 questions it already knew,* confidence 88 to 100 (+12) and asking 13%
-  to 1%.
+Under the shuffled number, asking follows the handed number: correlation -0.49 for
+Llama, -0.63 for Gemini against -0.28 with its real ability.
 
-So here the self-estimate tracked a real change in what it could do, before any
-working. One caution: the note makes the fact visible, so a confidence of 100 is
-the obvious reading of the prompt, not a feat of self-assessment. What the test
-shows is that the estimate follows a real capability change when the change is in
-front of it; whether it follows one it has to notice, and whether it falls back when
-the capability is withdrawn, is the block design with the passage removed, below.
+Caveat: neither model checks the handed number against its own sense. Llama keeps
+about half of its own aim under a shuffled line (+26 by real ability, the same as
+baseline), Gemini keeps much less (+10), and GPT-4o mini ignores the line altogether,
+so the record line is not a lever for it.
 
-*The distractor.* Is it the note, or the fact in it? Same 100 questions, but each
-comes with another question's note. On the note-dependent questions Gemini's
-before-working confidence is 13 (no note 66, own note 100) and it asks 56% of the
-time (35%, 0%). So the passage result was genuinely about reading the fact: a note
-without it does the opposite. But look at the questions it knows anyway: with an
-irrelevant note in front of it, its confidence drops from 88 to 29 (-59, interval
--69 to -49) and it asks 37% of the time instead of 13%, while still getting them
-right 90% of the time when it answers. A note about something else makes it doubt
-things it knows. The estimate is a reading of what is in front of it, up or down,
-more than a reading of what it knows.
+:::
 
-**The update loop.** O2's "updateable" clause, tested directly. Llama 8B, GSM8K,
-penalty 64. Ten blocks of ten problems (5 weak, 5 strong), each block run twice in
-different orders, and within one conversation each block is answered three times
-over. After every decision the model is told only the outcome and its running score
-("Your answer was wrong: -64. Running score: -63.8."). The control feeds back the
-outcome of a different problem from the same round, so the volume of bad news is
-the same but it belongs to the wrong question. If the model learns which problems
-it fails, it should ask more on the ones it got wrong in round 1 than on the ones
-it got right, and more so with real feedback than with shuffled.
+::: {.callout-note collapse="true" title="Follow-up: changing what it can do (the calculator, the note, the distractor)"}
 
-- *Volume moved.* In this sequential format it barely asks at first (2% in round 1,
-  against 34% on the same problems standalone). By round 3, real feedback has it
-  asking on 22% of weak and 14% of strong problems with its confidence down from
-  86 / 92 to 70 / 82; shuffled feedback has it at 13% and 3%, confidence 83 / 91.
-  Real minus shuffled on asking overall: +10 (interval -2 to +20).
-- *Aim did not.* Asking on the problems it got wrong in round 1 minus the ones it
-  got right: +8 with real feedback (interval +1 to +16) and +6 with shuffled
-  (interval -2 to +14). Real minus shuffled: +2 (interval -9 to +13). The weak
-  against strong gap is the same in both arms too (+8 and +10 by round 3).
+![](probe-bench-deferral/what-moved.png)
 
-So feedback changed how much it asks and how sure it says it is, and real feedback
-did so more than scrambled feedback. It did not change which problems it asks on.
-That is the prediction from the record and calculator results, and it is the same
-pattern as the prompt conditions in Finding 3: volume, not aim.
+In these runs the confidence is stated before any working, so reading its own trace
+cannot do the updating. Changes are paired over problems, on weak problems unless
+stated.
 
-One reading of why. In the loop, the outcome for the exact same problem is in the
-conversation from the previous round, and Llama barely uses it (+2 over shuffled).
-In the told-record run the same information was one line above the decision, and it
-used it hard (+51). Same fact, same model: adjacent, it acts; in its history, it does
-not. That points at retrieval from its own history, not updating, and it fits
-show_history, where its own past attempts above the question degraded the monitor
-rather than sharpening it. The check: in the loop, repeat the round-1 outcome as an
-adjacent line at decision time ("Last time on this exact question you were wrong").
-If the gap reappears, the failure is retrieval.
+- **A calculator, GSM-Hard, 50 problems (25 weak), 150 decisions per arm.** Llama 8B:
+  no change in capability (right on 18% / 61% of weak / strong problems when it
+  answered with the tool, 19% / 62% without; no problem flipped from weak to strong),
+  yet its before-working confidence on weak problems went 61 to 86 (+30, +15 to +46)
+  and its asking 37% to 23%. Gemini: ability 0.49 to 0.50, 2 flips, confidence 96 to
+  97 (+1, -2 to +6).
+- **A reference note holding the fact, TriviaQA, 100 questions (39 weak), 300
+  decisions per arm.** Gemini's ability 0.60 to 0.94; 34 of its 39 weak questions
+  flip to strong (the 5 that stay at zero are scoring edge cases). On the 34,
+  confidence 66 to 100 (+34, +25 to +45), asking 35% to 0%, right 99% of the time when
+  it answers. On the 61 it already knew, 88 to 100 and asking 13% to 1%.
+- **A note about a different fact, the same 100 questions.** On the note-dependent
+  questions confidence 13 (no note 66, own note 100) and asking 56%. On the questions
+  it knows anyway, 88 to 29 (-59, -69 to -50) and asking 13% to 37%, while still right
+  90% of the time when it answers.
 
-**It is retrieval.** Three more arms of the same loop, 20 conversations each.
+Caveat: the one lever that changed capability, the note, also puts the fact in front
+of the model, so a confidence of 100 is a reading of the prompt, not a feat of
+self-assessment. The calculator changed nothing real for either model, so whether an
+estimate tracks a capability change it has to notice is still untested; why the
+calculator cannot be the lever is in the methods notes.
+
+:::
+
+::: {.callout-note collapse="true" title="Follow-up: the update loop, and the retrieval check"}
+
+![](probe-bench-deferral/loop-adjacent.png)
+
+Llama 8B, GSM8K, penalty 64. Ten blocks of ten problems (5 weak, 5 strong), each
+block run in two orders, each conversation answering its ten problems three times
+over: 20 conversations and 600 decisions per arm. After every decision the model is
+told the outcome and its running score ("Your answer was wrong: -64. Running score:
+-63.8."). The aim is asking in round 3 on the problems it got wrong in round 1 minus
+the ones it got right.
 
 | Arm | Asks on round-1 wrong | Asks on round-1 right | Gap (95% interval) |
 |---|---|---|---|
-| Real feedback in the history only | 22% | 14% | +8 (+1 to +16) |
-| Shuffled feedback in the history | 11% | 4% | +6 (-2 to +14) |
-| No feedback at all | 8% | 1% | +7 (0 to +12) |
-| Round-1 outcome repeated adjacent at decision time | 80% | 1% | +79 (+65 to +96) |
-| Another problem's outcome adjacent (control) | 37% | 44% | -6 (-18 to +5) |
+| Real feedback, left in the history | 22% | 14% | +8 (-1 to +17) |
+| Another problem's feedback, left in the history | 11% | 4% | +6 (-1 to +13) |
+| No feedback at all | 8% | 1% | +7 (+2 to +12) |
+| Its round-1 outcome repeated one line above the decision | 80% | 1% | +79 (+71 to +87) |
+| Another problem's outcome one line above the decision | 37% | 44% | -6 (-18 to +5) |
 
-Round 3 in each case. With its own outcome one line above the decision, Llama 8B
-asks on 80% of the problems it got wrong first time and 1% of the ones it got right,
-and is right 83% of the time when it answers. The same outcome in the conversation
-history, a few hundred tokens back, does nothing beyond what repetition alone does
-(+8 with real feedback, +7 with none). Adjacent minus history: +71 (interval +59
-to +84). The control shows it obeys the adjacent line whether or not it is true: a
-random "you were wrong" lifts asking to about 40% on everything and the aim goes.
+Volume moved: in this sequential format it asks on 2% in round 1 (34% on the same
+problems standalone); by round 3 real feedback has it at 22% / 14% on weak / strong
+problems with confidence down from 86 / 92 to 70 / 82, shuffled feedback at 13% / 3%
+and 83 / 91. Aim did not: real minus shuffled on the gap, +2 (-9 to +13). With its
+own outcome one line above the decision it asks on 80% of the problems it got wrong
+first time and 1% of the ones it got right, and is right 83% of the time when it
+answers; adjacent minus history, +71 (+59 to +84).
 
-So the information was there all along; the model does not fetch it from its own
-history. That is also why show_history hurt: its past attempts above the question
-were there to read, and it read them as noise. For O2 this moves the fault from
-"cannot update" to "does not retrieve": the estimate updates question by question
-when the relevant fact is adjacent, and only then.
+Caveat: it obeys the adjacent line whether or not it is true. Another problem's
+outcome lifts asking to about 40% on everything and the aim goes. So the result is
+about retrieval, not judgement: the fact was in its history all along and it does not
+fetch it; put next to the decision, it is used. That is also why show_history hurt in
+Finding 3.
 
-**Withdrawing the capability.** The passage test run as two phases in one
-conversation. Phase 1: ten questions with reference notes (5 Gemini only knows with
-the note, 5 it knows anyway). Phase 2: "Reference notes are no longer available",
-then ten new questions of the same two kinds. Because the phase-1 notes stay in the
-conversation, phase 2 has to use new questions; the test is whether Gemini's
-estimate for a fresh question drops back once the notes are gone, against a control
-that never had notes. Six conversations per arm. Before each question it states a
-confidence, then works, then decides.
+:::
 
-- *Phase 1 with notes:* confidence 100 and asking 0% on every question, against 62
-  and 57% in the control on the note-dependent ones (+38 points of confidence,
-  interval +28 to +48).
-- *Phase 2, notes gone:* the estimate falls back, and overshoots. On note-dependent
-  questions its confidence is 36 against the control's 57, and it asks 67% against
-  43%. On the questions it knows anyway it does the same: confidence 42 against 72,
-  asking 67% against 33%, while still getting them right 100% of the time when it
-  answers. The intervals are wide with six conversations (confidence -21, interval
-  -50 to +9; asking +23, interval -13 to +57), but the pattern is in every pair.
+::: {.callout-note collapse="true" title="Follow-up: notes withdrawn, then restored"}
 
-So the estimate is not sticky: told the capability is gone, it drops. But it drops
-on everything, including questions the notes never touched, and the weak-against-
-strong aim that the control keeps (57 vs 72, 43% vs 33%) is gone in the withdraw arm
-(36 vs 42, 67% vs 67%). The announcement moved the estimate; what it could still do
-did not. That is the fourth time the same thing has shown up: no working, the record
-line, the calculator, and now the withdrawn note.
+![](probe-bench-deferral/notes-gone-back.png)
 
-*Replicated at power, with the notes coming back.* 16 conversations per arm, three
-phases of ten fresh questions each: notes, "notes are no longer available", "notes
-are available again". Against a control with no notes in any phase:
+Gemini, TriviaQA, penalty 64, confidence stated before working. Three phases of ten
+fresh questions in one conversation (5 it only knows with the note, 5 it knows
+anyway): notes, "Reference notes are no longer available", "Reference notes are
+available again". The control has no notes in any phase. 16 conversations and 480
+decisions per arm.
 
 | Phase | Notes | Confidence, note-dependent | Confidence, known anyway | Asks, note-dependent | Asks, known anyway |
 |---|---|---|---|---|---|
@@ -581,12 +491,60 @@ are available again". Against a control with no notes in any phase:
 | 2 | gone | 36 (control 65) | 47 (control 75) | 65% (50%) | 48% (31%) |
 | 3 | back | 100 (control 64) | 100 (control 77) | 0% (52%) | 0% (24%) |
 
-Phase 2 against the control: confidence -28 (interval -44 to -11) on both kinds of
-question. The estimate follows the announcement down and straight back up, as a
-block. On the questions it knows anyway it sits at 47 in phase 2 while answering
-them correctly 98% of the time, and asks for help on half of them. Nothing in the
-model's own knowledge of those questions changed between phases; only the
-announcement did.
+Phase 2 against the control: confidence -28 (-44 to -11) on both kinds of question.
+On the questions it knows anyway it sits at 47 while answering them correctly 98% of
+the time, and asks for help on half of them. Phase 3: back to 100 and 0% on
+everything. A two-phase pilot at 6 conversations per arm showed the same (phase 2:
+36 / 42 against the control's 57 / 72, asking 67% / 67% against 43% / 33%) with
+intervals too wide to settle it (-21, -50 to +9); the replication settled it.
+
+Caveat: the estimate is not sticky, it drops when told the notes are gone, but it
+drops as a block, on questions the notes never touched, and the weak-against-strong
+aim the control keeps is gone in the treated arm. The announcement moved it; what it
+could still do did not.
+
+:::
+
+::: {.callout-note collapse="true" title="Methods notes"}
+
+- **Penalty 64 only** from the follow-ups on: the penalty does nothing (Finding 2),
+  and varying it spent three quarters of each run on a flat factor.
+- **Sizes.** 50 to 100 problems with 25 to 50 weak, 3 decisions per problem per
+  condition. Intervals are 95% bootstrap intervals over problems, or over
+  conversations in the loop and withdrawal runs. Anything under about ten points is
+  invisible at these sizes.
+- **Before-working confidence.** In the calculator, note, distractor and withdrawal
+  runs the model states a confidence before any working, so the updating cannot come
+  from reading its own trace.
+- **The record line is a ceiling test.** The real record on that exact question is the
+  best self-knowledge a model could be handed, so one that ignores it has ignored the
+  best there is. The shuffled control separates obeying the line from agreeing with
+  it: if asking follows a shuffled number as well, the model is obeying the line.
+- **Why the calculator cannot be the lever.** Arithmetic was never either model's
+  problem. Llama 8B used the tool about three times per problem and often could not
+  stop (a cap closes it after eight calls); its accuracy did not move. Gemini's
+  GSM-Hard failures are set-up errors: on one problem the answer is 322,886,700 and it
+  computes a number in the hundreds of trillions with or without the tool. A lever has
+  to change what the model can do, which on facts the note does. The standalone
+  "calculator removed" arm is the baseline plus one sentence (+3, -13 to +17) and says
+  nothing about forgetting a capability; a real removal is the block design, which is
+  the withdrawal run.
+- **Fresh questions in every phase of the withdrawal**, because the phase-1 notes stay
+  in the conversation. The test is whether the estimate for a new question drops once
+  the notes are announced gone.
+- **The retrieval reading.** In the loop, the outcome for the exact same problem is in
+  the conversation from the previous round; in the told-record run the same
+  information was one line above the decision. Same fact, same model, so the check was
+  to repeat the round-1 outcome next to the decision.
+- **TriviaQA scoring.** TriviaQA's accepted answers miss some correct ones ("Ross
+  Bagdasarian Sr." for "David Seville"). Every question where a model gave the same
+  "wrong" answer in 6 or more of 10 solves was checked by hand: 23 questions, 11
+  accepted as correct (5 because TriviaQA's own answer is wrong or the question is
+  ambiguous, for example Jimmy Connors' 8 Grand Slam titles, not 10), 12 kept as
+  wrong. The verdicts are in `trivia_alias_review.json`; every trivia number on this
+  page is after the re-scoring. Consistent confident errors were kept as errors on
+  purpose, since those are exactly where self-knowledge should fail.
+- **Cost.** The follow-ups came to about $4.90 on top of the $5.89 overnight run.
 
 :::
 
