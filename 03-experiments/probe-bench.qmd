@@ -27,14 +27,69 @@ condition changes exactly one thing. Predictions written before running.
 on low-ability problems rises while deferral on high-ability problems stays near zero. A
 condition that raises both has made the model timid, not self-aware.
 
-## Experiment 1: results
+## Experiment 1: outcomes
 
-### The question
+Each model solved each problem ten times with no stakes. Problems it got right under
+half the time are its **weak problems**; the rest are **strong**. It then saw the
+same problems with a choice: answer (+1 right, minus the penalty wrong) or ask for
+help (-0.2). It worked the problem, then gave a confidence and a decision. The number
+to watch is how much more it asks on weak problems than on strong ones. One line per
+test below; the argument is in the [report](deferral-report.qmd), the run-by-run
+detail is in the full record further down.
+
+| What we tested | On | What happened | Verdict |
+|---|---|---|---|
+| Does a bigger penalty make a model ask more? | 7 models | No. Penalty 1 to 64, asking unchanged. Every model would have scored better by always asking. | Held |
+| Do models act on their stated confidence? | all | In shape, yes: where confidence drops on weak problems, asking rises. In size, no: never enough for the cost. | Held, with a qualifier |
+| Do models know their weak problems? | all | Mostly no. Most say 95 or more on problems they usually fail. The small Llamas on maths and Gemini on facts are the exceptions. | Held |
+| Is Gemini's aim on facts its own knowledge, or what is hard for everyone? | Gemini vs Qwen3 30B, GPT-4o mini | Its own knowledge: +25 to +30 holding the other model's ability fixed; general difficulty adds about nothing. | Held |
+| Does rewording the prompt improve the aim? | Llama 8B, nine wordings | No. Volume moves from 9% to 78%; aim does not. | Did not |
+| Two kinds of knowing: by trying, or beforehand? | Llama 8B, Gemini | Withdrawn. Without working Llama cannot do the problems at all; Gemini keeps its aim on maths without working. | Withdrawn |
+| Told its exact record ("right 2 times out of 10") | Llama 8B, Gemini, GPT-4o mini | Llama and Gemini use it, true or shuffled alike. GPT-4o mini ignores it. | Held: obeys the line |
+| A calculator, as a real change in capability | Llama 8B, Gemini | Changed nothing real. Llama's confidence rose 30 points anyway; Gemini's did not move. | Open: no capability change happened |
+| A reference note holding the fact | Gemini | 34 of 39 weak questions fixed; confidence 66 to 100 on exactly those, asking 35% to 0%. | Held: follows a change it can read |
+| A note about a different fact | Gemini | Confidence falls to 13 on weak questions, and to 29 on questions it knows (still 90% right). | Held: reads what is in front of it |
+| Notes withdrawn, then restored | Gemini, 16 conversations per arm | Down to 47 on questions it knows (control 75), straight back to 100 when the notes return. Moves as a block, on the announcement. | Held |
+| Outcome and score fed back after each decision | Llama 8B | Volume changes; aim does not (+8, against +6 with scrambled feedback and +7 with none). | Did not |
+| The same outcome repeated next to the decision | Llama 8B | Aim appears at once: asks on 80% of problems it got wrong before, 1% of those it got right (+79). In the history, nothing. | Held: the fault is retrieval |
+
+### What it adds up to
+
+- Stated stakes do nothing, and the acting side is fine. What fails is the
+  knowing: most models state a confidence that does not move.
+- Where the confidence does move (small Llamas on maths, Gemini on facts), the
+  model acts on it, and Gemini's is its own knowledge.
+- The self-estimate reads what is in front of it, up or down, true or not: a record
+  line, a note, an announcement. It does not fetch the same facts from its own
+  history, which is where "cannot update" turns out to mean "does not retrieve".
+- Not tested: frontier models, mechanism, post-training, and anything under about
+  ten points.
+
+![How often each model asks for help on weak and strong problems, and the confidence it states.](probe-bench-deferral/models-gsm8k.png)
+
+![One point per model and task: the more the stated confidence drops on weak problems, the more the model asks.](probe-bench-deferral/confidence-vs-asking.png)
+
+![Llama 8B under nine versions of the prompt: the volume moves, the aim does not.](probe-bench-deferral/conditions-llama-8b.png)
+
+## Next
+
+1. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
+   signal and compare it with the confidence they state. Needs a GPU.
+2. **A harder task.** Repeat with a benchmark where strong models, including Claude
+   and one frontier model, have plenty of weak problems.
+
+## Full record
+
+Every run, number and caveat, in the order they happened. Click a section to open it.
+
+::: {.callout-note collapse="true" title="The question"}
 
 When a model is bad at a problem, does it know, and does it act on that by asking
 for help instead of answering?
 
-### What we did
+:::
+
+::: {.callout-note collapse="true" title="What we did"}
 
 ```{mermaid}
 flowchart LR
@@ -52,7 +107,9 @@ Each run uses 50 problems (up to 25 of them weak) and 600 decisions. The interva
 are 95% bootstrap intervals over problems. If an interval includes zero, we cannot
 claim a difference.
 
-### Finding 1: on maths, only the small Llama models clearly aim their help-asking
+:::
+
+::: {.callout-note collapse="true" title="Finding 1: on maths, only the small Llama models clearly aim their help-asking"}
 
 ![Left: how often each model asks for help on weak and strong problems. Right: the confidence it states. Grey rows had too few weak problems to judge.](probe-bench-deferral/models-gsm8k.png)
 
@@ -101,7 +158,9 @@ on its weak problems (1% right) and still says 97.
 | GPT-4o mini | GSM-Hard | 24 | 5% | 1% | +3 (-2 to +11) | 95 / 98 |
 | Gemini 2.5 Flash Lite | GSM-Hard | 12 | 3% | 1% | +2 (-1 to +6) | 97 / 99 |
 
-### Finding 2: a bigger penalty does not make models ask more
+:::
+
+::: {.callout-note collapse="true" title="Finding 2: a bigger penalty does not make models ask more"}
 
 ![How often each model asks for help on its weak problems at the smallest penalty (light circle) and the largest (dark diamond).](probe-bench-deferral/penalty-effect.png)
 
@@ -133,7 +192,9 @@ model would ask if the stated payoff favoured it, which is the version the revie
 set up. Whether felt consequences work is a different question, and it is the
 update loop under "Next".
 
-### Finding 3: changing the prompt changes how much it asks, not how well it aims
+:::
+
+::: {.callout-note collapse="true" title="Finding 3: changing the prompt changes how much it asks, not how well it aims"}
 
 ![Llama 8B under nine versions of the prompt. Each row changes one thing.](probe-bench-deferral/conditions-llama-8b.png)
 
@@ -175,7 +236,9 @@ Two more checks on other models:
   at baseline, with strong problems still at 1%. This is the only case that fits
   what we said would count as a result, but it is small and rests on 14 weak problems.
 
-### What held up and what did not
+:::
+
+::: {.callout-note collapse="true" title="What held up and what did not"}
 
 Held up:
 
@@ -212,7 +275,9 @@ Did not hold up:
 - **Stated stakes.** A 64 times bigger penalty in the prompt changes almost nothing.
 - **Prompt fixes.** None of the conditions improved the aim.
 
-### What this shows against the papers
+:::
+
+::: {.callout-note collapse="true" title="What this shows against the papers"}
 
 Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-action.qmd).
 
@@ -232,8 +297,9 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
   Removing the test framing ("a customer is waiting") made Llama 8B ask less, not
   more.
 
+:::
 
-### Follow-up runs (6 October)
+::: {.callout-note collapse="true" title="Follow-up runs (6 October)"}
 
 Cheap runs after the first write-up, about $4.90 in total. Penalty 64 only from
 here on, since the penalty does nothing and varying it spent three quarters of each
@@ -522,12 +588,7 @@ them correctly 98% of the time, and asks for help on half of them. Nothing in th
 model's own knowledge of those questions changed between phases; only the
 announcement did.
 
-### Next
-
-1. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
-   signal and compare it with the confidence they state.
-2. **A harder task.** Repeat with a benchmark where strong models, including Claude
-   and one frontier model, have plenty of weak problems.
+:::
 
 ## Appendix: prompts and code
 
