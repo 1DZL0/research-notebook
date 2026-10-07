@@ -13,8 +13,8 @@ decisions. Whether this depends on an integrated situational self-model or on na
 processes is an important question that can be addressed; the objective does not presume
 consciousness or a human-like self.
 
-The thesis built on this objective lives in the [thesis skeleton](thesis-skeleton.qmd):
-one page, the claim and the four studies, revised monthly.
+The running answer to "what is the thesis about" lives in
+[Where this is going](thesis-skeleton.qmd): one page, revised monthly.
 :::
 :::
 

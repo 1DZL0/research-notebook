@@ -1,58 +1,75 @@
 ---
-title: "Thesis skeleton"
-description: "One page: what the thesis will claim, and the one thing each study must show. Revised monthly."
+title: "Where this is going"
+description: "One page on what I think is true so far, what I am testing, and what comes next if it holds. Revised monthly."
 date: 2026-10-07
 status: active
 ---
 
-One page, revised monthly. This is the document the first-year review wants, and it
-is what tells each experiment what it is for. It grows out of
-[O2](o2-self-relevant-action.qmd).
+This page is the running answer to "what is the thesis about". It grows out of [O2](o2-self-relevant-action.qmd).
 
-## The claim
+## The question
 
-::: {.callout-important appearance="simple" icon=false}
-**Status: hypothesis, not yet defensible.** Kept here so every study has something
-to confirm or kill. If the studies kill half of it, the surviving half is the thesis.
+A model has information about itself: what it knows, how sure it is, what it can
+and cannot do, what it did before. When does that information become a guide to
+what it does next, and does it update when the facts change? Does acting on it
+need one joined-up picture of the self, or just a few narrow signals?
 
-Self-relevant information guides action in current models wherever a confidence
-signal discriminates, but that signal arises from different narrow processes on
-different tasks, does not update from evidence about the self, and is not
-integrated into a single self-model.
-:::
+## What I think is true so far
 
-## Chapters as studies
+Each line says what supports it and what would kill it. None is settled.
 
-Each chapter is a study, and each study has one thing it must show.
+1. **Telling a model the stakes does nothing.** A wrong answer 64 times more
+   costly, seven models, no change. *Supported by:* the pilot. *Killed by:*
+   a model that moves once consequences are felt rather than stated; the
+   feedback loop would show this.
 
-**Chapter 2: literature.** The [O2 review](o2-self-relevant-action.qmd), turned into
-prose. The chapter's argument is the dissociation already visible in the papers:
-situational self-knowledge is acted on, competence self-knowledge mostly is not.
+2. **Models act on their confidence; the confidence is what fails.** Where stated
+   confidence drops on weak problems, asking follows; where it stays at 95,
+   nothing happens. *Supported by:* the scatter across thirteen model-task cells.
+   *Killed by:* a model whose confidence drops and whose asking does not.
 
-**Study 1: behavioural testbed.** The [deferral pilot](../03-experiments/probe-bench.qmd),
-cleaned. Must show: stated stakes do nothing, action follows the confidence drop,
-the monitor is the bottleneck, and two kinds of knowing may come apart.
+3. **There may be two kinds of knowing.** A small Llama knows it will fail on maths
+   only after trying; Gemini knows what it knows on facts before trying.
+   *Supported by:* the no-working runs. *Killed by:* the recalibration or the
+   crossover run (both queued).
 
-**Study 2: updateability.** Must show: whether the self-estimate tracks evidence
-about the self, and changes when the self changes.
+4. **No model has yet shown it can update its estimate of itself.** *Supported
+   by:* nothing yet; untested. This is the gap the next study fills.
 
-**Study 3: mechanism.** Probes. Must show: whether the behavioural "two kinds of
-knowing" has two internal signatures, and whether stated confidence is the internal
-signal or a degraded copy of it.
+## What I am testing now
 
-**Study 4: integration.** The second clause of O2: integrated self-model or narrow
-process. Needs an agentic setting where the self-relevant facts are several
-(ability, tools, history, situation) and the test is whether the model combines
-them or keys on one. Code is the domain here.
+The deferral pilot and its two open checks: recalibrate Llama 8B without working,
+run Gemini on maths without working. These decide whether line 3 survives. Then
+the pilot gets written up as a short report, open questions marked as open.
 
-## Parked: the description problem
+## What comes next, if it holds
 
-A system that cannot change the terms it uses to describe itself cannot update its
-self-model beyond those terms. That is a possible reading of Study 2 results, and
-it could become the conceptual contribution that lifts the thesis above "ran four
-studies". Do not build on it until Study 2 has data.
+Three directions, in order. Each becomes a study only when the one before it has
+given it a reason to exist.
 
-## Revision log
+- **Updating.** Hand the model its own failure rate; then make it learn that rate
+  from outcomes; then change its real ability with a tool and see whether the
+  estimate follows. Answers line 4.
+- **Inside the model.** Probe for an internal "I will get this wrong" signal and
+  compare it with what the model says. Answers whether line 2's bottleneck is the
+  signal or the report of it, and whether line 3's two kinds of knowing look
+  different inside.
+- **More than one fact at once.** An agentic setting, code, where ability, tools,
+  history and situation all matter. Tests whether the model combines them or keys
+  on one. This is the second clause of O2 and the last thing to build.
 
-- **7 October 2026.** First version. Claim written as a hypothesis; Study 1 is the
-  deferral pilot; Studies 2 to 4 are designs only.
+## What I am not claiming
+
+Anything about frontier models, anything about mechanism, anything about training,
+and nothing smaller than about ten points. The pilot is a pilot.
+
+## Parked
+
+The description problem: a system that cannot change the terms it describes itself
+in cannot update past those terms. Possibly a reading of the updating study. Not
+touched until that study has data.
+
+## Log
+
+- **7 October 2026.** First version. Four lines, one supported, two partly, one
+  untested.
