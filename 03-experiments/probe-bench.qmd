@@ -235,7 +235,7 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
 
 ### Follow-up runs (6 October)
 
-Cheap runs after the first write-up, about $2.60 in total. Penalty 64 only from
+Cheap runs after the first write-up, about $3.30 in total. Penalty 64 only from
 here on, since the penalty does nothing and varying it spent three quarters of each
 run on a factor already shown to be flat.
 
@@ -389,22 +389,60 @@ estimate tracks one is still untested. The lever has to be something that actual
 changes what the model can do: for trivia, handing it the relevant passage is the
 obvious one.
 
+**A capability change that is real: the passage.** For each of Gemini's 100 TriviaQA
+questions, GPT-4o mini wrote a two-sentence encyclopedia-style note that states the
+fact (the notes are in `passages_trivia.json`). With the note in the prompt, Gemini's
+measured ability goes from 0.60 to 0.94 and 34 of its 39 weak questions flip to
+strong. The 5 that stay at zero are scoring edge cases ("In 1912 in Stockholm" as the
+only accepted form). So this lever does what the calculator could not.
+
+- *On the 34 flipped questions,* Gemini's before-working confidence goes from 66
+  without the note to 100 with it (+34, interval +25 to +44, paired over questions),
+  its asking from 35% to 0%, and it is right 99% of the time when it answers.
+- *On the 61 questions it already knew,* confidence 88 to 100 (+12) and asking 13%
+  to 1%.
+
+So here the self-estimate tracked a real change in what it could do, before any
+working. One caution: the note makes the fact visible, so a confidence of 100 is
+the obvious reading of the prompt, not a feat of self-assessment. What the test
+shows is that the estimate follows a real capability change when the change is in
+front of it; whether it follows one it has to notice, and whether it falls back when
+the capability is withdrawn, is the block design with the passage removed, not run.
+
+**The update loop.** O2's "updateable" clause, tested directly. Llama 8B, GSM8K,
+penalty 64. Ten blocks of ten problems (5 weak, 5 strong), each block run twice in
+different orders, and within one conversation each block is answered three times
+over. After every decision the model is told only the outcome and its running score
+("Your answer was wrong: -64. Running score: -63.8."). The control feeds back the
+outcome of a different problem from the same round, so the volume of bad news is
+the same but it belongs to the wrong question. If the model learns which problems
+it fails, it should ask more on the ones it got wrong in round 1 than on the ones
+it got right, and more so with real feedback than with shuffled.
+
+- *Volume moved.* In this sequential format it barely asks at first (2% in round 1,
+  against 34% on the same problems standalone). By round 3, real feedback has it
+  asking on 22% of weak and 14% of strong problems with its confidence down from
+  86 / 92 to 70 / 82; shuffled feedback has it at 13% and 3%, confidence 83 / 91.
+  Real minus shuffled on asking overall: +10 (interval -2 to +20).
+- *Aim did not.* Asking on the problems it got wrong in round 1 minus the ones it
+  got right: +8 with real feedback (interval +1 to +16) and +6 with shuffled
+  (interval -2 to +14). Real minus shuffled: +2 (interval -9 to +13). The weak
+  against strong gap is the same in both arms too (+8 and +10 by round 3).
+
+So feedback changed how much it asks and how sure it says it is, and real feedback
+did so more than scrambled feedback. It did not change which problems it asks on.
+That is the prediction from the record and calculator results, and it is the same
+pattern as the prompt conditions in Finding 3: volume, not aim.
+
 ### Next
 
-1. **A capability change that is real.** The calculator did not change what either
-   model could do on GSM-Hard, because those failures are not arithmetic. Use a
-   lever that must work: on TriviaQA, hand the model the relevant passage (ability
-   goes to near 1 on questions it knew nothing about), with a before-working
-   confidence and the same arms. Then the removal as a block after a block with
-   the passage.
-2. **The update loop, on Llama 8B.** Blocks of 10 problems, repeated, with only the
-   outcome and score fed back after each; a shuffled-feedback control. Does asking
-   on the problems it got wrong rise more than on the ones it got right? This is the
-   "update" step of O2 and is not yet tested here. The prediction from the
-   follow-ups is that feedback changes volume, not aim.
-3. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
+1. **Withdraw the passage.** A block of questions with the note, then the same
+   block without it, in one conversation. The estimate should fall back on exactly
+   the questions that flipped. That is the first test where the capability change
+   is one the model has to notice rather than read.
+2. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state.
-4. **A harder task.** Repeat with a benchmark where strong models, including Claude
+3. **A harder task.** Repeat with a benchmark where strong models, including Claude
    and one frontier model, have plenty of weak problems.
 
 ## Appendix: prompts and code

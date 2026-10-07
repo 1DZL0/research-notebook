@@ -78,22 +78,31 @@ Each line: what the papers found, what I found, what differs, and push backs to 
   its gap by real ability falls from +31 to +10 and its asking follows the handed
   number. With the calculator Gemini's capability did not change either (its
   GSM-Hard failures are set-up errors, not arithmetic) and its estimate correctly
-  stayed put. So: the estimate moves on what it is told about itself; whether it
-  tracks a real change in what it can do is still untested, because no run has yet
-  produced one. Under the shuffled record both models add the handed number to
+  stayed put. The one real capability change so far is a reference note holding the
+  fact on TriviaQA: 34 of Gemini's 39 weak questions flip to strong, its
+  before-working confidence on them goes 66 to 100 and its asking 35% to 0%. So the
+  estimate does follow a real change when the change is in front of it; whether it
+  follows one it has to notice, or falls back when the capability is withdrawn, is
+  not yet run. Under the shuffled record both models add the handed number to
   their own sense without checking one against the other: two self-relevant facts
   in play at once, not reconciled.
-- *Counterfact:* a before-working confidence that rises only on the problems a tool
-  really fixes, or an aim that sharpens with outcome feedback on repeated problems
-  (the update loop, not yet run; my prediction is volume, not aim).
+- *Update loop, run:* Llama 8B answering the same ten problems three times over
+  with the outcome and running score fed back after each. Real feedback makes it
+  ask more and state less confidence than shuffled feedback does, but its aim is no
+  better: asking on the problems it got wrong first time minus the ones it got
+  right is +8 with real feedback and +6 with shuffled. Feedback changed the volume,
+  not the aim, as predicted.
+- *Counterfact:* a before-working confidence that falls back on exactly the
+  questions that lose a capability (the passage withdrawn in a block design, not
+  yet run), or an aim that sharpens under real feedback and not under shuffled.
 
 ## What I am testing now
 
 The deferral pilot's follow-ups are done: the two checks on line 3 (it did not
-survive), the record line and the calculator on line 4. Next is the update loop on
-Llama 8B only, blocks of 10 repeated problems with outcome feedback and a shuffled
-control. Then the pilot gets written up as a short report, open questions marked as
-open.
+survive), the record line, the calculator, the passage and the update loop on line
+4. Next is withdrawing the passage in a block design. Then the pilot gets written up
+as a short report, organised by finding rather than by date, open questions marked
+as open.
 
 ## What comes next, anchored to what has been done
 
