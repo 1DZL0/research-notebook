@@ -235,7 +235,7 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
 
 ### Follow-up runs (6 October)
 
-Cheap runs after the first write-up, about $3.45 in total. Penalty 64 only from
+Cheap runs after the first write-up, about $4.40 in total. Penalty 64 only from
 here on, since the penalty does nothing and varying it spent three quarters of each
 run on a factor already shown to be flat.
 
@@ -440,9 +440,33 @@ In the told-record run the same information was one line above the decision, and
 used it hard (+51). Same fact, same model: adjacent, it acts; in its history, it does
 not. That points at retrieval from its own history, not updating, and it fits
 show_history, where its own past attempts above the question degraded the monitor
-rather than sharpening it. The check is cheap: in the loop, repeat the round-1
-outcome as an adjacent line at decision time ("last time on this exact question you
-were wrong"). If the gap reappears, the failure is retrieval.
+rather than sharpening it. The check: in the loop, repeat the round-1 outcome as an
+adjacent line at decision time ("Last time on this exact question you were wrong").
+If the gap reappears, the failure is retrieval.
+
+**It is retrieval.** Three more arms of the same loop, 20 conversations each.
+
+| Arm | Asks on round-1 wrong | Asks on round-1 right | Gap (95% interval) |
+|---|---|---|---|
+| Real feedback in the history only | 22% | 14% | +8 (+1 to +16) |
+| Shuffled feedback in the history | 11% | 4% | +6 (-2 to +14) |
+| No feedback at all | 8% | 1% | +7 (0 to +12) |
+| Round-1 outcome repeated adjacent at decision time | 80% | 1% | +79 (+65 to +96) |
+| Another problem's outcome adjacent (control) | 37% | 44% | -6 (-18 to +5) |
+
+Round 3 in each case. With its own outcome one line above the decision, Llama 8B
+asks on 80% of the problems it got wrong first time and 1% of the ones it got right,
+and is right 83% of the time when it answers. The same outcome in the conversation
+history, a few hundred tokens back, does nothing beyond what repetition alone does
+(+8 with real feedback, +7 with none). Adjacent minus history: +71 (interval +59
+to +84). The control shows it obeys the adjacent line whether or not it is true: a
+random "you were wrong" lifts asking to about 40% on everything and the aim goes.
+
+So the information was there all along; the model does not fetch it from its own
+history. That is also why show_history hurt: its past attempts above the question
+were there to read, and it read them as noise. For O2 this moves the fault from
+"cannot update" to "does not retrieve": the estimate updates question by question
+when the relevant fact is adjacent, and only then.
 
 **Withdrawing the capability.** The passage test run as two phases in one
 conversation. Phase 1: ten questions with reference notes (5 Gemini only knows with
@@ -475,16 +499,12 @@ line, the calculator, and now the withdrawn note.
 1. **A distractor passage.** The note raised Gemini's confidence to 100 on the
    questions it fixed. Does a note on a different fact, or a plausible wrong one,
    raise it too? If so, the presence of a note is doing the work, not the fact.
-2. **The loop without feedback, and with the outcome adjacent.** A no-feedback arm
-   separates repetition from feedback. An arm that repeats the round-1 outcome as a
-   line at decision time tests the retrieval reading: if the gap reappears there, the
-   failure is retrieval from its own history, not updating.
-3. **Replicate the withdrawal** at about 20 conversations per arm, with a third phase
+2. **Replicate the withdrawal** at about 20 conversations per arm, with a third phase
    where the notes come back, to see whether the estimate follows the announcement
    up as well as down.
-4. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
+3. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state.
-5. **A harder task.** Repeat with a benchmark where strong models, including Claude
+4. **A harder task.** Repeat with a benchmark where strong models, including Claude
    and one frontier model, have plenty of weak problems.
 
 ## Appendix: prompts and code

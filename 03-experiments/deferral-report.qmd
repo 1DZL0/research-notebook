@@ -122,15 +122,19 @@ asking on the problems it got wrong first time, minus the ones it got right, was
 with real feedback and +6 with scrambled.
 
 Put together: every manipulation that moved the estimate moved it as a block, up or
-down on everything, and the thing that moved it was always in the prompt. Nothing
-yet has moved it question by question on the basis of what the model could
-actually do.
+down on everything, and the thing that moved it was always in the prompt.
 
-One reading of the loop result: the outcome for the same problem was in the
-conversation from the previous round and Llama barely used it, while the same fact
-one line above the decision (the record line) moved it hard. Adjacent, it acts; in
-its history, it does not. That would make the failure retrieval from its own
-history rather than updating, and it is being checked.
+One more arm of the loop says where the fault sits. The outcome for the same problem
+was in the conversation from the previous round and Llama barely used it (+8; with no
+feedback at all, +7). Repeat that same outcome as one line above the decision
+and it uses it almost perfectly: asking on 80% of the problems it got wrong first
+time and 1% of the ones it got right (+79, interval +65 to +96). A control line
+giving another problem's outcome removes the aim again (-6), so it obeys the line
+rather than checking it. The information was there all along; the model does not
+fetch it from its own history. For O2 this moves the fault from "cannot update" to
+"does not retrieve": the estimate updates question by question when the relevant
+fact is adjacent, and only then. It also explains why showing the model its own past
+attempts above the question made its aim worse, not better.
 
 ## What did not survive
 

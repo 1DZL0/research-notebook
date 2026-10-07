@@ -91,9 +91,12 @@ Each line: what the papers found, what I found, what differs, and push backs to 
   ask more and state less confidence than shuffled feedback does, but its aim is no
   better: asking on the problems it got wrong first time minus the ones it got
   right is +8 with real feedback and +6 with shuffled. Feedback changed the volume,
-  not the aim, as predicted. One reading: the same fact one line above the decision
-  (the record line) moved it hard, in its history it barely did. Retrieval, not
-  updating. Being checked with the outcome repeated adjacent at decision time.
+  not the aim, as predicted. Then the retrieval check: the same round-1 outcome
+  repeated one line above the decision takes the gap from +8 to +79 (asks on 80% of
+  the problems it got wrong first time, 1% of the ones it got right); no feedback at
+  all gives +7, about the same as feedback left in the history. It does not fetch its own
+  history. The fault is retrieval, not updating; the estimate updates question by
+  question when the fact is adjacent, and only then.
 - *Withdrawal, run:* notes in phase 1, announced gone for phase 2 on new questions.
   Gemini's estimate is not sticky, it drops when told the notes are gone, but it
   drops on everything: confidence 42 and asking 67% on questions it still gets
