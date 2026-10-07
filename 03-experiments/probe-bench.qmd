@@ -235,7 +235,7 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
 
 ### Follow-up runs (6 October)
 
-Cheap runs after the first write-up, about $3.30 in total. Penalty 64 only from
+Cheap runs after the first write-up, about $3.45 in total. Penalty 64 only from
 here on, since the penalty does nothing and varying it spent three quarters of each
 run on a factor already shown to be flat.
 
@@ -434,12 +434,37 @@ did so more than scrambled feedback. It did not change which problems it asks on
 That is the prediction from the record and calculator results, and it is the same
 pattern as the prompt conditions in Finding 3: volume, not aim.
 
+**Withdrawing the capability.** The passage test run as two phases in one
+conversation. Phase 1: ten questions with reference notes (5 Gemini only knows with
+the note, 5 it knows anyway). Phase 2: "Reference notes are no longer available",
+then ten new questions of the same two kinds. Because the phase-1 notes stay in the
+conversation, phase 2 has to use new questions; the test is whether Gemini's
+estimate for a fresh question drops back once the notes are gone, against a control
+that never had notes. Six conversations per arm. Before each question it states a
+confidence, then works, then decides.
+
+- *Phase 1 with notes:* confidence 100 and asking 0% on every question, against 62
+  and 57% in the control on the note-dependent ones (+38 points of confidence,
+  interval +28 to +48).
+- *Phase 2, notes gone:* the estimate falls back, and overshoots. On note-dependent
+  questions its confidence is 36 against the control's 57, and it asks 67% against
+  43%. On the questions it knows anyway it does the same: confidence 42 against 72,
+  asking 67% against 33%, while still getting them right 100% of the time when it
+  answers. The intervals are wide with six conversations (confidence -21, interval
+  -50 to +9; asking +23, interval -13 to +57), but the pattern is in every pair.
+
+So the estimate is not sticky: told the capability is gone, it drops. But it drops
+on everything, including questions the notes never touched, and the weak-against-
+strong aim that the control keeps (57 vs 72, 43% vs 33%) is gone in the withdraw arm
+(36 vs 42, 67% vs 67%). The announcement moved the estimate; what it could still do
+did not. That is the fourth time the same thing has shown up: no working, the record
+line, the calculator, and now the withdrawn note.
+
 ### Next
 
-1. **Withdraw the passage.** A block of questions with the note, then the same
-   block without it, in one conversation. The estimate should fall back on exactly
-   the questions that flipped. That is the first test where the capability change
-   is one the model has to notice rather than read.
+1. **Replicate the withdrawal with more conversations**, and with a second
+   announcement ("notes are back") to see whether the estimate follows the
+   announcement up as well as down. About 20 conversations per arm.
 2. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state.
 3. **A harder task.** Repeat with a benchmark where strong models, including Claude
