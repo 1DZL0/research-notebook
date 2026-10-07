@@ -73,11 +73,16 @@ Each line: what the papers found, what I found, what differs, and push backs to 
   GPT-4o mini ignores the line entirely (asks 3%, confidence 92, same as shuffled,
   same as baseline). Giving it a calculator changed nothing real (18%/61% right with,
   19%/62% without, no problem flipped weak to strong) and still raised its
-  before-working confidence on weak problems from 61 to 86. The estimate moves on
-  what it is told about itself; whether it tracks a real change in what it can do
-  is still open, because Llama 8B could not use the tool. Under the shuffled record
-  it adds the handed number to its own sense without checking one against the other:
-  the first case of two self-relevant facts in play at once.
+  before-working confidence on weak problems from 61 to 86. Gemini, the one model
+  with a monitor of its own, drops it when handed a number: under a shuffled record
+  its gap by real ability falls from +31 to +10 and its asking follows the handed
+  number. With the calculator Gemini's capability did not change either (its
+  GSM-Hard failures are set-up errors, not arithmetic) and its estimate correctly
+  stayed put. So: the estimate moves on what it is told about itself; whether it
+  tracks a real change in what it can do is still untested, because no run has yet
+  produced one. Under the shuffled record both models add the handed number to
+  their own sense without checking one against the other: two self-relevant facts
+  in play at once, not reconciled.
 - *Counterfact:* a before-working confidence that rises only on the problems a tool
   really fixes, or an aim that sharpens with outcome feedback on repeated problems
   (the update loop, not yet run; my prediction is volume, not aim).

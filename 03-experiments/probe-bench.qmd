@@ -235,7 +235,7 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
 
 ### Follow-up runs (6 October)
 
-Cheap runs after the first write-up, about $1.80 in total. Penalty 64 only from
+Cheap runs after the first write-up, about $2.60 in total. Penalty 64 only from
 here on, since the penalty does nothing and varying it spent three quarters of each
 run on a factor already shown to be flat.
 
@@ -340,6 +340,13 @@ the model is obeying the line, not updating a self-estimate.
   time, confidence 92. Told a shuffled number: 4%, confidence 92. Baseline: 4%. Being
   handed its own failure rate changes nothing, so the update loop is deprioritised
   for it.
+- *Gemini Flash Lite, 100 TriviaQA questions, penalty 64.* The one model with a
+  before-working monitor of its own. Told the truth, its gap goes from +31 to +53
+  (asks 58% on weak, 5% on strong). Told a shuffled number, its own monitor nearly
+  disappears: split by real ability the gap falls to +10 (interval -2 to +24), and
+  its asking follows the shuffled number (-0.63) far more than its real ability
+  (-0.28). Handed a number, true or not, it sets its own sense aside. Llama kept
+  about half of its own sense under the shuffled line; Gemini keeps much less.
 
 **A real change in what it can do: the calculator.** O2's clause in its purest form:
 change the model's actual capability and see whether its self-estimate follows. Llama
@@ -366,26 +373,38 @@ on); and a line saying a calculator used to be available and has been removed.
 The self-estimate moved on the announcement alone, with no change in what it could
 do. It updates, but on what it is told, not on what is true. That ties the three
 follow-ups together: no working, told its record, and the calculator all moved the
-estimate, and in all three the thing that moved it was in the prompt. Whether the
-estimate tracks a *real* change in capability is still open, because this run never
-produced one: Llama 8B could not use the tool.
+estimate, and in all three the thing that moved it was in the prompt.
+
+*The same test on Gemini, which does not loop on the tool.* 50 GSM-Hard problems, 25
+weak, from a pool of 200. The capability still did not change: ability 0.49 without
+the calculator and 0.50 with it, 2 problems flipped from weak to strong, 18 of the
+25 weak problems stayed at zero. Looking at them, the failures are not arithmetic.
+On one, the answer is 322,886,700 and Gemini computes a number in the hundreds of
+trillions with or without the tool: it sets up the wrong calculation, and a
+calculator cannot fix that. Its before-working confidence behaved correctly for no
+change: 96 to 97 on weak problems, 99 to 98 on strong. So the two models differ in
+the right direction (Llama's estimate jumped 30 points on an announcement, Gemini's
+did not), but neither run produced a real change in capability, so whether an
+estimate tracks one is still untested. The lever has to be something that actually
+changes what the model can do: for trivia, handing it the relevant passage is the
+obvious one.
 
 ### Next
 
-1. **Told its record, on Gemini.** The one model with a before-working monitor,
-   and whether it takes handed evidence is unknown. Same design, same control.
-2. **A real capability change, on Gemini.** The calculator on GSM-Hard, where Gemini
-   is right on 1% of its weak problems at a confidence of 97, the failures are
-   arithmetic, and it will not loop on the tool. If problems flip from weak to
-   strong, that is the capability change this test was designed for.
-3. **The update loop, on Llama 8B.** Blocks of 10 problems, repeated, with only the
+1. **A capability change that is real.** The calculator did not change what either
+   model could do on GSM-Hard, because those failures are not arithmetic. Use a
+   lever that must work: on TriviaQA, hand the model the relevant passage (ability
+   goes to near 1 on questions it knew nothing about), with a before-working
+   confidence and the same arms. Then the removal as a block after a block with
+   the passage.
+2. **The update loop, on Llama 8B.** Blocks of 10 problems, repeated, with only the
    outcome and score fed back after each; a shuffled-feedback control. Does asking
    on the problems it got wrong rise more than on the ones it got right? This is the
    "update" step of O2 and is not yet tested here. The prediction from the
    follow-ups is that feedback changes volume, not aim.
-4. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
+3. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state.
-5. **A harder task.** Repeat with a benchmark where strong models, including Claude
+4. **A harder task.** Repeat with a benchmark where strong models, including Claude
    and one frontier model, have plenty of weak problems.
 
 ## Appendix: prompts and code
