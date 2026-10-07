@@ -113,9 +113,12 @@ Five manipulations say the same thing.
   13 on those questions, and 29 on questions it knows anyway (88 without a note),
   while it still gets them right 90% of the time. The estimate reads what is in
   front of it, up or down.
-- **Withdrawing the note.** Told the notes are gone, Gemini's estimate drops, and
-  it drops on everything: confidence 42 and asking 67% on questions it still gets
-  right every time, against 72 and 33% in a control that never had notes.
+- **Withdrawing the note, and bringing it back.** Told the notes are gone, Gemini's
+  estimate drops, and it drops on everything: at 16 conversations per arm,
+  confidence 47 and asking 48% on questions it still answers correctly 98% of the
+  time, against 75 and 31% in a control that never had notes (-28, interval -44 to
+  -11). Told the notes are back, it goes straight back to 100 and 0% on everything.
+  Down and up as a block, on the announcement.
 
 The update loop, O2's "updateable" clause run directly, fits the same pattern.
 Llama 8B answered the same ten problems three times over with the outcome and

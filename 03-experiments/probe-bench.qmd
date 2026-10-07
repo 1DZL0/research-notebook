@@ -235,7 +235,7 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
 
 ### Follow-up runs (6 October)
 
-Cheap runs after the first write-up, about $4.70 in total. Penalty 64 only from
+Cheap runs after the first write-up, about $4.90 in total. Penalty 64 only from
 here on, since the penalty does nothing and varying it spent three quarters of each
 run on a factor already shown to be flat.
 
@@ -505,14 +505,28 @@ strong aim that the control keeps (57 vs 72, 43% vs 33%) is gone in the withdraw
 did not. That is the fourth time the same thing has shown up: no working, the record
 line, the calculator, and now the withdrawn note.
 
+*Replicated at power, with the notes coming back.* 16 conversations per arm, three
+phases of ten fresh questions each: notes, "notes are no longer available", "notes
+are available again". Against a control with no notes in any phase:
+
+| Phase | Notes | Confidence, note-dependent | Confidence, known anyway | Asks, note-dependent | Asks, known anyway |
+|---|---|---|---|---|---|
+| 1 | yes | 100 (control 68) | 100 (control 77) | 0% (41%) | 0% (18%) |
+| 2 | gone | 36 (control 65) | 47 (control 75) | 65% (50%) | 48% (31%) |
+| 3 | back | 100 (control 64) | 100 (control 77) | 0% (52%) | 0% (24%) |
+
+Phase 2 against the control: confidence -28 (interval -44 to -11) on both kinds of
+question. The estimate follows the announcement down and straight back up, as a
+block. On the questions it knows anyway it sits at 47 in phase 2 while answering
+them correctly 98% of the time, and asks for help on half of them. Nothing in the
+model's own knowledge of those questions changed between phases; only the
+announcement did.
+
 ### Next
 
-1. **Replicate the withdrawal** at about 20 conversations per arm, with a third phase
-   where the notes come back, to see whether the estimate follows the announcement
-   up as well as down.
-2. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
+1. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state.
-3. **A harder task.** Repeat with a benchmark where strong models, including Claude
+2. **A harder task.** Repeat with a benchmark where strong models, including Claude
    and one frontier model, have plenty of weak problems.
 
 ## Appendix: prompts and code
