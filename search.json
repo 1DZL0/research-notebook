@@ -74,7 +74,7 @@
     "href": "00-research/o2-self-relevant-action.html",
     "title": "O2: Self-relevant to action",
     "section": "",
-    "text": "O2: From self-relevant information to action-guiding situational self-modelling\nDetermine when information about a system’s knowledge, uncertainty, capabilities, limitations and prior actions becomes an accurate, updateable guide to operational decisions. Whether this depends on an integrated situational self-model or on narrower processes is an important question that can be addressed; the objective does not presume consciousness or a human-like self.\nThe thesis built on this objective lives in the thesis skeleton: one page, the claim and the four studies, revised monthly."
+    "text": "O2: From self-relevant information to action-guiding situational self-modelling\nDetermine when information about a system’s knowledge, uncertainty, capabilities, limitations and prior actions becomes an accurate, updateable guide to operational decisions. Whether this depends on an integrated situational self-model or on narrower processes is an important question that can be addressed; the objective does not presume consciousness or a human-like self.\nThe running answer to “what is the thesis about” lives in Where this is going: one page, revised monthly."
   },
   {
     "objectID": "00-research/o2-self-relevant-action.html#what-o2-is-really-asking",
@@ -200,7 +200,7 @@
     "href": "index.html#latest-updates",
     "title": "Phronesis · Φρόνησις",
     "section": "Latest updates",
-    "text": "Latest updates\nRecent work across the thesis and research notebook.\n\n\n\n7 October 2026 · Thesis skeleton new one-page skeleton: the thesis claim as a hypothesis and the four studies, each with the one thing it must show.\n4 October 2026 · Probe bench new page for quick one-off tests of single ideas from the papers, with a queue of four probes to try.\n20 September 2026 · O2 literature review added 6 new papers and organised them into grouping i find helpful\n19 September 2026 · SelfAware replication evaluated five newer models and compared their performance with the original study using clear visualisations.\n15 September 2026 · Earlier research questions moved the original research questions to the Archive rather than deleting them.\n\n\n\n\n\n\n\n\n\n\nLast updated: —\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBrowse all notes"
+    "text": "Latest updates\nRecent work across the thesis and research notebook.\n\n\n\n7 October 2026 · Where this is going new one-page running answer to what the thesis is about: what looks true so far, what is being tested now, and what comes next if it holds.\n4 October 2026 · Probe bench new page for quick one-off tests of single ideas from the papers, with a queue of four probes to try.\n20 September 2026 · O2 literature review added 6 new papers and organised them into grouping i find helpful\n19 September 2026 · SelfAware replication evaluated five newer models and compared their performance with the original study using clear visualisations.\n15 September 2026 · Earlier research questions moved the original research questions to the Archive rather than deleting them.\n\n\n\n\n\n\n\n\n\n\nLast updated: —\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBrowse all notes"
   },
   {
     "objectID": "05-agentic-ai-engineering/02-frameworks.html",
@@ -436,37 +436,58 @@
   {
     "objectID": "00-research/thesis-skeleton.html",
     "href": "00-research/thesis-skeleton.html",
-    "title": "Thesis skeleton",
+    "title": "Where this is going",
     "section": "",
-    "text": "One page, revised monthly. This is the document the first-year review wants, and it is what tells each experiment what it is for. It grows out of O2."
+    "text": "This page is the running answer to “what is the thesis about”. It grows out of O2."
   },
   {
-    "objectID": "00-research/thesis-skeleton.html#the-claim",
-    "href": "00-research/thesis-skeleton.html#the-claim",
-    "title": "Thesis skeleton",
-    "section": "The claim",
-    "text": "The claim\n\n\n\n\n\n\nStatus: hypothesis, not yet defensible. Kept here so every study has something to confirm or kill. If the studies kill half of it, the surviving half is the thesis.\nSelf-relevant information guides action in current models wherever a confidence signal discriminates, but that signal arises from different narrow processes on different tasks, does not update from evidence about the self, and is not integrated into a single self-model."
+    "objectID": "00-research/thesis-skeleton.html#the-question",
+    "href": "00-research/thesis-skeleton.html#the-question",
+    "title": "Where this is going",
+    "section": "The question",
+    "text": "The question\nA model has information about itself: what it knows, how sure it is, what it can and cannot do, what it did before. When does that information become a guide to what it does next, and does it update when the facts change? Does acting on it need one joined-up picture of the self, or just a few narrow signals?"
   },
   {
-    "objectID": "00-research/thesis-skeleton.html#chapters-as-studies",
-    "href": "00-research/thesis-skeleton.html#chapters-as-studies",
-    "title": "Thesis skeleton",
-    "section": "Chapters as studies",
-    "text": "Chapters as studies\nEach chapter is a study, and each study has one thing it must show.\nChapter 2: literature. The O2 review, turned into prose. The chapter’s argument is the dissociation already visible in the papers: situational self-knowledge is acted on, competence self-knowledge mostly is not.\nStudy 1: behavioural testbed. The deferral pilot, cleaned. Must show: stated stakes do nothing, action follows the confidence drop, the monitor is the bottleneck, and two kinds of knowing may come apart.\nStudy 2: updateability. Must show: whether the self-estimate tracks evidence about the self, and changes when the self changes.\nStudy 3: mechanism. Probes. Must show: whether the behavioural “two kinds of knowing” has two internal signatures, and whether stated confidence is the internal signal or a degraded copy of it.\nStudy 4: integration. The second clause of O2: integrated self-model or narrow process. Needs an agentic setting where the self-relevant facts are several (ability, tools, history, situation) and the test is whether the model combines them or keys on one. Code is the domain here."
+    "objectID": "00-research/thesis-skeleton.html#what-i-think-is-true-so-far",
+    "href": "00-research/thesis-skeleton.html#what-i-think-is-true-so-far",
+    "title": "Where this is going",
+    "section": "What I think is true so far",
+    "text": "What I think is true so far\nEach line says what supports it and what would kill it. None is settled.\n\nTelling a model the stakes does nothing. A wrong answer 64 times more costly, seven models, no change. Supported by: the pilot. Killed by: a model that moves once consequences are felt rather than stated; the feedback loop would show this.\nModels act on their confidence; the confidence is what fails. Where stated confidence drops on weak problems, asking follows; where it stays at 95, nothing happens. Supported by: the scatter across thirteen model-task cells. Killed by: a model whose confidence drops and whose asking does not.\nThere may be two kinds of knowing. A small Llama knows it will fail on maths only after trying; Gemini knows what it knows on facts before trying. Supported by: the no-working runs. Killed by: the recalibration or the crossover run (both queued).\nNo model has yet shown it can update its estimate of itself. Supported by: nothing yet; untested. This is the gap the next study fills."
   },
   {
-    "objectID": "00-research/thesis-skeleton.html#parked-the-description-problem",
-    "href": "00-research/thesis-skeleton.html#parked-the-description-problem",
-    "title": "Thesis skeleton",
-    "section": "Parked: the description problem",
-    "text": "Parked: the description problem\nA system that cannot change the terms it uses to describe itself cannot update its self-model beyond those terms. That is a possible reading of Study 2 results, and it could become the conceptual contribution that lifts the thesis above “ran four studies”. Do not build on it until Study 2 has data."
+    "objectID": "00-research/thesis-skeleton.html#what-i-am-testing-now",
+    "href": "00-research/thesis-skeleton.html#what-i-am-testing-now",
+    "title": "Where this is going",
+    "section": "What I am testing now",
+    "text": "What I am testing now\nThe deferral pilot and its two open checks: recalibrate Llama 8B without working, run Gemini on maths without working. These decide whether line 3 survives. Then the pilot gets written up as a short report, open questions marked as open."
   },
   {
-    "objectID": "00-research/thesis-skeleton.html#revision-log",
-    "href": "00-research/thesis-skeleton.html#revision-log",
-    "title": "Thesis skeleton",
-    "section": "Revision log",
-    "text": "Revision log\n\n7 October 2026. First version. Claim written as a hypothesis; Study 1 is the deferral pilot; Studies 2 to 4 are designs only."
+    "objectID": "00-research/thesis-skeleton.html#what-comes-next-if-it-holds",
+    "href": "00-research/thesis-skeleton.html#what-comes-next-if-it-holds",
+    "title": "Where this is going",
+    "section": "What comes next, if it holds",
+    "text": "What comes next, if it holds\nThree directions, in order. Each becomes a study only when the one before it has given it a reason to exist.\n\nUpdating. Hand the model its own failure rate; then make it learn that rate from outcomes; then change its real ability with a tool and see whether the estimate follows. Answers line 4.\nInside the model. Probe for an internal “I will get this wrong” signal and compare it with what the model says. Answers whether line 2’s bottleneck is the signal or the report of it, and whether line 3’s two kinds of knowing look different inside.\nMore than one fact at once. An agentic setting, code, where ability, tools, history and situation all matter. Tests whether the model combines them or keys on one. This is the second clause of O2 and the last thing to build."
+  },
+  {
+    "objectID": "00-research/thesis-skeleton.html#what-i-am-not-claiming",
+    "href": "00-research/thesis-skeleton.html#what-i-am-not-claiming",
+    "title": "Where this is going",
+    "section": "What I am not claiming",
+    "text": "What I am not claiming\nAnything about frontier models, anything about mechanism, anything about training, and nothing smaller than about ten points. The pilot is a pilot."
+  },
+  {
+    "objectID": "00-research/thesis-skeleton.html#parked",
+    "href": "00-research/thesis-skeleton.html#parked",
+    "title": "Where this is going",
+    "section": "Parked",
+    "text": "Parked\nThe description problem: a system that cannot change the terms it describes itself in cannot update past those terms. Possibly a reading of the updating study. Not touched until that study has data."
+  },
+  {
+    "objectID": "00-research/thesis-skeleton.html#log",
+    "href": "00-research/thesis-skeleton.html#log",
+    "title": "Where this is going",
+    "section": "Log",
+    "text": "Log\n\n7 October 2026. First version. Four lines, one supported, two partly, one untested."
   },
   {
     "objectID": "00-research/research-development.html",
