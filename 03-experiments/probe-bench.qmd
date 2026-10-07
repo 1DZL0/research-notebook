@@ -434,6 +434,16 @@ did so more than scrambled feedback. It did not change which problems it asks on
 That is the prediction from the record and calculator results, and it is the same
 pattern as the prompt conditions in Finding 3: volume, not aim.
 
+One reading of why. In the loop, the outcome for the exact same problem is in the
+conversation from the previous round, and Llama barely uses it (+2 over shuffled).
+In the told-record run the same information was one line above the decision, and it
+used it hard (+51). Same fact, same model: adjacent, it acts; in its history, it does
+not. That points at retrieval from its own history, not updating, and it fits
+show_history, where its own past attempts above the question degraded the monitor
+rather than sharpening it. The check is cheap: in the loop, repeat the round-1
+outcome as an adjacent line at decision time ("last time on this exact question you
+were wrong"). If the gap reappears, the failure is retrieval.
+
 **Withdrawing the capability.** The passage test run as two phases in one
 conversation. Phase 1: ten questions with reference notes (5 Gemini only knows with
 the note, 5 it knows anyway). Phase 2: "Reference notes are no longer available",
@@ -462,12 +472,19 @@ line, the calculator, and now the withdrawn note.
 
 ### Next
 
-1. **Replicate the withdrawal with more conversations**, and with a second
-   announcement ("notes are back") to see whether the estimate follows the
-   announcement up as well as down. About 20 conversations per arm.
-2. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
+1. **A distractor passage.** The note raised Gemini's confidence to 100 on the
+   questions it fixed. Does a note on a different fact, or a plausible wrong one,
+   raise it too? If so, the presence of a note is doing the work, not the fact.
+2. **The loop without feedback, and with the outcome adjacent.** A no-feedback arm
+   separates repetition from feedback. An arm that repeats the round-1 outcome as a
+   line at decision time tests the retrieval reading: if the gap reappears there, the
+   failure is retrieval from its own history, not updating.
+3. **Replicate the withdrawal** at about 20 conversations per arm, with a third phase
+   where the notes come back, to see whether the estimate follows the announcement
+   up as well as down.
+4. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state.
-3. **A harder task.** Repeat with a benchmark where strong models, including Claude
+5. **A harder task.** Repeat with a benchmark where strong models, including Claude
    and one frontier model, have plenty of weak problems.
 
 ## Appendix: prompts and code

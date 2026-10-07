@@ -126,6 +126,12 @@ down on everything, and the thing that moved it was always in the prompt. Nothin
 yet has moved it question by question on the basis of what the model could
 actually do.
 
+One reading of the loop result: the outcome for the same problem was in the
+conversation from the previous round and Llama barely used it, while the same fact
+one line above the decision (the record line) moved it hard. Adjacent, it acts; in
+its history, it does not. That would make the failure retrieval from its own
+history rather than updating, and it is being checked.
+
 ## What did not survive
 
 Taking away the working first looked like two kinds of knowing: Llama finding out
