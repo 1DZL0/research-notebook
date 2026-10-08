@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-10-04">
+<meta name="dcterms.date" content="2026-10-08">
 <meta name="description" content="One-off tests of single ideas from the papers. Cheap, quick, and honest about dead ends.">
 
 <title>Probe bench – Phronesis · Φρόνησις</title>
@@ -210,18 +210,11 @@ window.HUB_DATA = {
       "blurb": "Prototypes and evaluations, with results or an honest blank.",
       "entries": [
         {
-          "title": "When does a model ask for help?",
-          "url": "03-experiments/deferral-report.html",
-          "status": "evidence",
-          "description": "",
-          "date": "2026-10-07"
-        },
-        {
           "title": "Probe bench",
           "url": "03-experiments/probe-bench.html",
           "status": "active",
           "description": "One-off tests of single ideas from the papers. Cheap, quick, and honest about dead ends.",
-          "date": "2026-10-04"
+          "date": "2026-10-08"
         },
         {
           "title": "Knowing when to abstain",
@@ -404,9 +397,15 @@ window.HUB_DATA = {
    
   <ul>
   <li><a href="#experiment-1-conditions" id="toc-experiment-1-conditions" class="nav-link active" data-scroll-target="#experiment-1-conditions">Experiment 1: conditions</a></li>
-  <li><a href="#experiment-1-outcomes" id="toc-experiment-1-outcomes" class="nav-link" data-scroll-target="#experiment-1-outcomes">Experiment 1: outcomes</a>
+  <li><a href="#experiment-1-outcomes" id="toc-experiment-1-outcomes" class="nav-link" data-scroll-target="#experiment-1-outcomes">Experiment 1: outcomes</a></li>
+  <li><a href="#experiment-1-what-it-shows" id="toc-experiment-1-what-it-shows" class="nav-link" data-scroll-target="#experiment-1-what-it-shows">Experiment 1: what it shows</a>
   <ul class="collapse">
-  <li><a href="#what-it-adds-up-to" id="toc-what-it-adds-up-to" class="nav-link" data-scroll-target="#what-it-adds-up-to">What it adds up to</a></li>
+  <li><a href="#telling-a-model-the-stakes-does-nothing" id="toc-telling-a-model-the-stakes-does-nothing" class="nav-link" data-scroll-target="#telling-a-model-the-stakes-does-nothing">1. Telling a model the stakes does nothing</a></li>
+  <li><a href="#models-act-on-their-stated-confidence-the-confidence-is-what-fails" id="toc-models-act-on-their-stated-confidence-the-confidence-is-what-fails" class="nav-link" data-scroll-target="#models-act-on-their-stated-confidence-the-confidence-is-what-fails">2. Models act on their stated confidence; the confidence is what fails</a></li>
+  <li><a href="#where-the-confidence-is-real-it-is-the-models-own-knowledge" id="toc-where-the-confidence-is-real-it-is-the-models-own-knowledge" class="nav-link" data-scroll-target="#where-the-confidence-is-real-it-is-the-models-own-knowledge">3. Where the confidence is real, it is the model’s own knowledge</a></li>
+  <li><a href="#the-estimate-updates-on-what-it-is-told-not-on-what-is-true" id="toc-the-estimate-updates-on-what-it-is-told-not-on-what-is-true" class="nav-link" data-scroll-target="#the-estimate-updates-on-what-it-is-told-not-on-what-is-true">4. The estimate updates on what it is told, not on what is true</a></li>
+  <li><a href="#what-did-not-survive-and-what-was-not-tested" id="toc-what-did-not-survive-and-what-was-not-tested" class="nav-link" data-scroll-target="#what-did-not-survive-and-what-was-not-tested">What did not survive, and what was not tested</a></li>
+  <li><a href="#what-it-means-for-o2" id="toc-what-it-means-for-o2" class="nav-link" data-scroll-target="#what-it-means-for-o2">What it means for O2</a></li>
   </ul></li>
   <li><a href="#next" id="toc-next" class="nav-link" data-scroll-target="#next">Next</a></li>
   <li><a href="#full-record" id="toc-full-record" class="nav-link" data-scroll-target="#full-record">Full record</a></li>
@@ -440,7 +439,7 @@ window.HUB_DATA = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 4, 2026</p>
+      <p class="date">October 8, 2026</p>
     </div>
   </div>
   
@@ -545,7 +544,7 @@ window.HUB_DATA = {
 </section>
 <section id="experiment-1-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="experiment-1-outcomes">Experiment 1: outcomes</h2>
-<p>Each model solved each problem ten times with no stakes. Problems it got right under half the time are its <strong>weak problems</strong>; the rest are <strong>strong</strong>. It then saw the same problems with a choice: answer (+1 right, minus the penalty wrong) or ask for help (-0.2). It worked the problem, then gave a confidence and a decision. The number to watch is how much more it asks on weak problems than on strong ones. One line per test below; the argument is in the <a href="../03-experiments/deferral-report.html">report</a>, the run-by-run detail is in the full record further down.</p>
+<p>Each model solved each problem ten times with no stakes. Problems it got right under half the time are its <strong>weak problems</strong>; the rest are <strong>strong</strong>. It then saw the same problems with a choice: answer (+1 right, minus the penalty wrong) or ask for help (-0.2). It worked the problem, then gave a confidence and a decision. The number to watch is how much more it asks on weak problems than on strong ones. One line per test below, then the argument by finding; the run-by-run detail is in the full record further down.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -642,14 +641,24 @@ window.HUB_DATA = {
 </tr>
 </tbody>
 </table>
-<section id="what-it-adds-up-to" class="level3">
-<h3 class="anchored" data-anchor-id="what-it-adds-up-to">What it adds up to</h3>
-<ul>
-<li>Stated stakes do nothing, and the acting side is fine. What fails is the knowing: most models state a confidence that does not move.</li>
-<li>Where the confidence does move (small Llamas on maths, Gemini on facts), the model acts on it, and Gemini’s is its own knowledge.</li>
-<li>The self-estimate reads what is in front of it, up or down, true or not: a record line, a note, an announcement. It does not fetch the same facts from its own history, which is where “cannot update” turns out to mean “does not retrieve”.</li>
-<li>Not tested: frontier models, mechanism, post-training, and anything under about ten points.</li>
-</ul>
+</section>
+<section id="experiment-1-what-it-shows" class="level2">
+<h2 class="anchored" data-anchor-id="experiment-1-what-it-shows">Experiment 1: what it shows</h2>
+<p>Paper numbers refer to the <a href="../00-research/o2-self-relevant-action.html">O2 literature review</a>.</p>
+<section id="telling-a-model-the-stakes-does-nothing" class="level3">
+<h3 class="anchored" data-anchor-id="telling-a-model-the-stakes-does-nothing">1. Telling a model the stakes does nothing</h3>
+<p>Raising the penalty for a wrong answer from 1 to 64 did not make any model ask for help more often: seven models with enough weak problems to judge, intervals all through zero. At penalty 64 every model would have scored better by always asking; Llama 8B lost 17 points per decision against the oracle’s 0.08.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="probe-bench-deferral/payoff-penalty-64.png" class="img-fluid figure-img"></p>
+<figcaption>At penalty 64, what each model scored against always answering, always asking, and an oracle that asks exactly when its measured ability says to.</figcaption>
+</figure>
+</div>
+<p>This kills the version of the incentive story the review set up, that the model knows but the stated payoff does not reward asking (Wang [6] saw the same). The penalty was a number in the prompt; no model ever felt a -64. Felt consequences are taken up under finding 4.</p>
+</section>
+<section id="models-act-on-their-stated-confidence-the-confidence-is-what-fails" class="level3">
+<h3 class="anchored" data-anchor-id="models-act-on-their-stated-confidence-the-confidence-is-what-fails">2. Models act on their stated confidence; the confidence is what fails</h3>
+<p>Across every model and task, how much more a model asks on its weak problems tracks how far its stated confidence drops on them. Where confidence drops 16 points, asking rises 25 to 30; where it drops 2, asking rises 3. The acting link holds everywhere.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="probe-bench-deferral/models-gsm8k.png" class="img-fluid figure-img"></p>
@@ -662,12 +671,30 @@ window.HUB_DATA = {
 <figcaption>One point per model and task: the more the stated confidence drops on weak problems, the more the model asks.</figcaption>
 </figure>
 </div>
+<p>What differs between models is whether the confidence moves at all. Most of them say 95 or more on problems they usually fail, and ask on 5% or fewer: GPT-4o mini, Mistral Nemo and Llama 70B are in that group. The small Llamas and Gemini are the ones whose confidence drops, and they are the ones that ask.</p>
+<p>Two qualifiers. Models act on the <em>drop</em> in confidence, not on the number: Llama 8B at 72 on problems it gets right one time in three should ask every time at penalty 64, and asks a third of the time. And the cost is never in the loop. That is finding 1 seen from the other side, and it matches Barkan [21]: the acting side works, the knowing side is wrong.</p>
+</section>
+<section id="where-the-confidence-is-real-it-is-the-models-own-knowledge" class="level3">
+<h3 class="anchored" data-anchor-id="where-the-confidence-is-real-it-is-the-models-own-knowledge">3. Where the confidence is real, it is the model’s own knowledge</h3>
+<p>On maths, every model finds the same problems hard, so “aims at its own weak spots” and “aims at what everyone finds hard” cannot be told apart. On facts they can: models fail on different questions. Gemini Flash Lite on TriviaQA asks on 41% of its weak questions and 10% of its strong ones (+31, interval +20 to +43). Holding a comparison model’s ability fixed, Gemini asks 25 to 30 points more on its own weak questions; holding its own ability fixed, the question being hard for the other model adds 4 to 9 points, intervals through zero. On facts, its asking tracks what it itself knows. Llama 8B on facts does not aim at all: its confidence is 59 on weak questions and 62 on strong.</p>
+<p>Prompt wording changes how much a model asks and never how well it aims. Nine wordings on Llama 8B moved its asking on weak problems from 9% to 78%; none beat the baseline’s gap. Telling it that asking is expected made it ask on 59% of problems it would have got right.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="probe-bench-deferral/conditions-llama-8b.png" class="img-fluid figure-img"></p>
 <figcaption>Llama 8B under nine versions of the prompt: the volume moves, the aim does not.</figcaption>
 </figure>
 </div>
+</section>
+<section id="the-estimate-updates-on-what-it-is-told-not-on-what-is-true" class="level3">
+<h3 class="anchored" data-anchor-id="the-estimate-updates-on-what-it-is-told-not-on-what-is-true">4. The estimate updates on what it is told, not on what is true</h3>
+<p>O2’s second clause asks whether the self-estimate updates when the facts change. Five manipulations say the same thing.</p>
+<ul>
+<li><strong>Taking away the working.</strong> Without a reasoning turn, Llama 8B’s confidence fell from 71 / 87 (weak / strong) to 45 / 54 and Gemini’s from 88 / 100 to 71 / 90: the right direction, still far above the new ability (0.03 and 0.27).</li>
+<li><strong>Telling it its record</strong> (“on this exact question, in 10 earlier attempts, you were right 2 times out of 10”). Llama 8B’s gap doubles, +21 to +51. Told a shuffled number from another question, its asking follows the number; its own sense persists underneath (gap +26 by real ability). Gemini on facts follows the number more than its own monitor (gap by real ability +31 to +10). GPT-4o mini ignores the line: 3% asking, confidence 92, true or shuffled. Under the shuffled numbers two self-relevant facts are in play at once, and neither model checks one against the other.</li>
+<li><strong>A calculator.</strong> It changed neither model’s real ability on GSM-Hard (their failures are set-up errors, not arithmetic). Llama 8B’s before-working confidence on weak problems still rose from 61 to 86; Gemini’s, correctly, did not move.</li>
+<li><strong>A reference note holding the fact</strong>, the one lever that really changed a capability: 34 of Gemini’s 39 weak questions became strong. Its before-working confidence on exactly those went from 66 to 100 and its asking from 35% to 0%. The note puts the fact in front of it, so this is the estimate following a change it can read. A control note about a different fact does the opposite: confidence 13 on those questions, and 29 on questions it knows anyway (88 without a note), while it still gets them right 90% of the time. The estimate reads what is in front of it, up or down.</li>
+<li><strong>Withdrawing the note, and bringing it back.</strong> Told the notes are gone, Gemini’s estimate drops, and it drops on everything: at 16 conversations per arm, confidence 47 and asking 48% on questions it still answers correctly 98% of the time, against 75 and 31% in a control that never had notes (-28, interval -44 to -11). Told the notes are back, it goes straight back to 100 and 0% on everything. Down and up as a block, on the announcement.</li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="probe-bench-deferral/told-record.png" class="img-fluid figure-img"></p>
@@ -686,12 +713,24 @@ window.HUB_DATA = {
 <figcaption>Gemini’s confidence as the notes are announced gone and then back: down and up as a block, on questions the notes never touched.</figcaption>
 </figure>
 </div>
+<p>Put together: every manipulation that moved the estimate moved it as a block, up or down on everything, and the thing that moved it was always in the prompt.</p>
+<p>The update loop, O2’s “updateable” clause run directly, fits the same pattern. Llama 8B answered the same ten problems three times over with the outcome and running score fed back after each decision. Real feedback made it ask more and state less confidence than scrambled feedback did, but its aim was no better: asking on the problems it got wrong first time, minus the ones it got right, was +8 with real feedback and +6 with scrambled.</p>
+<p>One more arm of the loop says where the fault sits. The outcome for the same problem was in the conversation from the previous round and Llama barely used it (+8; with no feedback at all, +7). Repeat that same outcome as one line above the decision and it uses it almost perfectly: asking on 80% of the problems it got wrong first time and 1% of the ones it got right (+79, interval +71 to +87). A control line giving another problem’s outcome removes the aim again (-6), so it obeys the line rather than checking it. The information was there all along; the model does not fetch it from its own history. For O2 this moves the fault from “cannot update” to “does not retrieve”: the estimate updates question by question when the relevant fact is adjacent, and only then. It also explains why showing the model its own past attempts above the question made its aim worse, not better.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="probe-bench-deferral/loop-adjacent.png" class="img-fluid figure-img"></p>
 <figcaption>Llama 8B in the update loop: the same outcome left in its history does nothing; repeated next to the decision, the aim appears.</figcaption>
 </figure>
 </div>
+</section>
+<section id="what-did-not-survive-and-what-was-not-tested" class="level3">
+<h3 class="anchored" data-anchor-id="what-did-not-survive-and-what-was-not-tested">What did not survive, and what was not tested</h3>
+<p>Taking away the working first looked like two kinds of knowing: Llama finding out by trying, Gemini knowing beforehand. It was a regime change. Without working, Llama 8B solves 3% of these problems, so asking on 96% of them was the right call for that regime, and Gemini keeps its aim on maths without working. The line is withdrawn.</p>
+<p>Not tested, so this page says nothing about them: frontier models (none run); mechanism (black-box only; whether a better signal sits inside the model than the one it states is the probe, the next step); post-training (no base model was available); a per-question update from anything not adjacent to the decision; differences under about ten points, which 25 to 50 weak problems cannot see.</p>
+</section>
+<section id="what-it-means-for-o2" class="level3">
+<h3 class="anchored" data-anchor-id="what-it-means-for-o2">What it means for O2</h3>
+<p>The gap between knowing and acting is not an incentive problem and not an acting problem. It is that most models do not know, in the sense of stating a confidence that moves. The one that does on facts, Gemini, acts on it. And when any of them is given something about itself to act on, it acts on the statement rather than the fact. That is the opposite of an updateable self-model, and it is where the probe should look: whether the signal the model does not state is nonetheless inside it.</p>
 </section>
 </section>
 <section id="next" class="level2">
