@@ -514,7 +514,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <td>Rename action</td>
-<td>Replace “ask for help” with “flag as uncertain”; same cost of 0.2.</td>
+<td>Replace “ask for help” with “flag as uncertain”</td>
 <td>Stigma on the help action</td>
 <td>Rate moves with the label; payoff identical</td>
 <td>None in the review; new</td>
@@ -535,11 +535,17 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 </tbody>
 </table>
-<p><strong>What counts as a result.</strong> Not deferral going up. The result is a condition where deferral on low-ability problems rises while deferral on high-ability problems stays near zero. A condition that raises both has made the model timid, not self-aware.</p>
 </section>
 <section id="experiment-1-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="experiment-1-outcomes">Experiment 1: outcomes</h2>
-<p>Each model solved each problem ten times with no stakes. Problems it got right under half the time are its <strong>weak problems</strong>; the rest are <strong>strong</strong>. It then saw the same problems with a choice: answer (+1 right, minus the penalty wrong) or ask for help (-0.2). It worked the problem, then gave a confidence and a decision. The number to watch is how much more it asks on weak problems than on strong ones. One line per test below, then the argument by finding; the run-by-run detail is in the full record further down.</p>
+<p>How a run works, in four steps:</p>
+<ol type="1">
+<li><strong>Measure ability.</strong> Each model solves every problem ten times, nothing at stake. A problem it gets right under half the time is one of its <strong>weak problems</strong>; the rest are its <strong>strong problems</strong>.</li>
+<li><strong>Add the choice.</strong> It sees the same problems again and must either answer (+1 if right, minus the penalty if wrong) or ask for help (always -0.2).</li>
+<li><strong>Work, then decide.</strong> It works the problem, states a confidence from 0 to 100, then decides.</li>
+<li><strong>Read the gap.</strong> The number to watch is how much more often it asks on weak problems than on strong ones. A model that knows its limits has a big gap; one that asks at random, or never, has none.</li>
+</ol>
+<p>One line per test below. The argument follows, one finding at a time. Every run and number is in the full record at the bottom of the page.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 24%">
@@ -642,18 +648,21 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>Paper numbers refer to the <a href="../00-research/o2-self-relevant-action.html">O2 literature review</a>.</p>
 <section id="telling-a-model-the-stakes-does-nothing" class="level3">
 <h3 class="anchored" data-anchor-id="telling-a-model-the-stakes-does-nothing">1. Telling a model the stakes does nothing</h3>
-<p>Raising the penalty for a wrong answer from 1 to 64 did not make any model ask for help more often: seven models with enough weak problems to judge, intervals all through zero. At penalty 64 every model would have scored better by always asking; Llama 8B lost 17 points per decision against the oracle’s 0.08.</p>
+<ul>
+<li>The penalty for a wrong answer went from 1 to 64. No model asked for help more often. Seven models had enough weak problems to judge; every interval goes through zero.</li>
+<li>At penalty 64, always asking would have beaten every model. Llama 8B lost 17 points per decision; the oracle lost 0.08.</li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="probe-bench-deferral/payoff-penalty-64.png" class="img-fluid figure-img"></p>
 <figcaption>At penalty 64, what each model scored against always answering, always asking, and an oracle that asks exactly when its measured ability says to.</figcaption>
 </figure>
 </div>
-<p>This kills the version of the incentive story the review set up, that the model knows but the stated payoff does not reward asking (Wang [6] saw the same). The penalty was a number in the prompt; no model ever felt a -64. Felt consequences are taken up under finding 4.</p>
+<p>What that rules out: the story that the model knows, but the stated payoff does not reward asking (Wang [6] found the same). One limit: the penalty was a number in the prompt. No model ever felt a -64. Felt consequences are finding 4.</p>
 </section>
 <section id="models-act-on-their-stated-confidence-the-confidence-is-what-fails" class="level3">
 <h3 class="anchored" data-anchor-id="models-act-on-their-stated-confidence-the-confidence-is-what-fails">2. Models act on their stated confidence; the confidence is what fails</h3>
-<p>Across every model and task, how much more a model asks on its weak problems tracks how far its stated confidence drops on them. Where confidence drops 16 points, asking rises 25 to 30; where it drops 2, asking rises 3. The acting link holds everywhere.</p>
+<p>The two charts carry this one.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="probe-bench-deferral/models-gsm8k.png" class="img-fluid figure-img"></p>
@@ -666,29 +675,46 @@ document.addEventListener("DOMContentLoaded", function () {
 <figcaption>One point per model and task: the more the stated confidence drops on weak problems, the more the model asks.</figcaption>
 </figure>
 </div>
-<p>What differs between models is whether the confidence moves at all. Most of them say 95 or more on problems they usually fail, and ask on 5% or fewer: GPT-4o mini, Mistral Nemo and Llama 70B are in that group. The small Llamas and Gemini are the ones whose confidence drops, and they are the ones that ask.</p>
-<p>Two qualifiers. Models act on the <em>drop</em> in confidence, not on the number: Llama 8B at 72 on problems it gets right one time in three should ask every time at penalty 64, and asks a third of the time. And the cost is never in the loop. That is finding 1 seen from the other side, and it matches Barkan [21]: the acting side works, the knowing side is wrong.</p>
+<ul>
+<li>Where a model’s confidence drops on its weak problems, its asking rises by about the same amount: a 16-point drop, 25 to 30 points more asking; a 2-point drop, 3. That holds for every model and task.</li>
+<li>Most models’ confidence does not drop. GPT-4o mini, Mistral Nemo and Llama 70B say 95 or more on problems they usually fail, and ask on 5% or fewer.</li>
+<li>The small Llamas and Gemini are the ones whose confidence drops, and they are the ones that ask.</li>
+</ul>
+<p>Two qualifiers:</p>
+<ul>
+<li>They act on the <em>drop</em>, not on the number. Llama 8B says 72 on problems it gets right one time in three. At penalty 64 that number says ask every time; it asks a third of the time.</li>
+<li>The cost is never in the loop. That is finding 1 seen from the other side, and it matches Barkan [21]: the acting side works, the knowing side is wrong.</li>
+</ul>
 </section>
 <section id="where-the-confidence-is-real-it-is-the-models-own-knowledge" class="level3">
 <h3 class="anchored" data-anchor-id="where-the-confidence-is-real-it-is-the-models-own-knowledge">3. Where the confidence is real, it is the model’s own knowledge</h3>
-<p>On maths, every model finds the same problems hard, so “aims at its own weak spots” and “aims at what everyone finds hard” cannot be told apart. On facts they can: models fail on different questions. Gemini Flash Lite on TriviaQA asks on 41% of its weak questions and 10% of its strong ones (+31, interval +20 to +43). Holding a comparison model’s ability fixed, Gemini asks 25 to 30 points more on its own weak questions; holding its own ability fixed, the question being hard for the other model adds 4 to 9 points, intervals through zero. On facts, its asking tracks what it itself knows. Llama 8B on facts does not aim at all: its confidence is 59 on weak questions and 62 on strong.</p>
-<p>Prompt wording changes how much a model asks and never how well it aims. Nine wordings on Llama 8B moved its asking on weak problems from 9% to 78%; none beat the baseline’s gap. Telling it that asking is expected made it ask on 59% of problems it would have got right.</p>
+<ul>
+<li>On maths, every model finds the same problems hard. So “it aims at its own weak spots” and “it aims at what everyone finds hard” look the same. On facts they come apart: models fail on different questions.</li>
+<li>Gemini Flash Lite on TriviaQA asks on 41% of its weak questions and 10% of its strong ones (+31, interval +20 to +43).</li>
+<li>Hold another model’s ability fixed, and Gemini still asks 25 to 30 points more on its own weak questions. Hold Gemini’s own ability fixed, and a question being hard for the other model adds only 4 to 9 points, intervals through zero. Its asking tracks what it itself knows.</li>
+<li>Llama 8B on facts does not aim at all: confidence 59 on weak questions, 62 on strong.</li>
+</ul>
+<p>Rewording the prompt does not help. Nine wordings on Llama 8B:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="probe-bench-deferral/conditions-llama-8b.png" class="img-fluid figure-img"></p>
 <figcaption>Llama 8B under nine versions of the prompt: the volume moves, the aim does not.</figcaption>
 </figure>
 </div>
+<ul>
+<li>Asking on weak problems moved from 9% to 78%. The gap never beat the baseline’s.</li>
+<li>Telling it that asking is expected made it ask on 59% of problems it would have got right. More timid, not better aimed.</li>
+</ul>
 </section>
 <section id="the-estimate-updates-on-what-it-is-told-not-on-what-is-true" class="level3">
 <h3 class="anchored" data-anchor-id="the-estimate-updates-on-what-it-is-told-not-on-what-is-true">4. The estimate updates on what it is told, not on what is true</h3>
-<p>O2’s second clause asks whether the self-estimate updates when the facts change. Five manipulations say the same thing.</p>
+<p>O2’s second clause: does the self-estimate move when the facts change? Five manipulations, one answer each.</p>
 <ul>
-<li><strong>Taking away the working.</strong> Without a reasoning turn, Llama 8B’s confidence fell from 71 / 87 (weak / strong) to 45 / 54 and Gemini’s from 88 / 100 to 71 / 90: the right direction, still far above the new ability (0.03 and 0.27).</li>
-<li><strong>Telling it its record</strong> (“on this exact question, in 10 earlier attempts, you were right 2 times out of 10”). Llama 8B’s gap doubles, +21 to +51. Told a shuffled number from another question, its asking follows the number; its own sense persists underneath (gap +26 by real ability). Gemini on facts follows the number more than its own monitor (gap by real ability +31 to +10). GPT-4o mini ignores the line: 3% asking, confidence 92, true or shuffled. Under the shuffled numbers two self-relevant facts are in play at once, and neither model checks one against the other.</li>
-<li><strong>A calculator.</strong> It changed neither model’s real ability on GSM-Hard (their failures are set-up errors, not arithmetic). Llama 8B’s before-working confidence on weak problems still rose from 61 to 86; Gemini’s, correctly, did not move.</li>
-<li><strong>A reference note holding the fact</strong>, the one lever that really changed a capability: 34 of Gemini’s 39 weak questions became strong. Its before-working confidence on exactly those went from 66 to 100 and its asking from 35% to 0%. The note puts the fact in front of it, so this is the estimate following a change it can read. A control note about a different fact does the opposite: confidence 13 on those questions, and 29 on questions it knows anyway (88 without a note), while it still gets them right 90% of the time. The estimate reads what is in front of it, up or down.</li>
-<li><strong>Withdrawing the note, and bringing it back.</strong> Told the notes are gone, Gemini’s estimate drops, and it drops on everything: at 16 conversations per arm, confidence 47 and asking 48% on questions it still answers correctly 98% of the time, against 75 and 31% in a control that never had notes (-28, interval -44 to -11). Told the notes are back, it goes straight back to 100 and 0% on everything. Down and up as a block, on the announcement.</li>
+<li><strong>Take away the working.</strong> Confidence fell (Llama 8B 71 / 87 to 45 / 54 on weak / strong problems, Gemini 88 / 100 to 71 / 90). Right direction, still far above the new ability (0.03 and 0.27).</li>
+<li><strong>Tell it its record</strong> (“in 10 earlier attempts you were right 2 times out of 10”). Llama 8B’s gap doubles, +21 to +51. Tell it a shuffled number from another question and it follows that instead, with its own sense underneath (+26 by real ability). Gemini follows the number more than its own monitor (+31 to +10). GPT-4o mini ignores the line: 3% asking, confidence 92, true or shuffled.</li>
+<li><strong>Give it a calculator.</strong> Neither model got better on GSM-Hard (their failures are set-up errors, not arithmetic). Llama 8B’s before-working confidence on weak problems rose from 61 to 86 anyway. Gemini’s, correctly, did not move.</li>
+<li><strong>Give it a note holding the fact.</strong> The one change that was real: 34 of Gemini’s 39 weak questions became strong. On those, confidence 66 to 100, asking 35% to 0%. A note about a <em>different</em> fact does the opposite: confidence 13 on those questions, and 29 on questions it knows anyway (88 with no note), while it still gets them right 90% of the time.</li>
+<li><strong>Take the notes away, then give them back.</strong> Told the notes are gone, Gemini’s confidence drops on everything: 47 on questions it still answers correctly 98% of the time, against 75 in a control that never had notes (-28, interval -44 to -11). Told they are back, it goes straight back to 100. Down and up as a block.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -708,24 +734,41 @@ document.addEventListener("DOMContentLoaded", function () {
 <figcaption>Gemini’s confidence as the notes are announced gone and then back: down and up as a block, on questions the notes never touched.</figcaption>
 </figure>
 </div>
-<p>Put together: every manipulation that moved the estimate moved it as a block, up or down on everything, and the thing that moved it was always in the prompt.</p>
-<p>The update loop, O2’s “updateable” clause run directly, fits the same pattern. Llama 8B answered the same ten problems three times over with the outcome and running score fed back after each decision. Real feedback made it ask more and state less confidence than scrambled feedback did, but its aim was no better: asking on the problems it got wrong first time, minus the ones it got right, was +8 with real feedback and +6 with scrambled.</p>
-<p>One more arm of the loop says where the fault sits. The outcome for the same problem was in the conversation from the previous round and Llama barely used it (+8; with no feedback at all, +7). Repeat that same outcome as one line above the decision and it uses it almost perfectly: asking on 80% of the problems it got wrong first time and 1% of the ones it got right (+79, interval +71 to +87). A control line giving another problem’s outcome removes the aim again (-6), so it obeys the line rather than checking it. The information was there all along; the model does not fetch it from its own history. For O2 this moves the fault from “cannot update” to “does not retrieve”: the estimate updates question by question when the relevant fact is adjacent, and only then. It also explains why showing the model its own past attempts above the question made its aim worse, not better.</p>
+<p>Put together: every manipulation moved the estimate as a block, up or down on everything, and what moved it was always in the prompt.</p>
+<p><strong>The update loop</strong>, where the outcome is fed back after each decision:</p>
+<ul>
+<li>Llama 8B answered the same ten problems three times over, told the outcome and its running score after each decision.</li>
+<li>Real feedback made it ask more and state less confidence than scrambled feedback did. Its aim was no better: +8 with real feedback, +6 with scrambled (asking on the problems it got wrong first time, minus the ones it got right).</li>
+<li>The same outcome repeated as one line above the decision: +79 (interval +71 to +87). It asks on 80% of the problems it got wrong first time and 1% of the ones it got right.</li>
+<li>A line giving another problem’s outcome: -6. It obeys the line; it does not check it.</li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="probe-bench-deferral/loop-adjacent.png" class="img-fluid figure-img"></p>
 <figcaption>Llama 8B in the update loop: the same outcome left in its history does nothing; repeated next to the decision, the aim appears.</figcaption>
 </figure>
 </div>
+<p>So the information was in its history all along; the model does not fetch it. For O2 the fault moves from “cannot update” to “does not retrieve”: the estimate updates question by question when the fact is next to the decision, and only then. It also explains why showing the model its own past attempts made its aim worse.</p>
 </section>
 <section id="what-did-not-survive-and-what-was-not-tested" class="level3">
 <h3 class="anchored" data-anchor-id="what-did-not-survive-and-what-was-not-tested">What did not survive, and what was not tested</h3>
-<p>Taking away the working first looked like two kinds of knowing: Llama finding out by trying, Gemini knowing beforehand. It was a regime change. Without working, Llama 8B solves 3% of these problems, so asking on 96% of them was the right call for that regime, and Gemini keeps its aim on maths without working. The line is withdrawn.</p>
-<p>Not tested, so this page says nothing about them: frontier models (none run); mechanism (black-box only; whether a better signal sits inside the model than the one it states is the probe, the next step); post-training (no base model was available); a per-question update from anything not adjacent to the decision; differences under about ten points, which 25 to 50 weak problems cannot see.</p>
+<p>Withdrawn: “two kinds of knowing”. Taking away the working looked like Llama finding out by trying and Gemini knowing beforehand. It was a regime change: without working, Llama 8B solves 3% of these problems, so asking on 96% of them was right, and Gemini keeps its aim on maths without working.</p>
+<p>Not tested, so this page says nothing about them:</p>
+<ul>
+<li>Frontier models. None run.</li>
+<li>Mechanism. Black-box only; whether a better signal sits inside the model than the one it states is the probe, the next step.</li>
+<li>Post-training. No base model was available.</li>
+<li>A per-question update from anything not next to the decision.</li>
+<li>Differences under about ten points, which 25 to 50 weak problems cannot see.</li>
+</ul>
 </section>
 <section id="what-it-means-for-o2" class="level3">
 <h3 class="anchored" data-anchor-id="what-it-means-for-o2">What it means for O2</h3>
-<p>The gap between knowing and acting is not an incentive problem and not an acting problem. It is that most models do not know, in the sense of stating a confidence that moves. The one that does on facts, Gemini, acts on it. And when any of them is given something about itself to act on, it acts on the statement rather than the fact. That is the opposite of an updateable self-model, and it is where the probe should look: whether the signal the model does not state is nonetheless inside it.</p>
+<ul>
+<li>The gap between knowing and acting is not an incentive problem, and not an acting problem.</li>
+<li>Most models do not know, in the sense of stating a confidence that moves. The one that does on facts, Gemini, acts on it.</li>
+<li>Given something about itself to act on, every model acts on the statement rather than the fact. That is the opposite of an updateable self-model, and it is where the probe should look: whether the signal the model does not state is inside it anyway.</li>
+</ul>
 </section>
 </section>
 <section id="next" class="level2">
