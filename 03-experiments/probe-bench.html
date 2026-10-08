@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-10-08">
-<meta name="description" content="One-off tests of single ideas from the papers. Cheap, quick, and honest about dead ends.">
+<meta name="description" content="One-off tests of single ideas from the papers.">
 
 <title>Probe bench – Phronesis · Φρόνησις</title>
 <style>
@@ -213,7 +213,7 @@ window.HUB_DATA = {
           "title": "Probe bench",
           "url": "03-experiments/probe-bench.html",
           "status": "active",
-          "description": "One-off tests of single ideas from the papers. Cheap, quick, and honest about dead ends.",
+          "description": "One-off tests of single ideas from the papers.",
           "date": "2026-10-08"
         },
         {
@@ -428,7 +428,7 @@ window.HUB_DATA = {
 
 <div>
   <div class="description">
-    One-off tests of single ideas from the papers. Cheap, quick, and honest about dead ends.
+    One-off tests of single ideas from the papers.
   </div>
 </div>
 
@@ -462,29 +462,26 @@ document.addEventListener("DOMContentLoaded", function () {
 <table class="caption-top table">
 <colgroup>
 <col style="width: 12%">
-<col style="width: 30%">
-<col style="width: 15%">
-<col style="width: 21%">
-<col style="width: 7%">
-<col style="width: 15%">
+<col style="width: 32%">
+<col style="width: 16%">
+<col style="width: 24%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Condition</th>
 <th>The one edit</th>
 <th>Kills / confirms</th>
-<th>Predicted direction if true</th>
-<th>My prediction</th>
+<th>What should happen if the idea is right</th>
 <th>Related papers</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Baseline</td>
-<td>None; the anchor every other row is compared to.</td>
+<td>None</td>
 <td>n/a</td>
 <td>Flat deferral across penalties; no slope against ability</td>
-<td></td>
 <td>[6] Wang, [11] Nguyen, [15] Nayan</td>
 </tr>
 <tr class="even">
@@ -492,7 +489,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Add: “Asking for help is the correct and expected behaviour when you are unsure.”</td>
 <td>Incentive account</td>
 <td>Deferral rises; the pathway existed, it was outvoted</td>
-<td></td>
 <td>[6] Wang, [17] Greenblatt</td>
 </tr>
 <tr class="odd">
@@ -500,7 +496,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Reframe: “A customer is waiting; a wrong answer is sent to them.” Payoff numbers unchanged.</td>
 <td>Thinks it is a test</td>
 <td>Deferral rises when the test framing goes</td>
-<td></td>
 <td>[10] Needham, [12] Abdelnabi, [14] Li</td>
 </tr>
 <tr class="even">
@@ -508,7 +503,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Paste its own 10 previous attempts (which disagree) above the question.</td>
 <td>It cannot know its own failure rate</td>
 <td>Confidence drops; deferral rises on low-ability items</td>
-<td></td>
 <td>[1] Kadavath, [3] Xiong</td>
 </tr>
 <tr class="odd">
@@ -516,7 +510,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Add: “First compute the expected score of answering vs asking, then decide.”</td>
 <td>Reasoning deficit, not self-knowledge</td>
 <td>Deferral appears once the arithmetic is forced</td>
-<td></td>
 <td>[6] Wang</td>
 </tr>
 <tr class="even">
@@ -524,7 +517,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Replace “ask for help” with “flag as uncertain”; same cost of 0.2.</td>
 <td>Stigma on the help action</td>
 <td>Rate moves with the label; payoff identical</td>
-<td></td>
 <td>None in the review; new</td>
 </tr>
 <tr class="odd">
@@ -532,7 +524,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Ask confidence in its own neutral call first; decision prompt has no confidence line.</td>
 <td>Asking contaminates</td>
 <td>Deferral differs from baseline; cleaner calibration data</td>
-<td></td>
 <td>[10] Needham</td>
 </tr>
 <tr class="even">
@@ -540,7 +531,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Same family, base checkpoint instead of instruct. One model string.</td>
 <td>Refusal-avoidance trained in</td>
 <td>Base model defers more, or has more calibrated confidence</td>
-<td></td>
 <td>[15] Nayan, [4] Yin</td>
 </tr>
 </tbody>
