@@ -1,6 +1,6 @@
 ---
 title: "Probe bench"
-description: "One-off tests of single ideas from the papers.
+description: "One-off tests of single ideas from the papers."
 date: 2026-10-08
 status: active
 toc: true
