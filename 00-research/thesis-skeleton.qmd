@@ -115,8 +115,8 @@ Each line: what the papers found, what I found, what differs, and push backs to 
 The deferral pilot's follow-ups are done: the two checks on line 3 (it did not
 survive), the record line, the calculator, the passage and the update loop on line
 4, the withdrawal and its replication, the retrieval check, the distractor. The pilot
-is written up as a short report organised by finding:
-[When does a model ask for help?](../03-experiments/deferral-report.qmd). Everything
+is written up by finding on the [Probe bench](../03-experiments/probe-bench.qmd)
+page, with the full record under it. Everything
 the black-box harness can ask has been asked. Next, the probe.
 
 ## What comes next, anchored to what has been done
