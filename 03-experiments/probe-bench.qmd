@@ -54,7 +54,7 @@ number is in the full record at the bottom of the page.
 |---|---|---|---|
 | Does a bigger penalty make a model ask more? | 7 models | No. Penalty 1 to 64, asking unchanged. Every model would have scored better by always asking. | Held |
 | Do models act on their stated confidence? | all | In shape, yes: where confidence drops on weak problems, asking rises. In size, no: never enough for the cost. | Held, with a qualifier |
-| Do models know their weak problems? | all | Mostly no. Most say 95 or more on problems they usually fail. The small Llamas on maths and Gemini on facts are the exceptions. | Held |
+| Do models know their weak problems? | all | Mostly no. Most say 94 or more on problems they usually fail. The small Llamas on maths and Gemini on facts are the exceptions. | Held |
 | Is Gemini's aim on facts its own knowledge, or what is hard for everyone? | Gemini vs Qwen3 30B, GPT-4o mini | Its own knowledge: +25 to +30 holding the other model's ability fixed; general difficulty adds about nothing. | Held |
 | Does rewording the prompt improve the aim? | Llama 8B, nine wordings | No. Asking on weak problems moves from 9% to 78%; aim does not. | Did not |
 | Two kinds of knowing: by trying, or beforehand? | Llama 8B, Gemini | Withdrawn. Without working Llama cannot do the problems at all; Gemini keeps its aim on maths without working. | Withdrawn |
@@ -74,9 +74,9 @@ Paper numbers refer to the [O2 literature review](../00-research/o2-self-relevan
 
 ### 1. Telling a model the stakes does nothing
 
-- The penalty for a wrong answer went from 1 to 64. No model asked for help more
-  often. Seven models had enough weak problems to judge; every interval goes through
-  zero.
+- The penalty for a wrong answer went from 1 to 64. Seven models had enough weak
+  problems to judge. One moved once (Llama 3B, +15, interval +1 to +29) and did not
+  repeat it with the options in the other order (-1); no model's change replicated.
 - At penalty 64, always asking would have beaten every model. Llama 8B lost 17
   points per decision; the oracle lost 0.08.
 
@@ -98,7 +98,7 @@ The two charts carry this one.
   the same amount: a 16-point drop, 25 to 30 points more asking; a 2-point drop, 3.
   That holds for every model and task.
 - Most models' confidence does not drop. GPT-4o mini, Mistral Nemo and Llama 70B
-  say 95 or more on problems they usually fail, and ask on 5% or fewer.
+  say 94 or more on problems they usually fail, and ask on 5% or fewer.
 - The small Llamas and Gemini are the ones whose confidence drops, and they are the
   ones that ask.
 
@@ -121,8 +121,8 @@ Two qualifiers:
   its own weak questions. Hold Gemini's own ability fixed, and a question being hard
   for the other model adds only 4 to 9 points, intervals through zero. Its asking
   tracks what it itself knows.
-- Llama 8B on facts does not aim at all: confidence 59 on weak questions, 62 on
-  strong.
+- Llama 8B on facts barely aims: gap +11 (interval 0 to +24), confidence 59 on weak
+  questions, 62 on strong.
 
 Rewording the prompt does not help. Nine wordings on Llama 8B:
 
@@ -134,12 +134,13 @@ Rewording the prompt does not help. Nine wordings on Llama 8B:
 
 ### 4. The estimate updates on what it is told, not on what is true
 
-O2's second clause: does the self-estimate move when the facts change? Five
+O2's updateable clause: does the self-estimate move when the facts change? Five
 manipulations, one answer each.
 
 - **Take away the working.** Confidence fell (Llama 8B 71 / 87 to 45 / 54 on weak /
-  strong problems, Gemini 88 / 100 to 71 / 90). Right direction, still far above the
-  new ability (0.03 and 0.27).
+  strong problems, Gemini 88 / 100 to 71 / 90; paired over problems, as in the chart,
+  the weak-problem drops are -26 and -20). Right direction, still far above the new
+  ability (0.03 and 0.27).
 - **Tell it its record** ("in 10 earlier attempts you were right 2 times out of
   10"). Llama 8B's gap doubles, +21 to +51. Tell it a shuffled number from another
   question and it follows that instead, with its own sense underneath (+26 by real
@@ -164,8 +165,10 @@ manipulations, one answer each.
 
 ![Gemini's confidence as the notes are announced gone and then back: down and up as a block, on questions the notes never touched.](probe-bench-deferral/notes-gone-back.png)
 
-Put together: every manipulation moved the estimate as a block, up or down on
-everything, and what moved it was always in the prompt.
+Put together: the record line, the distractor note and the withdrawal moved the
+estimate on everything, as a block. The calculator moved it only where the model
+was already unsure (weak problems +30, strong +6 with the interval through zero).
+In every case what moved it was in the prompt.
 
 **The update loop**, where the outcome is fed back after each decision:
 
@@ -209,10 +212,11 @@ Not tested, so this page says nothing about them:
   problem.
 - Most models do not know, in the sense of stating a confidence that moves. The one
   that does on facts, Gemini, acts on it.
-- Given something about itself to act on, every model acts on the statement rather
-  than the fact. That is the opposite of an updateable self-model, and it is where
-  the probe should look: whether the signal the model does not state is inside it
-  anyway.
+- Given something about itself to act on, every model that acts at all acts on the
+  statement rather than the fact; GPT-4o mini acts on neither. That is not an
+  updateable self-model in O2's sense: it moves with the statement, including when
+  the statement happens to be true. It is where the probe should look: whether the
+  signal the model does not state is inside it anyway.
 
 ## Next
 
@@ -268,7 +272,7 @@ claim a difference.
   points lower for both Llamas). The models that never ask say 96 or 97 out of 100
   on problems they usually fail.
 - **On a different task the picture changes.** On factual recall (TriviaQA, in the
-  follow-up runs below) Gemini aims its asking clearly and Llama 8B does not.
+  follow-up runs below) Gemini aims its asking clearly and Llama 8B barely does.
 
 One caveat on "problems they are bad at". On maths problems, what one model finds
 hard, the others mostly find hard too: Llama 8B's ability per problem and the average
@@ -480,7 +484,7 @@ the other models': +0.87), so the question needs facts, where they fail differen
   strong ones (+31, +20 to +43), confidence 70 against 96. The clearest aim anywhere
   in these runs.
 - **Llama 8B, the same 150 questions.** Weak on 93 of them, asks a lot everywhere
-  (55% against 44%, +11, interval 0 to +24), confidence flat (59 against 62). Not aimed.
+  (55% against 44%, +11, interval 0 to +24), confidence flat (59 against 62). Barely aimed.
 - **Holding another model's ability fixed.** Two models of similar strength were
   calibrated on the same 150 questions, Qwen3 30B and GPT-4o mini. Against Qwen the
   decisive cells hold 16 and 8 questions. Holding Qwen's ability fixed, Gemini asks
@@ -513,8 +517,9 @@ withdrew it:
 
 What survives: both models' confidence fell when the working was taken away (Llama
 71 / 87 to 45 / 54 on weak / strong problems, Gemini 88 / 100 to 71 / 90), the right
-direction, still far above the new ability (0.03 and 0.27). Those two drops are the
-first two rows of the "what moved" chart below.
+direction, still far above the new ability (0.03 and 0.27). Those two drops, paired
+over problems (-26 and -20 on weak problems), are the first two rows of the "what
+moved" chart below.
 
 :::
 
@@ -532,6 +537,9 @@ Gemini, 150 for GPT-4o mini.
 | Llama 8B, GSM8K | 100 (50) | +21 (+12 to +31) | +51 (+41 to +60); asks 56% / 5% | +26 (+14 to +38) |
 | Gemini Flash Lite, TriviaQA | 100 (39) | +31 (+20 to +42) | +53 (+39 to +65); asks 58% / 5% | +10 (-3 to +23) |
 | GPT-4o mini, GSM-Hard | 50 (24) | +3 (-2 to +11) | +3 (0 to +10); asks 3%, confidence 92 | +4 (0 to +11) |
+
+The Gemini baseline here is the 100-question run; the 150-question run in the
+follow-up above gives +31 (+20 to +43), a different run with nearly the same numbers.
 
 Under the shuffled number, asking follows the handed number: correlation -0.49 for
 Llama, -0.63 for Gemini against -0.28 with its real ability.

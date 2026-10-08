@@ -288,12 +288,16 @@ def loop_chart():
             ("No feedback at all", L['none']),
             ("Its round-1 outcome repeated next to the decision", L['adjacent']),
             ("Another problem's outcome next to the decision", L['adjacent_shuffled'])]
-    fig, ax = plt.subplots(figsize=(9.5, 4.2))
-    interval_rows(ax, rows, [MUTED, MUTED, MUTED, WEAK, MUTED])
+    fig, ax = plt.subplots(figsize=(9.5, 4.6))
+    interval_rows(ax, rows, [MUTED, MUTED, MUTED, WEAK, WEAK])
+    # the control is adjacent too, but carries another problem's outcome: hollow marker
+    ax.scatter(L['adjacent_shuffled'][0] * 100, 4, s=95, facecolor='white', edgecolor=WEAK, linewidth=1.8, zorder=4)
     ax.set_xlim(-25, 100)
     ax.set_xlabel('Asks on problems it got wrong first time, minus asks on ones it got right (points, round 3)')
     handles = [plt.Line2D([], [], marker='o', linestyle='', color=MUTED, markersize=9, label='The fact is in the conversation history, or absent'),
-               plt.Line2D([], [], marker='o', linestyle='', color=WEAK, markersize=9, label='The fact is one line above the decision')]
+               plt.Line2D([], [], marker='o', linestyle='', color=WEAK, markersize=9, label='Its own outcome, one line above the decision'),
+               plt.Line2D([], [], marker='o', linestyle='', markerfacecolor='white', markeredgecolor=WEAK, markeredgewidth=1.8, markersize=9,
+                          label="Another problem's outcome, one line above the decision")]
     bottom = header(fig, 'The same fact next to the decision is used; in its own history it is not',
                     'Llama 8B, the same ten problems three times over, 20 conversations per arm. Dot: estimate. Line: 95% interval.', handles, ncol=1)
     fig.tight_layout(rect=(0, 0, 1, bottom))
