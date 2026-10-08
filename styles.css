@@ -98,8 +98,8 @@ main.content p {
   max-width: 78ch;
 }
 
-/* Keep regular notes as a focused reading column; Papers remains deliberately wide. */
-body:not(.papers-page):not(.hub-home) main.content {
+/* Keep regular notes as a focused reading column; Papers and wide-table pages (Probe bench) use the whole body column. */
+body:not(.papers-page):not(.hub-home):not(.wide-page) main.content {
   max-width: 74ch;
   margin-left: auto;
   margin-right: auto;
@@ -1454,8 +1454,9 @@ body.papers-page main.content table td:nth-child(6) {
   white-space: nowrap;
 }
 
-/* The widened Papers layout has no left gutter for the back link */
-body.papers-page .back-link {
+/* The widened Papers and wide-table layouts have no left gutter for the back link */
+body.papers-page .back-link,
+body.wide-page .back-link {
   position: static;
   float: none;
   width: auto;

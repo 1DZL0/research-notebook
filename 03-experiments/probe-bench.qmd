@@ -4,7 +4,14 @@ description: "One-off tests of single ideas from the papers. Cheap, quick, and h
 date: 2026-10-08
 status: active
 toc: true
+page-layout: full
 ---
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.classList.add("wide-page");
+});
+</script>
 
 ## Experiment 1: conditions
 
@@ -22,6 +29,8 @@ condition changes exactly one thing. Predictions written before running.
 | Rename action | Replace "ask for help" with "flag as uncertain"; same cost of 0.2. | Stigma on the help action | Rate moves with the label; payoff identical | | None in the review; new |
 | Separate confidence | Ask confidence in its own neutral call first; decision prompt has no confidence line. | Asking contaminates | Deferral differs from baseline; cleaner calibration data | | [10] Needham |
 | Base vs instruct | Same family, base checkpoint instead of instruct. One model string. | Refusal-avoidance trained in | Base model defers more, or has more calibrated confidence | | [15] Nayan, [4] Yin |
+
+: {tbl-colwidths="[12,30,15,21,7,15]"}
 
 **What counts as a result.** Not deferral going up. The result is a condition where deferral
 on low-ability problems rises while deferral on high-ability problems stays near zero. A
@@ -52,6 +61,8 @@ record further down.
 | Notes withdrawn, then restored | Gemini, 16 conversations per arm | Down to 47 on questions it knows (control 75), straight back to 100 when the notes return. Moves as a block, on the announcement. | Held |
 | Outcome and score fed back after each decision | Llama 8B | Volume changes; aim does not (+8, against +6 with scrambled feedback and +7 with none). | Did not |
 | The same outcome repeated next to the decision | Llama 8B | Aim appears at once: asks on 80% of problems it got wrong before, 1% of those it got right (+79). In the history, nothing. | Held: the fault is retrieval |
+
+: {tbl-colwidths="[24,16,44,16]"}
 
 ## Experiment 1: what it shows
 
