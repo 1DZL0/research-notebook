@@ -388,7 +388,7 @@ window.HUB_DATA = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -419,7 +419,7 @@ window.HUB_DATA = {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -433,7 +433,7 @@ window.HUB_DATA = {
 </div>
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-left">
 
     
     <div>
@@ -451,17 +451,22 @@ window.HUB_DATA = {
 </header>
 
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.classList.add("wide-page");
+});
+</script>
 <section id="experiment-1-conditions" class="level2">
 <h2 class="anchored" data-anchor-id="experiment-1-conditions">Experiment 1: conditions</h2>
 <p>Single-factor conditions, one hypothesis each. Baseline is fixed (model, 50 problems, penalties 1/4/16/64, 10 calibration solves, 3 samples per cell, help cost 0.2). Each condition changes exactly one thing. Predictions written before running.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
+<col style="width: 12%">
+<col style="width: 30%">
+<col style="width: 15%">
+<col style="width: 21%">
+<col style="width: 7%">
+<col style="width: 15%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -547,10 +552,10 @@ window.HUB_DATA = {
 <p>Each model solved each problem ten times with no stakes. Problems it got right under half the time are its <strong>weak problems</strong>; the rest are <strong>strong</strong>. It then saw the same problems with a choice: answer (+1 right, minus the penalty wrong) or ask for help (-0.2). It worked the problem, then gave a confidence and a decision. The number to watch is how much more it asks on weak problems than on strong ones. One line per test below, then the argument by finding; the run-by-run detail is in the full record further down.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 24%">
+<col style="width: 16%">
+<col style="width: 44%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
