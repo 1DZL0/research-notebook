@@ -300,7 +300,7 @@ window.HUB_DATA = {
       ]
     }
   ],
-  "lastUpdated": "8 October 2026"
+  "lastUpdated": "9 October 2026"
 };
 </script>
 
@@ -350,10 +350,6 @@ window.HUB_DATA = {
     });
   });
 </script>
-<meta name="mermaid-theme" content="neutral">
-<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -402,7 +398,7 @@ window.HUB_DATA = {
   <ul class="collapse">
   <li><a href="#telling-a-model-the-stakes-does-nothing" id="toc-telling-a-model-the-stakes-does-nothing" class="nav-link" data-scroll-target="#telling-a-model-the-stakes-does-nothing">1. Telling a model the stakes does nothing</a></li>
   <li><a href="#models-act-on-their-stated-confidence-the-confidence-is-what-fails" id="toc-models-act-on-their-stated-confidence-the-confidence-is-what-fails" class="nav-link" data-scroll-target="#models-act-on-their-stated-confidence-the-confidence-is-what-fails">2. Models act on their stated confidence; the confidence is what fails</a></li>
-  <li><a href="#where-the-confidence-is-real-it-is-the-models-own-knowledge" id="toc-where-the-confidence-is-real-it-is-the-models-own-knowledge" class="nav-link" data-scroll-target="#where-the-confidence-is-real-it-is-the-models-own-knowledge">3. Where the confidence is real, it is the model’s own knowledge</a></li>
+  <li><a href="#geminis-aim-on-facts-is-its-own-knowledge-not-what-is-hard-for-everyone" id="toc-geminis-aim-on-facts-is-its-own-knowledge-not-what-is-hard-for-everyone" class="nav-link" data-scroll-target="#geminis-aim-on-facts-is-its-own-knowledge-not-what-is-hard-for-everyone">3. Gemini’s aim on facts is its own knowledge, not what is hard for everyone</a></li>
   <li><a href="#the-estimate-updates-on-what-it-is-told-not-on-what-is-true" id="toc-the-estimate-updates-on-what-it-is-told-not-on-what-is-true" class="nav-link" data-scroll-target="#the-estimate-updates-on-what-it-is-told-not-on-what-is-true">4. The estimate updates on what it is told, not on what is true</a></li>
   <li><a href="#what-did-not-survive-and-what-was-not-tested" id="toc-what-did-not-survive-and-what-was-not-tested" class="nav-link" data-scroll-target="#what-did-not-survive-and-what-was-not-tested">What did not survive, and what was not tested</a></li>
   <li><a href="#what-it-means-for-o2" id="toc-what-it-means-for-o2" class="nav-link" data-scroll-target="#what-it-means-for-o2">What it means for O2</a></li>
@@ -540,12 +536,11 @@ document.addEventListener("DOMContentLoaded", function () {
 <h2 class="anchored" data-anchor-id="experiment-1-outcomes">Experiment 1: outcomes</h2>
 <p>How a run works, in four steps:</p>
 <ol type="1">
-<li><strong>Measure ability.</strong> Each model solves every problem ten times, nothing at stake. A problem it gets right under half the time is one of its <strong>weak problems</strong>; the rest are its <strong>strong problems</strong>.</li>
+<li><strong>Measure ability.</strong> Each model solves every problem ten times, nothing at stake. A problem it gets right under half the time counts as one it <strong>usually gets wrong</strong>; the rest count as ones it <strong>usually gets right</strong>. Those two groups are compared throughout.</li>
 <li><strong>Add the choice.</strong> It sees the same problems again and must either answer (+1 if right, minus the penalty if wrong) or ask for help (always -0.2).</li>
 <li><strong>Work, then decide.</strong> It works the problem, states a confidence from 0 to 100, then decides.</li>
-<li><strong>Read the gap.</strong> The number to watch is how much more often it asks on weak problems than on strong ones. A model that knows its limits has a big gap; one that asks at random, or never, has none.</li>
+<li><strong>To check.</strong> The number to watch is how much more often it asks on problems it usually gets wrong than on ones it usually gets right.</li>
 </ol>
-<p>One line per test below. The argument follows, one finding at a time. Every run and number is in the full record at the bottom of the page.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 24%">
@@ -565,79 +560,79 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="odd">
 <td>Does a bigger penalty make a model ask more?</td>
 <td>7 models</td>
-<td>No.&nbsp;Penalty 1 to 64, asking unchanged. Every model would have scored better by always asking.</td>
+<td>No.&nbsp;Raising the penalty from 1 to 64 did not change how often any model asked. Every model would have scored better by always asking.</td>
 <td>Held</td>
 </tr>
 <tr class="even">
 <td>Do models act on their stated confidence?</td>
 <td>all</td>
-<td>In shape, yes: where confidence drops on weak problems, asking rises. In size, no: never enough for the cost.</td>
+<td>Yes, but not enough. When its confidence drops on a problem, it asks more. It never asks as often as its own confidence says it should.</td>
 <td>Held, with a qualifier</td>
 </tr>
 <tr class="odd">
-<td>Do models know their weak problems?</td>
+<td>Do models know which problems they usually get wrong?</td>
 <td>all</td>
-<td>Mostly no. Most say 95 or more on problems they usually fail. The small Llamas on maths and Gemini on facts are the exceptions.</td>
+<td>Mostly no. Most say 94 or more on problems they usually fail. The small Llamas on maths and Gemini on facts are the exceptions.</td>
 <td>Held</td>
 </tr>
 <tr class="even">
 <td>Is Gemini’s aim on facts its own knowledge, or what is hard for everyone?</td>
 <td>Gemini vs Qwen3 30B, GPT-4o mini</td>
-<td>Its own knowledge: +25 to +30 holding the other model’s ability fixed; general difficulty adds about nothing.</td>
+<td>Its own knowledge. On questions another model finds equally hard, Gemini still asks 25 to 30 points more on the ones it usually gets wrong itself. Whether a question is hard for the other model adds almost nothing.</td>
 <td>Held</td>
 </tr>
 <tr class="odd">
 <td>Does rewording the prompt improve the aim?</td>
 <td>Llama 8B, nine wordings</td>
-<td>No.&nbsp;Asking on weak problems moves from 9% to 78%; aim does not.</td>
+<td>No.&nbsp;How often it asks moves a lot (9% to 78% on problems it usually gets wrong), but it does not get better at picking which problems to ask on.</td>
 <td>Did not</td>
 </tr>
 <tr class="even">
 <td>Two kinds of knowing: by trying, or beforehand?</td>
 <td>Llama 8B, Gemini</td>
-<td>Withdrawn. Without working Llama cannot do the problems at all; Gemini keeps its aim on maths without working.</td>
+<td>Not shown. Without working, Llama 8B cannot do these problems at all, so asking on nearly all of them was right. Gemini keeps its aim on maths without working.</td>
 <td>Withdrawn</td>
 </tr>
 <tr class="odd">
 <td>Told its exact record (“right 2 times out of 10”)</td>
 <td>Llama 8B, Gemini, GPT-4o mini</td>
-<td>Llama and Gemini use it, true or shuffled alike. GPT-4o mini ignores it.</td>
+<td>Llama and Gemini follow the line, whether the number is true or shuffled. GPT-4o mini ignores it.</td>
 <td>Held: obeys the line</td>
 </tr>
 <tr class="even">
 <td>A calculator, as a real change in capability</td>
 <td>Llama 8B, Gemini</td>
-<td>Changed nothing real. Llama’s confidence rose 30 points anyway; Gemini’s did not move.</td>
+<td>The calculator did not make either model better. Llama’s confidence rose 30 points anyway; Gemini’s did not move.</td>
 <td>Open: no capability change happened</td>
 </tr>
 <tr class="odd">
 <td>A reference note holding the fact</td>
 <td>Gemini</td>
-<td>34 of 39 weak questions fixed; confidence 66 to 100 on exactly those, asking 35% to 0%.</td>
+<td>The note fixed 34 of the 39 questions Gemini usually gets wrong. On exactly those, confidence went 66 to 100 and asking 35% to 0%.</td>
 <td>Held: follows a change it can read</td>
 </tr>
 <tr class="even">
 <td>A note about a different fact</td>
 <td>Gemini</td>
-<td>Confidence falls to 13 on weak questions, and to 29 on questions it knows (still 90% right).</td>
+<td>Confidence falls to 13 on the questions it usually gets wrong, and to 29 on questions it knows, even though it still gets those right 90% of the time.</td>
 <td>Held: reads what is in front of it</td>
 </tr>
 <tr class="odd">
 <td>Notes withdrawn, then restored</td>
 <td>Gemini, 16 conversations per arm</td>
-<td>Down to 47 on questions it knows (control 75), straight back to 100 when the notes return. Moves as a block, on the announcement.</td>
+<td>Told the notes are gone, confidence drops to 47 even on questions it knows (75 in the control). Told they are back, it goes straight back to 100. It follows the announcement, not what it can do.</td>
 <td>Held</td>
 </tr>
 <tr class="even">
 <td>Outcome and score fed back after each decision</td>
 <td>Llama 8B</td>
-<td>Volume changes; aim does not (+8, against +6 with scrambled feedback and +7 with none).</td>
+<td>It asks more, but not on the right problems: the gap is +8 with real feedback, +6 with scrambled feedback, +7 with none.</td>
 <td>Did not</td>
 </tr>
 <tr class="odd">
 <td>The same outcome repeated next to the decision</td>
 <td>Llama 8B</td>
-<td>Aim appears at once: asks on 80% of problems it got wrong before, 1% of those it got right (+79). In the history, nothing.</td>
+<td>Now it aims: asks on 80% of the problems it got wrong before and 1% of the ones it got right (+79). The same fact left in its history did nothing.</td>
 <td>Held: the fault is retrieval</td>
 </tr>
 </tbody>
@@ -645,20 +640,19 @@ document.addEventListener("DOMContentLoaded", function () {
 </section>
 <section id="experiment-1-what-it-shows" class="level2">
 <h2 class="anchored" data-anchor-id="experiment-1-what-it-shows">Experiment 1: what it shows</h2>
-<p>Paper numbers refer to the <a href="../00-research/o2-self-relevant-action.html">O2 literature review</a>.</p>
 <section id="telling-a-model-the-stakes-does-nothing" class="level3">
 <h3 class="anchored" data-anchor-id="telling-a-model-the-stakes-does-nothing">1. Telling a model the stakes does nothing</h3>
 <ul>
-<li>The penalty for a wrong answer went from 1 to 64. No model asked for help more often. Seven models had enough weak problems to judge; every interval goes through zero.</li>
-<li>At penalty 64, always asking would have beaten every model. Llama 8B lost 17 points per decision; the oracle lost 0.08.</li>
+<li>The penalty for a wrong answer went from 1 to 64. Seven models had enough problems they usually get wrong to judge. One moved once (Llama 3B, +15, interval +1 to +29) and did not repeat it with the options in the other order (-1); no model’s change replicated.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="probe-bench-deferral/payoff-penalty-64.png" class="img-fluid figure-img"></p>
-<figcaption>At penalty 64, what each model scored against always answering, always asking, and an oracle that asks exactly when its measured ability says to.</figcaption>
+<figcaption>At penalty 64, what each model scored against three fixed policies: always answering, always asking, and a perfect asker that asks exactly when its measured ability says it should.</figcaption>
 </figure>
 </div>
-<p>What that rules out: the story that the model knows, but the stated payoff does not reward asking (Wang [6] found the same). One limit: the penalty was a number in the prompt. No model ever felt a -64. Felt consequences are finding 4.</p>
+<p>What that rules out: the story that the model knows, but the stated payoff does not reward asking (Wang [6] found the same).</p>
+<p>One limit: the penalty was a number in the prompt. No model ever felt a -64. Felt consequences are finding 4.</p>
 </section>
 <section id="models-act-on-their-stated-confidence-the-confidence-is-what-fails" class="level3">
 <h3 class="anchored" data-anchor-id="models-act-on-their-stated-confidence-the-confidence-is-what-fails">2. Models act on their stated confidence; the confidence is what fails</h3>
@@ -666,33 +660,28 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="probe-bench-deferral/models-gsm8k.png" class="img-fluid figure-img"></p>
-<figcaption>How often each model asks for help on weak and strong problems, and the confidence it states.</figcaption>
+<figcaption>How often each model asks for help on problems it usually gets wrong and ones it usually gets right, and the confidence it states.</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="probe-bench-deferral/confidence-vs-asking.png" class="img-fluid figure-img"></p>
-<figcaption>One point per model and task: the more the stated confidence drops on weak problems, the more the model asks.</figcaption>
+<figcaption>One point per model and task: the more the stated confidence drops on problems it usually gets wrong, the more the model asks.</figcaption>
 </figure>
 </div>
 <ul>
-<li>Where a model’s confidence drops on its weak problems, its asking rises by about the same amount: a 16-point drop, 25 to 30 points more asking; a 2-point drop, 3. That holds for every model and task.</li>
-<li>Most models’ confidence does not drop. GPT-4o mini, Mistral Nemo and Llama 70B say 95 or more on problems they usually fail, and ask on 5% or fewer.</li>
-<li>The small Llamas and Gemini are the ones whose confidence drops, and they are the ones that ask.</li>
-</ul>
-<p>Two qualifiers:</p>
-<ul>
-<li>They act on the <em>drop</em>, not on the number. Llama 8B says 72 on problems it gets right one time in three. At penalty 64 that number says ask every time; it asks a third of the time.</li>
-<li>The cost is never in the loop. That is finding 1 seen from the other side, and it matches Barkan [21]: the acting side works, the knowing side is wrong.</li>
+<li><p>Most models’ confidence does not drop. GPT-4o mini, Mistral Nemo and Llama 70B say 94 or more on problems they usually fail, and ask on 5% or fewer.</p></li>
+<li><p>They act on the <em>drop</em>, not on the number. Llama 8B says 72 on problems it gets right one time in three. At penalty 64 that number says ask every time; it asks a third of the time.</p></li>
+<li><p>The cost is never in the loop. That is finding 1 seen from the other side, and it matches Barkan [21]: the acting side works, the knowing side is wrong.</p></li>
 </ul>
 </section>
-<section id="where-the-confidence-is-real-it-is-the-models-own-knowledge" class="level3">
-<h3 class="anchored" data-anchor-id="where-the-confidence-is-real-it-is-the-models-own-knowledge">3. Where the confidence is real, it is the model’s own knowledge</h3>
+<section id="geminis-aim-on-facts-is-its-own-knowledge-not-what-is-hard-for-everyone" class="level3">
+<h3 class="anchored" data-anchor-id="geminis-aim-on-facts-is-its-own-knowledge-not-what-is-hard-for-everyone">3. Gemini’s aim on facts is its own knowledge, not what is hard for everyone</h3>
 <ul>
-<li>On maths, every model finds the same problems hard. So “it aims at its own weak spots” and “it aims at what everyone finds hard” look the same. On facts they come apart: models fail on different questions.</li>
-<li>Gemini Flash Lite on TriviaQA asks on 41% of its weak questions and 10% of its strong ones (+31, interval +20 to +43).</li>
-<li>Hold another model’s ability fixed, and Gemini still asks 25 to 30 points more on its own weak questions. Hold Gemini’s own ability fixed, and a question being hard for the other model adds only 4 to 9 points, intervals through zero. Its asking tracks what it itself knows.</li>
-<li>Llama 8B on facts does not aim at all: confidence 59 on weak questions, 62 on strong.</li>
+<li><p>On maths you cannot tell the two apart: every model fails the same problems (Llama 8B’s ability per problem and the other models’ average correlate at +0.87), so a model asking on the problems it usually gets wrong is also asking on the ones everyone gets wrong. On facts, models fail different questions, so the two can be separated.</p></li>
+<li><p>Gemini Flash Lite on TriviaQA asks on 41% of the questions it usually gets wrong and 10% of the ones it usually gets right (+31, interval +20 to +43).</p></li>
+<li><p>Hold another model’s ability fixed, and Gemini still asks 25 to 30 points more on the questions it usually gets wrong itself. Hold Gemini’s own ability fixed, and a question being hard for the other model adds only 4 to 9 points, intervals through zero. Its asking tracks what it itself knows.</p></li>
+<li><p>Llama 8B on facts barely aims: gap +11 (interval 0 to +24), confidence 59 on questions it usually gets wrong, 62 on ones it gets right.</p></li>
 </ul>
 <p>Rewording the prompt does not help. Nine wordings on Llama 8B:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -702,18 +691,18 @@ document.addEventListener("DOMContentLoaded", function () {
 </figure>
 </div>
 <ul>
-<li>Asking on weak problems moved from 9% to 78%. The gap never beat the baseline’s.</li>
+<li>Asking on problems it usually gets wrong moved from 9% to 78%. The gap never beat the baseline’s.</li>
 <li>Telling it that asking is expected made it ask on 59% of problems it would have got right. More timid, not better aimed.</li>
 </ul>
 </section>
 <section id="the-estimate-updates-on-what-it-is-told-not-on-what-is-true" class="level3">
 <h3 class="anchored" data-anchor-id="the-estimate-updates-on-what-it-is-told-not-on-what-is-true">4. The estimate updates on what it is told, not on what is true</h3>
-<p>O2’s second clause: does the self-estimate move when the facts change? Five manipulations, one answer each.</p>
+<p>O2’s updateable clause: does the self-estimate move when the facts change? Five manipulations, one answer each.</p>
 <ul>
-<li><strong>Take away the working.</strong> Confidence fell (Llama 8B 71 / 87 to 45 / 54 on weak / strong problems, Gemini 88 / 100 to 71 / 90). Right direction, still far above the new ability (0.03 and 0.27).</li>
+<li><strong>Take away the working.</strong> Confidence fell (Llama 8B 71 / 87 to 45 / 54 on problems it usually gets wrong / right, Gemini 88 / 100 to 71 / 90; paired over problems, as in the chart, the drops on the problems it usually gets wrong are -26 and -20). Right direction, still far above the new ability (0.03 and 0.27).</li>
 <li><strong>Tell it its record</strong> (“in 10 earlier attempts you were right 2 times out of 10”). Llama 8B’s gap doubles, +21 to +51. Tell it a shuffled number from another question and it follows that instead, with its own sense underneath (+26 by real ability). Gemini follows the number more than its own monitor (+31 to +10). GPT-4o mini ignores the line: 3% asking, confidence 92, true or shuffled.</li>
-<li><strong>Give it a calculator.</strong> Neither model got better on GSM-Hard (their failures are set-up errors, not arithmetic). Llama 8B’s before-working confidence on weak problems rose from 61 to 86 anyway. Gemini’s, correctly, did not move.</li>
-<li><strong>Give it a note holding the fact.</strong> The one change that was real: 34 of Gemini’s 39 weak questions became strong. On those, confidence 66 to 100, asking 35% to 0%. A note about a <em>different</em> fact does the opposite: confidence 13 on those questions, and 29 on questions it knows anyway (88 with no note), while it still gets them right 90% of the time.</li>
+<li><strong>Give it a calculator.</strong> Neither model got better on GSM-Hard (their failures are set-up errors, not arithmetic). Llama 8B’s before-working confidence on problems it usually gets wrong rose from 61 to 86 anyway. Gemini’s, correctly, did not move.</li>
+<li><strong>Give it a note holding the fact.</strong> The one change that was real: 34 of the 39 questions Gemini usually got wrong became ones it gets right. On those, confidence 66 to 100, asking 35% to 0%. A note about a <em>different</em> fact does the opposite: confidence 13 on those questions, and 29 on questions it knows anyway (88 with no note), while it still gets them right 90% of the time.</li>
 <li><strong>Take the notes away, then give them back.</strong> Told the notes are gone, Gemini’s confidence drops on everything: 47 on questions it still answers correctly 98% of the time, against 75 in a control that never had notes (-28, interval -44 to -11). Told they are back, it goes straight back to 100. Down and up as a block.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
@@ -734,7 +723,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <figcaption>Gemini’s confidence as the notes are announced gone and then back: down and up as a block, on questions the notes never touched.</figcaption>
 </figure>
 </div>
-<p>Put together: every manipulation moved the estimate as a block, up or down on everything, and what moved it was always in the prompt.</p>
+<p>Put together: the record line, the distractor note and the withdrawal moved the estimate on everything, as a block. The calculator moved it only where the model was already unsure (+30 on problems it usually gets wrong, +6 on ones it gets right, with the interval through zero). In every case what moved it was in the prompt.</p>
 <p><strong>The update loop</strong>, where the outcome is fed back after each decision:</p>
 <ul>
 <li>Llama 8B answered the same ten problems three times over, told the outcome and its running score after each decision.</li>
@@ -759,7 +748,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <li>Mechanism. Black-box only; whether a better signal sits inside the model than the one it states is the probe, the next step.</li>
 <li>Post-training. No base model was available.</li>
 <li>A per-question update from anything not next to the decision.</li>
-<li>Differences under about ten points, which 25 to 50 weak problems cannot see.</li>
+<li>Differences under about ten points, which 25 to 50 problems per group cannot see.</li>
 </ul>
 </section>
 <section id="what-it-means-for-o2" class="level3">
@@ -767,7 +756,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <ul>
 <li>The gap between knowing and acting is not an incentive problem, and not an acting problem.</li>
 <li>Most models do not know, in the sense of stating a confidence that moves. The one that does on facts, Gemini, acts on it.</li>
-<li>Given something about itself to act on, every model acts on the statement rather than the fact. That is the opposite of an updateable self-model, and it is where the probe should look: whether the signal the model does not state is inside it anyway.</li>
+<li>Given something about itself to act on, every model that acts at all acts on the statement rather than the fact; GPT-4o mini acts on neither. That is not an updateable self-model in O2’s sense: it moves with the statement, including when the statement happens to be true. It is where the probe should look: whether the signal the model does not state is inside it anyway.</li>
 </ul>
 </section>
 </section>
@@ -775,95 +764,24 @@ document.addEventListener("DOMContentLoaded", function () {
 <h2 class="anchored" data-anchor-id="next">Next</h2>
 <ol type="1">
 <li><strong>Look inside.</strong> Probe Llama 8B and 70B for an internal “I will get this wrong” signal and compare it with the confidence they state. Needs a GPU.</li>
-<li><strong>A harder task.</strong> Repeat with a benchmark where strong models, including Claude and one frontier model, have plenty of weak problems.</li>
+<li><strong>A harder task.</strong> Repeat with a benchmark where capable models, including Claude and one frontier model, have plenty of problems it usually gets wrong.</li>
 </ol>
 </section>
 <section id="full-record" class="level2">
 <h2 class="anchored" data-anchor-id="full-record">Full record</h2>
-<p>Every run, number and caveat, in the order they happened. The first write-up is from the overnight run of 4 to 5 October 2026; the follow-ups ran on 6 and 7 October at penalty 64 only. Click a section to open it.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="The question">
+<p>The tables behind the findings, then the papers and the methods notes. In the tables, “usually wrong” and “usually right” are the two groups of problems from step 1. Every number is reproducible from the saved runs in <code>02-defferal</code> with <code>analyse.py</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Every model on GSM8K and GSM-Hard, penalties 1 to 64">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>The question
+<span class="screen-reader-only">Note</span>Every model on GSM8K and GSM-Hard, penalties 1 to 64
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>When a model is bad at a problem, does it know, and does it act on that by asking for help instead of answering?</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="What we did">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>What we did
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A["Model solves each&lt;br/&gt;problem 10 times"] --&gt; B["Weak problems&lt;br/&gt;right under half the time"]
-  A --&gt; C["Strong problems&lt;br/&gt;right at least half the time"]
-  B --&gt; D["Same problems again:&lt;br/&gt;answer or ask for help&lt;br/&gt;penalty 1, 4, 16, 64"]
-  C --&gt; D
-  D --&gt; E["Gap: asks on weak&lt;br/&gt;minus asks on strong"]
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>A <strong>weak problem</strong> is one that model usually gets wrong. A <strong>strong problem</strong> is one it usually gets right. “Weak” does not mean easy.</p>
-<p>Each run uses 50 problems (up to 25 of them weak) and 600 decisions. The intervals are 95% bootstrap intervals over problems. If an interval includes zero, we cannot claim a difference.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Finding 1: on maths, only the small Llama models clearly aim their help-asking">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Finding 1: on maths, only the small Llama models clearly aim their help-asking
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="probe-bench-deferral/models-gsm8k.png" class="img-fluid figure-img"></p>
-<figcaption>Left: how often each model asks for help on weak and strong problems. Right: the confidence it states. Grey rows had too few weak problems to judge.</figcaption>
-</figure>
-</div>
-<ul>
-<li><strong>Llama 3B and Llama 8B</strong> ask for help far more on weak problems than on strong ones (gaps of +31 and +26 points).</li>
-<li><strong>GPT-4o mini and Mistral Nemo</strong> almost never ask, even on weak problems (3% and 4%). When they answer those weak problems they are right only 23% and 42% of the time.</li>
-<li><strong>The right panel shows why.</strong> Asking follows the confidence the model states. The models that ask are the ones whose confidence drops on weak problems (16 points lower for both Llamas). The models that never ask say 96 or 97 out of 100 on problems they usually fail.</li>
-<li><strong>On a different task the picture changes.</strong> On factual recall (TriviaQA, in the follow-up runs below) Gemini aims its asking clearly and Llama 8B does not.</li>
-</ul>
-<p>One caveat on “problems they are bad at”. On maths problems, what one model finds hard, the others mostly find hard too: Llama 8B’s ability per problem and the average ability of the other 7 models correlate at +0.87. So this shows the small Llamas aim their help-asking at hard problems. Whether they aim at <em>their own</em> weak spots, rather than at problems everyone fails, cannot be told apart on this task. The partial regression says it is not simply reading problem length: with length and the count of numbers in the model, ability keeps almost all its weight (-0.63 against -0.66 alone) and length drops to zero.</p>
-<p>Three models had too few weak problems on GSM8K to judge. So the stronger models were rerun on GSM-Hard, which is the same problems with very large numbers.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="probe-bench-deferral/models-gsmhard.png" class="img-fluid figure-img"></p>
-<figcaption>The same comparison on harder problems, where the stronger models have enough weak problems.</figcaption>
-</figure>
-</div>
-<p>With enough weak problems the picture is the same. Llama 70B, GPT-4o mini and Gemini Flash Lite ask for help on 5% or fewer of their weak problems and state a confidence of 94 or more. Llama 8B keeps its gap (+25). Gemini’s gap on GSM8K (+16) does not carry over: on the large-number problems it is almost always wrong on its weak problems (1% right) and still says 97.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 14%">
@@ -878,11 +796,11 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="header">
 <th>Model</th>
 <th>Problems</th>
-<th>Weak problems</th>
-<th>Asks on weak</th>
-<th>Asks on strong</th>
+<th>Usually wrong</th>
+<th>Asks, usually wrong</th>
+<th>Asks, usually right</th>
 <th>Gap (95% interval)</th>
-<th>Confidence, weak / strong</th>
+<th>Confidence, usually wrong / right</th>
 </tr>
 </thead>
 <tbody>
@@ -981,63 +899,18 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Finding 2: a bigger penalty does not make models ask more">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="Llama 8B under nine prompt wordings">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Finding 2: a bigger penalty does not make models ask more
+<span class="screen-reader-only">Note</span>Llama 8B under nine prompt wordings
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="probe-bench-deferral/penalty-effect.png" class="img-fluid figure-img"></p>
-<figcaption>How often each model asks for help on its weak problems at the smallest penalty (light circle) and the largest (dark diamond).</figcaption>
-</figure>
-</div>
-<p>Each row is one model. The light circle is how often it asks for help on its weak problems when a wrong answer costs 1 point. The dark diamond is the same thing when a wrong answer costs 64 points. If the penalty mattered, the diamond would sit far to the right of the circle.</p>
-<p>It does not. At penalty 64, asking for help is clearly the better choice on any weak problem, yet the two marks sit almost on top of each other for every model. Only Llama 3B moves (+15 points), and that did not repeat when the run was done again with the options listed in the other order (-1).</p>
-<p>The scores make this concrete.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="probe-bench-deferral/payoff-penalty-64.png" class="img-fluid figure-img"></p>
-<figcaption>Average score per decision at penalty 64, against always answering and an oracle that asks exactly when the model’s measured ability says it should.</figcaption>
-</figure>
-</div>
-<p>At penalty 64 a model that always asked for help would score -0.2 per decision. Every model scored far below that: Llama 8B lost 17 points per decision, GPT-4o mini 12, Llama 3B 10. They all beat always answering, so the asking points the right way. But it is nowhere near the amount a model acting on its own numbers would ask. Llama 8B states a confidence of about 72 on problems it gets right one time in three; at penalty 64 that confidence says ask every time. It asks a third of the time.</p>
-<p>One limit on what this rules out. The penalty was a number in the prompt; no model ever experienced a -64. So this kills the version of the incentive story where a model would ask if the stated payoff favoured it, which is the version the review set up. Whether felt consequences work is a different question; the update loop (in the follow-ups below) fed the outcome and the running score back after every decision, and it changed how much the model asks, not which problems it asks on.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Finding 3: changing the prompt changes how much it asks, not how well it aims">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Finding 3: changing the prompt changes how much it asks, not how well it aims
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="probe-bench-deferral/conditions-llama-8b.png" class="img-fluid figure-img"></p>
-<figcaption>Llama 8B under nine versions of the prompt. Each row changes one thing.</figcaption>
-</figure>
-</div>
-<p>Every wording change moved how often Llama 8B asks; the order control did not (33% / 7% to 30% / 7%), which is what a control should do. The clearest case is the permission line (“asking for help is the correct and expected behaviour when you are unsure”):</p>
-<ul>
-<li>On weak problems it asked 78% of the time, up from 33%. That looks like a win.</li>
-<li>But on strong problems it asked 59% of the time, up from 7%. These are problems it would mostly have got right.</li>
-</ul>
-<p>So it became more cautious about everything. It did not get better at telling its weak problems from its strong ones. Its stated confidence fell by about 22 points on both kinds of problem, which is why: the line lowered its confidence across the board.</p>
-<p>The result we said would count is more asking on weak problems with strong problems left alone. No condition did that, and no condition beat the baseline’s gap (the intervals overlap, so “widest” would claim more than the data gives).</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -1049,7 +922,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="header">
 <th>Condition</th>
 <th>Predicted if the idea is true</th>
-<th>What happened (asks on weak / strong)</th>
+<th>What happened (asks, usually wrong / usually right)</th>
 <th>Verdict</th>
 </tr>
 </thead>
@@ -1058,7 +931,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Baseline</td>
 <td>Flat across penalties; no slope against ability</td>
 <td>33% / 7%</td>
-<td>Flat across penalties: yes. No slope against ability: no, it asks more on weak problems</td>
+<td>Flat across penalties: yes. No slope against ability: no, it asks more on problems it usually gets wrong</td>
 </tr>
 <tr class="even">
 <td>Permission</td>
@@ -1074,15 +947,15 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <td>Show history</td>
-<td>Confidence drops; deferral rises on weak problems</td>
+<td>Confidence drops; deferral rises on usually-wrong problems</td>
 <td>33% / 12%</td>
-<td>No rise on weak problems, a small rise on strong ones</td>
+<td>No rise on usually-wrong problems, a small rise on usually-right ones</td>
 </tr>
 <tr class="odd">
 <td>Compute EV</td>
 <td>Deferral appears once the arithmetic is forced</td>
 <td>33% / 16%</td>
-<td>No rise on weak problems, a rise on strong ones</td>
+<td>No rise on usually-wrong problems, a rise on usually-right ones</td>
 </tr>
 <tr class="even">
 <td>Rename action</td>
@@ -1110,91 +983,21 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 </tbody>
 </table>
-<p>Two more checks on other models:</p>
-<ul>
-<li><strong>Mistral Nemo</strong> (never asks): showing it its own earlier answers, or telling it to work out the expected score, changed nothing (2% and 7% on weak problems).</li>
-<li><strong>Gemini Flash Lite</strong> with the permission line: 23% on weak problems against 16% at baseline, with strong problems still at 1%. This is the only case that fits what we said would count as a result, but it is small and rests on 14 weak problems.</li>
-</ul>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="What held up and what did not">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="The three Llamas on GSM-Hard, 25 usually-wrong problems each">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>What held up and what did not
+<span class="screen-reader-only">Note</span>The three Llamas on GSM-Hard, 25 usually-wrong problems each
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Held up:</p>
-<ul>
-<li><strong>The small Llamas aim their help-asking on maths.</strong> Llama 8B showed the gap in five separate runs: the first 50 problems (+29), the balanced set (+26), options in the other order (+23), the harder problems (+25) and 100 problems at penalty 64 only (+21).</li>
-<li><strong>Asking follows stated confidence, in shape but not in size.</strong> Where confidence drops on weak problems, help-asking rises; where it stays in the high 90s, the model does not ask. The chart below puts every model and task on one picture: the acting side holds everywhere, and what differs between models is whether the confidence moves. The qualifier matters: models act on the <em>drop</em> in confidence, not on the number, and never with the cost in the loop. Llama 8B at 72 on its weak problems should ask every time at penalty 64 and asks a third of the time. That is Finding 2 seen from the other side.</li>
-<li><strong>The self-estimate reads what is in front of it.</strong> A record line, a note, a calculator announcement, “notes are gone”: each moved the stated confidence, true or not, and in the same direction on everything. The same fact left in the model’s own history is not used; repeated next to the decision, it is (the follow-ups below).</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="probe-bench-deferral/confidence-vs-asking.png" class="img-fluid figure-img"></p>
-<figcaption>One point per model and task. Across the board, the more a model’s stated confidence drops on its weak problems, the more it asks for help on them.</figcaption>
-</figure>
-</div>
-<p>Not tested, so the page says nothing about them:</p>
-<ul>
-<li><strong>Frontier models.</strong> None was run.</li>
-<li><strong>Mechanism.</strong> Black-box only; whether a better signal sits inside the model than the one it states is the white-box step.</li>
-<li><strong>A capability change the model has to notice.</strong> The calculator changed nothing real, and the note puts the fact in the prompt, so no run yet shows an estimate tracking a change it was not told about.</li>
-<li><strong>Post-training.</strong> No base model was run, so nothing here says whether any of this is a training product, and the size ladder cannot carry that claim.</li>
-</ul>
-<p>Did not hold up:</p>
-<ul>
-<li><strong>Stated stakes.</strong> A 64 times bigger penalty in the prompt changes almost nothing.</li>
-<li><strong>Prompt fixes.</strong> None of the conditions improved the aim.</li>
-<li><strong>Updating from feedback left in the history.</strong> The outcome and running score fed back after every decision changed the volume of asking, not the aim.</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="What this shows against the papers">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>What this shows against the papers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Numbers refer to the <a href="../00-research/o2-self-relevant-action.html">O2 literature review</a>.</p>
-<ul>
-<li><strong>Wang [6]: we see the same thing.</strong> Wang found that models do not abstain more when mistakes get costlier. Same here, on 7 of the 8 models (Qwen 2.5 7B had too few weak problems to judge), up to a 64 times penalty.</li>
-<li><strong>Barkan [21]: mostly the same.</strong> Barkan says the acting side works and the knowing side is wrong. Here too: decisions follow the confidence a model states, and that confidence is too high and barely separates weak from strong problems. One difference: our models follow their confidence but ignore the cost.</li>
-<li><strong>Xiong [3]: we see the same thing.</strong> Stated confidence is overconfident. Most models said 86 to 99 out of 100 on problems they usually fail.</li>
-<li><strong>Li [7]: not tested, and now the obvious next step.</strong> Li found a signal inside the model that beats its stated confidence. Our test only sees what the model says and does, and it points at stated confidence as the weak link.</li>
-<li><strong>Evaluation-awareness papers [10], [12], [14]: one small check, no support.</strong> Removing the test framing (“a customer is waiting”) made Llama 8B ask less, not more.</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Follow-up: more problems, and the size ladder">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Follow-up: more problems, and the size ladder
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>Llama 8B on 100 GSM8K problems (50 weak), 300 decisions, penalty 64.</strong> Asks on 34% of weak problems and 13% of strong ones, gap +21 (+12 to +31). The fifth run with the gap between +21 and +29.</p>
-<p><strong>All three Llamas on GSM-Hard, 25 weak problems each:</strong></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -1206,10 +1009,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <thead>
 <tr class="header">
 <th>Llama size</th>
-<th>Asks on weak</th>
-<th>Asks on strong</th>
+<th>Asks, usually wrong</th>
+<th>Asks, usually right</th>
 <th>Gap (95% interval)</th>
-<th>Confidence, weak / strong</th>
+<th>Confidence, usually wrong / right</th>
 </tr>
 </thead>
 <tbody>
@@ -1236,67 +1039,21 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 </tbody>
 </table>
-<p>Caveat: 3B is also timid (it asks on almost half of the problems it would get right). At 70B the asking and the confidence drop both nearly vanish, while it is right only 22% of the time when it answers its weak problems.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Follow-up: its own weak spots, or problems everyone finds hard?">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="Told its own record, penalty 64">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Follow-up: its own weak spots, or problems everyone finds hard?
+<span class="screen-reader-only">Note</span>Told its own record, penalty 64
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>On maths the models fail the same problems (Llama 8B’s ability per problem against the other models’: +0.87), so the question needs facts, where they fail differently (+0.66 between Llama 8B and Gemini on 150 TriviaQA questions).</p>
-<ul>
-<li><strong>Gemini Flash Lite, 150 TriviaQA questions.</strong> Asks 41% on weak questions and 10% on strong ones (+31, +20 to +43), confidence 70 against 96. The clearest aim anywhere in these runs.</li>
-<li><strong>Llama 8B, the same 150 questions.</strong> Weak on 93 of them, asks a lot everywhere (55% against 44%, +11, interval 0 to +24), confidence flat (59 against 62). Not aimed.</li>
-<li><strong>Holding another model’s ability fixed.</strong> Two models of similar strength were calibrated on the same 150 questions, Qwen3 30B and GPT-4o mini. Against Qwen the decisive cells hold 16 and 8 questions. Holding Qwen’s ability fixed, Gemini asks 25 to 30 points more on its own weak questions (+8 to +41 and +11 to +49). Holding its own ability fixed, the question being hard for Qwen adds 4 to 9 points (both intervals include zero). Against GPT-4o mini the same pattern: own knowledge +19 to +31, difficulty +7 to +19, the larger of those borderline.</li>
-</ul>
-<p>Caveat: the cells are small (8 to 16 questions), so this says “mostly its own knowledge”, not “only”. The earlier hint on GSM8K (Llama 8B asking 32% on the 12 problems only it fails against 41% on the 15 everyone struggles with, interval -6 to +25) was too small to say anything. The trivia scoring was hand-reviewed; see the methods notes.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Follow-up: without working (withdrawn)">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Follow-up: without working (withdrawn)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Confidence and decision at once, with no working. Llama 8B, 100 GSM8K problems (50 weak), 300 decisions: gap +22 to +5, asks on 96%. Gemini, 100 TriviaQA questions: +31 with working, +34 without. That looked like two kinds of knowing, and two checks withdrew it:</p>
-<ul>
-<li>Llama 8B solves 3% of these problems without working (77 of 100 at zero, none above 0.3). Asking on 96% of them at a confidence of 45 to 54 is the right call in that regime; there is no strong set left to aim at.</li>
-<li>Gemini on its 50 GSM8K problems without working: ability 0.75 to 0.27 (38 of 50 now weak), asking 4% to 40%, and it keeps its aim: +31 (+13 to +48) on the no-working split, against +16 with working.</li>
-</ul>
-<p>What survives: both models’ confidence fell when the working was taken away (Llama 71 / 87 to 45 / 54 on weak / strong problems, Gemini 88 / 100 to 71 / 90), the right direction, still far above the new ability (0.03 and 0.27). Those two drops are the first two rows of the “what moved” chart below.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Follow-up: told its own record">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Follow-up: told its own record
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><img src="probe-bench-deferral/told-record.png" class="img-fluid"></p>
-<p>One line before each decision states the model’s real measured record on that exact question (“in 10 earlier attempts, you were right 2 times out of 10”); the control states another question’s number. Penalty 64; 300 decisions per arm for Llama and Gemini, 150 for GPT-4o mini.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -1308,7 +1065,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <thead>
 <tr class="header">
 <th>Model</th>
-<th>Problems (weak)</th>
+<th>Problems (usually wrong)</th>
 <th>Baseline gap</th>
 <th>Told the truth</th>
 <th>Told a shuffled number, gap by real ability</th>
@@ -1338,48 +1095,23 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 </tbody>
 </table>
-<p>Under the shuffled number, asking follows the handed number: correlation -0.49 for Llama, -0.63 for Gemini against -0.28 with its real ability.</p>
-<p>Caveat: neither model checks the handed number against its own sense. Llama keeps about half of its own aim under a shuffled line (+26 by real ability, the same as baseline), Gemini keeps much less (+10), and GPT-4o mini ignores the line altogether, so the record line is not a lever for it.</p>
+<p>The Gemini baseline here is the 100-question run; the 150-question run gives +31 (+20 to +43), a different run with nearly the same numbers.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Follow-up: changing what it can do (the calculator, the note, the distractor)">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="The update loop, five arms, round 3">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Follow-up: changing what it can do (the calculator, the note, the distractor)
+<span class="screen-reader-only">Note</span>The update loop, five arms, round 3
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><img src="probe-bench-deferral/what-moved.png" class="img-fluid"></p>
-<p>In these runs the confidence is stated before any working, so reading its own trace cannot do the updating. Changes are paired over problems, on weak problems unless stated.</p>
-<ul>
-<li><strong>A calculator, GSM-Hard, 50 problems (25 weak), 150 decisions per arm.</strong> Llama 8B: no change in capability (right on 18% / 61% of weak / strong problems when it answered with the tool, 19% / 62% without; no problem flipped from weak to strong), yet its before-working confidence on weak problems went 61 to 86 (+30, +15 to +46) and its asking 37% to 23%. Gemini: ability 0.49 to 0.50, 2 flips, confidence 96 to 97 (+1, -2 to +6).</li>
-<li><strong>A reference note holding the fact, TriviaQA, 100 questions (39 weak), 300 decisions per arm.</strong> Gemini’s ability 0.60 to 0.94; 34 of its 39 weak questions flip to strong (the 5 that stay at zero are scoring edge cases). On the 34, confidence 66 to 100 (+34, +25 to +45), asking 35% to 0%, right 99% of the time when it answers. On the 61 it already knew, 88 to 100 and asking 13% to 1%.</li>
-<li><strong>A note about a different fact, the same 100 questions.</strong> On the note-dependent questions confidence 13 (no note 66, own note 100) and asking 56%. On the questions it knows anyway, 88 to 29 (-59, -69 to -50) and asking 13% to 37%, while still right 90% of the time when it answers.</li>
-</ul>
-<p>Caveat: the one lever that changed capability, the note, also puts the fact in front of the model, so a confidence of 100 is a reading of the prompt, not a feat of self-assessment. The calculator changed nothing real for either model, so whether an estimate tracks a capability change it has to notice is still untested; why the calculator cannot be the lever is in the methods notes.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Follow-up: the update loop, and the retrieval check">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Follow-up: the update loop, and the retrieval check
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><img src="probe-bench-deferral/loop-adjacent.png" class="img-fluid"></p>
-<p>Llama 8B, GSM8K, penalty 64. Ten blocks of ten problems (5 weak, 5 strong), each block run in two orders, each conversation answering its ten problems three times over: 20 conversations and 600 decisions per arm. After every decision the model is told the outcome and its running score (“Your answer was wrong: -64. Running score: -63.8.”). The aim is asking in round 3 on the problems it got wrong in round 1 minus the ones it got right.</p>
+<p>Llama 8B, GSM8K, penalty 64; 20 conversations and 600 decisions per arm.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -1428,25 +1160,22 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 </tbody>
 </table>
-<p>Volume moved: in this sequential format it asks on 2% in round 1 (34% on the same problems standalone); by round 3 real feedback has it at 22% / 14% on weak / strong problems with confidence down from 86 / 92 to 70 / 82, shuffled feedback at 13% / 3% and 83 / 91. Aim did not: real minus shuffled on the gap, +2 (-9 to +13). With its own outcome one line above the decision it asks on 80% of the problems it got wrong first time and 1% of the ones it got right, and is right 83% of the time when it answers; adjacent minus history, +71 (+59 to +84).</p>
-<p>Caveat: it obeys the adjacent line whether or not it is true. Another problem’s outcome lifts asking to about 40% on everything and the aim goes. So the result is about retrieval, not judgement: the fact was in its history all along and it does not fetch it; put next to the decision, it is used. That is also why show_history hurt in Finding 3.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Follow-up: notes withdrawn, then restored">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="Notes withdrawn, then restored, 16 conversations per arm">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Follow-up: notes withdrawn, then restored
+<span class="screen-reader-only">Note</span>Notes withdrawn, then restored, 16 conversations per arm
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><img src="probe-bench-deferral/notes-gone-back.png" class="img-fluid"></p>
-<p>Gemini, TriviaQA, penalty 64, confidence stated before working. Three phases of ten fresh questions in one conversation (5 it only knows with the note, 5 it knows anyway): notes, “Reference notes are no longer available”, “Reference notes are available again”. The control has no notes in any phase. 16 conversations and 480 decisions per arm.</p>
+<p>Gemini, TriviaQA, penalty 64; control values in brackets.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 16%">
@@ -1493,13 +1222,34 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 </tbody>
 </table>
-<p>Phase 2 against the control: confidence -28 (-44 to -11) on both kinds of question. On the questions it knows anyway it sits at 47 while answering them correctly 98% of the time, and asks for help on half of them. Phase 3: back to 100 and 0% on everything. A two-phase pilot at 6 conversations per arm showed the same (phase 2: 36 / 42 against the control’s 57 / 72, asking 67% / 67% against 43% / 33%) with intervals too wide to settle it (-21, -50 to +9); the replication settled it.</p>
-<p>Caveat: the estimate is not sticky, it drops when told the notes are gone, but it drops as a block, on questions the notes never touched, and the weak-against-strong aim the control keeps is gone in the treated arm. The announcement moved it; what it could still do did not.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="What this shows against the papers">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What this shows against the papers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Numbers refer to the <a href="../00-research/o2-self-relevant-action.html">O2 literature review</a>.</p>
+<ul>
+<li><strong>Wang [6]: we see the same thing.</strong> Wang found that models do not abstain more when mistakes get costlier. Same here, on 7 of the 8 models (Qwen 2.5 7B had too few usually-wrong problems to judge), up to a 64 times penalty.</li>
+<li><strong>Barkan [21]: mostly the same.</strong> Barkan says the acting side works and the knowing side is wrong. Here too: decisions follow the confidence a model states, and that confidence is too high and barely separates the problems it usually gets wrong from the ones it gets right. One difference: our models follow their confidence but ignore the cost.</li>
+<li><strong>Xiong [3]: we see the same thing.</strong> Stated confidence is overconfident. Most models said 86 to 99 out of 100 on problems they usually fail.</li>
+<li><strong>Li [7]: not tested, and now the obvious next step.</strong> Li found a signal inside the model that beats its stated confidence. Our test only sees what the model says and does, and it points at stated confidence as the weak link.</li>
+<li><strong>Evaluation-awareness papers [10], [12], [14]: one small check, no support.</strong> Removing the test framing (“a customer is waiting”) made Llama 8B ask less, not more.</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Methods notes">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1508,11 +1258,11 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><strong>Penalty 64 only</strong> from the follow-ups on: the penalty does nothing (Finding 2), and varying it spent three quarters of each run on a flat factor.</li>
-<li><strong>Sizes.</strong> 50 to 100 problems with 25 to 50 weak, 3 decisions per problem per condition. Intervals are 95% bootstrap intervals over problems, or over conversations in the loop and withdrawal runs. Anything under about ten points is invisible at these sizes.</li>
+<li><strong>Sizes.</strong> 50 to 100 problems with 25 to 50 usually wrong, 3 decisions per problem per condition. Intervals are 95% bootstrap intervals over problems, or over conversations in the loop and withdrawal runs. Anything under about ten points is invisible at these sizes.</li>
 <li><strong>Before-working confidence.</strong> In the calculator, note, distractor and withdrawal runs the model states a confidence before any working, so the updating cannot come from reading its own trace.</li>
 <li><strong>The record line is a ceiling test.</strong> The real record on that exact question is the best self-knowledge a model could be handed, so one that ignores it has ignored the best there is. The shuffled control separates obeying the line from agreeing with it: if asking follows a shuffled number as well, the model is obeying the line.</li>
 <li><strong>Why the calculator cannot be the lever.</strong> Arithmetic was never either model’s problem. Llama 8B used the tool about three times per problem and often could not stop (a cap closes it after eight calls); its accuracy did not move. Gemini’s GSM-Hard failures are set-up errors: on one problem the answer is 322,886,700 and it computes a number in the hundreds of trillions with or without the tool. A lever has to change what the model can do, which on facts the note does. The standalone “calculator removed” arm is the baseline plus one sentence (+3, -13 to +17) and says nothing about forgetting a capability; a real removal is the block design, which is the withdrawal run.</li>
@@ -1580,7 +1330,7 @@ Decision: HELP</code></pre>
 <section id="the-rest-of-the-code" class="level3">
 <h3 class="anchored" data-anchor-id="the-rest-of-the-code">The rest of the code</h3>
 <div class="callout callout-style-default callout-note callout-titled" title="Fixed settings: the same in every run">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1589,7 +1339,7 @@ Decision: HELP</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>MODEL            <span class="op">=</span> <span class="st">"meta-llama/llama-3.1-8b-instruct"</span>   <span class="co"># default; override with --model</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>POOL             <span class="op">=</span> <span class="dv">150</span>      <span class="co"># problems calibrated per model; override with --pool</span></span>
@@ -1605,19 +1355,19 @@ Decision: HELP</code></pre>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="How weak and strong problems are picked">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="How the usually-wrong and usually-right problems are picked">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>How weak and strong problems are picked
+<span class="screen-reader-only">Note</span>How the usually-wrong and usually-right problems are picked
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Each model solves each problem 10 times with a plain prompt. Its ability on a problem is the share of those 10 it got right. Weak means ability under 0.5.</p>
+<p>Each model solves each problem 10 times with a plain prompt. Its ability on a problem is the share of those 10 it got right. Usually wrong means ability under 0.5; the code calls these weak and the rest strong.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve(question, model<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> (<span class="ss">f"</span><span class="sc">{</span>question<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">Solve this step by step. Make the final line #### "</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">"followed by your number only."</span>)</span>
@@ -1638,7 +1388,7 @@ Decision: HELP</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="One decision, in two messages">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1647,7 +1397,7 @@ Decision: HELP</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This is the function that builds the two messages shown above and reads the reply.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> choose(question, penalty, cfg, history<span class="op">=</span><span class="va">None</span>):</span>
@@ -1697,7 +1447,7 @@ Decision: HELP</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="How a reply is read">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1706,7 +1456,7 @@ Decision: HELP</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The reader is strict on purpose. A reply is scored right or wrong only when the decision line holds the help word or exactly one number. Nothing is guessed.</p>
 <p>For the help-asking rates on this page there is one looser step, in <code>analyse.py</code>: a reply that clearly picks an action but breaks the format (for example <code>Decision: ANSWER</code> with no number) still counts as a decision to answer.</p>
