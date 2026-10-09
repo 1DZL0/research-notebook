@@ -204,7 +204,7 @@ def payoff_chart():
     handles = [
         plt.Line2D([], [], marker='o', linestyle='', markerfacecolor='white', markeredgecolor=MUTED, markersize=9, label='If it always answered'),
         plt.Line2D([], [], marker='^', linestyle='', color=WEAK, markersize=9, label='What the model actually scored'),
-        plt.Line2D([], [], marker='o', linestyle='', color=STRONG, markersize=9, label='Oracle: asks exactly when its ability says to'),
+        plt.Line2D([], [], marker='o', linestyle='', color=STRONG, markersize=9, label='Perfect asker: asks exactly when its ability says it should'),
     ]
     fig.legend(handles=handles, loc='upper left', bbox_to_anchor=(0.01, top - 0.62 / fig.get_figheight()),
                ncol=3, frameon=False, fontsize=10, handletextpad=0.3, columnspacing=1.4)
