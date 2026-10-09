@@ -57,8 +57,11 @@ asks, on everything at once.** No paper in the review makes this claim.
 These change how often it asks, not where:
 
 - **Nine prompt wordings** (Llama 8B). Asking on problems it usually gets wrong ranges
-  from 9% to 78%. Aim never beats the baseline (AUROC 0.73); three wordings make it
-  worse (0.61 to 0.66).
+  from 9% to 78%. Its stated confidence ranks the problems the same under every wording
+  (AUROC 0.67 to 0.73). The aim of the asking can only be compared at similar asking
+  rates, since it falls as asking rises: show history and compute EV ask about as often
+  as the baseline (22% and 24% against 20%) and aim worse (0.66 and 0.62 against 0.73).
+  Whether permission (69%) aims worse or just asks more cannot be told.
 - **Its outcome fed back after every decision, left in the conversation** (Llama 8B).
   Asking goes up; the gap stays at +6 to +15 across three runs, about the same as
   with no feedback at all (+7).
@@ -87,12 +90,14 @@ These change where it asks:
 
 Three checks on it:
 
-- **It can recall the fact; it does not use it.** At the point of decision, a side copy
-  of the conversation was asked what its round-1 outcome on this problem was. Llama
-  recalls 98% of the outcomes it got right and 69% of the ones it got wrong. Where it
-  recalls "wrong", it goes on to ask only 19% of the time; with the same fact one line
-  above the decision, 80%. So this is not ordinary long-context forgetting. The fact
-  about itself is mostly available and not consulted.
+- **It mostly recalls the fact; it does not use it.** At the point of decision, a side
+  copy of the conversation was asked what its round-1 outcome on this problem was. In
+  round 2, when there is only one earlier outcome to remember, Llama recalls all of its
+  successes and 77% of its failures. Where it recalls "wrong", it goes on to ask only
+  17% of the time; with the same fact one line above the decision, 80%. So this is not
+  ordinary long-context forgetting: the fact is mostly available and not consulted.
+  It also remembers 17% of its failures as successes. In round 3 its recall mostly
+  reports its latest outcome rather than round 1's.
 - **It follows the line whether true or false, and still ignores the cost.** Told
   "right 2 times out of 10 or fewer" with a 64-point penalty, Llama still answers 32%
   of the time (84 decisions). At that penalty, answering only pays above about 98%
@@ -108,9 +113,9 @@ Three checks on it:
 |---|---|---|---|
 | Does a bigger penalty make a model ask more? | 7 models | No. Raising the penalty from 1 to 64 did not change how often any model asked. Every model would have scored better by always asking. | Held |
 | Do models act on their stated confidence? | all | Yes, but not enough. When its confidence drops on a problem, it asks more. It never asks as often as its own confidence says it should. | Held, with a qualifier |
-| Do models know which problems they usually get wrong? | all | Partly. Most say 94 or more on problems they usually fail. But the rare askers ask on the right problems when they do (aim 0.92 to 0.94). | Held, refined: they rank, the level is wrong |
+| Do models know which problems they usually get wrong? | all | Mostly no. Most say 94 or more on problems they usually fail, and their confidence ranks problems only weakly (AUROC 0.49 to 0.73 on GSM8K, 0.50 to 0.61 on GSM-Hard). | Held |
 | Is Gemini's aim on facts its own knowledge, or what is hard for everyone? | Gemini vs Qwen3 30B, GPT-4o mini | Its own knowledge. On questions another model finds equally hard, Gemini still asks 25 to 30 points more on the ones it usually gets wrong itself. Whether a question is hard for the other model adds almost nothing. | Held |
-| Does rewording the prompt improve the aim? | Llama 8B, nine wordings | No. How often it asks moves a lot (9% to 78% on problems it usually gets wrong), but it does not get better at picking which problems to ask on (aim 0.61 to 0.77, baseline 0.73). | Did not |
+| Does rewording the prompt improve the aim? | Llama 8B, nine wordings | No. How often it asks moves a lot (9% to 78% on problems it usually gets wrong), but its confidence ranks problems the same under every wording (0.67 to 0.73), and two wordings that ask at the baseline rate aim their asking worse. | Did not |
 | Two kinds of knowing: by trying, or beforehand? | Llama 8B, Gemini | Not shown. Without working, Llama 8B cannot do these problems at all, so asking on nearly all of them was right. Gemini keeps its aim on maths without working. | Withdrawn |
 | Told its exact record ("right 2 times out of 10") | Llama 8B, Gemini, GPT-4o mini | Llama and Gemini follow the line, whether the number is true or shuffled. GPT-4o mini ignores it. | Held: obeys the line |
 | A calculator, as a real change in capability | Llama 8B, Gemini | The calculator did not make either model better. Llama's confidence rose 30 points anyway; Gemini's did not move. | Open: no capability change happened |
@@ -119,7 +124,7 @@ Three checks on it:
 | Notes withdrawn, then restored | Gemini, 16 conversations per arm | Told the notes are gone, confidence drops to 47 even on questions it knows (75 in the control). Told they are back, it goes straight back to 100. Removed without a word, it drops further (37). | Held: follows whether a note is there |
 | Outcome and score fed back after each decision | Llama 8B | It asks more, but not on the right problems: the gap is +8 with real feedback, +6 with scrambled feedback, +7 with none. | Did not |
 | The same outcome repeated next to the decision | Llama 8B | Now it aims: asks on 80% of the problems it got wrong before and 1% of the ones it got right (+79). The same fact left in its history did nothing. | Held: next to the decision, it is used |
-| Can it recall its earlier outcome when asked? | Llama 8B | Mostly: 98% of the ones it got right, 69% of the ones it got wrong. Where it recalls "wrong", it still asks only 19% of the time. | Held: available, not consulted |
+| Can it recall its earlier outcome when asked? | Llama 8B | Mostly: in round 2, all of its successes and 77% of its failures. Where it recalls "wrong", it still asks only 17% of the time. | Held: mostly available, not consulted |
 
 : {tbl-colwidths="[24,16,44,16]"}
 
@@ -129,8 +134,10 @@ Three checks on it:
 
 - One change in what the model could do was large: a note holding the fact (ability
   0.11 to 0.99 on those questions). Confidence followed it, +34.
-- Taking the working away lowered ability a little (0.21 to 0.04 for Llama 8B, 0.15 to
-  0.06 for Gemini) and confidence a lot (-26 and -20): right direction, wrong size.
+- Taking the working away: for Llama 8B, ability fell 17 points (0.21 to 0.04) and
+  confidence 26, about the right size, but the level stays far too high (45 stated
+  against 4 real). For Gemini, ability fell 9 points and confidence 20. A small point in
+  favour of the estimate tracking a real change.
 - Everything else changed nothing the model could do and still moved its confidence:
   a calculator (+30 for Llama, only on problems it was already unsure of), a note about
   another question (-59, or -47 when labelled as such), notes announced gone (-28) or
@@ -155,12 +162,14 @@ there or not, whatever it says.
 
 ![How often each model asks for help on problems it usually gets wrong and ones it usually gets right, and the confidence it states.](probe-bench-deferral/models-gsm8k.png)
 
-One refinement from the AUROC check: the models that almost never ask still aim when
-they do (GPT-4o mini 0.94, Gemini 0.92 on maths). They rank their problems roughly
-right; the confidence they state is just far too high to trigger asking. That is
-Needham's [10] split between ranking and calibration.
+How well does the stated confidence rank problems, whatever the model then does with
+it? Measured on every decision (AUROC of confidence against the two groups), only
+weakly: 0.49 to 0.73 on GSM8K and 0.50 to 0.61 on GSM-Hard, where 0.5 is chance. An
+earlier version of this page said the models that almost never ask still aim well when
+they do. That rested on a handful of asks (GPT-4o mini: 4 asks, all on one problem;
+Gemini on maths: 27 asks on 5 problems) and is withdrawn.
 
-![Aim measured apart from how often a model asks: most models that rarely ask still ask on the right problems.](probe-bench-deferral/aim-auroc.png)
+![Stated confidence ranks problems only weakly, and the models that rarely ask do so on a handful of problems.](probe-bench-deferral/confidence-auroc.png)
 
 And one pilot result of its own: on facts, Gemini's aim is its own knowledge. Holding
 another model's ability fixed, it asks 25 to 30 points more on questions it usually
@@ -173,12 +182,24 @@ problems.
 - **Regression to the mean.** Problems were labelled on the same ten solves that
   picked them. Labelling on solves 1 to 5 and checking solves 6 to 10, the problems it
   usually gets wrong score only 0 to 0.10 higher, and every gap is the same either way.
-- **Bench accuracy is higher than calibration.** When models answer problems they
-  usually get wrong, they are right more often in the bench than in calibration
-  (Gemini 0.15 to 0.44, GPT-4o mini 0.11 to 0.23). That is not regression (see above),
-  so it is the bench format. It made "always answering" look worse than it was, so the
-  penalty-64 score chart was dropped. The gaps compare the two groups inside the same
-  bench, so they are not affected.
+- **Calibration solves with no parsed answer were scored wrong.** On the problems
+  labelled "usually wrong" that is 16% of Gemini's solves on GSM8K, 27 to 30% of Llama
+  8B's, and 44% of Llama 8B's on TriviaQA. Relabelling without them leaves the main gaps
+  in place (Llama 8B +20 to +21, Gemini on facts +31, told record +53). The exception
+  is Llama 8B on facts: its gap falls from +11 to +3, so it does not aim there.
+- **Bench accuracy is higher than calibration.** On problems it usually gets wrong,
+  Gemini is right 44% of the time in the bench against 15% in calibration (20% counting
+  parsed solves only). Most of that is the bench giving different answers: on problem
+  242 its single solves say 2 in 9 of 10, its bench answers say 3 in 11 of 12. So
+  "usually gets wrong" means "in a single solve". It made "always answering" look worse
+  than it was, so the penalty-64 score chart was dropped; and the record line handed to
+  the model is the calibration count, so for Gemini it understates what it can do in the
+  bench.
+- **The asking AUROC depends on the asking rate.** Across the nine wordings it falls
+  almost steadily as asking rises (0.77 at 5% to 0.61 at 69%): a model with a noisy
+  sense asks only on its very worst problems when it rarely asks. So asking AUROCs are
+  compared only at similar rates, and the confidence AUROC, which uses every decision,
+  carries the "does it know" question.
 - **Confidence and decision come from one reply.** Asking for the confidence in a
   separate call gives the same aim (AUROC 0.74 against 0.73).
 
@@ -199,22 +220,33 @@ Not tested, so this page says nothing about them:
 
 ### What it means for O2
 
-- The gap between knowing and acting is not an incentive problem and not an acting
-  problem.
-- Most models rank their problems roughly right, but state a confidence too high to
-  act on.
-- Information about itself changes which problems a model asks on only when it sits
-  next to the decision. The same fact earlier in the conversation, which it can recall
-  when asked, is not consulted. Anything else moves the estimate on everything at once.
+- The gap between knowing and acting is not an incentive problem. It is partly an
+  acting problem: models follow a line about themselves but ignore the cost. Told
+  "right 2 of 10 or fewer" with a 64-point penalty, Llama 8B still answers 32% of the
+  time.
+- The knowing side is weak too: stated confidence ranks problems only weakly, and sits
+  far too high.
+- In Llama 8B and Gemini, information about a specific question changes which problems
+  the model asks on when it sits next to the decision. In Llama 8B, the same fact
+  earlier in the conversation, which it mostly recalls when asked, is not consulted.
+  That comparison is one model at two positions (next to the decision, and in the
+  history). Anything else moves the estimate on everything at once.
 - That is not an updateable self-model in O2's sense: it moves with what is in front
   of it, including when that happens to be true. It is where the probe should look:
   whether the fact it does not consult is represented inside it at the decision.
 
 ## Next
 
-1. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
+1. **A fact that is not about the model, at the same place.** In the loop, put the
+   correct answer to each problem in the history after round 1. If Llama uses that in
+   later rounds and does not use its own outcome from the same place, the effect is
+   specific to information about itself, which is what makes it an O2 result. If it
+   uses neither, it is a general position effect. Cheap.
+2. **A distance curve.** The same outcome line placed 1, 3 and 10 turns before the
+   decision, to show where "next to the decision" stops. Cheap.
+3. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state. Needs a GPU.
-2. **A harder task.** Repeat with a benchmark where capable models, including Claude
+4. **A harder task.** Repeat with a benchmark where capable models, including Claude
    and one frontier model, have plenty of problems it usually gets wrong.
 
 ## Full record
@@ -258,17 +290,19 @@ is reproducible from the saved runs in `02-defferal` with `analyse.py`.
 
 ::: {.callout-note collapse="true" title="Aim by AUROC: Llama 8B under the nine wordings"}
 
-| Wording | Asks, all decisions | Gap | AUROC (95% interval) |
-|---|---|---|---|
-| Baseline | 20% | +26 | 0.73 (0.66 to 0.79) |
-| Options in the other order | 18% | +23 | 0.75 (0.67 to 0.81) |
-| Separate confidence call | 11% | +18 | 0.74 (0.66 to 0.82) |
-| Rename to "flag as uncertain" | 5% | +8 | 0.77 (0.64 to 0.87) |
-| Decide, then confidence | 13% | +17 | 0.72 (0.64 to 0.79) |
-| Real user | 13% | +17 | 0.72 (0.63 to 0.80) |
-| Show history | 22% | +21 | 0.66 (0.58 to 0.73) |
-| Compute EV | 24% | +17 | 0.62 (0.56 to 0.67) |
-| Permission | 69% | +19 | 0.61 (0.55 to 0.68) |
+Sorted by how often it asks.
+
+| Wording | Asks, all decisions | Asked on (problems of 50) | Gap | AUROC of asking | AUROC of confidence |
+|---|---|---|---|---|---|
+| Rename to "flag as uncertain" | 5% | 13 | +8 | 0.77 (0.64 to 0.87) | 0.71 |
+| Separate confidence call | 11% | 27 | +18 | 0.74 (0.66 to 0.82) | 0.69 |
+| Decide, then confidence | 13% | 29 | +17 | 0.72 (0.64 to 0.78) | 0.71 |
+| Real user | 13% | 31 | +17 | 0.72 (0.64 to 0.79) | 0.72 |
+| Options in the other order | 18% | 34 | +23 | 0.75 (0.67 to 0.81) | 0.70 |
+| Baseline | 20% | 37 | +26 | 0.73 (0.67 to 0.79) | 0.73 |
+| Show history | 22% | 42 | +21 | 0.66 (0.58 to 0.74) | 0.71 |
+| Compute EV | 24% | 45 | +17 | 0.62 (0.56 to 0.67) | 0.68 |
+| Permission | 69% | 50 | +19 | 0.61 (0.55 to 0.68) | 0.67 |
 
 Asking here counts every decision at every penalty, so it differs from the weak /
 strong rates in the table above. Every AUROC for every run is in
@@ -312,10 +346,12 @@ Llama 8B, GSM8K, penalty 64; 20 conversations and 600 decisions per arm.
 | Another problem's outcome one line above the decision | 37% | 44% | -6 (-18 to +5) |
 | Real feedback in the history, rerun with the recall check | 22% | 7% | +15 (+6 to +24) |
 
-Recall check, rounds 2 and 3, on a side copy of the conversation (400 probes): of the
-round-1 outcomes it got right, recalled as right 98%; of the ones it got wrong,
-recalled as wrong 69% (as right 23%). Where it recalled "wrong" it asked 19% of the
-time; where it recalled "right", 8%.
+Recall check on a side copy of the conversation (400 probes). Round 2, the clean test:
+of the round-1 outcomes it got right, recalled as right 100% (121); of the ones it got
+wrong, recalled as wrong 77% and as right 17% (65). Where it recalled "wrong" it asked
+17% of the time; where it recalled "right", 10%. Round 3: wrong outcomes recalled as
+wrong 62%; of the 19 it called right, 14 were problems it got right in round 2, so it
+mostly reports its latest outcome.
 
 :::
 
@@ -416,6 +452,9 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
   than a few points.
 - **The recall probe** is asked on a copy of the conversation at the point of
   decision, so the main conversation never sees the question or the answer.
+- **Parse failures and AUROC** are in `recheck.py`: every run relabelled without the
+  calibration solves that had no parsed answer, the number of asks and of distinct
+  problems they fall on, and the AUROC of stated confidence on every decision.
 - **Cost.** The follow-ups came to about $4.90 on top of the $5.89 overnight run;
   the recall, silent and labelled runs on 9 October were a small addition.
 

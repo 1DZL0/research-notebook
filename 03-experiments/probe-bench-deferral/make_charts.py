@@ -397,34 +397,35 @@ def moved_chart():
 RECHECK = json.loads((HERE / 'recheck.json').read_text(encoding='utf-8'))
 
 
-def aim_chart():
-    """Aim measured apart from how often a model asks: AUROC of asking against ability, baseline prompt."""
+def confidence_auroc_chart():
+    """How well the stated confidence ranks problems, on every decision, with how few asks there were."""
     task = {'gsm8k': 'GSM8K', 'gsmhard': 'GSM-Hard', 'trivia': 'TriviaQA'}
     colour = {'gsm8k': STRONG, 'gsmhard': WEAK, 'trivia': TRIVIA}
-    rows = [r for r in RECHECK if r['condition'] == 'baseline' and r['auroc'] and r['model'] in MODELS
+    rows = [r for r in RECHECK if r['condition'] == 'baseline' and r['conf_auroc'] and r['model'] in MODELS
             and (r['version'] == 'v4' or r['dataset'] == 'trivia')]
-    rows.sort(key=lambda r: (['gsm8k', 'gsmhard', 'trivia'].index(r['dataset']), -r['auroc'][0]))
+    rows.sort(key=lambda r: (['gsm8k', 'gsmhard', 'trivia'].index(r['dataset']), -r['conf_auroc'][0]))
     fig, ax = plt.subplots(figsize=(9.5, 1.8 + 0.42 * len(rows)))
     for y, r in enumerate(rows):
-        point, lo, hi = r['auroc']
+        point, lo, hi = r['conf_auroc']
         ax.plot([lo, hi], [y, y], color=colour[r['dataset']], linewidth=2.5, solid_capstyle='round', zorder=2)
         ax.scatter(point, y, s=90, color=colour[r['dataset']], edgecolor='white', linewidth=1.5, zorder=3)
-        ax.text(1.02, y, f"asks on {r['asks']:.0%}", va='center', color=INK2, fontsize=9)
+        ax.text(1.02, y, f"asked {r['asks_n']} times, on {r['ask_problems']} problem{'' if r['ask_problems'] == 1 else 's'}", va='center', color=INK2, fontsize=9)
     ax.axvline(0.5, color=INK2, linewidth=1, zorder=1)
-    ax.text(0.49, -0.9, 'no aim', ha='right', color=INK2, fontsize=9)
+    ax.text(0.49, -0.9, 'chance', ha='right', color=INK2, fontsize=9)
     names = [f"{MODELS[r['model']]}, {task[r['dataset']]}" + ('' if r['weak_problems'] >= MIN_WEAK else f" (only {r['weak_problems']})") for r in rows]
     ax.set_yticks(range(len(rows)), names)
     for tick, r in zip(ax.get_yticklabels(), rows):
         tick.set_color(INK if r['weak_problems'] >= MIN_WEAK else MUTED)
     ax.set_ylim(len(rows) - 0.4, -1.2)
-    ax.set_xlim(0.15, 1.12)
-    ax.set_xlabel('Aim (AUROC): 0.5 = asks at random, 1 = asks only on problems it usually gets wrong')
+    ax.set_xlim(0.3, 1.32)
+    ax.set_xticks([0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    ax.set_xlabel('How well its stated confidence separates problems it usually gets wrong from ones it gets right (AUROC)')
     style(ax)
-    bottom = header(fig, 'When they do ask, most models ask on the right problems; most just rarely ask',
-                    'Baseline prompt. Aim here does not depend on how often a model asks. Grey rows have under 10 problems it usually gets wrong. '
-                    'Dot: estimate. Line: 95% interval.')
+    bottom = header(fig, 'Stated confidence ranks problems only weakly',
+                    'Every decision, baseline prompt, 0.5 = chance, 1 = perfect. Right: how many times it asked for help, and on how many '
+                    'different problems. Grey rows have under 10 problems it usually gets wrong. Line: 95% interval.')
     fig.tight_layout(rect=(0, 0, 1, bottom))
-    fig.savefig(HERE / 'aim-auroc.png', dpi=200, bbox_inches='tight')
+    fig.savefig(HERE / 'confidence-auroc.png', dpi=200, bbox_inches='tight')
     plt.close(fig)
 
 
@@ -444,5 +445,5 @@ loop_chart()
 record_chart()
 withdraw_chart()
 moved_chart()
-aim_chart()
+confidence_auroc_chart()
 print('Created Probe Bench deferral charts.')
