@@ -543,10 +543,10 @@ document.addEventListener("DOMContentLoaded", function () {
 </ol>
 <section id="the-main-result" class="level3">
 <h3 class="anchored" data-anchor-id="the-main-result">The main result</h3>
-<p><strong>Information about this specific question, placed right next to the decision, changes which problems the model asks on. Everything else only changes how often it asks, on everything at once.</strong> No paper in the review makes this claim.</p>
+<p><strong>Information about this specific question, placed in the decision prompt itself, changes which problems the model asks on. Everything else only changes how often it asks, on everything at once.</strong> No paper in the review makes this claim.</p>
 <p>These change how often it asks, not where:</p>
 <ul>
-<li><strong>Nine prompt wordings</strong> (Llama 8B). Asking on problems it usually gets wrong ranges from 9% to 78%. Aim never beats the baseline (AUROC 0.73); three wordings make it worse (0.61 to 0.66).</li>
+<li><strong>Nine prompt wordings</strong> (Llama 8B). Asking on problems it usually gets wrong ranges from 9% to 78%. Its stated confidence ranks the problems the same under every wording (AUROC 0.67 to 0.73). The aim of the asking can only be compared at similar asking rates, since it falls as asking rises: show history and compute EV ask about as often as the baseline (22% and 24% against 20%) and aim worse (0.66 and 0.62 against 0.73). Whether permission (69%) aims worse or just asks more cannot be told.</li>
 <li><strong>Its outcome fed back after every decision, left in the conversation</strong> (Llama 8B). Asking goes up; the gap stays at +6 to +15 across three runs, about the same as with no feedback at all (+7).</li>
 <li><strong>Notes taken away</strong> (Gemini). Confidence falls on every question, including ones it still gets right 92 to 98% of the time, and comes back to 100 on everything when the notes return. Taking them away without a word drops it further than announcing it.</li>
 <li><strong>A note about a different fact</strong> (Gemini). Confidence falls on every question, including ones it knows (88 to 29). Saying the note is about another question softens that only to 42.</li>
@@ -569,12 +569,20 @@ document.addEventListener("DOMContentLoaded", function () {
 <figcaption>Told its record: Llama 8B and Gemini use the line, true or shuffled alike; GPT-4o mini ignores it.</figcaption>
 </figure>
 </div>
-<p>Three checks on it:</p>
+<p>Five checks on it:</p>
 <ul>
-<li><strong>It can recall the fact; it does not use it.</strong> At the point of decision, a side copy of the conversation was asked what its round-1 outcome on this problem was. Llama recalls 98% of the outcomes it got right and 69% of the ones it got wrong. Where it recalls “wrong”, it goes on to ask only 19% of the time; with the same fact one line above the decision, 80%. So this is not ordinary long-context forgetting. The fact about itself is mostly available and not consulted.</li>
+<li><strong>It mostly recalls the fact; it does not use it.</strong> At the point of decision, a side copy of the conversation was asked what its round-1 outcome on this problem was. In round 2, when there is only one earlier outcome to remember, Llama recalls all of its successes and 77% of its failures. Where it recalls “wrong”, it goes on to ask only 17% of the time; with the same fact one line above the decision, 80%. So this is not ordinary long-context forgetting: the fact is mostly available and not consulted. It also remembers 17% of its failures as successes. In round 3 its recall mostly reports its latest outcome rather than round 1’s.</li>
 <li><strong>It follows the line whether true or false, and still ignores the cost.</strong> Told “right 2 times out of 10 or fewer” with a 64-point penalty, Llama still answers 32% of the time (84 decisions). At that penalty, answering only pays above about 98% accuracy.</li>
 <li><strong>GPT-4o mini does not follow the line.</strong> It asks on 1 to 3% of decisions in every condition. Being told it is usually wrong should have pushed that up, and did not. The three told-record models are on three different tasks, so model and task are tangled.</li>
+<li><strong>“Next to the decision” means inside the decision prompt.</strong> The same note naming the question works there (+78) and almost nowhere else. One decision earlier, just before the question with its own working in between, it gives +17; three and ten decisions earlier, +4 and +23, the same range as feedback left in the history (+8 to +15).</li>
+<li><strong>The history result is not specific to information about itself.</strong> With the correct answer to each problem in the same feedback line, Llama barely uses that either. On problems it got wrong first time it is right 47% of the time when it answers later, against 31% without the answer, and the intervals overlap. So in Llama 8B, what sits in the history goes largely unused whether it is about the model or not: a position effect. What is about the model is what it does once a fact about itself is in the decision prompt: it follows it, true or false, and ignores the cost.</li>
 </ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="probe-bench-deferral/distance-curve.png" class="img-fluid figure-img"></p>
+<figcaption>Llama 8B: the same note about its round-1 outcome, at different distances from the decision it is about.</figcaption>
+</figure>
+</div>
 </section>
 <section id="one-line-per-test" class="level3">
 <h3 class="anchored" data-anchor-id="one-line-per-test">One line per test</h3>
@@ -609,8 +617,8 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="odd">
 <td>Do models know which problems they usually get wrong?</td>
 <td>all</td>
-<td>Partly. Most say 94 or more on problems they usually fail. But the rare askers ask on the right problems when they do (aim 0.92 to 0.94).</td>
-<td>Held, refined: they rank, the level is wrong</td>
+<td>Mostly no. Most say 94 or more on problems they usually fail, and their confidence ranks problems only weakly (AUROC 0.49 to 0.73 on GSM8K, 0.50 to 0.61 on GSM-Hard).</td>
+<td>Held</td>
 </tr>
 <tr class="even">
 <td>Is Gemini’s aim on facts its own knowledge, or what is hard for everyone?</td>
@@ -621,7 +629,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="odd">
 <td>Does rewording the prompt improve the aim?</td>
 <td>Llama 8B, nine wordings</td>
-<td>No.&nbsp;How often it asks moves a lot (9% to 78% on problems it usually gets wrong), but it does not get better at picking which problems to ask on (aim 0.61 to 0.77, baseline 0.73).</td>
+<td>No.&nbsp;How often it asks moves a lot (9% to 78% on problems it usually gets wrong), but its confidence ranks problems the same under every wording (0.67 to 0.73), and two wordings that ask at the baseline rate aim their asking worse.</td>
 <td>Did not</td>
 </tr>
 <tr class="even">
@@ -675,8 +683,20 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="even">
 <td>Can it recall its earlier outcome when asked?</td>
 <td>Llama 8B</td>
-<td>Mostly: 98% of the ones it got right, 69% of the ones it got wrong. Where it recalls “wrong”, it still asks only 19% of the time.</td>
-<td>Held: available, not consulted</td>
+<td>Mostly: in round 2, all of its successes and 77% of its failures. Where it recalls “wrong”, it still asks only 17% of the time.</td>
+<td>Held: mostly available, not consulted</td>
+</tr>
+<tr class="odd">
+<td>Where does “next to the decision” stop?</td>
+<td>Llama 8B</td>
+<td>Only inside the decision prompt (+78). One decision earlier, +17; three and ten earlier, +4 and +23, the level of the history.</td>
+<td>Held: the decision prompt only</td>
+</tr>
+<tr class="even">
+<td>Is a fact not about the model used from the same place?</td>
+<td>Llama 8B</td>
+<td>Barely. Given the correct answer in the feedback line, it is right 47% of the time later on problems it got wrong, against 31% without (intervals overlap).</td>
+<td>Not specific to self-information</td>
 </tr>
 </tbody>
 </table>
@@ -691,7 +711,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <ul>
 <li>One change in what the model could do was large: a note holding the fact (ability 0.11 to 0.99 on those questions). Confidence followed it, +34.</li>
-<li>Taking the working away lowered ability a little (0.21 to 0.04 for Llama 8B, 0.15 to 0.06 for Gemini) and confidence a lot (-26 and -20): right direction, wrong size.</li>
+<li>Taking the working away: for Llama 8B, ability fell 17 points (0.21 to 0.04) and confidence 26, about the right size, but the level stays far too high (45 stated against 4 real). For Gemini, ability fell 9 points and confidence 20. A small point in favour of the estimate tracking a real change.</li>
 <li>Everything else changed nothing the model could do and still moved its confidence: a calculator (+30 for Llama, only on problems it was already unsure of), a note about another question (-59, or -47 when labelled as such), notes announced gone (-28) or removed silently (-35).</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
@@ -715,11 +735,11 @@ document.addEventListener("DOMContentLoaded", function () {
 <figcaption>How often each model asks for help on problems it usually gets wrong and ones it usually gets right, and the confidence it states.</figcaption>
 </figure>
 </div>
-<p>One refinement from the AUROC check: the models that almost never ask still aim when they do (GPT-4o mini 0.94, Gemini 0.92 on maths). They rank their problems roughly right; the confidence they state is just far too high to trigger asking. That is Needham’s [10] split between ranking and calibration.</p>
+<p>How well does the stated confidence rank problems, whatever the model then does with it? Measured on every decision (AUROC of confidence against the two groups), only weakly: 0.49 to 0.73 on GSM8K and 0.50 to 0.61 on GSM-Hard, where 0.5 is chance. An earlier version of this page said the models that almost never ask still aim well when they do. That rested on a handful of asks (GPT-4o mini: 4 asks, all on one problem; Gemini on maths: 27 asks on 5 problems) and is withdrawn.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="probe-bench-deferral/aim-auroc.png" class="img-fluid figure-img"></p>
-<figcaption>Aim measured apart from how often a model asks: most models that rarely ask still ask on the right problems.</figcaption>
+<p><img src="probe-bench-deferral/confidence-auroc.png" class="img-fluid figure-img"></p>
+<figcaption>Stated confidence ranks problems only weakly, and the models that rarely ask do so on a handful of problems.</figcaption>
 </figure>
 </div>
 <p>And one pilot result of its own: on facts, Gemini’s aim is its own knowledge. Holding another model’s ability fixed, it asks 25 to 30 points more on questions it usually gets wrong; a question being hard for the other model adds 4 to 9 points (intervals through zero). On maths this cannot be tested, since every model fails the same problems.</p>
@@ -728,7 +748,9 @@ document.addEventListener("DOMContentLoaded", function () {
 <h3 class="anchored" data-anchor-id="checks-on-the-method">Checks on the method</h3>
 <ul>
 <li><strong>Regression to the mean.</strong> Problems were labelled on the same ten solves that picked them. Labelling on solves 1 to 5 and checking solves 6 to 10, the problems it usually gets wrong score only 0 to 0.10 higher, and every gap is the same either way.</li>
-<li><strong>Bench accuracy is higher than calibration.</strong> When models answer problems they usually get wrong, they are right more often in the bench than in calibration (Gemini 0.15 to 0.44, GPT-4o mini 0.11 to 0.23). That is not regression (see above), so it is the bench format. It made “always answering” look worse than it was, so the penalty-64 score chart was dropped. The gaps compare the two groups inside the same bench, so they are not affected.</li>
+<li><strong>Calibration solves with no parsed answer were scored wrong.</strong> On the problems labelled “usually wrong” that is 16% of Gemini’s solves on GSM8K, 27 to 30% of Llama 8B’s, and 44% of Llama 8B’s on TriviaQA. Relabelling without them leaves the main gaps in place (Llama 8B +20 to +21, Gemini on facts +31, told record +53). The exception is Llama 8B on facts: its gap falls from +11 to +3, so it does not aim there.</li>
+<li><strong>Bench accuracy is higher than calibration.</strong> On problems it usually gets wrong, Gemini is right 44% of the time in the bench against 15% in calibration (20% counting parsed solves only). Most of that is the bench giving different answers: on problem 242 its single solves say 2 in 9 of 10, its bench answers say 3 in 11 of 12. So “usually gets wrong” means “in a single solve”. It made “always answering” look worse than it was, so the penalty-64 score chart was dropped; and the record line handed to the model is the calibration count, so for Gemini it understates what it can do in the bench.</li>
+<li><strong>The asking AUROC depends on the asking rate.</strong> Across the nine wordings it falls almost steadily as asking rises (0.77 at 5% to 0.61 at 69%): a model with a noisy sense asks only on its very worst problems when it rarely asks. So asking AUROCs are compared only at similar rates, and the confidence AUROC, which uses every decision, carries the “does it know” question.</li>
 <li><strong>Confidence and decision come from one reply.</strong> Asking for the confidence in a separate call gives the same aim (AUROC 0.74 against 0.73).</li>
 </ul>
 </section>
@@ -746,9 +768,9 @@ document.addEventListener("DOMContentLoaded", function () {
 <section id="what-it-means-for-o2" class="level3">
 <h3 class="anchored" data-anchor-id="what-it-means-for-o2">What it means for O2</h3>
 <ul>
-<li>The gap between knowing and acting is not an incentive problem and not an acting problem.</li>
-<li>Most models rank their problems roughly right, but state a confidence too high to act on.</li>
-<li>Information about itself changes which problems a model asks on only when it sits next to the decision. The same fact earlier in the conversation, which it can recall when asked, is not consulted. Anything else moves the estimate on everything at once.</li>
+<li>The gap between knowing and acting is not an incentive problem. It is partly an acting problem: models follow a line about themselves but ignore the cost. Told “right 2 of 10 or fewer” with a 64-point penalty, Llama 8B still answers 32% of the time.</li>
+<li>The knowing side is weak too: stated confidence ranks problems only weakly, and sits far too high.</li>
+<li>In Llama 8B and Gemini, information about a specific question changes which problems the model asks on when it is in the decision prompt itself. In Llama 8B it stops working one decision earlier, and facts in the history go largely unused whether they are about the model (its outcome, which it mostly recalls when asked) or not (the correct answer). So the history result is a position effect, not a fact about self-knowledge. Anything else moves the estimate on everything at once.</li>
 <li>That is not an updateable self-model in O2’s sense: it moves with what is in front of it, including when that happens to be true. It is where the probe should look: whether the fact it does not consult is represented inside it at the decision.</li>
 </ul>
 </section>
@@ -756,6 +778,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <section id="next" class="level2">
 <h2 class="anchored" data-anchor-id="next">Next</h2>
 <ol type="1">
+<li><strong>The same two checks on Gemini.</strong> The distance curve and the non-self control are one model so far (Llama 8B). Cheap.</li>
 <li><strong>Look inside.</strong> Probe Llama 8B and 70B for an internal “I will get this wrong” signal and compare it with the confidence they state. Needs a GPU.</li>
 <li><strong>A harder task.</strong> Repeat with a benchmark where capable models, including Claude and one frontier model, have plenty of problems it usually gets wrong.</li>
 </ol>
@@ -991,69 +1014,98 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p>Sorted by how often it asks.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Wording</th>
 <th>Asks, all decisions</th>
+<th>Asked on (problems of 50)</th>
 <th>Gap</th>
-<th>AUROC (95% interval)</th>
+<th>AUROC of asking</th>
+<th>AUROC of confidence</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Baseline</td>
-<td>20%</td>
-<td>+26</td>
-<td>0.73 (0.66 to 0.79)</td>
-</tr>
-<tr class="even">
-<td>Options in the other order</td>
-<td>18%</td>
-<td>+23</td>
-<td>0.75 (0.67 to 0.81)</td>
-</tr>
-<tr class="odd">
-<td>Separate confidence call</td>
-<td>11%</td>
-<td>+18</td>
-<td>0.74 (0.66 to 0.82)</td>
-</tr>
-<tr class="even">
 <td>Rename to “flag as uncertain”</td>
 <td>5%</td>
+<td>13</td>
 <td>+8</td>
 <td>0.77 (0.64 to 0.87)</td>
+<td>0.71</td>
+</tr>
+<tr class="even">
+<td>Separate confidence call</td>
+<td>11%</td>
+<td>27</td>
+<td>+18</td>
+<td>0.74 (0.66 to 0.82)</td>
+<td>0.69</td>
 </tr>
 <tr class="odd">
 <td>Decide, then confidence</td>
 <td>13%</td>
+<td>29</td>
 <td>+17</td>
-<td>0.72 (0.64 to 0.79)</td>
+<td>0.72 (0.64 to 0.78)</td>
+<td>0.71</td>
 </tr>
 <tr class="even">
 <td>Real user</td>
 <td>13%</td>
+<td>31</td>
 <td>+17</td>
-<td>0.72 (0.63 to 0.80)</td>
+<td>0.72 (0.64 to 0.79)</td>
+<td>0.72</td>
+</tr>
+<tr class="odd">
+<td>Options in the other order</td>
+<td>18%</td>
+<td>34</td>
+<td>+23</td>
+<td>0.75 (0.67 to 0.81)</td>
+<td>0.70</td>
+</tr>
+<tr class="even">
+<td>Baseline</td>
+<td>20%</td>
+<td>37</td>
+<td>+26</td>
+<td>0.73 (0.67 to 0.79)</td>
+<td>0.73</td>
 </tr>
 <tr class="odd">
 <td>Show history</td>
 <td>22%</td>
+<td>42</td>
 <td>+21</td>
-<td>0.66 (0.58 to 0.73)</td>
+<td>0.66 (0.58 to 0.74)</td>
+<td>0.71</td>
 </tr>
 <tr class="even">
 <td>Compute EV</td>
 <td>24%</td>
+<td>45</td>
 <td>+17</td>
 <td>0.62 (0.56 to 0.67)</td>
+<td>0.68</td>
 </tr>
 <tr class="odd">
 <td>Permission</td>
 <td>69%</td>
+<td>50</td>
 <td>+19</td>
 <td>0.61 (0.55 to 0.68)</td>
+<td>0.67</td>
 </tr>
 </tbody>
 </table>
@@ -1239,9 +1291,40 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>7%</td>
 <td>+15 (+6 to +24)</td>
 </tr>
+<tr class="odd">
+<td>Note naming the question, in the decision prompt</td>
+<td>81%</td>
+<td>2%</td>
+<td>+78 (+71 to +85)</td>
+</tr>
+<tr class="even">
+<td>The same note, 1 decision earlier</td>
+<td>20%</td>
+<td>3%</td>
+<td>+17 (+9 to +24)</td>
+</tr>
+<tr class="odd">
+<td>The same note, 3 decisions earlier</td>
+<td>8%</td>
+<td>4%</td>
+<td>+4 (-2 to +10)</td>
+</tr>
+<tr class="even">
+<td>The same note, 10 decisions earlier</td>
+<td>28%</td>
+<td>5%</td>
+<td>+23 (+14 to +32)</td>
+</tr>
+<tr class="odd">
+<td>Real feedback plus the correct answer in the same line</td>
+<td>24%</td>
+<td>12%</td>
+<td>+13 (+3 to +22)</td>
+</tr>
 </tbody>
 </table>
-<p>Recall check, rounds 2 and 3, on a side copy of the conversation (400 probes): of the round-1 outcomes it got right, recalled as right 98%; of the ones it got wrong, recalled as wrong 69% (as right 23%). Where it recalled “wrong” it asked 19% of the time; where it recalled “right”, 8%.</p>
+<p>Non-self control, rounds 2 and 3, problems it got wrong in round 1 (about 125 decisions per arm): with the correct answer in its history it asks 25% of the time and is right 47% (35 to 58) when it answers; with real feedback only, 22% and 31% (15 to 49).</p>
+<p>Recall check on a side copy of the conversation (400 probes). Round 2, the clean test: of the round-1 outcomes it got right, recalled as right 100% (121); of the ones it got wrong, recalled as wrong 77% and as right 17% (65). Where it recalled “wrong” it asked 17% of the time; where it recalled “right”, 10%. Round 3: wrong outcomes recalled as wrong 62%; of the 19 it called right, 14 were problems it got right in round 2, so it mostly reports its latest outcome.</p>
 </div>
 </div>
 </div>
@@ -1424,6 +1507,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <li><strong>TriviaQA scoring.</strong> TriviaQA’s accepted answers miss some correct ones (“Ross Bagdasarian Sr.” for “David Seville”). Every question where a model gave the same “wrong” answer in 6 or more of 10 solves was checked by hand: 23 questions, 11 accepted as correct (5 because TriviaQA’s own answer is wrong or the question is ambiguous, for example Jimmy Connors’ 8 Grand Slam titles, not 10), 12 kept as wrong. The verdicts are in <code>trivia_alias_review.json</code>; every trivia number on this page is after the re-scoring. Consistent confident errors were kept as errors on purpose, since those are exactly where self-knowledge should fail.</li>
 <li><strong>Split-half check.</strong> Calibration keeps all ten solves per problem, so <code>recheck.py</code> relabels each problem on solves 1 to 5 and on solves 6 to 10 and recomputes every gap both ways. Label noise can only shrink a gap toward zero; none moved by more than a few points.</li>
 <li><strong>The recall probe</strong> is asked on a copy of the conversation at the point of decision, so the main conversation never sees the question or the answer.</li>
+<li><strong>Parse failures and AUROC</strong> are in <code>recheck.py</code>: every run relabelled without the calibration solves that had no parsed answer, the number of asks and of distinct problems they fall on, and the AUROC of stated confidence on every decision.</li>
 <li><strong>Cost.</strong> The follow-ups came to about $4.90 on top of the $5.89 overnight run; the recall, silent and labelled runs on 9 October were a small addition.</li>
 </ul>
 </div>
