@@ -50,7 +50,7 @@ How a run works, in four steps:
 
 ### The main result
 
-**Information about this specific question, placed right next to the decision,
+**Information about this specific question, placed in the decision prompt itself,
 changes which problems the model asks on. Everything else only changes how often it
 asks, on everything at once.** No paper in the review makes this claim.
 
@@ -88,7 +88,7 @@ These change where it asks:
 
 ![Told its record: Llama 8B and Gemini use the line, true or shuffled alike; GPT-4o mini ignores it.](probe-bench-deferral/told-record.png)
 
-Three checks on it:
+Five checks on it:
 
 - **It mostly recalls the fact; it does not use it.** At the point of decision, a side
   copy of the conversation was asked what its round-1 outcome on this problem was. In
@@ -106,6 +106,20 @@ Three checks on it:
   condition. Being told it is usually wrong should have pushed that up, and did not.
   The three told-record models are on three different tasks, so model and task are
   tangled.
+- **"Next to the decision" means inside the decision prompt.** The same note naming
+  the question works there (+78) and almost nowhere else. One decision earlier, just
+  before the question with its own working in between, it gives +17; three and ten
+  decisions earlier, +4 and +23, the same range as feedback left in the history (+8 to
+  +15).
+- **The history result is not specific to information about itself.** With the correct
+  answer to each problem in the same feedback line, Llama barely uses that either. On
+  problems it got wrong first time it is right 47% of the time when it answers later,
+  against 31% without the answer, and the intervals overlap. So in Llama 8B, what sits
+  in the history goes largely unused whether it is about the model or not: a position
+  effect. What is about the model is what it does once a fact about itself is in the
+  decision prompt: it follows it, true or false, and ignores the cost.
+
+![Llama 8B: the same note about its round-1 outcome, at different distances from the decision it is about.](probe-bench-deferral/distance-curve.png)
 
 ### One line per test
 
@@ -125,6 +139,8 @@ Three checks on it:
 | Outcome and score fed back after each decision | Llama 8B | It asks more, but not on the right problems: the gap is +8 with real feedback, +6 with scrambled feedback, +7 with none. | Did not |
 | The same outcome repeated next to the decision | Llama 8B | Now it aims: asks on 80% of the problems it got wrong before and 1% of the ones it got right (+79). The same fact left in its history did nothing. | Held: next to the decision, it is used |
 | Can it recall its earlier outcome when asked? | Llama 8B | Mostly: in round 2, all of its successes and 77% of its failures. Where it recalls "wrong", it still asks only 17% of the time. | Held: mostly available, not consulted |
+| Where does "next to the decision" stop? | Llama 8B | Only inside the decision prompt (+78). One decision earlier, +17; three and ten earlier, +4 and +23, the level of the history. | Held: the decision prompt only |
+| Is a fact not about the model used from the same place? | Llama 8B | Barely. Given the correct answer in the feedback line, it is right 47% of the time later on problems it got wrong, against 31% without (intervals overlap). | Not specific to self-information |
 
 : {tbl-colwidths="[24,16,44,16]"}
 
@@ -227,26 +243,22 @@ Not tested, so this page says nothing about them:
 - The knowing side is weak too: stated confidence ranks problems only weakly, and sits
   far too high.
 - In Llama 8B and Gemini, information about a specific question changes which problems
-  the model asks on when it sits next to the decision. In Llama 8B, the same fact
-  earlier in the conversation, which it mostly recalls when asked, is not consulted.
-  That comparison is one model at two positions (next to the decision, and in the
-  history). Anything else moves the estimate on everything at once.
+  the model asks on when it is in the decision prompt itself. In Llama 8B it stops
+  working one decision earlier, and facts in the history go largely unused whether they
+  are about the model (its outcome, which it mostly recalls when asked) or not (the
+  correct answer). So the history result is a position effect, not a fact about
+  self-knowledge. Anything else moves the estimate on everything at once.
 - That is not an updateable self-model in O2's sense: it moves with what is in front
   of it, including when that happens to be true. It is where the probe should look:
   whether the fact it does not consult is represented inside it at the decision.
 
 ## Next
 
-1. **A fact that is not about the model, at the same place.** In the loop, put the
-   correct answer to each problem in the history after round 1. If Llama uses that in
-   later rounds and does not use its own outcome from the same place, the effect is
-   specific to information about itself, which is what makes it an O2 result. If it
-   uses neither, it is a general position effect. Cheap.
-2. **A distance curve.** The same outcome line placed 1, 3 and 10 turns before the
-   decision, to show where "next to the decision" stops. Cheap.
-3. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
+1. **The same two checks on Gemini.** The distance curve and the non-self control are
+   one model so far (Llama 8B). Cheap.
+2. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state. Needs a GPU.
-4. **A harder task.** Repeat with a benchmark where capable models, including Claude
+3. **A harder task.** Repeat with a benchmark where capable models, including Claude
    and one frontier model, have plenty of problems it usually gets wrong.
 
 ## Full record
@@ -345,6 +357,15 @@ Llama 8B, GSM8K, penalty 64; 20 conversations and 600 decisions per arm.
 | Its round-1 outcome repeated one line above the decision | 80% | 1% | +79 (+71 to +87) |
 | Another problem's outcome one line above the decision | 37% | 44% | -6 (-18 to +5) |
 | Real feedback in the history, rerun with the recall check | 22% | 7% | +15 (+6 to +24) |
+| Note naming the question, in the decision prompt | 81% | 2% | +78 (+71 to +85) |
+| The same note, 1 decision earlier | 20% | 3% | +17 (+9 to +24) |
+| The same note, 3 decisions earlier | 8% | 4% | +4 (-2 to +10) |
+| The same note, 10 decisions earlier | 28% | 5% | +23 (+14 to +32) |
+| Real feedback plus the correct answer in the same line | 24% | 12% | +13 (+3 to +22) |
+
+Non-self control, rounds 2 and 3, problems it got wrong in round 1 (about 125
+decisions per arm): with the correct answer in its history it asks 25% of the time and
+is right 47% (35 to 58) when it answers; with real feedback only, 22% and 31% (15 to 49).
 
 Recall check on a side copy of the conversation (400 probes). Round 2, the clean test:
 of the round-1 outcomes it got right, recalled as right 100% (121); of the ones it got

@@ -397,6 +397,34 @@ def moved_chart():
 RECHECK = json.loads((HERE / 'recheck.json').read_text(encoding='utf-8'))
 
 
+def distance_chart():
+    """The same round-1 outcome, placed at different distances from the decision it is about."""
+    L = FOLLOW['loop']
+    if 'distance10' not in L:
+        return
+    rows = [("Its outcome, in the decision prompt\n(\"this exact question\")", L['adjacent']),
+            ("Note naming the question, in the decision prompt", L['distance0']),
+            ("Note, 1 decision earlier\n(just before the question)", L['distance1']),
+            ("Note, 3 decisions earlier", L['distance3']),
+            ("Note, 10 decisions earlier\n(one round back)", L['distance10']),
+            ("Only the outcome feedback, in the history", L['real']),
+            ("No feedback at all", L['none'])]
+    fig, ax = plt.subplots(figsize=(9.5, 1.8 + 0.62 * len(rows)))
+    interval_rows(ax, rows, [WEAK, WEAK, WEAK, WEAK, WEAK, MUTED, MUTED])
+    ax.tick_params(axis='y', labelsize=9.5)
+    ax.set_xlim(-25, 100)
+    ax.set_xlabel('Asks on problems it got wrong first time, minus asks on ones it got right (points, round 3)')
+    bottom = header(fig, DISTANCE_TITLE,
+                    'Llama 8B, the same ten problems three times over, 20 conversations per arm, real feedback in every arm '
+                    'except the last. Dot: estimate. Line: 95% interval.')
+    fig.tight_layout(rect=(0, 0, 1, bottom))
+    fig.savefig(HERE / 'distance-curve.png', dpi=200, bbox_inches='tight')
+    plt.close(fig)
+
+
+DISTANCE_TITLE = 'The note works only inside the decision prompt itself'
+
+
 def confidence_auroc_chart():
     """How well the stated confidence ranks problems, on every decision, with how few asks there were."""
     task = {'gsm8k': 'GSM8K', 'gsmhard': 'GSM-Hard', 'trivia': 'TriviaQA'}
@@ -446,4 +474,5 @@ record_chart()
 withdraw_chart()
 moved_chart()
 confidence_auroc_chart()
+distance_chart()
 print('Created Probe Bench deferral charts.')
