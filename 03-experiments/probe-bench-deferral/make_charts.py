@@ -273,7 +273,8 @@ def interval_rows(ax, rows, colours):
         point, lo, hi = (x * 100 for x in v)
         ax.plot([lo, hi], [y, y], color=colour, linewidth=2.5, solid_capstyle='round', zorder=2)
         ax.scatter(point, y, s=95, color=colour, edgecolor='white', linewidth=1.5, zorder=3)
-        ax.text(hi + 2, y, f'{point:+.0f}', va='center', ha='left', color=INK2, fontsize=9.5)
+        ax.text(hi + 2, y, f'{point:+.0f}', va='center', ha='left', color=INK2, fontsize=9.5,
+                bbox=dict(facecolor='white', edgecolor='none', pad=1), zorder=4)
     ax.axvline(0, color=INK2, linewidth=1, zorder=1)
     ax.set_yticks(range(len(rows)), [r[0] for r in rows])
     ax.set_ylim(len(rows) - 0.4, -0.6)
@@ -335,53 +336,95 @@ def record_chart():
 
 
 def withdraw_chart():
-    """Gemini's before-working confidence as the notes come, go, and come back."""
+    """Gemini's before-working confidence as the notes stop and restart, announced or silently."""
     W = FOLLOW['withdraw']
-    fig, ax = plt.subplots(figsize=(9.5, 4.8))
+    fig, ax = plt.subplots(figsize=(9.5, 4.9))
     x = [1, 2, 3]
     lo = [min(W['control']['note-dependent'][i], W['control']['known anyway'][i]) for i in range(3)]
     hi = [max(W['control']['note-dependent'][i], W['control']['known anyway'][i]) for i in range(3)]
-    ax.fill_between(x, [v - 2 for v in lo], [v + 2 for v in hi], color=GRID, zorder=1)
-    ax.text(3.08, (lo[2] + hi[2]) / 2, 'control:\nnever any notes', va='center', color=MUTED, fontsize=9)
-    for key, colour, marker in [('known anyway', STRONG, 'o'), ('note-dependent', WEAK, '^')]:
-        ax.plot(x, W['treated'][key], color=colour, linewidth=2, zorder=2)
-        ax.scatter(x, W['treated'][key], s=95, color=colour, marker=marker, edgecolor='white', linewidth=1.5, zorder=3, clip_on=False)
-        for xi, v in zip(x, W['treated'][key]):
-            ax.text(xi, v + (4 if key == 'known anyway' else -8), f'{v:.0f}', ha='center', color=INK2, fontsize=9)
-    for key, colour, marker in [('known anyway', STRONG, 'o'), ('note-dependent', WEAK, '^')]:
-        v = W['distractor'][key]
-        ax.scatter(2.3, v, s=95, facecolor='white', edgecolor=colour, linewidth=1.8, marker=marker, zorder=3)
-        ax.text(2.37, v, f'{v:.0f}  with a note about\na different fact', va='center', color=INK2, fontsize=8.5)
-    ax.set_xticks(x, ['Phase 1\nnotes with the fact', 'Phase 2\n"notes are no longer available"', 'Phase 3\n"notes are available again"'])
-    ax.set_xlim(0.8, 3.6); ax.set_ylim(0, 108)
+    ax.fill_between(x, lo, hi, color=GRID, zorder=1)
+    ax.text(3.08, (lo[2] + hi[2]) / 2, 'control, never any notes:\nbetween its two question\ntypes', va='center', color=MUTED, fontsize=9)
+    for arm, style_, face in [('treated', '-', None), ('silent', '--', 'white')]:
+        for key, colour, marker in [('known anyway', STRONG, 'o'), ('note-dependent', WEAK, '^')]:
+            v = W[arm][key]
+            xs = [1, 1.94 if arm == 'treated' else 2.06, 3]
+            ax.plot(xs, v, color=colour, linewidth=2, linestyle=style_, zorder=2)
+            ax.scatter(xs, v, s=95, marker=marker, zorder=3, clip_on=False, linewidth=1.8,
+                       facecolor=face or colour, edgecolor='white' if face is None else colour)
+            ax.text(2 + (-0.15 if arm == 'treated' else 0.15), v[1], f'{v[1]:.0f}', va='center',
+                    ha='right' if arm == 'treated' else 'left', color=INK2, fontsize=9)
+    ax.text(1, 104, '100 in both arms', ha='center', color=INK2, fontsize=9)
+    ax.text(3, 104, '100 in both arms', ha='center', color=INK2, fontsize=9)
+    ax.set_xticks(x, ['Phase 1\nnotes with the fact', 'Phase 2\nno notes', 'Phase 3\nnotes again'])
+    ax.set_xlim(0.8, 3.75); ax.set_ylim(0, 110)
     ax.set_ylabel('Confidence stated before working (0 to 100)')
     for side in ('top', 'right'):
         ax.spines[side].set_visible(False)
     ax.spines['left'].set_color(AXIS); ax.spines['bottom'].set_color(AXIS)
     ax.grid(axis='y', color=GRID, linewidth=1); ax.set_axisbelow(True); ax.tick_params(length=0, pad=6)
-    handles = [plt.Line2D([], [], marker='^', color=WEAK, markersize=9, label='Questions it only knows with the note'),
-               plt.Line2D([], [], marker='o', color=STRONG, markersize=9, label='Questions it knows anyway')]
-    bottom = header(fig, "Gemini's confidence follows the announcement down and back up, on everything",
-                    '16 conversations per arm, fresh questions in every phase. On the questions it knows anyway it is right 98% of the time throughout.', handles)
+    handles = [plt.Line2D([], [], marker='^', linestyle='', color=WEAK, markersize=9, label='Questions it only knows with the note'),
+               plt.Line2D([], [], marker='o', linestyle='', color=STRONG, markersize=9, label='Questions it knows anyway'),
+               plt.Line2D([], [], color=INK2, linewidth=2, label='Announced ("notes are no longer available")'),
+               plt.Line2D([], [], color=INK2, linewidth=2, linestyle='--', label='Silent: the notes just stop')]
+    bottom = header(fig, "Gemini's confidence drops on everything when the notes stop, announced or not",
+                    '16 conversations per arm, fresh questions in every phase. On the questions it knows anyway it is still right 92 to 98% of the time when it answers.', handles)
     fig.tight_layout(rect=(0, 0, 1, bottom))
     fig.savefig(HERE / 'notes-gone-back.png', dpi=200, bbox_inches='tight')
     plt.close(fig)
 
 
 def moved_chart():
-    """Every manipulation: how far the stated confidence moved, and whether anything real changed."""
+    """Every manipulation: how far the stated confidence moved, and how far ability really moved."""
     M = FOLLOW['moved']
-    rows = [(m['label'], [v / 100 for v in m['change']]) for m in M]
-    fig, ax = plt.subplots(figsize=(10, 1.6 + 0.52 * len(rows)))
-    interval_rows(ax, rows, [STRONG if m['real_change'] else WEAK for m in M])
+    colour = {'large': STRONG, 'small': MUTED, 'none': WEAK}
+    rows = [(f"{m['label']}\n{m['ability']}", [v / 100 for v in m['change']]) for m in M]
+    fig, ax = plt.subplots(figsize=(10, 1.8 + 0.62 * len(rows)))
+    interval_rows(ax, rows, [colour[m['kind']] for m in M])
+    ax.tick_params(axis='y', labelsize=9.5)
     ax.set_xlim(-75, 55)
-    ax.set_xlabel('Change in stated confidence (points), against the matching no-change condition')
-    handles = [plt.Line2D([], [], marker='o', linestyle='', color=STRONG, markersize=9, label='What the model could do really changed'),
-               plt.Line2D([], [], marker='o', linestyle='', color=WEAK, markersize=9, label='Nothing real changed; only the prompt did')]
-    bottom = header(fig, 'What moved the stated confidence: real changes and mere announcements, alike',
-                    'Paired over problems (or conversations for the withdrawal). Dot: estimate. Line: 95% interval.', handles, ncol=1)
+    ax.set_xlabel('Change in stated confidence (points), against its own no-change condition')
+    handles = [plt.Line2D([], [], marker='o', linestyle='', color=STRONG, markersize=9, label='Ability changed a lot'),
+               plt.Line2D([], [], marker='o', linestyle='', color=MUTED, markersize=9, label='Ability changed a little'),
+               plt.Line2D([], [], marker='o', linestyle='', color=WEAK, markersize=9, label='Ability did not change')]
+    bottom = header(fig, 'What moved the stated confidence: mostly what was in front of it, not what it could do',
+                    'Each row against its own no-change condition, on its own questions; the second line says what really changed. '
+                    'Dot: estimate. Line: 95% interval.', handles, ncol=3)
     fig.tight_layout(rect=(0, 0, 1, bottom))
     fig.savefig(HERE / 'what-moved.png', dpi=200, bbox_inches='tight')
+    plt.close(fig)
+
+
+RECHECK = json.loads((HERE / 'recheck.json').read_text(encoding='utf-8'))
+
+
+def aim_chart():
+    """Aim measured apart from how often a model asks: AUROC of asking against ability, baseline prompt."""
+    task = {'gsm8k': 'GSM8K', 'gsmhard': 'GSM-Hard', 'trivia': 'TriviaQA'}
+    colour = {'gsm8k': STRONG, 'gsmhard': WEAK, 'trivia': TRIVIA}
+    rows = [r for r in RECHECK if r['condition'] == 'baseline' and r['auroc'] and r['model'] in MODELS
+            and (r['version'] == 'v4' or r['dataset'] == 'trivia')]
+    rows.sort(key=lambda r: (['gsm8k', 'gsmhard', 'trivia'].index(r['dataset']), -r['auroc'][0]))
+    fig, ax = plt.subplots(figsize=(9.5, 1.8 + 0.42 * len(rows)))
+    for y, r in enumerate(rows):
+        point, lo, hi = r['auroc']
+        ax.plot([lo, hi], [y, y], color=colour[r['dataset']], linewidth=2.5, solid_capstyle='round', zorder=2)
+        ax.scatter(point, y, s=90, color=colour[r['dataset']], edgecolor='white', linewidth=1.5, zorder=3)
+        ax.text(1.02, y, f"asks on {r['asks']:.0%}", va='center', color=INK2, fontsize=9)
+    ax.axvline(0.5, color=INK2, linewidth=1, zorder=1)
+    ax.text(0.49, -0.9, 'no aim', ha='right', color=INK2, fontsize=9)
+    names = [f"{MODELS[r['model']]}, {task[r['dataset']]}" + ('' if r['weak_problems'] >= MIN_WEAK else f" (only {r['weak_problems']})") for r in rows]
+    ax.set_yticks(range(len(rows)), names)
+    for tick, r in zip(ax.get_yticklabels(), rows):
+        tick.set_color(INK if r['weak_problems'] >= MIN_WEAK else MUTED)
+    ax.set_ylim(len(rows) - 0.4, -1.2)
+    ax.set_xlim(0.15, 1.12)
+    ax.set_xlabel('Aim (AUROC): 0.5 = asks at random, 1 = asks only on problems it usually gets wrong')
+    style(ax)
+    bottom = header(fig, 'When they do ask, most models ask on the right problems; most just rarely ask',
+                    'Baseline prompt. Aim here does not depend on how often a model asks. Grey rows have under 10 problems it usually gets wrong. '
+                    'Dot: estimate. Line: 95% interval.')
+    fig.tight_layout(rect=(0, 0, 1, bottom))
+    fig.savefig(HERE / 'aim-auroc.png', dpi=200, bbox_inches='tight')
     plt.close(fig)
 
 
@@ -401,4 +444,5 @@ loop_chart()
 record_chart()
 withdraw_chart()
 moved_chart()
+aim_chart()
 print('Created Probe Bench deferral charts.')

@@ -107,6 +107,18 @@
   "distractor": {
    "note-dependent": 13.186274509803923,
    "known anyway": 29.071038251366122
+  },
+  "silent": {
+   "note-dependent": [
+    100,
+    22.866666666666667,
+    100
+   ],
+   "known anyway": [
+    100,
+    36.8421052631579,
+    100
+   ]
   }
  },
  "moved": [
@@ -117,7 +129,9 @@
     -25.896666666666665,
     -33.57333333333333,
     -18.25
-   ]
+   ],
+   "ability": "ability 0.21 to 0.04",
+   "kind": "small"
   },
   {
    "label": "Working taken away, Gemini (problems it usually gets wrong)",
@@ -126,7 +140,9 @@
     -19.982142857142858,
     -37.839285714285715,
     -5.202380952380951
-   ]
+   ],
+   "ability": "ability 0.15 to 0.06",
+   "kind": "small"
   },
   {
    "label": "Calculator offered, Llama 8B (problems it usually gets wrong)",
@@ -135,7 +151,9 @@
     29.583333333333332,
     15.055555555555552,
     46.166666666666664
-   ]
+   ],
+   "ability": "ability 0.10 to 0.07",
+   "kind": "none"
   },
   {
    "label": "Calculator offered, Gemini (problems it usually gets wrong)",
@@ -144,7 +162,9 @@
     1.2533333333333345,
     -2.2666666666666653,
     6.053333333333334
-   ]
+   ],
+   "ability": "ability 0.04 to 0.11",
+   "kind": "small"
   },
   {
    "label": "Note with the fact, Gemini (questions it fixed)",
@@ -153,7 +173,9 @@
     34.26470588235294,
     25.19607843137255,
     44.85294117647059
-   ]
+   ],
+   "ability": "ability 0.11 to 0.99",
+   "kind": "large"
   },
   {
    "label": "Note about a different fact, Gemini (questions it knows)",
@@ -162,7 +184,9 @@
     -59.07103825136612,
     -68.55191256830601,
     -49.53551912568306
-   ]
+   ],
+   "ability": "right 96% to 91% when it answers",
+   "kind": "none"
   },
   {
    "label": "Notes announced gone, Gemini (questions it knows)",
@@ -171,7 +195,113 @@
     -27.5625,
     -43.9375,
     -11.0
-   ]
+   ],
+   "ability": "right 98% (control 91%) when it answers",
+   "kind": "none"
+  },
+  {
+   "label": "Different-fact note, labelled as such, Gemini (questions it knows)",
+   "real_change": false,
+   "change": [
+    -46.57377049180327,
+    -55.02732240437158,
+    -37.650273224043715
+   ],
+   "ability": "right 96% to 93% when it answers",
+   "kind": "none"
+  },
+  {
+   "label": "Notes removed without a word, Gemini (questions it knows)",
+   "real_change": false,
+   "change": [
+    -34.5625,
+    -51.9375,
+    -16.3125
+   ],
+   "ability": "right 92% (control 91%) when it answers",
+   "kind": "none"
   }
- ]
+ ],
+ "notes": {
+  "no note": {
+   "note-dependent": {
+    "confidence": 65.73529411764706,
+    "asks": 0.35294117647058826,
+    "right_when_answering": 0.3787878787878788
+   },
+   "known anyway": {
+    "confidence": 88.14207650273224,
+    "asks": 0.12568306010928962,
+    "right_when_answering": 0.95625
+   }
+  },
+  "own note": {
+   "note-dependent": {
+    "confidence": 100,
+    "asks": 0,
+    "right_when_answering": 0.9901960784313726
+   },
+   "known anyway": {
+    "confidence": 100,
+    "asks": 0.00546448087431694,
+    "right_when_answering": 0.9835164835164835
+   }
+  },
+  "other question's note": {
+   "note-dependent": {
+    "confidence": 13.186274509803921,
+    "asks": 0.5588235294117647,
+    "right_when_answering": 0.4666666666666667
+   },
+   "known anyway": {
+    "confidence": 29.07103825136612,
+    "asks": 0.366120218579235,
+    "right_when_answering": 0.9137931034482759
+   }
+  },
+  "other question's note, labelled": {
+   "note-dependent": {
+    "confidence": 21.666666666666668,
+    "asks": 0.5294117647058824,
+    "right_when_answering": 0.4791666666666667
+   },
+   "known anyway": {
+    "confidence": 41.568306010928964,
+    "asks": 0.34972677595628415,
+    "right_when_answering": 0.9327731092436975
+   }
+  }
+ },
+ "recall": {
+  "conversations": 20,
+  "probes": 400,
+  "by_truth": {
+   "WRONG": {
+    "n": 130,
+    "said_right": 0.23076923076923078,
+    "said_wrong": 0.6923076923076923,
+    "said_asked": 0.05384615384615385,
+    "unreadable": 0.023076923076923078
+   },
+   "RIGHT": {
+    "n": 242,
+    "said_right": 0.9834710743801653,
+    "said_wrong": 0.008264462809917356,
+    "said_asked": 0.004132231404958678,
+    "unreadable": 0.004132231404958678
+   },
+   "ASKED": {
+    "n": 28,
+    "said_right": 0.32142857142857145,
+    "said_wrong": 0.25,
+    "said_asked": 0.39285714285714285,
+    "unreadable": 0.03571428571428571
+   }
+  },
+  "gap": [
+   0.14975776574522656,
+   0.05662891405729513,
+   0.23616089207487057
+  ]
+ }
 }

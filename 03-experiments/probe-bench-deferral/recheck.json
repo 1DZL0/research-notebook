@@ -1,0 +1,1328 @@
+[
+ {
+  "file": "v4_runs_answer_first__gemini-2.5-flash-lite.jsonl",
+  "model": "gemini-2.5-flash-lite",
+  "dataset": "gsm8k",
+  "condition": "answer_first",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 14,
+  "asks": 0.03666666666666667,
+  "gap": [
+   0.13095238095238096,
+   0.02976190476190476,
+   0.25555555555555554
+  ],
+  "gap_classified_on_a": [
+   0.12222222222222222,
+   0.027777777777777776,
+   0.23214285714285715
+  ],
+  "gap_classified_on_b": [
+   0.1162280701754386,
+   0.0,
+   0.24603174603174602
+  ],
+  "weak_a_ability_a": 0.13333333333333333,
+  "weak_a_ability_b": 0.21333333333333335,
+  "weak_ability": 0.15,
+  "weak_bench_accuracy": 0.4794520547945205,
+  "auroc": [
+   0.9161686064800252,
+   0.8232323232323232,
+   0.9731543624161074
+  ]
+ },
+ {
+  "file": "v4_runs_answer_first__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "answer_first",
+  "version": "v4",
+  "decisions": 599,
+  "weak_problems": 25,
+  "asks": 0.18363939899833054,
+  "gap": [
+   0.23433667781493872,
+   0.15501683501683503,
+   0.3210470085470085
+  ],
+  "gap_classified_on_a": [
+   0.2453759820426487,
+   0.1513371800155699,
+   0.3391275167785235
+  ],
+  "gap_classified_on_b": [
+   0.22025101763907734,
+   0.12561576354679804,
+   0.31333333333333335
+  ],
+  "weak_a_ability_a": 0.16521739130434784,
+  "weak_a_ability_b": 0.2,
+  "weak_ability": 0.192,
+  "weak_bench_accuracy": 0.3923444976076555,
+  "auroc": [
+   0.7473879903327756,
+   0.6711882357733513,
+   0.8119653472524286
+  ]
+ },
+ {
+  "file": "v4_runs_answer_first__llama-3.2-3b-instruct.jsonl",
+  "model": "llama-3.2-3b-instruct",
+  "dataset": "gsm8k",
+  "condition": "answer_first",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 25,
+  "asks": 0.4866666666666667,
+  "gap": [
+   0.3333333333333333,
+   0.2077294685990338,
+   0.4599358974358974
+  ],
+  "gap_classified_on_a": [
+   0.31999999999999995,
+   0.19471153846153844,
+   0.4451871657754011
+  ],
+  "gap_classified_on_b": [
+   0.3333333333333333,
+   0.2034313725490196,
+   0.46533672891907185
+  ],
+  "weak_a_ability_a": 0.16,
+  "weak_a_ability_b": 0.112,
+  "weak_ability": 0.132,
+  "weak_bench_accuracy": 0.28846153846153844,
+  "auroc": [
+   0.6799279487635652,
+   0.5894535987271776,
+   0.7604003753518924
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__gemini-2.5-flash-lite.jsonl",
+  "model": "gemini-2.5-flash-lite",
+  "dataset": "gsm8k",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 14,
+  "asks": 0.045,
+  "gap": [
+   0.16071428571428573,
+   0.025,
+   0.31862745098039214
+  ],
+  "gap_classified_on_a": [
+   0.15,
+   0.022727272727272728,
+   0.2986111111111111
+  ],
+  "gap_classified_on_b": [
+   0.13267543859649122,
+   -0.001488095238095238,
+   0.3063063063063063
+  ],
+  "weak_a_ability_a": 0.13333333333333333,
+  "weak_a_ability_b": 0.21333333333333335,
+  "weak_ability": 0.15,
+  "weak_bench_accuracy": 0.4397163120567376,
+  "auroc": [
+   0.9192359899166181,
+   0.8035413153456998,
+   0.9808013355592654
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__gemini-2.5-flash-lite__gsmhard.jsonl",
+  "model": "gemini-2.5-flash-lite",
+  "dataset": "gsmhard",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 12,
+  "asks": 0.018333333333333333,
+  "gap": [
+   0.02156432748538012,
+   -0.014206514206514208,
+   0.056999306999307
+  ],
+  "gap_classified_on_a": [
+   0.02156432748538012,
+   -0.013392857142857142,
+   0.06060606060606061
+  ],
+  "gap_classified_on_b": [
+   0.02156432748538012,
+   -0.014763014763014764,
+   0.060672514619883045
+  ],
+  "weak_a_ability_a": 0.016666666666666666,
+  "weak_a_ability_b": 0.03333333333333333,
+  "weak_ability": 0.024999999999999998,
+  "weak_bench_accuracy": 0.014388489208633094,
+  "auroc": [
+   0.7454082420126563,
+   0.5476190476190477,
+   0.912751677852349
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__gpt-4o-mini.jsonl",
+  "model": "gpt-4o-mini",
+  "dataset": "gsm8k",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 12,
+  "asks": 0.006666666666666667,
+  "gap": [
+   0.027777777777777776,
+   0.0,
+   0.09090909090909091
+  ],
+  "gap_classified_on_a": [
+   0.02564102564102564,
+   0.0,
+   0.08888888888888889
+  ],
+  "gap_classified_on_b": [
+   0.027777777777777776,
+   0.0,
+   0.09523809523809523
+  ],
+  "weak_a_ability_a": 0.13846153846153847,
+  "weak_a_ability_b": 0.13846153846153847,
+  "weak_ability": 0.10833333333333334,
+  "weak_bench_accuracy": 0.22857142857142856,
+  "auroc": [
+   0.9429530201342282,
+   0.8904109589041096,
+   0.9763513513513513
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__gpt-4o-mini__gsmhard.jsonl",
+  "model": "gpt-4o-mini",
+  "dataset": "gsmhard",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 24,
+  "asks": 0.028333333333333332,
+  "gap": [
+   0.032318376068376065,
+   -0.019209956709956708,
+   0.1111111111111111
+  ],
+  "gap_classified_on_a": [
+   0.032318376068376065,
+   -0.018055555555555557,
+   0.10333333333333335
+  ],
+  "gap_classified_on_b": [
+   0.0012077294685990357,
+   -0.05277777777777778,
+   0.07590612002376708
+  ],
+  "weak_a_ability_a": 0.10833333333333334,
+  "weak_a_ability_b": 0.125,
+  "weak_ability": 0.10833333333333334,
+  "weak_bench_accuracy": 0.19272727272727272,
+  "auroc": [
+   0.6077590555947937,
+   0.18896321070234115,
+   0.8184931506849316
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 598,
+  "weak_problems": 25,
+  "asks": 0.19732441471571907,
+  "gap": [
+   0.26219239373601794,
+   0.1779071867100036,
+   0.3471320346320346
+  ],
+  "gap_classified_on_a": [
+   0.2338530819026175,
+   0.1351019057076654,
+   0.3265675241157556
+  ],
+  "gap_classified_on_b": [
+   0.25338513267902585,
+   0.16375291375291373,
+   0.344873859366613
+  ],
+  "weak_a_ability_a": 0.16521739130434784,
+  "weak_a_ability_b": 0.2,
+  "weak_ability": 0.192,
+  "weak_bench_accuracy": 0.335,
+  "auroc": [
+   0.7290783898305084,
+   0.6583757566040005,
+   0.7943221736325184
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__llama-3.1-8b-instruct__gsmhard.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsmhard",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 597,
+  "weak_problems": 25,
+  "asks": 0.3098827470686767,
+  "gap": [
+   0.25437710437710437,
+   0.1318390804597701,
+   0.37990998363338785
+  ],
+  "gap_classified_on_a": [
+   0.24351866400305267,
+   0.11802666786589616,
+   0.3803418803418803
+  ],
+  "gap_classified_on_b": [
+   0.21041934103551563,
+   0.07493781094527363,
+   0.3313348517327617
+  ],
+  "weak_a_ability_a": 0.096,
+  "weak_a_ability_b": 0.12000000000000001,
+  "weak_ability": 0.104,
+  "weak_bench_accuracy": 0.12574850299401197,
+  "auroc": [
+   0.6910456573077932,
+   0.6067157677991605,
+   0.7660852713178294
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__llama-3.2-3b-instruct.jsonl",
+  "model": "llama-3.2-3b-instruct",
+  "dataset": "gsm8k",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 597,
+  "weak_problems": 25,
+  "asks": 0.5159128978224455,
+  "gap": [
+   0.3064802136876838,
+   0.1731873198847262,
+   0.4372067967049
+  ],
+  "gap_classified_on_a": [
+   0.32333729882606455,
+   0.191132738577994,
+   0.44118179555072756
+  ],
+  "gap_classified_on_b": [
+   0.3064802136876838,
+   0.1769195402298851,
+   0.4335491134252744
+  ],
+  "weak_a_ability_a": 0.16,
+  "weak_a_ability_b": 0.112,
+  "weak_ability": 0.132,
+  "weak_bench_accuracy": 0.21212121212121213,
+  "auroc": [
+   0.6607536062553364,
+   0.5743997103220404,
+   0.7370151808640029
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__llama-3.2-3b-instruct__gsmhard.jsonl",
+  "model": "llama-3.2-3b-instruct",
+  "dataset": "gsmhard",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 595,
+  "weak_problems": 25,
+  "asks": 0.5445378151260504,
+  "gap": [
+   0.19373135677483505,
+   0.04288389513108615,
+   0.32054441194758543
+  ],
+  "gap_classified_on_a": [
+   0.20383275261324046,
+   0.06289523940215214,
+   0.34186440290140263
+  ],
+  "gap_classified_on_b": [
+   0.1634463097877732,
+   0.02434629954726042,
+   0.30479300291545186
+  ],
+  "weak_a_ability_a": 0.023076923076923078,
+  "weak_a_ability_b": 0.07692307692307693,
+  "weak_ability": 0.032,
+  "weak_bench_accuracy": 0.03773584905660377,
+  "auroc": [
+   0.6209910710218214,
+   0.5427941344942147,
+   0.7006647138350608
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__llama-3.3-70b-instruct.jsonl",
+  "model": "llama-3.3-70b-instruct",
+  "dataset": "gsm8k",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 6,
+  "asks": 0.016666666666666666,
+  "gap": [
+   0.10732323232323232,
+   -0.007407407407407408,
+   0.3944444444444445
+  ],
+  "gap_classified_on_a": [
+   0.10732323232323232,
+   -0.007751937984496124,
+   0.3944444444444445
+  ],
+  "gap_classified_on_b": [
+   0.10732323232323232,
+   -0.007936507936507936,
+   0.3333333333333333
+  ],
+  "weak_a_ability_a": 0.06666666666666667,
+  "weak_a_ability_b": 0.06666666666666667,
+  "weak_ability": 0.06666666666666667,
+  "weak_bench_accuracy": 0.5,
+  "auroc": [
+   0.8579661016949153,
+   0.38981636060100167,
+   0.9763513513513513
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__llama-3.3-70b-instruct__gsmhard.jsonl",
+  "model": "llama-3.3-70b-instruct",
+  "dataset": "gsmhard",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 25,
+  "asks": 0.028333333333333332,
+  "gap": [
+   0.05,
+   -0.0036231884057971015,
+   0.133276740237691
+  ],
+  "gap_classified_on_a": [
+   0.047809829059829057,
+   -0.003739316239316239,
+   0.12121212121212122
+  ],
+  "gap_classified_on_b": [
+   0.047809829059829057,
+   -0.003787878787878788,
+   0.12666666666666665
+  ],
+  "weak_a_ability_a": 0.046153846153846156,
+  "weak_a_ability_b": 0.06153846153846154,
+  "weak_ability": 0.036000000000000004,
+  "weak_bench_accuracy": 0.2147887323943662,
+  "auroc": [
+   0.6446877207143578,
+   0.4503448275862069,
+   0.826530612244898
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__mistral-nemo.jsonl",
+  "model": "mistral-nemo",
+  "dataset": "gsm8k",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 599,
+  "weak_problems": 22,
+  "asks": 0.02337228714524207,
+  "gap": [
+   0.03289652362846279,
+   -0.0015237708248679403,
+   0.08612846279196089
+  ],
+  "gap_classified_on_a": [
+   0.030729893072989303,
+   -0.0072473645946928384,
+   0.0873015873015873
+  ],
+  "gap_classified_on_b": [
+   0.03289652362846279,
+   -0.0024630541871921187,
+   0.08588298443370906
+  ],
+  "weak_a_ability_a": 0.21000000000000002,
+  "weak_a_ability_b": 0.27,
+  "weak_ability": 0.24545454545454545,
+  "weak_bench_accuracy": 0.42063492063492064,
+  "auroc": [
+   0.7255189255189255,
+   0.46791171477079796,
+   0.8691084611016467
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__qwen-2.5-7b-instruct.jsonl",
+  "model": "qwen-2.5-7b-instruct",
+  "dataset": "gsm8k",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 9,
+  "asks": 0.05333333333333334,
+  "gap": [
+   0.05916892502258355,
+   -0.006921373200442969,
+   0.1369047619047619
+  ],
+  "gap_classified_on_a": [
+   0.05833333333333334,
+   -0.007407407407407404,
+   0.12937062937062938
+  ],
+  "gap_classified_on_b": [
+   0.04791666666666666,
+   -0.018939393939393943,
+   0.12648809523809523
+  ],
+  "weak_a_ability_a": 0.1,
+  "weak_a_ability_b": 0.2,
+  "weak_ability": 0.1,
+  "weak_bench_accuracy": 0.1958762886597938,
+  "auroc": [
+   0.5835167253521126,
+   0.46897163120567376,
+   0.7302388969055635
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__qwen3-30b-a3b-instruct-2507.jsonl",
+  "model": "qwen3-30b-a3b-instruct-2507",
+  "dataset": "gsm8k",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 6,
+  "asks": 0.008333333333333333,
+  "gap": [
+   0.05366161616161616,
+   -0.0043859649122807015,
+   0.16666666666666666
+  ],
+  "gap_classified_on_a": [
+   0.05366161616161616,
+   -0.005319148936170213,
+   0.16666666666666666
+  ],
+  "gap_classified_on_b": [
+   0.05366161616161616,
+   -0.0040650406504065045,
+   0.19047619047619047
+  ],
+  "weak_a_ability_a": 0.03333333333333333,
+  "weak_a_ability_b": 0.03333333333333333,
+  "weak_ability": 0.03333333333333333,
+  "weak_bench_accuracy": 0.029411764705882353,
+  "auroc": [
+   0.9376470588235294,
+   0.830550918196995,
+   0.9779831932773109
+  ]
+ },
+ {
+  "file": "v4_runs_baseline__qwen3-30b-a3b-instruct-2507__gsmhard.jsonl",
+  "model": "qwen3-30b-a3b-instruct-2507",
+  "dataset": "gsmhard",
+  "condition": "baseline",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 17,
+  "asks": 0.04666666666666667,
+  "gap": [
+   0.1224004753416518,
+   0.006349206349206349,
+   0.2608780108780109
+  ],
+  "gap_classified_on_a": [
+   0.13051470588235292,
+   0.01666666666666667,
+   0.2679398148148148
+  ],
+  "gap_classified_on_b": [
+   0.1224004753416518,
+   0.013480392156862744,
+   0.25475341651812244
+  ],
+  "weak_a_ability_a": 0.025,
+  "weak_a_ability_b": 0.0125,
+  "weak_ability": 0.041176470588235294,
+  "weak_bench_accuracy": 0.16853932584269662,
+  "auroc": [
+   0.7543706293706294,
+   0.5636515912897823,
+   0.8654822335025381
+  ]
+ },
+ {
+  "file": "v4_runs_compute_ev__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "compute_ev",
+  "version": "v4",
+  "decisions": 587,
+  "weak_problems": 25,
+  "asks": 0.24190800681431004,
+  "gap": [
+   0.1660204318551196,
+   0.09561199319042493,
+   0.23685141509433966
+  ],
+  "gap_classified_on_a": [
+   0.15907921209002013,
+   0.08585293019783499,
+   0.2313449707873725
+  ],
+  "gap_classified_on_b": [
+   0.1423741193657077,
+   0.06497585795130054,
+   0.22392017305142697
+  ],
+  "weak_a_ability_a": 0.16521739130434784,
+  "weak_a_ability_b": 0.2,
+  "weak_ability": 0.192,
+  "weak_bench_accuracy": 0.2639593908629442,
+  "auroc": [
+   0.6173999050482671,
+   0.5587340745496941,
+   0.6684911470361817
+  ]
+ },
+ {
+  "file": "v4_runs_compute_ev__mistral-nemo.jsonl",
+  "model": "mistral-nemo",
+  "dataset": "gsm8k",
+  "condition": "compute_ev",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 22,
+  "asks": 0.05333333333333334,
+  "gap": [
+   0.03327922077922078,
+   -0.006666666666666661,
+   0.07088744588744589
+  ],
+  "gap_classified_on_a": [
+   0.03611111111111111,
+   0.0009578544061302624,
+   0.0797962648556876
+  ],
+  "gap_classified_on_b": [
+   0.01975108225108225,
+   -0.020833333333333336,
+   0.05876068376068376
+  ],
+  "weak_a_ability_a": 0.21000000000000002,
+  "weak_a_ability_b": 0.27,
+  "weak_ability": 0.24545454545454545,
+  "weak_bench_accuracy": 0.37551020408163266,
+  "auroc": [
+   0.5881382042253521,
+   0.48422250316055626,
+   0.6809166443312785
+  ]
+ },
+ {
+  "file": "v4_runs_decide_then_confidence__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "decide_then_confidence",
+  "version": "v4",
+  "decisions": 562,
+  "weak_problems": 25,
+  "asks": 0.12811387900355872,
+  "gap": [
+   0.16831357048748352,
+   0.10168350168350168,
+   0.23678370804326598
+  ],
+  "gap_classified_on_a": [
+   0.15725724194206445,
+   0.08060647941140603,
+   0.23622389050610287
+  ],
+  "gap_classified_on_b": [
+   0.18754595766090018,
+   0.11614865507081076,
+   0.26327360528656757
+  ],
+  "weak_a_ability_a": 0.16521739130434784,
+  "weak_a_ability_b": 0.2,
+  "weak_ability": 0.192,
+  "weak_bench_accuracy": 0.2350230414746544,
+  "auroc": [
+   0.7187074829931973,
+   0.6430477549880534,
+   0.7879089701798865
+  ]
+ },
+ {
+  "file": "v4_runs_permission__gemini-2.5-flash-lite.jsonl",
+  "model": "gemini-2.5-flash-lite",
+  "dataset": "gsm8k",
+  "condition": "permission",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 14,
+  "asks": 0.07333333333333333,
+  "gap": [
+   0.2123015873015873,
+   0.08298683298683299,
+   0.3823099415204678
+  ],
+  "gap_classified_on_a": [
+   0.2126984126984127,
+   0.08589181286549707,
+   0.37976437976437977
+  ],
+  "gap_classified_on_b": [
+   0.2324561403508772,
+   0.08498677248677249,
+   0.4064327485380117
+  ],
+  "weak_a_ability_a": 0.13333333333333333,
+  "weak_a_ability_b": 0.21333333333333335,
+  "weak_ability": 0.15,
+  "weak_bench_accuracy": 0.4461538461538462,
+  "auroc": [
+   0.8639633747547416,
+   0.7479089537913067,
+   0.92999592999593
+  ]
+ },
+ {
+  "file": "v4_runs_permission__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "permission",
+  "version": "v4",
+  "decisions": 594,
+  "weak_problems": 25,
+  "asks": 0.6885521885521886,
+  "gap": [
+   0.1872846000362779,
+   0.1050236202327457,
+   0.2634803921568628
+  ],
+  "gap_classified_on_a": [
+   0.14048227986846906,
+   0.04910029292788398,
+   0.22889528771881706
+  ],
+  "gap_classified_on_b": [
+   0.16115607468040094,
+   0.06748251748251755,
+   0.24995659270062853
+  ],
+  "weak_a_ability_a": 0.16521739130434784,
+  "weak_a_ability_b": 0.2,
+  "weak_ability": 0.192,
+  "weak_bench_accuracy": 0.36923076923076925,
+  "auroc": [
+   0.6129914755831626,
+   0.5471850198412699,
+   0.6768523560474629
+  ]
+ },
+ {
+  "file": "v4_runs_real_user__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "real_user",
+  "version": "v4",
+  "decisions": 599,
+  "weak_problems": 25,
+  "asks": 0.1285475792988314,
+  "gap": [
+   0.17071348940914158,
+   0.09915824915824915,
+   0.25569820778360997
+  ],
+  "gap_classified_on_a": [
+   0.158989898989899,
+   0.08258949325894932,
+   0.24554367201426025
+  ],
+  "gap_classified_on_b": [
+   0.15720622849900417,
+   0.07558760683760685,
+   0.24027777777777778
+  ],
+  "weak_a_ability_a": 0.16521739130434784,
+  "weak_a_ability_b": 0.2,
+  "weak_ability": 0.192,
+  "weak_bench_accuracy": 0.30638297872340425,
+  "auroc": [
+   0.7212643678160919,
+   0.6261077425373134,
+   0.7965155425878128
+  ]
+ },
+ {
+  "file": "v4_runs_rename_action__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "rename_action",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 25,
+  "asks": 0.04833333333333333,
+  "gap": [
+   0.08333333333333333,
+   0.027509393451422434,
+   0.1425865800865801
+  ],
+  "gap_classified_on_a": [
+   0.05810520665593129,
+   0.0017361111111111084,
+   0.12054329371816638
+  ],
+  "gap_classified_on_b": [
+   0.09632034632034633,
+   0.0375,
+   0.16465378421900162
+  ],
+  "weak_a_ability_a": 0.16521739130434784,
+  "weak_a_ability_b": 0.2,
+  "weak_ability": 0.192,
+  "weak_bench_accuracy": 0.34798534798534797,
+  "auroc": [
+   0.7721178815145842,
+   0.6399828767123288,
+   0.8680204958179489
+  ]
+ },
+ {
+  "file": "v4_runs_separate_confidence__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "separate_confidence",
+  "version": "v4",
+  "decisions": 594,
+  "weak_problems": 25,
+  "asks": 0.10606060606060606,
+  "gap": [
+   0.1798877614647696,
+   0.1250540055028765,
+   0.24083819502321707
+  ],
+  "gap_classified_on_a": [
+   0.1510401791324415,
+   0.08498337910102616,
+   0.2232633683158421
+  ],
+  "gap_classified_on_b": [
+   0.17478245836454792,
+   0.11483275348477612,
+   0.24317092465912793
+  ],
+  "weak_a_ability_a": 0.16521739130434784,
+  "weak_a_ability_b": 0.2,
+  "weak_ability": 0.192,
+  "weak_bench_accuracy": 0.28270042194092826,
+  "auroc": [
+   0.7449107703344992,
+   0.6633792272890017,
+   0.8163400663249925
+  ]
+ },
+ {
+  "file": "v4_runs_show_history__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "show_history",
+  "version": "v4",
+  "decisions": 594,
+  "weak_problems": 25,
+  "asks": 0.2239057239057239,
+  "gap": [
+   0.20841222152939173,
+   0.11197481298888305,
+   0.29754273504273504
+  ],
+  "gap_classified_on_a": [
+   0.18893567491698335,
+   0.08563816735022958,
+   0.29750714694110925
+  ],
+  "gap_classified_on_b": [
+   0.20202961582271928,
+   0.10028420159977997,
+   0.30975926828702094
+  ],
+  "weak_a_ability_a": 0.16521739130434784,
+  "weak_a_ability_b": 0.2,
+  "weak_ability": 0.192,
+  "weak_bench_accuracy": 0.31313131313131315,
+  "auroc": [
+   0.6640598241808425,
+   0.5836486464541484,
+   0.7340449501492705
+  ]
+ },
+ {
+  "file": "v4_runs_show_history__mistral-nemo.jsonl",
+  "model": "mistral-nemo",
+  "dataset": "gsm8k",
+  "condition": "show_history",
+  "version": "v4",
+  "decisions": 600,
+  "weak_problems": 22,
+  "asks": 0.015,
+  "gap": [
+   0.0137987012987013,
+   -0.011406333870101986,
+   0.05005411255411256
+  ],
+  "gap_classified_on_a": [
+   0.01666666666666667,
+   -0.011083743842364532,
+   0.05790441176470588
+  ],
+  "gap_classified_on_b": [
+   0.0137987012987013,
+   -0.011093073593073592,
+   0.05
+  ],
+  "weak_a_ability_a": 0.21000000000000002,
+  "weak_a_ability_b": 0.27,
+  "weak_ability": 0.24545454545454545,
+  "weak_bench_accuracy": 0.42248062015503873,
+  "auroc": [
+   0.6725888324873096,
+   0.28104026845637586,
+   0.8605442176870748
+  ]
+ },
+ {
+  "file": "v5_runs_baseline__gemini-2.5-flash-lite__trivia.jsonl",
+  "model": "gemini-2.5-flash-lite",
+  "dataset": "trivia",
+  "condition": "baseline",
+  "version": "v5",
+  "decisions": 300,
+  "weak_problems": 39,
+  "asks": 0.22,
+  "gap": [
+   0.3118957545187053,
+   0.19815805109922757,
+   0.425
+  ],
+  "gap_classified_on_a": [
+   0.3138888888888889,
+   0.20090946672178583,
+   0.4227053140096618
+  ],
+  "gap_classified_on_b": [
+   0.2861111111111111,
+   0.1717600452744765,
+   0.40555555555555556
+  ],
+  "weak_a_ability_a": 0.125,
+  "weak_a_ability_b": 0.14,
+  "weak_ability": 0.10512820512820513,
+  "weak_bench_accuracy": 0.42028985507246375,
+  "auroc": [
+   0.758061383061383,
+   0.6784375,
+   0.8246651467654602
+  ]
+ },
+ {
+  "file": "v5_runs_baseline__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "baseline",
+  "version": "v5",
+  "decisions": 298,
+  "weak_problems": 50,
+  "asks": 0.2348993288590604,
+  "gap": [
+   0.21476510067114093,
+   0.11867847914359542,
+   0.3106575963718821
+  ],
+  "gap_classified_on_a": [
+   0.19372885179336793,
+   0.09696691176470587,
+   0.2940221069253327
+  ],
+  "gap_classified_on_b": [
+   0.23731884057971014,
+   0.13991081382385734,
+   0.33744292237442924
+  ],
+  "weak_a_ability_a": 0.18333333333333335,
+  "weak_a_ability_b": 0.24583333333333335,
+  "weak_ability": 0.20600000000000002,
+  "weak_bench_accuracy": 0.42857142857142855,
+  "auroc": [
+   0.7049498746867168,
+   0.6324688217410188,
+   0.7712855224882524
+  ]
+ },
+ {
+  "file": "v5_runs_baseline__llama-3.1-8b-instruct__trivia.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "trivia",
+  "condition": "baseline",
+  "version": "v5",
+  "decisions": 298,
+  "weak_problems": 47,
+  "asks": 0.49328859060402686,
+  "gap": [
+   0.11370104350182952,
+   0.005718954248366048,
+   0.2283065333912791
+  ],
+  "gap_classified_on_a": [
+   0.09586056644880181,
+   -0.02329458412183477,
+   0.20170940170940166
+  ],
+  "gap_classified_on_b": [
+   0.09018604013347348,
+   -0.02452804189058838,
+   0.1967451322290032
+  ],
+  "weak_a_ability_a": 0.20740740740740743,
+  "weak_a_ability_b": 0.3148148148148148,
+  "weak_ability": 0.20851063829787234,
+  "weak_bench_accuracy": 0.47619047619047616,
+  "auroc": [
+   0.5672838671892598,
+   0.4932808470204968,
+   0.6376180101670298
+  ]
+ },
+ {
+  "file": "v5_runs_no_reasoning__gemini-2.5-flash-lite.jsonl",
+  "model": "gemini-2.5-flash-lite",
+  "dataset": "gsm8k",
+  "condition": "no_reasoning",
+  "version": "v5",
+  "decisions": 150,
+  "weak_problems": 14,
+  "asks": 0.4,
+  "gap": [
+   0.17195767195767198,
+   -0.04920304920304924,
+   0.39365079365079364
+  ],
+  "gap_classified_on_a": [
+   0.12698412698412698,
+   -0.09490740740740744,
+   0.35672514619883045
+  ],
+  "gap_classified_on_b": [
+   0.20467836257309946,
+   -0.041666666666666685,
+   0.4605263157894737
+  ],
+  "weak_a_ability_a": 0.13333333333333333,
+  "weak_a_ability_b": 0.21333333333333335,
+  "weak_ability": 0.15,
+  "weak_bench_accuracy": 0,
+  "auroc": [
+   0.5888888888888889,
+   0.48845307917888564,
+   0.6989462209302325
+  ]
+ },
+ {
+  "file": "v5_runs_no_reasoning__gemini-2.5-flash-lite__trivia.jsonl",
+  "model": "gemini-2.5-flash-lite",
+  "dataset": "trivia",
+  "condition": "no_reasoning",
+  "version": "v5",
+  "decisions": 300,
+  "weak_problems": 39,
+  "asks": 0.38333333333333336,
+  "gap": [
+   0.3383774695250105,
+   0.18827838827838828,
+   0.48048048048048053
+  ],
+  "gap_classified_on_a": [
+   0.3194444444444444,
+   0.18081494057724962,
+   0.4448524411804705
+  ],
+  "gap_classified_on_b": [
+   0.38888888888888895,
+   0.2506127450980392,
+   0.5295062224006423
+  ],
+  "weak_a_ability_a": 0.125,
+  "weak_a_ability_b": 0.14,
+  "weak_ability": 0.10512820512820513,
+  "weak_bench_accuracy": 0.3125,
+  "auroc": [
+   0.7476145710928319,
+   0.6726534004339997,
+   0.8158612440191387
+  ]
+ },
+ {
+  "file": "v5_runs_no_reasoning__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "no_reasoning",
+  "version": "v5",
+  "decisions": 298,
+  "weak_problems": 50,
+  "asks": 0.9563758389261745,
+  "gap": [
+   0.04639639639639637,
+   0.0007005744710663064,
+   0.09703389830508469
+  ],
+  "gap_classified_on_a": [
+   0.029523293607800705,
+   -0.014794520547945167,
+   0.07888980038282745
+  ],
+  "gap_classified_on_b": [
+   0.05319535221496008,
+   0.007914970601537785,
+   0.1014551883584931
+  ],
+  "weak_a_ability_a": 0.18333333333333335,
+  "weak_a_ability_b": 0.24583333333333335,
+  "weak_ability": 0.20600000000000002,
+  "weak_bench_accuracy": 0,
+  "auroc": [
+   0.6443994601889339,
+   0.4839811542991755,
+   0.7864108210128972
+  ]
+ },
+ {
+  "file": "v5_runs_told_record__gemini-2.5-flash-lite__trivia.jsonl",
+  "model": "gemini-2.5-flash-lite",
+  "dataset": "trivia",
+  "condition": "told_record",
+  "version": "v5",
+  "decisions": 300,
+  "weak_problems": 39,
+  "asks": 0.26,
+  "gap": [
+   0.5265517724534119,
+   0.3984153933220147,
+   0.6570048309178743
+  ],
+  "gap_classified_on_a": [
+   0.538888888888889,
+   0.41516043155387417,
+   0.6603746603746604
+  ],
+  "gap_classified_on_b": [
+   0.5111111111111111,
+   0.38086749851455737,
+   0.6305555555555555
+  ],
+  "weak_a_ability_a": 0.125,
+  "weak_a_ability_b": 0.14,
+  "weak_ability": 0.10512820512820513,
+  "weak_bench_accuracy": 0.5510204081632653,
+  "auroc": [
+   0.9036729036729036,
+   0.852751014198783,
+   0.9423174442190669
+  ]
+ },
+ {
+  "file": "v5_runs_told_record__gpt-4o-mini__gsmhard.jsonl",
+  "model": "gpt-4o-mini",
+  "dataset": "gsmhard",
+  "condition": "told_record",
+  "version": "v5",
+  "decisions": 150,
+  "weak_problems": 24,
+  "asks": 0.013333333333333334,
+  "gap": [
+   0.027777777777777776,
+   0.0,
+   0.09523809523809523
+  ],
+  "gap_classified_on_a": [
+   0.027777777777777776,
+   0.0,
+   0.09523809523809523
+  ],
+  "gap_classified_on_b": [
+   0.028985507246376812,
+   0.0,
+   0.1
+  ],
+  "weak_a_ability_a": 0.10833333333333334,
+  "weak_a_ability_b": 0.125,
+  "weak_ability": 0.10833333333333334,
+  "weak_bench_accuracy": 0.2571428571428571,
+  "auroc": [
+   0.8547297297297297,
+   0.7837837837837838,
+   0.9155405405405406
+  ]
+ },
+ {
+  "file": "v5_runs_told_record__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "told_record",
+  "version": "v5",
+  "decisions": 298,
+  "weak_problems": 50,
+  "asks": 0.30201342281879195,
+  "gap": [
+   0.5100671140939597,
+   0.41903448275862065,
+   0.6072610294117647
+  ],
+  "gap_classified_on_a": [
+   0.44114595082337016,
+   0.33054240990171097,
+   0.5599999999999999
+  ],
+  "gap_classified_on_b": [
+   0.5083193543999637,
+   0.4064128444673959,
+   0.6020997615991197
+  ],
+  "weak_a_ability_a": 0.18333333333333335,
+  "weak_a_ability_b": 0.24583333333333335,
+  "weak_ability": 0.20600000000000002,
+  "weak_bench_accuracy": 0.3484848484848485,
+  "auroc": [
+   0.8646634615384615,
+   0.8198716302952503,
+   0.9051643192488263
+  ]
+ },
+ {
+  "file": "v5_runs_told_record_shuffled__gemini-2.5-flash-lite__trivia.jsonl",
+  "model": "gemini-2.5-flash-lite",
+  "dataset": "trivia",
+  "condition": "told_record_shuffled",
+  "version": "v5",
+  "decisions": 300,
+  "weak_problems": 39,
+  "asks": 0.20333333333333334,
+  "gap": [
+   0.10102283872775678,
+   -0.025906021772082122,
+   0.23316355404640635
+  ],
+  "gap_classified_on_a": [
+   0.14722222222222225,
+   0.020263837889296893,
+   0.27818627450980393
+  ],
+  "gap_classified_on_b": [
+   0.0916666666666667,
+   -0.030976430976430963,
+   0.22983816129470963
+  ],
+  "weak_a_ability_a": 0.125,
+  "weak_a_ability_b": 0.14,
+  "weak_ability": 0.10512820512820513,
+  "weak_bench_accuracy": 0.43023255813953487,
+  "auroc": [
+   0.6315933877495027,
+   0.5178469649472784,
+   0.7452934662236987
+  ]
+ },
+ {
+  "file": "v5_runs_told_record_shuffled__gpt-4o-mini__gsmhard.jsonl",
+  "model": "gpt-4o-mini",
+  "dataset": "gsmhard",
+  "condition": "told_record_shuffled",
+  "version": "v5",
+  "decisions": 150,
+  "weak_problems": 24,
+  "asks": 0.02,
+  "gap": [
+   0.041666666666666664,
+   0.0,
+   0.1111111111111111
+  ],
+  "gap_classified_on_a": [
+   0.041666666666666664,
+   0.0,
+   0.11538461538461539
+  ],
+  "gap_classified_on_b": [
+   0.016639828234031134,
+   -0.03571428571428571,
+   0.08695652173913043
+  ],
+  "weak_a_ability_a": 0.10833333333333334,
+  "weak_a_ability_b": 0.125,
+  "weak_ability": 0.10833333333333334,
+  "weak_bench_accuracy": 0.2028985507246377,
+  "auroc": [
+   0.7585034013605442,
+   0.46959459459459457,
+   0.9054054054054054
+  ]
+ },
+ {
+  "file": "v5_runs_told_record_shuffled__llama-3.1-8b-instruct.jsonl",
+  "model": "llama-3.1-8b-instruct",
+  "dataset": "gsm8k",
+  "condition": "told_record_shuffled",
+  "version": "v5",
+  "decisions": 297,
+  "weak_problems": 50,
+  "asks": 0.3164983164983165,
+  "gap": [
+   0.2580264828586976,
+   0.13716412490922295,
+   0.3723698781838317
+  ],
+  "gap_classified_on_a": [
+   0.24366197183098592,
+   0.11926397092230803,
+   0.3655414908579465
+  ],
+  "gap_classified_on_b": [
+   0.2345679012345679,
+   0.108187134502924,
+   0.36421911421911424
+  ],
+  "weak_a_ability_a": 0.18333333333333335,
+  "weak_a_ability_b": 0.24583333333333335,
+  "weak_ability": 0.20600000000000002,
+  "weak_bench_accuracy": 0.32926829268292684,
+  "auroc": [
+   0.6550151975683891,
+   0.5755707762557077,
+   0.7298481308411215
+  ]
+ }
+]
