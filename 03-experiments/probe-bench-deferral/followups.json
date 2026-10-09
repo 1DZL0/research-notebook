@@ -111,7 +111,7 @@
  },
  "moved": [
   {
-   "label": "Working taken away, Llama 8B (weak problems)",
+   "label": "Working taken away, Llama 8B (problems it usually gets wrong)",
    "real_change": true,
    "change": [
     -25.896666666666665,
@@ -120,7 +120,7 @@
    ]
   },
   {
-   "label": "Working taken away, Gemini (weak problems)",
+   "label": "Working taken away, Gemini (problems it usually gets wrong)",
    "real_change": true,
    "change": [
     -19.982142857142858,
@@ -129,7 +129,7 @@
    ]
   },
   {
-   "label": "Calculator offered, Llama 8B (weak problems)",
+   "label": "Calculator offered, Llama 8B (problems it usually gets wrong)",
    "real_change": false,
    "change": [
     29.583333333333332,
@@ -138,7 +138,7 @@
    ]
   },
   {
-   "label": "Calculator offered, Gemini (weak problems)",
+   "label": "Calculator offered, Gemini (problems it usually gets wrong)",
    "real_change": false,
    "change": [
     1.2533333333333345,

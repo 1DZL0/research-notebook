@@ -37,27 +37,28 @@ condition changes exactly one thing. Predictions written before running.
 How a run works, in four steps:
 
 1. **Measure ability.** Each model solves every problem ten times, nothing at stake.
-   A problem it gets right under half the time is one of its **weak problems**; the
-   rest are its **strong problems**.
+   A problem it gets right under half the time counts as one it **usually gets
+   wrong**; the rest count as ones it **usually gets right**. Those two groups are
+   compared throughout.
 2. **Add the choice.** It sees the same problems again and must either answer (+1 if
    right, minus the penalty if wrong) or ask for help (always -0.2).
 3. **Work, then decide.** It works the problem, states a confidence from 0 to 100,
    then decides.
-4. **To check.** The number to watch is how much more often it asks on weak
-   problems than on strong ones. 
+4. **To check.** The number to watch is how much more often it asks on problems it usually gets wrong
+   than on ones it usually gets right. 
 
 | What we tested | On | What happened | Verdict |
 |---|---|---|---|
 | Does a bigger penalty make a model ask more? | 7 models | No. Raising the penalty from 1 to 64 did not change how often any model asked. Every model would have scored better by always asking. | Held |
 | Do models act on their stated confidence? | all | Yes, but not enough. When its confidence drops on a problem, it asks more. It never asks as often as its own confidence says it should. | Held, with a qualifier |
-| Do models know their weak problems? | all | Mostly no. Most say 94 or more on problems they usually fail. The small Llamas on maths and Gemini on facts are the exceptions. | Held |
-| Is Gemini's aim on facts its own knowledge, or what is hard for everyone? | Gemini vs Qwen3 30B, GPT-4o mini | Its own knowledge. On questions another model finds equally hard, Gemini still asks 25 to 30 points more on the ones it is weak at itself. Whether a question is hard for the other model adds almost nothing. | Held |
-| Does rewording the prompt improve the aim? | Llama 8B, nine wordings | No. How often it asks moves a lot (9% to 78% on weak problems), but it does not get better at picking which problems to ask on. | Did not |
+| Do models know which problems they usually get wrong? | all | Mostly no. Most say 94 or more on problems they usually fail. The small Llamas on maths and Gemini on facts are the exceptions. | Held |
+| Is Gemini's aim on facts its own knowledge, or what is hard for everyone? | Gemini vs Qwen3 30B, GPT-4o mini | Its own knowledge. On questions another model finds equally hard, Gemini still asks 25 to 30 points more on the ones it usually gets wrong itself. Whether a question is hard for the other model adds almost nothing. | Held |
+| Does rewording the prompt improve the aim? | Llama 8B, nine wordings | No. How often it asks moves a lot (9% to 78% on problems it usually gets wrong), but it does not get better at picking which problems to ask on. | Did not |
 | Two kinds of knowing: by trying, or beforehand? | Llama 8B, Gemini | Not shown. Without working, Llama 8B cannot do these problems at all, so asking on nearly all of them was right. Gemini keeps its aim on maths without working. | Withdrawn |
 | Told its exact record ("right 2 times out of 10") | Llama 8B, Gemini, GPT-4o mini | Llama and Gemini follow the line, whether the number is true or shuffled. GPT-4o mini ignores it. | Held: obeys the line |
 | A calculator, as a real change in capability | Llama 8B, Gemini | The calculator did not make either model better. Llama's confidence rose 30 points anyway; Gemini's did not move. | Open: no capability change happened |
-| A reference note holding the fact | Gemini | The note fixed 34 of Gemini's 39 weak questions. On exactly those, confidence went 66 to 100 and asking 35% to 0%. | Held: follows a change it can read |
-| A note about a different fact | Gemini | Confidence falls to 13 on the weak questions, and to 29 on questions it knows, even though it still gets those right 90% of the time. | Held: reads what is in front of it |
+| A reference note holding the fact | Gemini | The note fixed 34 of the 39 questions Gemini usually gets wrong. On exactly those, confidence went 66 to 100 and asking 35% to 0%. | Held: follows a change it can read |
+| A note about a different fact | Gemini | Confidence falls to 13 on the questions it usually gets wrong, and to 29 on questions it knows, even though it still gets those right 90% of the time. | Held: reads what is in front of it |
 | Notes withdrawn, then restored | Gemini, 16 conversations per arm | Told the notes are gone, confidence drops to 47 even on questions it knows (75 in the control). Told they are back, it goes straight back to 100. It follows the announcement, not what it can do. | Held |
 | Outcome and score fed back after each decision | Llama 8B | It asks more, but not on the right problems: the gap is +8 with real feedback, +6 with scrambled feedback, +7 with none. | Did not |
 | The same outcome repeated next to the decision | Llama 8B | Now it aims: asks on 80% of the problems it got wrong before and 1% of the ones it got right (+79). The same fact left in its history did nothing. | Held: the fault is retrieval |
@@ -68,8 +69,8 @@ How a run works, in four steps:
 
 ### 1. Telling a model the stakes does nothing
 
-- The penalty for a wrong answer went from 1 to 64. Seven models had enough weak
-  problems to judge. One moved once (Llama 3B, +15, interval +1 to +29) and did not
+- The penalty for a wrong answer went from 1 to 64. Seven models had enough problems they
+  usually get wrong to judge. One moved once (Llama 3B, +15, interval +1 to +29) and did not
   repeat it with the options in the other order (-1); no model's change replicated.
 
 
@@ -85,9 +86,9 @@ prompt. No model ever felt a -64. Felt consequences are finding 4.
 
 The two charts carry this one.
 
-![How often each model asks for help on weak and strong problems, and the confidence it states.](probe-bench-deferral/models-gsm8k.png)
+![How often each model asks for help on problems it usually gets wrong and ones it usually gets right, and the confidence it states.](probe-bench-deferral/models-gsm8k.png)
 
-![One point per model and task: the more the stated confidence drops on weak problems, the more the model asks.](probe-bench-deferral/confidence-vs-asking.png)
+![One point per model and task: the more the stated confidence drops on problems it usually gets wrong, the more the model asks.](probe-bench-deferral/confidence-vs-asking.png)
 
 
 - Most models' confidence does not drop. GPT-4o mini, Mistral Nemo and Llama 70B
@@ -104,23 +105,23 @@ The two charts carry this one.
 
 - On maths you cannot tell the two apart: every model fails the same problems
   (Llama 8B's ability per problem and the other models' average correlate at
-  +0.87), so a model asking on its own weak problems is also asking on everyone's.
+  +0.87), so a model asking on the problems it usually gets wrong is also asking on the ones everyone gets wrong.
   On facts, models fail different questions, so the two can be separated.
   
-- Gemini Flash Lite on TriviaQA asks on 41% of its weak questions and 10% of its
-  strong ones (+31, interval +20 to +43).
+- Gemini Flash Lite on TriviaQA asks on 41% of the questions it usually gets wrong and 10% of
+  the ones it usually gets right (+31, interval +20 to +43).
 - Hold another model's ability fixed, and Gemini still asks 25 to 30 points more on
-  its own weak questions. Hold Gemini's own ability fixed, and a question being hard
+  the questions it usually gets wrong itself. Hold Gemini's own ability fixed, and a question being hard
   for the other model adds only 4 to 9 points, intervals through zero. Its asking
   tracks what it itself knows.
-- Llama 8B on facts barely aims: gap +11 (interval 0 to +24), confidence 59 on weak
-  questions, 62 on strong.
+- Llama 8B on facts barely aims: gap +11 (interval 0 to +24), confidence 59 on questions it
+  usually gets wrong, 62 on ones it gets right.
 
 Rewording the prompt does not help. Nine wordings on Llama 8B:
 
 ![Llama 8B under nine versions of the prompt: the volume moves, the aim does not.](probe-bench-deferral/conditions-llama-8b.png)
 
-- Asking on weak problems moved from 9% to 78%. The gap never beat the baseline's.
+- Asking on problems it usually gets wrong moved from 9% to 78%. The gap never beat the baseline's.
 - Telling it that asking is expected made it ask on 59% of problems it would have
   got right. More timid, not better aimed.
 
@@ -129,9 +130,9 @@ Rewording the prompt does not help. Nine wordings on Llama 8B:
 O2's updateable clause: does the self-estimate move when the facts change? Five
 manipulations, one answer each.
 
-- **Take away the working.** Confidence fell (Llama 8B 71 / 87 to 45 / 54 on weak /
-  strong problems, Gemini 88 / 100 to 71 / 90; paired over problems, as in the chart,
-  the weak-problem drops are -26 and -20). Right direction, still far above the new
+- **Take away the working.** Confidence fell (Llama 8B 71 / 87 to 45 / 54 on problems it
+  usually gets wrong / right, Gemini 88 / 100 to 71 / 90; paired over problems, as in
+  the chart, the drops on the problems it usually gets wrong are -26 and -20). Right direction, still far above the new
   ability (0.03 and 0.27).
 - **Tell it its record** ("in 10 earlier attempts you were right 2 times out of
   10"). Llama 8B's gap doubles, +21 to +51. Tell it a shuffled number from another
@@ -139,10 +140,10 @@ manipulations, one answer each.
   ability). Gemini follows the number more than its own monitor (+31 to +10). GPT-4o
   mini ignores the line: 3% asking, confidence 92, true or shuffled.
 - **Give it a calculator.** Neither model got better on GSM-Hard (their failures are
-  set-up errors, not arithmetic). Llama 8B's before-working confidence on weak
-  problems rose from 61 to 86 anyway. Gemini's, correctly, did not move.
-- **Give it a note holding the fact.** The one change that was real: 34 of Gemini's
-  39 weak questions became strong. On those, confidence 66 to 100, asking 35% to 0%.
+  set-up errors, not arithmetic). Llama 8B's before-working confidence on problems it
+  usually gets wrong rose from 61 to 86 anyway. Gemini's, correctly, did not move.
+- **Give it a note holding the fact.** The one change that was real: 34 of the
+  39 questions Gemini usually got wrong became ones it gets right. On those, confidence 66 to 100, asking 35% to 0%.
   A note about a *different* fact does the opposite: confidence 13 on those
   questions, and 29 on questions it knows anyway (88 with no note), while it still
   gets them right 90% of the time.
@@ -159,7 +160,7 @@ manipulations, one answer each.
 
 Put together: the record line, the distractor note and the withdrawal moved the
 estimate on everything, as a block. The calculator moved it only where the model
-was already unsure (weak problems +30, strong +6 with the interval through zero).
+was already unsure (+30 on problems it usually gets wrong, +6 on ones it gets right, with the interval through zero).
 In every case what moved it was in the prompt.
 
 **The update loop**, where the outcome is fed back after each decision:
@@ -196,7 +197,7 @@ Not tested, so this page says nothing about them:
   one it states is the probe, the next step.
 - Post-training. No base model was available.
 - A per-question update from anything not next to the decision.
-- Differences under about ten points, which 25 to 50 weak problems cannot see.
+- Differences under about ten points, which 25 to 50 problems per group cannot see.
 
 ### What it means for O2
 
@@ -214,17 +215,18 @@ Not tested, so this page says nothing about them:
 
 1. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state. Needs a GPU.
-2. **A harder task.** Repeat with a benchmark where strong models, including Claude
-   and one frontier model, have plenty of weak problems.
+2. **A harder task.** Repeat with a benchmark where capable models, including Claude
+   and one frontier model, have plenty of problems it usually gets wrong.
 
 ## Full record
 
-The tables behind the findings, then the papers and the methods notes. Every number
+The tables behind the findings, then the papers and the methods notes. In the
+tables, "usually wrong" and "usually right" are the two groups of problems from step 1. Every number
 is reproducible from the saved runs in `02-defferal` with `analyse.py`.
 
 ::: {.callout-note collapse="true" title="Every model on GSM8K and GSM-Hard, penalties 1 to 64"}
 
-| Model | Problems | Weak problems | Asks on weak | Asks on strong | Gap (95% interval) | Confidence, weak / strong |
+| Model | Problems | Usually wrong | Asks, usually wrong | Asks, usually right | Gap (95% interval) | Confidence, usually wrong / right |
 |---|---|---|---|---|---|---|
 | Llama 3.2 3B | GSM8K | 25 | 67% | 36% | +31 (+17 to +44) | 61 / 77 |
 | Llama 3.1 8B | GSM8K | 25 | 33% | 7% | +26 (+18 to +35) | 72 / 88 |
@@ -241,13 +243,13 @@ is reproducible from the saved runs in `02-defferal` with `analyse.py`.
 
 ::: {.callout-note collapse="true" title="Llama 8B under nine prompt wordings"}
 
-| Condition | Predicted if the idea is true | What happened (asks on weak / strong) | Verdict |
+| Condition | Predicted if the idea is true | What happened (asks, usually wrong / usually right) | Verdict |
 |---|---|---|---|
-| Baseline | Flat across penalties; no slope against ability | 33% / 7% | Flat across penalties: yes. No slope against ability: no, it asks more on weak problems |
+| Baseline | Flat across penalties; no slope against ability | 33% / 7% | Flat across penalties: yes. No slope against ability: no, it asks more on problems it usually gets wrong |
 | Permission | Deferral rises | 78% / 59% | Rises on everything. Timid, not better aimed |
 | Real user | Deferral rises | 21% / 4% | Fell |
-| Show history | Confidence drops; deferral rises on weak problems | 33% / 12% | No rise on weak problems, a small rise on strong ones |
-| Compute EV | Deferral appears once the arithmetic is forced | 33% / 16% | No rise on weak problems, a rise on strong ones |
+| Show history | Confidence drops; deferral rises on usually-wrong problems | 33% / 12% | No rise on usually-wrong problems, a small rise on usually-right ones |
+| Compute EV | Deferral appears once the arithmetic is forced | 33% / 16% | No rise on usually-wrong problems, a rise on usually-right ones |
 | Rename action | Rate moves with the label | 9% / 1% | Yes, and strongly: "flag as uncertain" is used far less than "ask for help" |
 | Separate confidence | Deferral differs from baseline | 20% / 2% | Lower on both |
 | Base vs instruct | Base model defers more | Not run | No base checkpoint was available on OpenRouter |
@@ -255,9 +257,9 @@ is reproducible from the saved runs in `02-defferal` with `analyse.py`.
 
 :::
 
-::: {.callout-note collapse="true" title="The three Llamas on GSM-Hard, 25 weak problems each"}
+::: {.callout-note collapse="true" title="The three Llamas on GSM-Hard, 25 usually-wrong problems each"}
 
-| Llama size | Asks on weak | Asks on strong | Gap (95% interval) | Confidence, weak / strong |
+| Llama size | Asks, usually wrong | Asks, usually right | Gap (95% interval) | Confidence, usually wrong / right |
 |---|---|---|---|---|
 | 3B | 64% | 45% | +19 (+6 to +33) | 60 / 71 |
 | 8B | 44% | 18% | +25 (+12 to +39) | 61 / 79 |
@@ -267,7 +269,7 @@ is reproducible from the saved runs in `02-defferal` with `analyse.py`.
 
 ::: {.callout-note collapse="true" title="Told its own record, penalty 64"}
 
-| Model | Problems (weak) | Baseline gap | Told the truth | Told a shuffled number, gap by real ability |
+| Model | Problems (usually wrong) | Baseline gap | Told the truth | Told a shuffled number, gap by real ability |
 |---|---|---|---|---|
 | Llama 8B, GSM8K | 100 (50) | +21 (+12 to +31) | +51 (+41 to +60); asks 56% / 5% | +26 (+14 to +38) |
 | Gemini Flash Lite, TriviaQA | 100 (39) | +31 (+20 to +42) | +53 (+39 to +65); asks 58% / 5% | +10 (-3 to +23) |
@@ -310,10 +312,10 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
 
 - **Wang [6]: we see the same thing.** Wang found that models do not abstain more
   when mistakes get costlier. Same here, on 7 of the 8 models (Qwen 2.5 7B had too
-  few weak problems to judge), up to a 64 times penalty.
+  few usually-wrong problems to judge), up to a 64 times penalty.
 - **Barkan [21]: mostly the same.** Barkan says the acting side works and the
   knowing side is wrong. Here too: decisions follow the confidence a model states,
-  and that confidence is too high and barely separates weak from strong problems.
+  and that confidence is too high and barely separates the problems it usually gets wrong from the ones it gets right.
   One difference: our models follow their confidence but ignore the cost.
 - **Xiong [3]: we see the same thing.** Stated confidence is overconfident. Most
   models said 86 to 99 out of 100 on problems they usually fail.
@@ -330,7 +332,7 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
 
 - **Penalty 64 only** from the follow-ups on: the penalty does nothing (Finding 2),
   and varying it spent three quarters of each run on a flat factor.
-- **Sizes.** 50 to 100 problems with 25 to 50 weak, 3 decisions per problem per
+- **Sizes.** 50 to 100 problems with 25 to 50 usually wrong, 3 decisions per problem per
   condition. Intervals are 95% bootstrap intervals over problems, or over
   conversations in the loop and withdrawal runs. Anything under about ten points is
   invisible at these sizes.
@@ -458,10 +460,10 @@ MAX_TOKENS       = 1500     # stops a rambling model; rarely reached
 
 :::
 
-::: {.callout-note collapse="true" title="How weak and strong problems are picked"}
+::: {.callout-note collapse="true" title="How the usually-wrong and usually-right problems are picked"}
 
 Each model solves each problem 10 times with a plain prompt. Its ability on a
-problem is the share of those 10 it got right. Weak means ability under 0.5.
+problem is the share of those 10 it got right. Usually wrong means ability under 0.5; the code calls these weak and the rest strong.
 
 ```python
 def solve(question, model=None):

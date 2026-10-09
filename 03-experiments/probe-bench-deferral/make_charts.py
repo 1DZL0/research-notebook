@@ -76,8 +76,8 @@ def dumbbell(ax, rows, weak_key, strong_key, scale, label):
 
 def legend(fig, y):
     handles = [
-        plt.Line2D([], [], marker='^', linestyle='', color=WEAK, markersize=9, label='Weak problems = ones this model usually gets wrong'),
-        plt.Line2D([], [], marker='o', linestyle='', color=STRONG, markersize=9, label='Strong problems = ones this model usually gets right'),
+        plt.Line2D([], [], marker='^', linestyle='', color=WEAK, markersize=9, label='Problems it usually gets wrong'),
+        plt.Line2D([], [], marker='o', linestyle='', color=STRONG, markersize=9, label='Problems it usually gets right'),
     ]
     fig.legend(handles=handles, loc='upper left', bbox_to_anchor=(0.01, y), ncol=2, frameon=False,
                fontsize=10, handletextpad=0.3, columnspacing=1.6)
@@ -85,7 +85,7 @@ def legend(fig, y):
 
 def row_label(name, r):
     n = r['weak_problems']
-    note = f'{n} weak problems' if n >= MIN_WEAK else f'only {n} weak problems'
+    note = f'{n} usually wrong' if n >= MIN_WEAK else f'only {n} usually wrong'
     return f'{name}\n{note}'
 
 
@@ -125,9 +125,9 @@ def condition_chart():
     fig.suptitle('Changing the prompt changes how much Llama 8B asks, not how well it aims',
                  x=0.01, y=top, ha='left', fontsize=14, fontweight='bold')
     fig.text(0.01, top - 0.42 / fig.get_figheight(),
-             'Llama 3.1 8B on GSM8K, 25 weak and 25 strong problems, 600 decisions per row. '
+             'Llama 3.1 8B on GSM8K, 25 problems it usually gets wrong and 25 it usually gets right, 600 decisions per row. '
              'Each row changes one thing in the prompt.\n'
-             'Gap = how much more it asks on weak problems than on strong ones. A bigger gap means better aim.', ha='left', va='top', color=INK2, fontsize=10)
+             'Gap = how much more it asks on problems it usually gets wrong than on ones it usually gets right. A bigger gap means better aim.', ha='left', va='top', color=INK2, fontsize=10)
     legend(fig, top - 0.84 / fig.get_figheight())
     fig.tight_layout(rect=(0, 0, 1, top - 1.0 / fig.get_figheight()))
     fig.savefig(HERE / 'conditions-llama-8b.png', dpi=200, bbox_inches='tight')
@@ -152,13 +152,13 @@ def penalty_chart():
     ax.set_yticks(range(len(rows)), names)
     ax.set_ylim(len(rows) - 0.4, -0.6)
     ax.set_xlim(0, 100)
-    ax.set_xlabel('Share of weak-problem decisions where it asked for help (%)')
+    ax.set_xlabel('Share of decisions on problems it usually gets wrong where it asked for help (%)')
     style(ax)
     top = 1 - 0.3 / fig.get_figheight()
     fig.suptitle('Making a wrong answer 64 times more costly barely changes how often models ask',
                  x=0.01, y=top, ha='left', fontsize=14, fontweight='bold')
     fig.text(0.01, top - 0.42 / fig.get_figheight(),
-             'How often each model asks for help on its weak problems. '
+             'How often each model asks for help on the problems it usually gets wrong. '
              'If the two marks sit close together, the penalty made no difference.',
              ha='left', va='top', color=INK2, fontsize=10)
     handles = [
@@ -236,18 +236,18 @@ def scatter_chart():
                 textcoords='data', color=INK2, fontsize=9, va='top')
     ax.set_xlim(-2, 32)
     ax.set_ylim(-4, 38)
-    ax.set_xlabel('How much lower its stated confidence is on weak problems than on strong ones (points)')
-    ax.set_ylabel('How much more it asks for help on weak problems (points)')
+    ax.set_xlabel('How much lower its stated confidence is on problems it usually gets wrong than on ones it usually gets right (points)')
+    ax.set_ylabel('How much more it asks for help on problems it usually gets wrong (points)')
     style(ax)
     ax.grid(axis='y', color=GRID, linewidth=1)
     handles = [plt.Line2D([], [], marker=marker[d], linestyle='', color=colour[d], markersize=9, label=lab)
                for d, lab in [('gsm8k', 'GSM8K'), ('gsmhard', 'GSM-Hard'), ('trivia', 'TriviaQA')]]
     ax.legend(handles=handles, loc='upper left', frameon=False, fontsize=10)
     top = 1 - 0.3 / fig.get_figheight()
-    fig.suptitle('Where the stated confidence drops on weak problems, the help-asking follows',
+    fig.suptitle('Where the stated confidence drops on problems it usually gets wrong, the help-asking follows',
                  x=0.01, y=top, ha='left', fontsize=14, fontweight='bold')
     fig.text(0.01, top - 0.42 / fig.get_figheight(),
-             'One point per model and task, baseline prompt, models with at least 10 weak problems.',
+             'One point per model and task, baseline prompt, models with at least 10 problems they usually get wrong.',
              ha='left', va='top', color=INK2, fontsize=10)
     fig.tight_layout(rect=(0, 0, 1, top - 0.55 / fig.get_figheight()))
     fig.savefig(HERE / 'confidence-vs-asking.png', dpi=200, bbox_inches='tight')
@@ -325,7 +325,7 @@ def record_chart():
         ax.spines[side].set_visible(False)
     ax.spines['left'].set_color(AXIS); ax.spines['bottom'].set_color(AXIS)
     ax.grid(axis='y', color=GRID, linewidth=1); ax.set_axisbelow(True); ax.tick_params(length=0, pad=6)
-    ax.set_ylabel('Gap: asks on weak minus asks on strong problems (points)')
+    ax.set_ylabel('Gap in asking (points)')
     handles = [plt.Line2D([], [], marker='s', linestyle='', color=c, markersize=10, label=l) for _, l, c in arms]
     bottom = header(fig, 'Told its record: Llama adds it to its own sense, Gemini swaps it in, GPT-4o mini ignores it',
                     'Penalty 64. The shuffled number is another question\'s record; its gap is measured against real ability. Lines: 95% intervals.', handles, ncol=3)
@@ -388,11 +388,11 @@ def moved_chart():
 model_chart('gsm8k', 'models-gsm8k.png',
             'Only some models ask for help more on the problems they are bad at',
             'Baseline prompt on GSM8K maths problems. 50 problems and 600 decisions per model. '
-            'Gap = how much more it asks on weak problems than on strong ones.')
+            'Gap = how much more it asks on problems it usually gets wrong than on ones it usually gets right.')
 model_chart('gsmhard', 'models-gsmhard.png',
             'On harder problems the stronger models still almost never ask for help',
             'Baseline prompt on GSM-Hard (the same problems with very large numbers). 600 decisions per model. '
-            'Gap = how much more it asks on weak problems than on strong ones.')
+            'Gap = how much more it asks on problems it usually gets wrong than on ones it usually gets right.')
 condition_chart()
 penalty_chart()
 payoff_chart()
