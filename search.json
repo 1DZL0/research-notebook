@@ -438,7 +438,7 @@
     "href": "00-research/thesis-skeleton.html",
     "title": "Where this is going",
     "section": "",
-    "text": "This page is the short answer to “what is the thesis about”."
+    "text": "This page is the short answer to “what is the thesis about”. Numbers and charts are on the Probe bench page."
   },
   {
     "objectID": "00-research/thesis-skeleton.html#the-question",
@@ -452,28 +452,42 @@
     "href": "00-research/thesis-skeleton.html#where-the-papers-left-it",
     "title": "Where this is going",
     "section": "Where the papers left it",
-    "text": "Where the papers left it\nThere is lots of work: have self-knowledge ([1] to [5]), very little on whether they act on it ([6], [7]). The papers that do show some sort of self-relevant information driving action are the situational ones ([17], [19]): “I am being watched” changes behaviour; “I will get this wrong” mostly does not."
+    "text": "Where the papers left it\nThere is lots of work on whether models have self-knowledge ([1] to [5]), and very little on whether they act on it ([6], [7]). The papers that do show self-relevant information driving action are the situational ones ([17], [19]): “I am being watched” changes behaviour; “I will get this wrong” mostly does not."
   },
   {
     "objectID": "00-research/thesis-skeleton.html#working-claim",
     "href": "00-research/thesis-skeleton.html#working-claim",
     "title": "Where this is going",
     "section": "Working claim",
-    "text": "Working claim\nIn current models, information about themselves guides action when it is handed to them as part of the situation, not as an estimate they produce or keep themselves.\nTell a model “you got this wrong last time” right where it decides, and it acts on it. Leave it to judge for itself, and its own sense of when it will fail is weak. Leave the fact further back in the conversation, and it can recall it when asked but does not use it when deciding.My best guess: it does not look back unless something points it there. It can find the fact (Llama 8B recalls 77 to 100% of its earlier outcomes when asked), and it ignores the correct answer in the same spot too, so this is not about information on itself.Untested: “Before you decide, check the conversation for anything relevant to this question.”"
+    "text": "Working claim\nIn current models, information about themselves guides action when it is handed to them as part of the situation, not as an estimate they produce or keep themselves.\nTell a model “you got this wrong last time” right where it decides, and it acts on it. Leave it to judge for itself, and its own sense of when it will fail is weak. Leave the fact further back in the conversation, and it can recall it when asked but does not use it when deciding.My best guess: it does not look back unless something points it there. It can find the fact (Llama 8B recalls 77 to 100% of its earlier outcomes when asked), and it ignores the correct answer in the same spot too, so this is not about information on itself.Untested: the check is one line in the decision prompt, “Before you decide, check the conversation for anything relevant to this question.”\nWhat would kill it:\n\nA model that uses its own past outcome from earlier in the conversation, while ignoring a fact that is not about itself placed at the same spot.\nA signal inside the model that predicts its failures well, which it then fails to act on. That would mean it has its own estimate after all."
   },
   {
-    "objectID": "00-research/thesis-skeleton.html#what-the-pilot-shows",
-    "href": "00-research/thesis-skeleton.html#what-the-pilot-shows",
+    "objectID": "00-research/thesis-skeleton.html#what-the-first-experiment-shows",
+    "href": "00-research/thesis-skeleton.html#what-the-first-experiment-shows",
     "title": "Where this is going",
-    "section": "What the pilot shows",
-    "text": "What the pilot shows\nFour points. Numbers and charts are on the Probe bench page.\n\nA penalty written in the prompt changes nothing. Raising the penalty for a wrong answer from 1 to 64 changes nothing in seven models (Wang [6])Paper (Wang [6], section 3): “Across all benchmarks, we observe that LLMs do not adapt their decision policies in response to changing risk.. Most models say 94 or more out of 100 on problems they usually get wrong (Xiong [3]).Paper (Xiong [3], section 1): “LLMs tend to be highly overconfident when verbalizing their confidence”, with values that “predominantly fall within the 80% to 100% range and are typically in multiples of 5”. Models that do lower their confidence on hard problems are the ones that ask for help (Barkan [21]).Paper (Barkan [21], abstract): “All LLMs we tested are overconfident, but most predict their success with better-than-random discriminatory power.” and “all LLMs’ decisions are approximately rational given their estimated probabilities of success”.\nA line about itself is obeyed, but not checked. It’s Told its record on a question (“right 2 times out of 10”), a model asks for help on the right problems far more often. Told a shuffled number, it follows that too. It also ignores the cost: told it is usually wrong, with a 64-point penalty, Llama 8B still answers a third of the time. Models differ in how they take the line: Llama 8B adds it to its own sense, Gemini replaces its own sense with it, GPT-4o mini ignores it.\nIts confidence follows what is in front of it, not what it can do. A note about an unrelated fact drops Gemini’s confidence from 88 to 29 on questions it still gets right. Taking reference notes away drops confidence on everything, and more so when it is done silently than when it is announced. Its own confidence ranks problems only weakly (AUROC 0.5 to 0.73, where 0.5 is chance).\nOpen: what sits further back is ignored, about itself or not. Llama 8B’s past outcome works in the decision prompt (+79) and barely anywhere else (+4 to +23), even though it can recall the outcome when asked. But it also barely uses the correct answer when that sits in the same place. So far this is a limit of how it uses a long conversation, not a finding about self-knowledge. Study 2 decides which.\n\nWithdrawn: “two kinds of knowing”. It was a side effect of taking the working away, not a difference in self-knowledge."
+    "section": "What the first experiment shows",
+    "text": "What the first experiment shows\n\nIt confirms the papers. Raising the penalty for a wrong answer from 1 to 64 changes nothing in seven models (Wang [6])Paper (Wang [6], section 3): “Across all benchmarks, we observe that LLMs do not adapt their decision policies in response to changing risk …” Differs: we measured ability per problem, so the null holds on the problems each model actually gets wrong.. Most models say 94 or more out of 100 on problems they usually get wrong (Xiong [3]).Paper (Xiong [3], section 1): “LLMs tend to be highly overconfident when verbalizing their confidence”, with values that “predominantly fall within the 80% to 100% range and are typically in multiples of 5”. Models that do lower their confidence on hard problems are the ones that ask for help (Barkan [21]).Paper (Barkan [21], abstract): “All LLMs we tested are overconfident, but most predict their success with better-than-random discriminatory power.” and “all LLMs’ decisions are approximately rational given their estimated probabilities of success”. Differs: ours are not rational given their own estimate. Llama 8B says 72 at a 64-point penalty, where the rational choice is to always ask, and asks a third of the time.\nA line about itself is obeyed, but not checked. Told its record on a question (“right 2 times out of 10”), a model asks for help on the right problems far more often. Told a shuffled number, it follows that too. It also ignores the cost: told it is usually wrong, with a 64-point penalty, Llama 8B still answers a third of the time. Models differ in how they take the line: Llama 8B adds it to its own sense, Gemini replaces its own sense with it, GPT-4o mini ignores it.\nA model’s confidence follows what is in front of it, not what it can do. A note about an unrelated fact drops Gemini’s confidence from 88 to 29 on questions it still gets right. Taking reference notes away drops confidence on everything, and more so when it is done silently than when it is announced. A model’s own confidence ranks problems only weakly (AUROC 0.5 to 0.73, where 0.5 is chance).\nOpen: what sits further back is ignored, about itself or not. Llama 8B’s past outcome works in the decision prompt (+79) and barely anywhere else (+4 to +23), even though it can recall the outcome when asked. But it also barely uses the correct answer when that sits in the same place. So far this is a limit of how it uses a long conversation, not a finding about self-knowledge. Study 2 decides which.\n\nWithdrawn: “two kinds of knowing”. It was a side effect of taking the working away, not a difference in self-knowledge."
   },
   {
     "objectID": "00-research/thesis-skeleton.html#studies",
     "href": "00-research/thesis-skeleton.html#studies",
     "title": "Where this is going",
     "section": "Studies",
-    "text": "Studies"
+    "text": "Studies\n\n\n\n\n\n\n\n\n\n\n\nStudy\nQuestion\nBuilt on\nStatus\n\n\n\n\n1\nDeferral experiment\nDo models ask for help on the problems they get wrong, and what moves that?\n[3], [6], [10], [21]\nDone\n\n\n2\nSelf or position?\nIn a model that does use its conversation history, is its own past outcome used less than a fact that is not about itself, at the same distance?\nPoint 4 above\nNext. Cheap\n\n\n3\nInside the model\nIs there an internal “I will get this wrong” signal that the stated confidence misses?\n[7] Li, [15] Nayan, [20] Baek\nNeeds a GPU\n\n\n4\nSeveral facts at once\nWhen ability, tools, history and situation all matter, does the model combine them or follow one?\n[15] Nayan, [19] Meinke, [20] Baek\nLast. In code, agentic\n\n\n\nStudy 2, in practice:\n\nGemini first, then one more model.\nIts own outcome and a non-self fact (the correct answer), each placed in the decision prompt and 10 decisions back, scored the same way.\nThe “check the conversation” line from the working claim, as its own arm.\nAbility measured with the same prompt the model decides under."
+  },
+  {
+    "objectID": "00-research/thesis-skeleton.html#ideas-not-yet-placed",
+    "href": "00-research/thesis-skeleton.html#ideas-not-yet-placed",
+    "title": "Where this is going",
+    "section": "Ideas not yet placed",
+    "text": "Ideas not yet placed\n\nFelt rather than stated consequences. Run one batch where wrong answers really cost points, then a second batch with that score fed back. Does a model move once the cost has happened to it, rather than been written in the prompt?"
+  },
+  {
+    "objectID": "00-research/thesis-skeleton.html#log",
+    "href": "00-research/thesis-skeleton.html#log",
+    "title": "Where this is going",
+    "section": "Log",
+    "text": "Log\n\n7 October 2026.n. First version. Four lines, each against the papers.\n7 October 2026, later. “Two kinds of knowing” withdraw\n11 October 2026. Rewritten around one working claim and four studies. Experiment detail moved to the Probe bench page. Two corrections: the history result is a position effect in Llama 8B, not a retrieval fault about itself; the withdrawal drop is not caused by the announcement, since a silent withdrawal drops confidence further"
   },
   {
     "objectID": "00-research/research-development.html",

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-10-11">
-<meta name="description" content="what I think is true, what the 03 exp shows, more">
+<meta name="description" content="The question, the working claim, what the first experiment shows, and the studies that come next.">
 
 <title>Where this is going – Phronesis · Φρόνησις</title>
 <style>
@@ -102,7 +102,7 @@ window.HUB_DATA = {
           "title": "Where this is going",
           "url": "00-research/thesis-skeleton.html",
           "status": "active",
-          "description": "what I think is true, what the 03 exp shows, more",
+          "description": "The question, the working claim, what the first experiment shows, and the studies that come next.",
           "date": "2026-10-11"
         },
         {
@@ -360,8 +360,10 @@ window.HUB_DATA = {
   <li><a href="#the-question" id="toc-the-question" class="nav-link active" data-scroll-target="#the-question">The question</a></li>
   <li><a href="#where-the-papers-left-it" id="toc-where-the-papers-left-it" class="nav-link" data-scroll-target="#where-the-papers-left-it">Where the papers left it</a></li>
   <li><a href="#working-claim" id="toc-working-claim" class="nav-link" data-scroll-target="#working-claim">Working claim</a></li>
-  <li><a href="#what-the-pilot-shows" id="toc-what-the-pilot-shows" class="nav-link" data-scroll-target="#what-the-pilot-shows">What the pilot shows</a></li>
+  <li><a href="#what-the-first-experiment-shows" id="toc-what-the-first-experiment-shows" class="nav-link" data-scroll-target="#what-the-first-experiment-shows">What the first experiment shows</a></li>
   <li><a href="#studies" id="toc-studies" class="nav-link" data-scroll-target="#studies">Studies</a></li>
+  <li><a href="#ideas-not-yet-placed" id="toc-ideas-not-yet-placed" class="nav-link" data-scroll-target="#ideas-not-yet-placed">Ideas not yet placed</a></li>
+  <li><a href="#log" id="toc-log" class="nav-link" data-scroll-target="#log">Log</a></li>
   </ul>
 </nav>
     </div>
@@ -375,7 +377,7 @@ window.HUB_DATA = {
 
 <div>
   <div class="description">
-    what I think is true, what the 03 exp shows, more
+    The question, the working claim, what the first experiment shows, and the studies that come next.
   </div>
 </div>
 
@@ -398,33 +400,106 @@ window.HUB_DATA = {
 </header>
 
 
-<p>This page is the short answer to “what is the thesis about”.</p>
+<p>This page is the short answer to “what is the thesis about”. Numbers and charts are on the <a href="../03-experiments/probe-bench.html">Probe bench</a> page.</p>
 <section id="the-question" class="level2">
 <h2 class="anchored" data-anchor-id="the-question">The question</h2>
 <p>A model has information about itself: what it knows, how sure it is, what it can and cannot do, what it did before. When does that information guide what it does next, and does it update when the facts change? Does acting on it need one joined-up picture of the self, or just a few narrow signals?</p>
 </section>
 <section id="where-the-papers-left-it" class="level2">
 <h2 class="anchored" data-anchor-id="where-the-papers-left-it">Where the papers left it</h2>
-<p>There is lots of work: <em>have</em> self-knowledge ([1] to [5]), very little on whether they <em>act</em> on it ([6], [7]). The papers that do show some sort of self-relevant information driving action are the situational ones ([17], [19]): “I am being watched” changes behaviour; “I will get this wrong” mostly does not.</p>
+<p>There is lots of work on whether models <em>have</em> self-knowledge ([1] to [5]), and very little on whether they <em>act</em> on it ([6], [7]). The papers that do show self-relevant information driving action are the situational ones ([17], [19]): “I am being watched” changes behaviour; “I will get this wrong” mostly does not.</p>
 </section>
 <section id="working-claim" class="level2">
 <h2 class="anchored" data-anchor-id="working-claim">Working claim</h2>
 <p><strong>In current models, information about themselves guides action when it is handed to them as part of the situation, not as an estimate they produce or keep themselves.</strong></p>
-<p>Tell a model “you got this wrong last time” right where it decides, and it acts on it. Leave it to judge for itself, and its own sense of when it will fail is weak. Leave the fact further back in the conversation, and it can recall it when asked but does not use it when deciding.<span class="cmt" tabindex="0"><span class="cmt-body"><strong>My best guess:</strong> it does not look back unless something points it there. It can find the fact (Llama 8B recalls 77 to 100% of its earlier outcomes when asked), and it ignores the correct answer in the same spot too, so this is not about information on itself.<br><strong>Untested:</strong> “Before you decide, check the conversation for anything relevant to this question.”</span></span></p>
+<p>Tell a model “you got this wrong last time” right where it decides, and it acts on it. Leave it to judge for itself, and its own sense of when it will fail is weak. Leave the fact further back in the conversation, and it can recall it when asked but does not use it when deciding.<span class="cmt" tabindex="0"><span class="cmt-body"><strong>My best guess:</strong> it does not look back unless something points it there. It can find the fact (Llama 8B recalls 77 to 100% of its earlier outcomes when asked), and it ignores the correct answer in the same spot too, so this is not about information on itself.<br><strong>Untested:</strong> the check is one line in the decision prompt, “Before you decide, check the conversation for anything relevant to this question.”</span></span></p>
+<p>What would kill it:</p>
+<ul>
+<li>A model that uses its own past outcome from earlier in the conversation, while ignoring a fact that is not about itself placed at the same spot.</li>
+<li>A signal inside the model that predicts its failures well, which it then fails to act on. That would mean it has its own estimate after all.</li>
+</ul>
 </section>
-<section id="what-the-pilot-shows" class="level2">
-<h2 class="anchored" data-anchor-id="what-the-pilot-shows">What the pilot shows</h2>
-<p>Four points. Numbers and charts are on the Probe bench page.</p>
+<section id="what-the-first-experiment-shows" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-first-experiment-shows">What the first experiment shows</h2>
 <ol type="1">
-<li><p><strong>A penalty written in the prompt changes nothing.</strong> Raising the penalty for a wrong answer from 1 to 64 changes nothing in seven models (Wang [6])<span class="cmt" tabindex="0"><span class="cmt-body"><strong>Paper (Wang [6], section 3):</strong> “Across all benchmarks, we observe that LLMs do not adapt their decision policies in response to changing risk.</span></span>. Most models say 94 or more out of 100 on problems they usually get wrong (Xiong [3]).<span class="cmt" tabindex="0"><span class="cmt-body"><strong>Paper (Xiong [3], section 1):</strong> “LLMs tend to be highly overconfident when verbalizing their confidence”, with values that “predominantly fall within the 80% to 100% range and are typically in multiples of 5”.</span></span> Models that do lower their confidence on hard problems are the ones that ask for help (Barkan [21]).<span class="cmt" tabindex="0"><span class="cmt-body"><strong>Paper (Barkan [21], abstract):</strong> “All LLMs we tested are overconfident, but most predict their success with better-than-random discriminatory power.” and “all LLMs’ decisions are approximately rational given their estimated probabilities of success”.</span></span></p></li>
-<li><p><strong>A line about itself is obeyed, but not checked.</strong> It’s Told its record on a question (“right 2 times out of 10”), a model asks for help on the right problems far more often. Told a shuffled number, it follows that too. It also ignores the cost: told it is usually wrong, with a 64-point penalty, Llama 8B still answers a third of the time. Models differ in how they take the line: Llama 8B adds it to its own sense, Gemini replaces its own sense with it, GPT-4o mini ignores it.</p></li>
-<li><p><strong>Its confidence follows what is in front of it, not what it can do.</strong> A note about an unrelated fact drops Gemini’s confidence from 88 to 29 on questions it still gets right. Taking reference notes away drops confidence on everything, and more so when it is done silently than when it is announced. Its own confidence ranks problems only weakly (AUROC 0.5 to 0.73, where 0.5 is chance).</p></li>
+<li><p><strong>It confirms the papers.</strong> Raising the penalty for a wrong answer from 1 to 64 changes nothing in seven models (Wang [6])<span class="cmt" tabindex="0"><span class="cmt-body"><strong>Paper (Wang [6], section 3):</strong> “Across all benchmarks, we observe that LLMs do not adapt their decision policies in response to changing risk …” <strong>Differs:</strong> we measured ability per problem, so the null holds on the problems each model actually gets wrong.</span></span>. Most models say 94 or more out of 100 on problems they usually get wrong (Xiong [3]).<span class="cmt" tabindex="0"><span class="cmt-body"><strong>Paper (Xiong [3], section 1):</strong> “LLMs tend to be highly overconfident when verbalizing their confidence”, with values that “predominantly fall within the 80% to 100% range and are typically in multiples of 5”.</span></span> Models that do lower their confidence on hard problems are the ones that ask for help (Barkan [21]).<span class="cmt" tabindex="0"><span class="cmt-body"><strong>Paper (Barkan [21], abstract):</strong> “All LLMs we tested are overconfident, but most predict their success with better-than-random discriminatory power.” and “all LLMs’ decisions are approximately rational given their estimated probabilities of success”. <strong>Differs:</strong> ours are not rational given their own estimate. Llama 8B says 72 at a 64-point penalty, where the rational choice is to always ask, and asks a third of the time.</span></span></p></li>
+<li><p><strong>A line about itself is obeyed, but not checked.</strong> Told its record on a question (“right 2 times out of 10”), a model asks for help on the right problems far more often. Told a shuffled number, it follows that too. It also ignores the cost: told it is usually wrong, with a 64-point penalty, Llama 8B still answers a third of the time. Models differ in how they take the line: Llama 8B adds it to its own sense, Gemini replaces its own sense with it, GPT-4o mini ignores it.</p></li>
+<li><p><strong>A model’s confidence follows what is in front of it, not what it can do.</strong> A note about an unrelated fact drops Gemini’s confidence from 88 to 29 on questions it still gets right. Taking reference notes away drops confidence on everything, and more so when it is done silently than when it is announced. A model’s own confidence ranks problems only weakly (AUROC 0.5 to 0.73, where 0.5 is chance).</p></li>
 <li><p><strong>Open: what sits further back is ignored, about itself or not.</strong> Llama 8B’s past outcome works in the decision prompt (+79) and barely anywhere else (+4 to +23), even though it can recall the outcome when asked. But it also barely uses the correct answer when that sits in the same place. So far this is a limit of how it uses a long conversation, not a finding about self-knowledge. Study 2 decides which.</p></li>
 </ol>
 <p>Withdrawn: “two kinds of knowing”. It was a side effect of taking the working away, not a difference in self-knowledge.</p>
 </section>
 <section id="studies" class="level2">
 <h2 class="anchored" data-anchor-id="studies">Studies</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Study</th>
+<th>Question</th>
+<th>Built on</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Deferral experiment</td>
+<td>Do models ask for help on the problems they get wrong, and what moves that?</td>
+<td>[3], [6], [10], [21]</td>
+<td>Done</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Self or position?</td>
+<td>In a model that does use its conversation history, is its own past outcome used less than a fact that is not about itself, at the same distance?</td>
+<td>Point 4 above</td>
+<td>Next. Cheap</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Inside the model</td>
+<td>Is there an internal “I will get this wrong” signal that the stated confidence misses?</td>
+<td>[7] Li, [15] Nayan, [20] Baek</td>
+<td>Needs a GPU</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Several facts at once</td>
+<td>When ability, tools, history and situation all matter, does the model combine them or follow one?</td>
+<td>[15] Nayan, [19] Meinke, [20] Baek</td>
+<td>Last. In code, agentic</td>
+</tr>
+</tbody>
+</table>
+<p>Study 2, in practice:</p>
+<ul>
+<li>Gemini first, then one more model.</li>
+<li>Its own outcome and a non-self fact (the correct answer), each placed in the decision prompt and 10 decisions back, scored the same way.</li>
+<li>The “check the conversation” line from the working claim, as its own arm.</li>
+<li>Ability measured with the same prompt the model decides under.</li>
+</ul>
+</section>
+<section id="ideas-not-yet-placed" class="level2">
+<h2 class="anchored" data-anchor-id="ideas-not-yet-placed">Ideas not yet placed</h2>
+<ul>
+<li><strong>Felt rather than stated consequences.</strong> Run one batch where wrong answers really cost points, then a second batch with that score fed back. Does a model move once the cost has happened to it, rather than been written in the prompt?</li>
+</ul>
+</section>
+<section id="log" class="level2">
+<h2 class="anchored" data-anchor-id="log">Log</h2>
+<ul>
+<li><strong>7 October 2026.</strong>n.&nbsp;First version. Four lines, each against the papers.</li>
+<li><strong>7 October 2026, later.</strong> “Two kinds of knowing” withdraw</li>
+<li><strong>11 October 2026.</strong> Rewritten around one working claim and four studies. Experiment detail moved to the Probe bench page. Two corrections: the history result is a position effect in Llama 8B, not a retrieval fault about itself; the withdrawal drop is not caused by the announcement, since a silent withdrawal drops confidence further</li>
+</ul>
 
 
 </section>
