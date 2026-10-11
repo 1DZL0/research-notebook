@@ -1,5 +1,5 @@
 ---
-title: "Probe bench"
+title: "Experiment 03: Probe bench"
 description: "One-off tests of single ideas from the papers."
 date: 2026-10-08
 status: active

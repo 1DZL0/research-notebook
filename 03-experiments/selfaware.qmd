@@ -1,5 +1,5 @@
 ---
-title: "Knowing when to abstain"
+title: "Experiment 02: Knowing when to abstain"
 subtitle: "A SelfAware replication and extension"
 date: 2026-09-18
 status: evidence
