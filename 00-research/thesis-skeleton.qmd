@@ -1,11 +1,12 @@
 ---
 title: "Where this is going"
-description: "what I think is true, what the 03 exp shows, more"
+description: "The question, the working claim, what the first experiment shows, and the studies that come next."
 date: 2026-10-11
 status: active
 ---
 
-This page is the short answer to "what is the thesis about".
+This page is the short answer to "what is the thesis about". Numbers and charts are
+on the [Probe bench](../03-experiments/probe-bench.qmd) page.
 
 ## The question
 
@@ -16,8 +17,9 @@ joined-up picture of the self, or just a few narrow signals?
 
 ## Where the papers left it
 
-There is lots of work: *have* self-knowledge ([1] to [5]), very little
-on whether they *act* on it ([6], [7]). The papers that do show some sort of self-relevant information driving action are the situational ones ([17], [19]):
+There is lots of work on whether models *have* self-knowledge ([1] to [5]), and very
+little on whether they *act* on it ([6], [7]). The papers that do show self-relevant
+information driving action are the situational ones ([17], [19]):
 "I am being watched" changes behaviour; "I will get this wrong" mostly does not.
 
 ## Working claim
@@ -32,31 +34,34 @@ weak. Leave the fact further back in the conversation, and it can recall it when
 asked but does not use it when deciding.[[**My best guess:** it does not look back
 unless something points it there. It can find the fact (Llama 8B recalls 77 to
 100% of its earlier outcomes when asked), and it ignores the correct
-answer in the same spot too, so this is not about information on itself.<br>**Untested:**
+answer in the same spot too, so this is not about information on itself.<br>**Untested:** the check is one line in the decision prompt,
 "Before you decide, check the conversation for anything relevant to this question."]{.cmt-body}]{.cmt tabindex="0"}
 
+What would kill it:
 
+- A model that uses its own past outcome from earlier in the conversation, while
+  ignoring a fact that is not about itself placed at the same spot.
+- A signal inside the model that predicts its failures well, which it then
+  fails to act on. That would mean it has its own estimate after all.
 
-## What the pilot shows
+## What the first experiment shows
 
-Four points. Numbers and charts are on the Probe bench page.
+1. **It confirms the papers.** Raising the penalty for a wrong answer from 1 to 64
+   changes nothing in seven models (Wang [6])[[**Paper (Wang [6], section 3):** "Across all benchmarks, we observe that LLMs do not adapt their decision policies in response to changing risk ..." **Differs:** we measured ability per problem, so the null holds on the problems each model actually gets wrong.]{.cmt-body}]{.cmt tabindex="0"}.
+   Most models say 94 or more out of 100 on problems they usually get wrong (Xiong [3]).[[**Paper (Xiong [3], section 1):** "LLMs tend to be highly overconfident when verbalizing their confidence", with values that "predominantly fall within the 80% to 100% range and are typically in multiples of 5".]{.cmt-body}]{.cmt tabindex="0"}
+   Models that do lower their confidence on hard problems are the ones that ask for help (Barkan [21]).[[**Paper (Barkan [21], abstract):** "All LLMs we tested are overconfident, but most predict their success with better-than-random discriminatory power." and "all LLMs' decisions are approximately rational given their estimated probabilities of success". **Differs:** ours are not rational given their own estimate. Llama 8B says 72 at a 64-point penalty, where the rational choice is to always ask, and asks a third of the time.]{.cmt-body}]{.cmt tabindex="0"}
 
-1. **A penalty written in the prompt changes nothing.** Raising the penalty for a wrong answer from 1 to 64
-   changes nothing in seven models (Wang [6])[[**Paper (Wang [6], section 3):** "Across all benchmarks, we observe that LLMs do not adapt their decision policies in response to changing risk.]{.cmt-body}]{.cmt tabindex="0"}. 
-   Most models say 94 or more out of 100 on problems they usually get wrong (Xiong [3]).[[**Paper (Xiong [3], section 1):** "LLMs tend to be highly overconfident when verbalizing their confidence", with values that "predominantly fall within the 80% to 100% range and are typically in multiples of 5".]{.cmt-body}]{.cmt tabindex="0"} 
-   Models that do lower their confidence on hard problems are the ones that ask for help (Barkan [21]).[[**Paper (Barkan [21], abstract):** "All LLMs we tested are overconfident, but most predict their success with better-than-random discriminatory power." and "all LLMs' decisions are approximately rational given their estimated probabilities of success".]{.cmt-body}]{.cmt tabindex="0"}
-
-2. **A line about itself is obeyed, but not checked.** It's Told its record on a question
+2. **A line about itself is obeyed, but not checked.** Told its record on a question
    ("right 2 times out of 10"), a model asks for help on the right problems far
    more often. Told a shuffled number, it follows that too. It also ignores the
    cost: told it is usually wrong, with a 64-point penalty, Llama 8B still answers
    a third of the time. Models differ in how they take the line: Llama 8B adds it
    to its own sense, Gemini replaces its own sense with it, GPT-4o mini ignores it.
 
-3. **Its confidence follows what is in front of it, not what it can do.** A note
+3. **A model's confidence follows what is in front of it, not what it can do.** A note
    about an unrelated fact drops Gemini's confidence from 88 to 29 on questions it
    still gets right. Taking reference notes away drops confidence on everything,
-   and more so when it is done silently than when it is announced. Its own
+   and more so when it is done silently than when it is announced. A model's own
    confidence ranks problems only weakly (AUROC 0.5 to 0.73, where 0.5 is chance).
 
 4. **Open: what sits further back is ignored, about itself or not.** Llama 8B's
@@ -71,4 +76,34 @@ away, not a difference in self-knowledge.
 
 ## Studies
 
+| | Study | Question | Built on | Status |
+|---|---|---|---|---|
+| 1 | Deferral experiment | Do models ask for help on the problems they get wrong, and what moves that? | [3], [6], [10], [21] | Done |
+| 2 | Self or position? | In a model that does use its conversation history, is its own past outcome used less than a fact that is not about itself, at the same distance? | Point 4 above | Next. Cheap |
+| 3 | Inside the model | Is there an internal "I will get this wrong" signal that the stated confidence misses? | [7] Li, [15] Nayan, [20] Baek | Needs a GPU |
+| 4 | Several facts at once | When ability, tools, history and situation all matter, does the model combine them or follow one? | [15] Nayan, [19] Meinke, [20] Baek | Last. In code, agentic |
+
+Study 2, in practice:
+
+- Gemini first, then one more model.
+- Its own outcome and a non-self fact (the correct answer), each placed in the
+  decision prompt and 10 decisions back, scored the same way.
+- The "check the conversation" line from the working claim, as its own arm.
+- Ability measured with the same prompt the model decides under.
+
+## Ideas not yet placed
+
+- **Felt rather than stated consequences.** Run one batch where wrong answers
+  really cost points, then a second batch with that score fed back. Does a model
+  move once the cost has happened to it, rather than been written in the prompt?
+
+## Log
+
+- **7 October 2026.**n. First version. Four lines, each against the papers.
+- **7 October 2026, later.** "Two kinds of knowing" withdraw
+- **11 October 2026.** Rewritten around one working claim and four studies.
+  Experiment detail moved to the Probe bench page. Two corrections: the history
+  result is a position effect in Llama 8B, not a retrieval fault about itself;
+  the withdrawal drop is not caused by the announcement, since a silent
+  withdrawal drops confidence further
 
