@@ -1573,3 +1573,63 @@ div.callout.callout-titled .callout-icon::before {
 .callout .callout-body-container {
   color: var(--text);
 }
+/* Inline comment bubble: [[comment text]{.cmt-body}]{.cmt tabindex="0"} */
+.cmt {
+  cursor: help;
+  display: inline-block;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.cmt::after {
+  background: var(--primary);
+  border-radius: 50%;
+  color: #fff;
+  content: "i";
+  display: inline-block;
+  font-size: 0.62rem;
+  font-style: italic;
+  font-weight: 700;
+  height: 1.05rem;
+  line-height: 1.05rem;
+  margin-left: 0.2rem;
+  text-align: center;
+  vertical-align: 0.1em;
+  width: 1.05rem;
+}
+
+.cmt:hover::after,
+.cmt:focus::after {
+  background: var(--accent);
+}
+
+.cmt-body {
+  background: color-mix(in srgb, var(--surface) 92%, #fff);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  box-shadow: 0 6px 16px rgba(20, 18, 26, 0.12);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-style: normal;
+  font-weight: 400;
+  left: 50%;
+  line-height: 1.45;
+  max-width: min(26rem, 85vw);
+  opacity: 0;
+  padding: 0.6rem 0.75rem;
+  pointer-events: none;
+  position: absolute;
+  top: 1.6rem;
+  transform: translateX(-30%);
+  transition: opacity 130ms ease, visibility 130ms ease;
+  visibility: hidden;
+  width: max-content;
+  z-index: 20;
+}
+
+.cmt:hover .cmt-body,
+.cmt:focus .cmt-body,
+.cmt:focus-within .cmt-body {
+  opacity: 1;
+  visibility: visible;
+}
