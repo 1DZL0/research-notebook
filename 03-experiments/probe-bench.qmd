@@ -324,12 +324,64 @@ result holds for a model's own real losses, not only for a penalty written in th
 prompt. This is still told, not lived: the update loop, where losses arrive one by
 one, is the nearest thing to felt, and there asking rose without the aim improving.
 
+## Experiment 3: a harder task
+
+Experiment 1's models are small or mid-sized, and most of them never ask. Does a
+capable model behave differently, on a task where it still gets plenty wrong?
+
+Finding the task took three pilots. AIME 2022 to 2024 was too easy, and so was a newer
+pool of 2025 and 2026 competition problems (HMMT, CMIMC, the Apex set and AIME 2026's
+late problems): Claude Sonnet 5.5 and GPT-5.6 Sol solved 9 or 10 of 10. SimpleQA,
+short questions on obscure facts, was not: about half right for Sonnet 5.5 and three
+quarters for GPT-5.6 Sol. Answers were graded by GPT-4.1 against SimpleQA's reference
+answer. A first grader, GPT-4.1-mini, passed 2 of 12 random wrong answers, so every
+verdict was redone with the stricter one; 7 of Sonnet's 120 questions and 1 of GPT's
+changed group. Each model: 120 questions solved 10 times, then 50 (25 usually wrong,
+25 usually right) at penalty 64, 150 decisions.
+
+| | Claude Sonnet 5.5<br>SimpleQA | GPT-5.6 Sol<br>SimpleQA | Llama 8B<br>GSM8K | Gemini<br>TriviaQA | GPT-4o mini<br>GSM-Hard |
+|---|---|---|---|---|---|
+| Asks, usually wrong / usually right | 99% / 86% | 65% / 16% | 35% / 12% | 41% / 10% | 4% / 1% |
+| Gap | +13 (+0 to +29) | +49 (+28 to +69) | +21 (+12 to +31) | +31 (+20 to +42) | +3 (-2 to +10) |
+| Confidence, usually wrong / right | 19 / 60 | 48 / 87 | 70 / 87 | 70 / 96 | 96 / 98 |
+| How well its confidence ranks the questions (AUROC) | 0.87 | 0.82 | 0.72 | 0.69 | 0.58 |
+| Answers given below 98% confidence | 100% of 11 | 92% of 89 | 82% of 222 | 17% of 234 | 18% of 146 |
+| Right when it answers | 100% | 79% | 64% | 79% | 62% |
+| Score per decision (always asking: -0.20) | -0.11 | -7.72 | -16.93 | -9.88 | -23.30 |
+| Perfect asker on the same questions | 0.21 | 0.28 | 0.00 | 0.30 | 0.21 |
+
+What it shows:
+
+- **Both frontier models know which questions they will get wrong**, far better than
+  any model in Experiment 1: their stated confidence ranks the questions at
+  0.87 and 0.82, against 0.58 to 0.72 for the others here (0.49 to 0.73 across Experiment 1).
+- **They act on it differently.** Claude Sonnet 5.5 asks unless it is close to certain,
+  which is what a 64-point penalty calls for. It scores -0.11 per decision, better
+  than always asking (-0.20), and is right on every one of the 11 questions it chose to
+  answer. It overdoes it on questions it would get right: it asks on 86% of them,
+  stating 60, so it falls short of a perfect asker (0.21). That also squeezes
+  its gap to +13; the aim of its asking is 0.82 by AUROC.
+- **GPT-5.6 Sol knows but does not price the cost.** 92% of its answers come with
+  a stated confidence below 98, where answering cannot pay at this penalty, and it loses
+  7.7 points per decision. Experiment 1's "acts on its confidence, ignores the
+  cost" holds for a frontier model too, just not for Sonnet 5.5.
+
+Caveats: one task, 50 questions and 150 decisions per model, grader-scored. Claude
+Haiku 5.5 was also run on the hard maths pool, but 28% of its calibration solves came
+back empty (it used up the 8,000-token budget thinking before writing anything), almost
+all on the hardest problems, so its "usually wrong" label partly means "ran out of
+budget" and the run is not reported. DeepSeek V3.2 was stopped: its provider was too
+slow.
+
 ## Next
 
 1. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state. Needs a GPU.
-2. **A harder task.** Repeat with a benchmark where capable models, including Claude
-   and one frontier model, have plenty of problems it usually gets wrong.
+2. **Sonnet 5.5 against GPT-5.6 Sol.** The one acting difference found so far, on one
+   task. Repeat on a second task, and give both models the record line, Experiment 1's
+   main result, to see whether the capable models follow it the same way.
+3. **Several facts at once.** Study 4 in the thesis outline: ability, tools, history
+   and situation all in play. Not designed yet.
 
 ## Full record
 
