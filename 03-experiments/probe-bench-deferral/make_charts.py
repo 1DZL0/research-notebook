@@ -425,6 +425,31 @@ def distance_chart():
 DISTANCE_TITLE = 'The note works only inside the decision prompt itself'
 
 
+def study2_chart():
+    """Self or position: the same note as "you" or "another solver", near and far, with and without the check line."""
+    S = FOLLOW.get('study2')
+    if not S:
+        return
+    arms = [('distance0', 'You, in the decision prompt', WEAK), ('other0', 'Another solver, in the decision prompt', STRONG),
+            ('distance10', 'You, 10 decisions back', WEAK), ('other10', 'Another solver, 10 back', STRONG),
+            ('checkdistance10', 'You, 10 back, plus "check the conversation"', WEAK),
+            ('checkother10', 'Another solver, 10 back, plus "check"', STRONG), ('real', 'Outcome feedback only', MUTED)]
+    fig, axes = plt.subplots(1, len(S), figsize=(11, 4.8), sharey=True)
+    for ax, (model, A) in zip(axes, S.items()):
+        rows = [(label, A[k]['gap']) for k, label, _ in arms]
+        interval_rows(ax, rows, [c for _, _, c in arms])
+        ax.set_xlim(-25, 105)
+        ax.set_title(f"{model} ({A['real']['conversations']} conversations per arm)", loc='left', fontsize=10.5, fontweight='bold')
+        ax.set_xlabel('Gap in asking, round 3 (points)')
+    handles = [plt.Line2D([], [], marker='o', linestyle='', color=WEAK, markersize=9, label='"Last time, you were wrong"'),
+               plt.Line2D([], [], marker='o', linestyle='', color=STRONG, markersize=9, label='"Last time, another solver was wrong" (same outcome)')]
+    bottom = header(fig, 'Its own outcome is used no less than the same fact about someone else',
+                    'Asks on problems it got wrong first time, minus asks on ones it got right. Dot: estimate. Line: 95% interval.', handles)
+    fig.tight_layout(rect=(0, 0, 1, bottom))
+    fig.savefig(HERE / 'study2-self-or-position.png', dpi=200, bbox_inches='tight')
+    plt.close(fig)
+
+
 def confidence_auroc_chart():
     """How well the stated confidence ranks problems, on every decision, with how few asks there were."""
     task = {'gsm8k': 'GSM8K', 'gsmhard': 'GSM-Hard', 'trivia': 'TriviaQA'}
@@ -475,4 +500,5 @@ withdraw_chart()
 moved_chart()
 confidence_auroc_chart()
 distance_chart()
+study2_chart()
 print('Created Probe Bench deferral charts.')

@@ -247,18 +247,88 @@ Not tested, so this page says nothing about them:
   working one decision earlier, and facts in the history go largely unused whether they
   are about the model (its outcome, which it mostly recalls when asked) or not (the
   correct answer). So the history result is a position effect, not a fact about
-  self-knowledge. Anything else moves the estimate on everything at once.
+  self-knowledge. Experiment 2 checks this with a matched control and a second model:
+  no self-specific deficit in either, and Gemini does use its history. Anything else
+  moves the estimate on everything at once.
 - That is not an updateable self-model in O2's sense: it moves with what is in front
   of it, including when that happens to be true. It is where the probe should look:
   whether the fact it does not consult is represented inside it at the decision.
 
+## Experiment 2: self or position?
+
+Experiment 1 left one question open. In Llama 8B, facts further back in the
+conversation went unused, about the model or not. In a model that does use its
+history, is its own past outcome used less than the same fact about someone else?
+
+How it was run:
+
+- The update loop again: the same questions three times over, the outcome fed back
+  after each decision. In rounds 2 and 3 a note names the question and its round-1
+  outcome, either as "last time, **you** were wrong" or as "last time, **another
+  solver** was wrong". Both use the model's own outcome, so the information is the
+  same and only who it is about changes.
+- The note sits in the decision prompt or 10 decisions back. Two arms add one line to
+  the decision prompt, "Before you decide, check the conversation for anything
+  relevant to this question", with the note 10 back. One arm gives the correct answer
+  10 back instead.
+- Llama 8B on GSM8K (20 conversations per arm) and Gemini on TriviaQA (14 per arm; it
+  has fewer questions it usually gets wrong, so fewer blocks).
+
+![The same note as "you" or "another solver", near and far, with and without the check line.](probe-bench-deferral/study2-self-or-position.png)
+
+What it shows:
+
+- **No self-specific deficit.** Its own outcome is used as much as the same outcome
+  credited to another solver (Gemini, 10 back: +39 against +35) or more (Llama 8B, 10
+  back: +23 against +6). In the decision prompt the "you" line counts for more in both
+  models (+78 against +40, +50 against +16), which is the sensible reading: someone
+  else's failure is weaker evidence about your own.
+- **Gemini does use its history.** Given the correct answer 10 decisions back, it gets
+  89% of its round-1 failures right later (4% with feedback only). Llama 8B gets
+  39% (31%). So the position effect in Experiment 1 belongs to Llama 8B, not to models
+  in general.
+- **Pointing it back works.** The check line lifts the use of a note 10 decisions back,
+  for both models and both framings: Llama 8B +23 to +35 ("you") and +6 to +38
+  ("another solver"); Gemini +39 to +61 and +35 to +71.
+
+Caveats:
+
+- Gemini's intervals are wide (14 conversations per arm), and its "you" against
+  "another solver" difference 10 back sits well inside them.
+- The two models are on different tasks, so model and task are tangled.
+- With the note 10 back, notes about round-2 questions already appear during round 1,
+  so round-1 asking differs between arms (Gemini 16% to 32%). The gap is measured
+  against each arm's own round-1 outcomes, so it still compares like with like.
+
+For O2: a fact about itself is not handled worse than the same fact about someone
+else. What decides whether it is used is where it sits, and a one-line pointer brings
+it back into play. Llama 8B needs the pointer more than Gemini does.
+
+### Told its real losses
+
+The "felt rather than stated" idea from the thesis outline. The baseline batch ran at
+penalty 64; the second batch starts with the model's own real result from the first:
+"of 300 questions, you asked for help on 70, answered 147 correctly and 83 wrongly,
+and scored -5,179.0 points in total. Asking for help on every question would have
+scored -60.0." (Llama 8B's numbers; each model gets its own.)
+
+| Model | Asks, usually wrong / right, first batch | Second batch, told its losses | Gap, first batch | Gap, second batch |
+|---|---|---|---|---|
+| Llama 8B, GSM8K | 34% / 13% | 41% / 17% | +21 (+12 to +31) | +25 (+13 to +36) |
+| Gemini, TriviaQA | 41% / 10% | 38% / 9% | +31 (+20 to +42) | +29 (+17 to +41) |
+| GPT-4o mini, GSM-Hard | 4% / 1% | 4% / 3% | +3 (-2 to +10) | +2 (-6 to +10) |
+
+Told it lost thousands of points when always asking would have lost 60, no model
+changes much. Llama 8B asks a little more; the other two not at all. So the stakes
+result holds for a model's own real losses, not only for a penalty written in the
+prompt. This is still told, not lived: the update loop, where losses arrive one by
+one, is the nearest thing to felt, and there asking rose without the aim improving.
+
 ## Next
 
-1. **The same two checks on Gemini.** The distance curve and the non-self control are
-   one model so far (Llama 8B). Cheap.
-2. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
+1. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
    signal and compare it with the confidence they state. Needs a GPU.
-3. **A harder task.** Repeat with a benchmark where capable models, including Claude
+2. **A harder task.** Repeat with a benchmark where capable models, including Claude
    and one frontier model, have plenty of problems it usually gets wrong.
 
 ## Full record
@@ -478,6 +548,27 @@ Numbers refer to the [O2 literature review](../00-research/o2-self-relevant-acti
   problems they fall on, and the AUROC of stated confidence on every decision.
 - **Cost.** The follow-ups came to about $4.90 on top of the $5.89 overnight run;
   the recall, silent and labelled runs on 9 October were a small addition.
+
+:::
+
+::: {.callout-note collapse="true" title="Experiment 2: every arm, both models"}
+
+Gap in asking in round 3 (95% interval): asks on problems it got wrong in round 1, minus
+asks on ones it got right.
+
+| Arm | Llama 8B, GSM8K | Gemini, TriviaQA |
+|---|---|---|
+| Outcome feedback only | +8 (-1 to +18) | +21 (+4 to +44) |
+| "You", in the decision prompt | +78 (+62 to +92) | +50 (+25 to +74) |
+| "Another solver", in the decision prompt | +40 (+20 to +59) | +16 (+3 to +30) |
+| "You", 10 decisions back | +23 (+12 to +37) | +39 (+7 to +68) |
+| "Another solver", 10 back | +6 (-2 to +16) | +35 (+13 to +62) |
+| "You", 10 back, plus the check line | +35 (+21 to +50) | +61 (+39 to +81) |
+| "Another solver", 10 back, plus the check line | +38 (+21 to +55) | +71 (+50 to +88) |
+| The correct answer, 10 back | +25 (+11 to +41) | +5 (+0 to +19) |
+
+Right when it answers, in rounds 2 and 3, on problems it got wrong in round 1: with the correct
+answer 10 back, Llama 8B 39% (feedback only 31%), Gemini 89% (feedback only 4%).
 
 :::
 
