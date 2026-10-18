@@ -309,7 +309,7 @@ def loop_chart():
 def record_chart():
     """Told its record: baseline gap, told the truth, told a shuffled number."""
     R = FOLLOW['record']
-    fig, ax = plt.subplots(figsize=(9.5, 4.6))
+    fig, ax = plt.subplots(figsize=(11.5 if len(R) > 3 else 9.5, 4.6))
     arms = [('baseline', 'Baseline', MUTED), ('told', 'Told its real record', STRONG), ('shuffled', 'Told a shuffled number', WEAK)]
     width = 0.26
     for k, (key, label, colour) in enumerate(arms):
@@ -320,7 +320,7 @@ def record_chart():
             ax.plot([x, x], [lo, hi], color=INK2, linewidth=1.2, zorder=3)
             ax.text(x, max(point, hi) + 2, f'{point:+.0f}', ha='center', va='bottom', color=INK2, fontsize=9)
     ax.set_xticks(range(len(R)), list(R))
-    ax.set_ylim(-10, 75)
+    ax.set_ylim(-10, max(75, 100 * max(v[k][2] for v in R.values() for k in ('baseline', 'told', 'shuffled')) + 10))
     ax.axhline(0, color=INK2, linewidth=1, zorder=1)
     for side in ('top', 'right'):
         ax.spines[side].set_visible(False)
@@ -328,7 +328,8 @@ def record_chart():
     ax.grid(axis='y', color=GRID, linewidth=1); ax.set_axisbelow(True); ax.tick_params(length=0, pad=6)
     ax.set_ylabel('Gap in asking (points)')
     handles = [plt.Line2D([], [], marker='s', linestyle='', color=c, markersize=10, label=l) for _, l, c in arms]
-    bottom = header(fig, 'Told its record: Llama adds it to its own sense, Gemini swaps it in, GPT-4o mini ignores it',
+    bottom = header(fig, 'Told its record, every model but GPT-4o mini follows the line, true or shuffled' if len(R) > 3 else
+                    'Told its record: Llama adds it to its own sense, Gemini swaps it in, GPT-4o mini ignores it',
                     'Penalty 64. The shuffled number is another question\'s record; its gap is measured against real ability. Lines: 95% intervals.', handles, ncol=3)
     fig.tight_layout(rect=(0, 0, 1, bottom))
     fig.savefig(HERE / 'told-record.png', dpi=200, bbox_inches='tight')
@@ -425,6 +426,37 @@ def distance_chart():
 DISTANCE_TITLE = 'The note works only inside the decision prompt itself'
 
 
+def probe_chart():
+    """Llama 3.2 3B: how well a linear probe on each layer's state picks out the problems it
+    usually gets wrong, in-distribution and on held-out problems, against its stated confidence."""
+    path = HERE / 'probe.json'
+    if not path.exists():
+        return
+    P = json.loads(path.read_text(encoding='utf-8'))
+    D = P['decide']
+    # layer 0 is the input embedding of the same final token in every transcript, so it carries nothing
+    layers = range(1, len(D['gsm8k_cv_by_layer']))
+    fig, ax = plt.subplots(figsize=(9.5, 4.6))
+    ax.plot(layers, D['gsm8k_cv_by_layer'][1:], color=STRONG, linewidth=2.2, marker='o', markersize=4, label='Probe, GSM8K (cross-validated, unseen problems from the same set)')
+    ax.plot(layers, D['gsmhard_held_out_by_layer'][1:], color=WEAK, linewidth=2.2, marker='o', markersize=4, label='Probe trained on GSM8K, tested on GSM-Hard')
+    for key, colour, name in (('gsm8k', STRONG, 'GSM8K'), ('gsmhard', WEAK, 'GSM-Hard')):
+        v = P['stated_confidence_auroc'][key]
+        ax.axhline(v, color=colour, linewidth=1.2, linestyle='--', zorder=1)
+        ax.text(1.2, v + 0.008, f'stated confidence, {name}: {v:.2f}', ha='left', va='bottom', color=colour, fontsize=9)
+    ax.axhline(0.5, color=INK2, linewidth=1, zorder=1)
+    ax.set_ylim(0.3, 0.9)
+    ax.set_xlabel('Layer')
+    ax.set_ylabel('AUROC, 0.5 = chance')
+    style(ax)
+    ax.grid(axis='x', visible=False)
+    ax.legend(loc='lower right', frameon=False, fontsize=9)
+    bottom = header(fig, 'Inside Llama 3.2 3B: a strong signal that does not travel, a weak one that does',
+                    'State at the last token before it writes its confidence, after its own working. 592 GSM8K and 596 GSM-Hard decisions, 50 problems each.')
+    fig.tight_layout(rect=(0, 0, 1, bottom))
+    fig.savefig(HERE / 'probe-by-layer.png', dpi=200, bbox_inches='tight')
+    plt.close(fig)
+
+
 def study2_chart():
     """Self or position: the same note as "you" or "another solver", near and far, with and without the check line."""
     S = FOLLOW.get('study2')
@@ -501,4 +533,5 @@ moved_chart()
 confidence_auroc_chart()
 distance_chart()
 study2_chart()
+probe_chart()
 print('Created Probe Bench deferral charts.')

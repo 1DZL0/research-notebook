@@ -336,7 +336,8 @@ short questions on obscure facts, was not: about half right for Sonnet 5.5 and t
 quarters for GPT-5.6 Sol. Answers were graded by GPT-4.1 against SimpleQA's reference
 answer. A first grader, GPT-4.1-mini, passed 2 of 12 random wrong answers, so every
 verdict was redone with the stricter one; 7 of Sonnet's 120 questions and 1 of GPT's
-changed group. Each model: 120 questions solved 10 times, then 50 (25 usually wrong,
+changed group. A second grader from another vendor, Gemini 3.1 Pro, agreed with it on
+all 40 verdicts of a stratified check (20 passed, 20 failed). Each model: 120 questions solved 10 times, then 50 (25 usually wrong,
 25 usually right) at penalty 64, 150 decisions.
 
 | | Claude Sonnet 5.5<br>SimpleQA | GPT-5.6 Sol<br>SimpleQA | Llama 8B<br>GSM8K | Gemini<br>TriviaQA | GPT-4o mini<br>GSM-Hard |
@@ -366,6 +367,15 @@ What it shows:
   7.7 points per decision. Experiment 1's "acts on its confidence, ignores the
   cost" holds for a frontier model too, just not for Sonnet 5.5.
 
+**The record line works on them too.** Told their real record on each question, both
+models aim far better: Sonnet 5.5's gap goes from +13 (+0 to +28) to +65 (+46 to +83) and it scores
++0.16 per decision, close to a perfect asker; GPT-5.6 Sol's goes from +49 (+28 to +69) to
++79 (+64 to +91). Told a shuffled number, both follow the number more than their real ability
+(correlation with asking -0.50 against -0.28 for Sonnet, -0.59 against -0.42 for GPT),
+while their own aim survives underneath (+16 (-3 to +36) and +41 (+19 to +63) by real ability).
+That is Experiment 1's main result again, in models that know their weak questions far
+better: a line next to the decision is followed whether it is true or not.
+
 Caveats: one task, 50 questions and 150 decisions per model, grader-scored. Claude
 Haiku 5.5 was also run on the hard maths pool, but 28% of its calibration solves came
 back empty (it used up the 8,000-token budget thinking before writing anything), almost
@@ -373,10 +383,51 @@ all on the hardest problems, so its "usually wrong" label partly means "ran out 
 budget" and the run is not reported. DeepSeek V3.2 was stopped: its provider was too
 slow.
 
+## Experiment 4: inside the model (pilot)
+
+Is there an internal "I will get this wrong" signal that the stated confidence misses?
+A first look, on Llama 3.2 3B, small enough to run on a laptop GPU (in 4-bit).
+
+How it was run:
+
+- Every decision in Experiment 1's baseline was replayed through the same weights: the
+  question, the model's own working, and the decision prompt, exactly as logged. That
+  gives 592 GSM8K and 596 GSM-Hard decisions, 50 problems each, with the confidence the
+  model stated on each.
+- The probe reads the internal state at the last token before the model writes its
+  confidence, on every layer, and a simple linear classifier learns from it which
+  problems it usually gets wrong.
+- The layer was chosen on GSM8K with cross-validation that never puts the same problem
+  in training and testing. The probe was then trained on all of GSM8K and tested on
+  GSM-Hard, problems it never saw.
+
+![Inside Llama 3.2 3B, layer by layer: the probe on GSM8K and on held-out GSM-Hard, against its stated confidence.](probe-bench-deferral/probe-by-layer.png)
+
+What it shows:
+
+- **In-distribution, strong but mostly surface.** On GSM8K the probe reaches
+  0.84, against 0.61 for the stated confidence. But a probe on layer 1, close to the
+  raw text, already gets 0.76: the working itself shows which problems are hard.
+- **On new problems, a weak signal.** Trained on GSM8K and tested on GSM-Hard, the early
+  layers sit at chance. From layer 13 the probe reaches 0.57 to 0.65, against
+  0.56 for the stated confidence; the layer picked on GSM8K (25) gives 0.60.
+- **The asking follows what it says.** On GSM-Hard its decisions line up with its stated
+  confidence (0.78) a little more than with the probe (0.72).
+- **Before any working** the same pattern is weaker: 0.80 in-distribution, 0.55 held
+  out.
+
+So in this model there is a little more inside than it states, and not much: the gap
+between what it knows and what it says is small next to the gap between what it says
+and what it gets right.
+
+Caveats: one small model in 4-bit, 50 problems per set, a linear probe on one token.
+The labels come from the API runs' calibration; the local weights are the same model run
+through a different stack. GSM-Hard is a hard test of transfer but still maths.
+
 ## Next
 
-1. **Look inside.** Probe Llama 8B and 70B for an internal "I will get this wrong"
-   signal and compare it with the confidence they state. Needs a GPU.
+1. **Look inside, at scale.** The 3B pilot is Experiment 4. Repeat it on Llama 8B and
+   70B on a rented GPU, with a held-out set that is not just harder maths.
 2. **Sonnet 5.5 against GPT-5.6 Sol.** The one acting difference found so far, on one
    task. Repeat on a second task, and give both models the record line, Experiment 1's
    main result, to see whether the capable models follow it the same way.
