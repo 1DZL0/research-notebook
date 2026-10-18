@@ -304,6 +304,14 @@ For O2: a fact about itself is not handled worse than the same fact about someon
 else. What decides whether it is used is where it sits, and a one-line pointer brings
 it back into play. Llama 8B needs the pointer more than Gemini does.
 
+**A third model, Claude Haiku 5.5 on SimpleQA, could not run the comparison.** At
+penalty 64 it asks on about 90% of round-1 questions and answers almost only when it is
+right (0 to 3 wrong answers in 200 decisions, in every arm), so there are no round-1
+failures for a "you were wrong" note to report. It does read its history: given the
+correct answer 10 decisions back, it goes from asking 184 times in round 1 to answering
+170 times in round 2, 168 of them right. The self-or-position question needs a capable
+model that gets things wrong, which at this penalty Haiku avoids by asking.
+
 ### Told its real losses
 
 The "felt rather than stated" idea from the thesis outline. The baseline batch ran at
@@ -376,12 +384,17 @@ while their own aim survives underneath (+16 (-3 to +36) and +41 (+19 to +63) by
 That is Experiment 1's main result again, in models that know their weak questions far
 better: a line next to the decision is followed whether it is true or not.
 
-Caveats: one task, 50 questions and 150 decisions per model, grader-scored. Claude
-Haiku 5.5 was also run on the hard maths pool, but 28% of its calibration solves came
-back empty (it used up the 8,000-token budget thinking before writing anything), almost
-all on the hardest problems, so its "usually wrong" label partly means "ran out of
-budget" and the run is not reported. DeepSeek V3.2 was stopped: its provider was too
-slow.
+**Claude Haiku 5.5 on the hard maths pool.** The first run gave it 8,000 tokens and 28% of
+its calibration solves came back empty: it thinks before answering, and on the hardest
+problems the thinking used the whole budget. Rerun with 48,000 tokens it solves most of
+the pool, leaving only 9 of its 50 problems as ones it usually gets wrong. On those it
+asks 67% of the time and states 45 (79 on the rest), so it aims well (gap +55, +25 to +81),
+but it still answers a third of them, is right on 44% of those, and scores -4.02 per
+decision against -0.20 for always asking. On maths it knows but does not price the cost;
+on facts (Experiment 2's note below) it asks on almost everything.
+
+Caveats: one task, 50 questions and 150 decisions per model, grader-scored; Haiku's maths
+result rests on 9 problems. DeepSeek V3.2 was stopped: its provider was too slow.
 
 ## Experiment 4: inside the model
 

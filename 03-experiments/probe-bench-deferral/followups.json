@@ -250,6 +250,168 @@
    }
   }
  },
+ "study2_haiku": {
+  "real": {
+   "1": {
+    "decisions": 200,
+    "asked": 183,
+    "answered_right": 17,
+    "answered_wrong": 0
+   },
+   "2": {
+    "decisions": 200,
+    "asked": 183,
+    "answered_right": 17,
+    "answered_wrong": 0
+   },
+   "3": {
+    "decisions": 200,
+    "asked": 182,
+    "answered_right": 18,
+    "answered_wrong": 0
+   }
+  },
+  "distance0": {
+   "1": {
+    "decisions": 200,
+    "asked": 188,
+    "answered_right": 11,
+    "answered_wrong": 1
+   },
+   "2": {
+    "decisions": 200,
+    "asked": 188,
+    "answered_right": 12,
+    "answered_wrong": 0
+   },
+   "3": {
+    "decisions": 200,
+    "asked": 188,
+    "answered_right": 12,
+    "answered_wrong": 0
+   }
+  },
+  "other0": {
+   "1": {
+    "decisions": 200,
+    "asked": 186,
+    "answered_right": 13,
+    "answered_wrong": 1
+   },
+   "2": {
+    "decisions": 200,
+    "asked": 187,
+    "answered_right": 13,
+    "answered_wrong": 0
+   },
+   "3": {
+    "decisions": 200,
+    "asked": 187,
+    "answered_right": 13,
+    "answered_wrong": 0
+   }
+  },
+  "distance10": {
+   "1": {
+    "decisions": 200,
+    "asked": 179,
+    "answered_right": 18,
+    "answered_wrong": 3
+   },
+   "2": {
+    "decisions": 200,
+    "asked": 183,
+    "answered_right": 17,
+    "answered_wrong": 0
+   },
+   "3": {
+    "decisions": 200,
+    "asked": 183,
+    "answered_right": 17,
+    "answered_wrong": 0
+   }
+  },
+  "other10": {
+   "1": {
+    "decisions": 200,
+    "asked": 188,
+    "answered_right": 11,
+    "answered_wrong": 1
+   },
+   "2": {
+    "decisions": 200,
+    "asked": 188,
+    "answered_right": 12,
+    "answered_wrong": 0
+   },
+   "3": {
+    "decisions": 200,
+    "asked": 188,
+    "answered_right": 12,
+    "answered_wrong": 0
+   }
+  },
+  "checkdistance10": {
+   "1": {
+    "decisions": 200,
+    "asked": 179,
+    "answered_right": 19,
+    "answered_wrong": 2
+   },
+   "2": {
+    "decisions": 200,
+    "asked": 176,
+    "answered_right": 22,
+    "answered_wrong": 2
+   },
+   "3": {
+    "decisions": 200,
+    "asked": 178,
+    "answered_right": 22,
+    "answered_wrong": 0
+   }
+  },
+  "checkother10": {
+   "1": {
+    "decisions": 200,
+    "asked": 181,
+    "answered_right": 18,
+    "answered_wrong": 1
+   },
+   "2": {
+    "decisions": 200,
+    "asked": 182,
+    "answered_right": 18,
+    "answered_wrong": 0
+   },
+   "3": {
+    "decisions": 200,
+    "asked": 182,
+    "answered_right": 18,
+    "answered_wrong": 0
+   }
+  },
+  "answer10": {
+   "1": {
+    "decisions": 200,
+    "asked": 184,
+    "answered_right": 15,
+    "answered_wrong": 1
+   },
+   "2": {
+    "decisions": 200,
+    "asked": 30,
+    "answered_right": 168,
+    "answered_wrong": 2
+   },
+   "3": {
+    "decisions": 200,
+    "asked": 20,
+    "answered_right": 180,
+    "answered_wrong": 0
+   }
+  }
+ },
  "harder": {
   "Claude Sonnet 5.5, SimpleQA": {
    "decisions": 150,
