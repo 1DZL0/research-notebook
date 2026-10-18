@@ -1,6 +1,7 @@
 """Charts for the Probe Bench deferral experiment. Reads results.json (written by
 analyse.py --json in the 02-defferal repo) and writes PNGs next to this file."""
 import json
+import numpy as np
 from pathlib import Path
 
 import matplotlib
@@ -427,31 +428,37 @@ DISTANCE_TITLE = 'The note works only inside the decision prompt itself'
 
 
 def probe_chart():
-    """Llama 3.2 3B: how well a linear probe on each layer's state picks out the problems it
-    usually gets wrong, in-distribution and on held-out problems, against its stated confidence."""
-    path = HERE / 'probe.json'
-    if not path.exists():
+    """Inside the model, layer by layer, for Llama 3.2 3B, 3.1 8B and 3.3 70B: how well a linear
+    probe picks out the problems it usually gets wrong, against its stated confidence."""
+    files = [('Llama 3.2 3B', 'probe.json'), ('Llama 3.1 8B', 'probe-8b.json'), ('Llama 3.3 70B (4-bit)', 'probe-70b.json')]
+    files = [(n, json.loads((HERE / f).read_text(encoding='utf-8'))) for n, f in files if (HERE / f).exists()]
+    if not files:
         return
-    P = json.loads(path.read_text(encoding='utf-8'))
-    D = P['decide']
-    # layer 0 is the input embedding of the same final token in every transcript, so it carries nothing
-    layers = range(1, len(D['gsm8k_cv_by_layer']))
-    fig, ax = plt.subplots(figsize=(9.5, 4.6))
-    ax.plot(layers, D['gsm8k_cv_by_layer'][1:], color=STRONG, linewidth=2.2, marker='o', markersize=4, label='Probe, GSM8K (cross-validated, unseen problems from the same set)')
-    ax.plot(layers, D['gsmhard_held_out_by_layer'][1:], color=WEAK, linewidth=2.2, marker='o', markersize=4, label='Probe trained on GSM8K, tested on GSM-Hard')
-    for key, colour, name in (('gsm8k', STRONG, 'GSM8K'), ('gsmhard', WEAK, 'GSM-Hard')):
-        v = P['stated_confidence_auroc'][key]
-        ax.axhline(v, color=colour, linewidth=1.2, linestyle='--', zorder=1)
-        ax.text(1.2, v + 0.008, f'stated confidence, {name}: {v:.2f}', ha='left', va='bottom', color=colour, fontsize=9)
-    ax.axhline(0.5, color=INK2, linewidth=1, zorder=1)
-    ax.set_ylim(0.3, 0.9)
-    ax.set_xlabel('Layer')
-    ax.set_ylabel('AUROC, 0.5 = chance')
-    style(ax)
-    ax.grid(axis='x', visible=False)
-    ax.legend(loc='lower right', frameon=False, fontsize=9)
-    bottom = header(fig, 'Inside Llama 3.2 3B: a strong signal that does not travel, a weak one that does',
-                    'State at the last token before it writes its confidence, after its own working. 592 GSM8K and 596 GSM-Hard decisions, 50 problems each.')
+    fig, axes = plt.subplots(1, len(files), figsize=(4.2 * len(files), 4.4), sharey=True)
+    axes = np.atleast_1d(axes)
+    for ax, (name, P) in zip(axes, files):
+        D = P['decide']
+        n = len(D['gsm8k_cv_by_layer'])
+        x = [k / (n - 1) for k in range(1, n)]   # layer 0 is the same final token in every transcript: dropped
+        ax.plot(x, D['gsm8k_cv_by_layer'][1:], color=STRONG, linewidth=2, label='Probe, GSM8K (cross-validated)')
+        ax.plot(x, D['gsmhard_held_out_by_layer'][1:], color=WEAK, linewidth=2, label='Probe trained on GSM8K, tested on GSM-Hard')
+        if D.get('gsmhard_cv_by_layer'):
+            ax.plot(x, [v if v is not None else np.nan for v in D['gsmhard_cv_by_layer'][1:]], color=TRIVIA, linewidth=2,
+                    label='Probe, GSM-Hard (cross-validated)')
+        v = P['stated_confidence_auroc']['gsmhard']
+        ax.axhline(v, color=WEAK, linewidth=1.2, linestyle='--', zorder=1)
+        ax.text(0.02, v - 0.012, f'stated confidence, GSM-Hard: {v:.2f}', ha='left', va='top', color=WEAK, fontsize=8.5)
+        ax.axhline(0.5, color=INK2, linewidth=1, zorder=1)
+        ax.set_ylim(0.3, 0.95)
+        ax.set_title(name, loc='left', fontsize=10.5, fontweight='bold')
+        ax.set_xlabel('Depth (first layer to last)')
+        style(ax)
+        ax.grid(axis='x', visible=False)
+    axes[0].set_ylabel('AUROC, 0.5 = chance')
+    handles, labels = axes[-1].get_legend_handles_labels()
+    bottom = header(fig, "Inside the model: 8B carries more than it says; 70B's signal sits in the surface of its working",
+                    'State at the last token before it writes its confidence, after its own working. About 600 GSM8K and 600 GSM-Hard decisions per model, 50 problems each.',
+                    handles, ncol=3)
     fig.tight_layout(rect=(0, 0, 1, bottom))
     fig.savefig(HERE / 'probe-by-layer.png', dpi=200, bbox_inches='tight')
     plt.close(fig)

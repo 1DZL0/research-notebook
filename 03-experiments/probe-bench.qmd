@@ -383,54 +383,75 @@ all on the hardest problems, so its "usually wrong" label partly means "ran out 
 budget" and the run is not reported. DeepSeek V3.2 was stopped: its provider was too
 slow.
 
-## Experiment 4: inside the model (pilot)
+## Experiment 4: inside the model
 
 Is there an internal "I will get this wrong" signal that the stated confidence misses?
-A first look, on Llama 3.2 3B, small enough to run on a laptop GPU (in 4-bit).
+Three Llamas: 3.2 3B on the laptop GPU (4-bit), 3.1 8B at full precision and 3.3 70B
+from a 4-bit checkpoint on a rented A40 (Runpod, about 85 minutes).
 
 How it was run:
 
 - Every decision in Experiment 1's baseline was replayed through the same weights: the
   question, the model's own working, and the decision prompt, exactly as logged. That
-  gives 592 GSM8K and 596 GSM-Hard decisions, 50 problems each, with the confidence the
-  model stated on each.
+  gives about 600 GSM8K and 600 GSM-Hard decisions per model, 50 problems each, with the
+  confidence the model stated on each.
 - The probe reads the internal state at the last token before the model writes its
   confidence, on every layer, and a simple linear classifier learns from it which
   problems it usually gets wrong.
-- The layer was chosen on GSM8K with cross-validation that never puts the same problem
-  in training and testing. The probe was then trained on all of GSM8K and tested on
-  GSM-Hard, problems it never saw.
+- Cross-validation never puts the same problem in training and testing. The main test
+  trains on GSM8K and tests on GSM-Hard, problems the probe never saw. A probe on layer
+  1, close to the raw text, is the surface check: it shows how much the words of the
+  working alone give away.
 
-![Inside Llama 3.2 3B, layer by layer: the probe on GSM8K and on held-out GSM-Hard, against its stated confidence.](probe-bench-deferral/probe-by-layer.png)
+![Inside the model, layer by layer, for the three Llamas, against the confidence each states.](probe-bench-deferral/probe-by-layer.png)
+
+| AUROC, 0.5 = chance | Llama 3.2 3B | Llama 3.1 8B | Llama 3.3 70B (4-bit) |
+|---|---|---|---|
+| Stated confidence, GSM-Hard | 0.56 | 0.62 | 0.55 |
+| Probe trained on GSM8K, tested on GSM-Hard (layer chosen on GSM8K) | 0.60 | 0.68 | 0.69 |
+| Same, range over the deeper half of the layers | 0.57 to 0.65 | 0.61 to 0.68 | 0.64 to 0.69 |
+| Probe cross-validated within GSM-Hard, best layer | not run | 0.81 | 0.71 |
+| Surface check: layer 1 only, tested on GSM-Hard | 0.44 | 0.50 | 0.69 |
+| On GSM-Hard, asking follows the stated confidence / the probe | 0.78 / 0.72 | 0.91 / 0.72 | 1.00 / 0.97 |
 
 What it shows:
 
-- **In-distribution, strong but mostly surface.** On GSM8K the probe reaches
-  0.84, against 0.61 for the stated confidence. But a probe on layer 1, close to the
-  raw text, already gets 0.76: the working itself shows which problems are hard.
-- **On new problems, a weak signal.** Trained on GSM8K and tested on GSM-Hard, the early
-  layers sit at chance. From layer 13 the probe reaches 0.57 to 0.65, against
-  0.56 for the stated confidence; the layer picked on GSM8K (25) gives 0.60.
-- **The asking follows what it says.** On GSM-Hard its decisions line up with its stated
-  confidence (0.78) a little more than with the probe (0.72).
-- **Before any working** the same pattern is weaker: 0.80 in-distribution, 0.55 held
-  out.
+- **Llama 3.1 8B carries more than it says.** Within GSM-Hard its internal state picks out
+  its failures at 0.81, against 0.62 for the confidence it states, and the surface
+  check stays near chance (0.50 held out). Trained on GSM8K, the probe still reaches
+  0.68 on GSM-Hard. Its asking follows the stated confidence (0.91) far more than the probe
+  (0.72). That is Li [7]'s finding on our own transcripts: part of the knowing is there,
+  the stated estimate does not carry it, and the decision follows the statement.
+- **Llama 3.3 70B's signal sits in the surface of its working.** On GSM-Hard the probe
+  reaches 0.69, well above its stated confidence (0.55, close to chance), but layer 1 alone
+  already gets 0.69. What gives its failures away is in the text it wrote, which its
+  stated confidence ignores; there is no evidence here of a deeper signal. It asks on
+  about 5% of decisions, too rarely to say what its asking follows.
+- **Llama 3.2 3B has a little more inside than it says** (0.57 to 0.65 held out from the middle
+  layers on, against 0.56), and its strong in-distribution score is mostly surface (layer 1:
+  0.76 on GSM8K).
 
-So in this model there is a little more inside than it states, and not much: the gap
-between what it knows and what it says is small next to the gap between what it says
-and what it gets right.
+For O2: in the 8B the gap between knowing and acting is partly a gap between what the
+model represents and what it says. The acting side follows the statement, so a better
+signal inside does not reach the decision.
 
-Caveats: one small model in 4-bit, 50 problems per set, a linear probe on one token.
-The labels come from the API runs' calibration; the local weights are the same model run
-through a different stack. GSM-Hard is a hard test of transfer but still maths.
+Caveats: three models, 50 problems per set, a linear probe on one token, and the
+best-of-many-layers scores are flattering. 70B has only 6 GSM8K problems it usually gets
+wrong, so its GSM8K-trained probe rests on a thin base (its GSM8K curve dips below chance
+in the early layers); its GSM-Hard cross-validated score is the steadier number. The
+labels come from the API runs' calibration; the local and rented weights are the same
+models run through a different stack (and 70B in 4-bit). GSM-Hard is a hard test of
+transfer but still maths.
 
 ## Next
 
-1. **Look inside, at scale.** The 3B pilot is Experiment 4. Repeat it on Llama 8B and
-   70B on a rented GPU, with a held-out set that is not just harder maths.
-2. **Sonnet 5.5 against GPT-5.6 Sol.** The one acting difference found so far, on one
-   task. Repeat on a second task, and give both models the record line, Experiment 1's
-   main result, to see whether the capable models follow it the same way.
+1. **Look inside, beyond maths.** Experiment 4 found the clearest internal signal in
+   Llama 8B. Repeat it with a held-out set that is not maths (facts, where Experiment 1
+   found Gemini's aim), and test whether putting the probe's signal next to the
+   decision, as a line, changes where the model asks.
+2. **Sonnet 5.5 against GPT-5.6 Sol on a second task.** The one acting difference found
+   so far rests on SimpleQA. Humanity's Last Exam is the candidate (it needs its terms
+   accepted on Hugging Face first).
 3. **Several facts at once.** Study 4 in the thesis outline: ability, tools, history
    and situation all in play. Not designed yet.
 
