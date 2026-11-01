@@ -34,13 +34,14 @@ weak. Leave the fact further back in the conversation, and it can recall it when
 asked but does not use it when deciding.[[**My best guess:** it does not look back
 unless something points it there. It can find the fact (Llama 8B recalls 77 to
 100% of its earlier outcomes when asked), and it ignores the correct
-answer in the same spot too, so this is not about information on itself.<br>**Untested:** the check is one line in the decision prompt,
-"Before you decide, check the conversation for anything relevant to this question."]{.cmt-body}]{.cmt tabindex="0"}
+answer in the same spot too, so this is not about information on itself.<br>**Tested (Experiment 2):** one line in the decision prompt,
+"Before you decide, check the conversation for anything relevant to this question", lifts the use of a note 10 decisions back in Llama 8B (+23 to +35) and Gemini (+39 to +61).]{.cmt-body}]{.cmt tabindex="0"}
 
-What would kill it:
+Two things that would go agaist my results(that would be helpful to see):
 
-- A model that uses its own past outcome from earlier in the conversation, while
-  ignoring a fact that is not about itself placed at the same spot.
+- A model that uses its own past outcome from earlier in the conversation(answer on a question), while
+  ignoring a fact that is not about itself placed at the same spot. (Experiment 2: not
+  found in Llama 8B or Gemini.)
 - A signal inside the model that predicts its failures well, which it then
   fails to act on. That would mean it has its own estimate after all.
 
@@ -64,12 +65,15 @@ What would kill it:
    and more so when it is done silently than when it is announced. A model's own
    confidence ranks problems only weakly (AUROC 0.5 to 0.73, where 0.5 is chance).
 
-4. **Open: what sits further back is ignored, about itself or not.** Llama 8B's
-   past outcome works in the decision prompt (+79) and barely anywhere else
-   (+4 to +23), even though it can recall the outcome when asked. But it also
-   barely uses the correct answer when that sits in the same place. So far this is
-   a limit of how it uses a long conversation, not a finding about self-knowledge.
-   Study 2 decides which.
+4. **Position, not self.** Llama 8B's past outcome works in the decision prompt
+   (+79) and barely anywhere else (+4 to +23), even though it can recall the outcome
+   when asked, and it barely uses the correct answer in the same place either.
+   Study 2 checked this with a matched control: the same outcome as "you were wrong"
+   or "another solver was wrong". Its own outcome is used no less than the same fact
+   about someone else, in Llama 8B and in Gemini. Gemini does use its history (given
+   the correct answer 10 decisions back, it gets 89% of its first-round failures
+   right later), and a one-line "check the conversation" pointer lifts the use of a
+   far note in both models.
 
 Withdrawn: "two kinds of knowing". It was a side effect of taking the working
 away, not a difference in self-knowledge.
@@ -79,11 +83,13 @@ away, not a difference in self-knowledge.
 | | Study | Question | Built on | Status |
 |---|---|---|---|---|
 | 1 | Deferral experiment | Do models ask for help on the problems they get wrong, and what moves that? | [3], [6], [10], [21] | Done |
-| 2 | Self or position? | In a model that does use its conversation history, is its own past outcome used less than a fact that is not about itself, at the same distance? | Point 4 above | Next. Cheap |
+| 2 | Self or position? | In a model that does use its conversation history, is its own past outcome used less than a fact that is not about itself, at the same distance? | Point 4 above | Done (Llama 8B, Gemini): no |
 | 3 | Inside the model | Is there an internal "I will get this wrong" signal that the stated confidence misses? | [7] Li, [15] Nayan, [20] Baek | Needs a GPU |
 | 4 | Several facts at once | When ability, tools, history and situation all matter, does the model combine them or follow one? | [15] Nayan, [19] Meinke, [20] Baek | Last. In code, agentic |
 
-Study 2, in practice:
+Study 2, as planned (run 18 October; the non-self fact became the same outcome
+credited to "another solver", so both score the same way, with the correct answer
+kept as a second control):
 
 - Gemini first, then one more model.
 - Its own outcome and a non-self fact (the correct answer), each placed in the
@@ -96,14 +102,22 @@ Study 2, in practice:
 - **Felt rather than stated consequences.** Run one batch where wrong answers
   really cost points, then a second batch with that score fed back. Does a model
   move once the cost has happened to it, rather than been written in the prompt?
+  Run 18 October: told its real losses from the first batch, no model changes much
+  (Llama 8B gap +21 to +25, Gemini +31 to +29, GPT-4o mini +3 to +2).
 
 ## Log
 
-- **7 October 2026.**n. First version. Four lines, each against the papers.
+- **7 October 2026.**. First version. Four lines, each against the papers.
 - **7 October 2026, later.** "Two kinds of knowing" withdraw
 - **11 October 2026.** Rewritten around one working claim and four studies.
   Experiment detail moved to the Probe bench page. Two corrections: the history
   result is a position effect in Llama 8B, not a retrieval fault about itself;
   the withdrawal drop is not caused by the announcement, since a silent
   withdrawal drops confidence further
+- **18 October 2026.** Study 2 done on Llama 8B and Gemini: no self-specific deficit,
+  Gemini uses its history, the "check the conversation" line works. Told its real
+  losses, no model changes much. Harder task (SimpleQA, since competition maths is
+  too easy for them): Claude Sonnet 5.5 and GPT-5.6 Sol rank their questions far
+  better than the earlier models (AUROC 0.87 and 0.82). Sonnet acts on the cost and
+  beats always asking; GPT-5.6 Sol answers below break-even confidence 92% of the time.
 
